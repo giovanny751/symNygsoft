@@ -40,7 +40,7 @@ class Presentacion extends My_Controller {
             $this->data['presupuesto'] = $this->Tarea_model->datosTareaPresupuesto();
             $this->data['mesesplan'] = $this->Planes_model->mesesPlan();
             $this->data['listameses'] = $this->Planes_model->listaMesesPlan();
-//        $this->data['tareasplangrafica'] = $this->Planes_model->tareasPlanGrafica();
+            $this->data['tareasplangrafica'] = $this->Planes_model->tareasPlanGrafica();
             $this->data['empresa'] = $this->Empresa_model->detail();
             $this->data['tareasphva'] = $this->Planes_model->tareasPHVA();
             $this->data['tareasphvaavance'] = $this->Planes_model->tareasPHVAAvance();

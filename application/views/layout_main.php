@@ -40,6 +40,8 @@
     <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") ?>" />
     <!-- Notificaciones -->
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.css') ?>"/>
+    <!-- Datepicker -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') ?>"/>
     
     
     
@@ -293,6 +295,7 @@
     <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") ?>"></script> <!-- Fecha Inicio (2,3) -->
     <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->
     <script type="text/javascript" src="<?php echo base_url('assets/admin/pages/scripts/ui-notific8.js') ?>"></script> <!-- Notificacion (2,2) -->
+    <script type="text/javascript" src="<?= base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
 
     <!-- Inicio Pagina -->
     <script type="text/javascript" src="<?php echo base_url("assets/global/scripts/metronic.js") ?>"></script>
@@ -376,9 +379,9 @@
             alerta('naranja', "FALTAN CAMPOS POR LLENAR");
             return false;
         }
-    }
+    };
 
-    function email(classemail) {
+    function email(classemail){
         var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
         //Se utiliza la funcion test() nativa de JavaScript
         if (regex.test($('.' + classemail).val().trim())) {
@@ -393,29 +396,14 @@
 
     ;
     (function ($) {
-        $.fn.datepicker.dates['es'] = {
-            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-        };il(classemail) {
-            var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
-            //Se utiliza la funcion test() nativa de JavaScript
-            if (regex.test($('.' + classemail).val().trim())) {
-                $("." + classemail).removeClass('obligado');
-                return true;
-            } else {
-                $("." + classemail).addClass('obligado');
-                alerta("amarillo", "Correo no valido")
-                return false;
-            }
-        }
-    });
-    
-    (function ($) {
-        $.fn.datep
-    }(jQuery));
+                $.fn.datepicker.dates['es'] = {
+                    days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+                    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+                };
+            }(jQuery));
 
     $(".email").change(function () {
         email("email");

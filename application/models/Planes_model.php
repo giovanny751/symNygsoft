@@ -589,10 +589,14 @@ class Planes_model extends CI_Model {
         $dim_id > 0 ? $wheredim = " AND dim_id = $dim_id" : $wheredim = "";
         $dim2_id > 0 ? $wheredim2 = " AND dim2_id = $dim2_id" : $wheredim2 = "";
         
-       $this->db->select("tar_id as id,  tar_nombrecorto as nombre  , DATE_FORMAT(tar_fechaInicio,'%d/%m/%Y') as fechainicio, DATE_FORMAT(tar_fechaFinalizacion,'%d/%m/%Y')  as fechafin ");
+       $this->db->select("tar_id as id,  "
+               . "tar_descripcion as nombre  , "
+               . "DATE_FORMAT(tar_fechaInicio,'%d/%m/%Y') as fechainicio, "
+               . "DATE_FORMAT(tar_fechaFinalizacion,'%d/%m/%Y')  as fechafin ");
        $this->db->where("1",1);
        $this->db->order_by("tar_fechaInicio");
        $datos = $this->db->get("tarea t");
+//       echo $this->db->last_query();die;
 //        var_dump($datos);die;
         return $datos->result();
     }
