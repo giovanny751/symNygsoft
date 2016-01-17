@@ -18,6 +18,7 @@
     <!--------------------------------------------------------------------------
                                 Estilos Librerias
     ------------------------------------------------------------------------ -->
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/sst.css") ?>" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/bootstrap_3.3.5.min.css") ?>" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/bootstrap_theme_3.3.5.min.css") ?>" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/jquery-ui_11.11.4.min.css") ?>" />
