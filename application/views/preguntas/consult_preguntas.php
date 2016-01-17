@@ -124,6 +124,13 @@
 
 <script>
     $('.modal_eva').click(function () {
+        $('#nomb_pre').html('');
+        $('#tipo_pre').html('');
+        $('#contex_pre').html('');
+        $('#nombre_pre').html('');
+        $('#body_pre').html('')
+        $('#respuesta_pre').html('');
+
         var id = $(this).attr('id');
         var url = '<?php echo base_url() . "/index.php/Preguntas/buscar_pregunta" ?>';
         $.post(url, {id: id})
@@ -132,17 +139,16 @@
                         alerta("rojo", msg['message']);
                     else {
                         var body = ""
-                        var i=1;
-                        $('#body_pre').html('')
+                        var i = 1;
                         $.each(msg.Json, function (key, val) {
-                            $('#nomb_pre').html("Nombre Pregunta: "+val.pre_nombre_busqueda);
-                            $('#tipo_pre').html('Tipo pregunta: '+val.tipPre_nombre);
-                            if (val.pre_contexto != '<p></p>' && val.pre_contexto != '' && val.pre_contexto!=null)
-                                $('#contex_pre').html("Contexto: <br>"+val.pre_contexto);
-                            $('#nombre_pre').html('Pregunta: <br>'+val.pre_nombre);
-                            if (val.res_nombre != '<p></p>' && val.res_nombre != '' && val.res_nombre!=null)
-                                $('#body_pre').append(i+") "+val.res_nombre + '<br>')
-                            $('#respuesta_pre').html("Respuesta: "+val.pre_res_num);
+                            $('#nomb_pre').html("<b>Nombre Pregunta: </b>" + val.pre_nombre_busqueda);
+                            $('#tipo_pre').html('<b>Tipo pregunta: </b>' + val.tipPre_nombre);
+                            if (val.pre_contexto != '<p></p>' && val.pre_contexto != '' && val.pre_contexto != null)
+                                $('#contex_pre').html("<b>Contexto: </b><br>" + val.pre_contexto);
+                            $('#nombre_pre').html('<b>Pregunta: </b><br>' + val.pre_nombre);
+                            if (val.res_nombre != '<p></p>' && val.res_nombre != '' && val.res_nombre != null)
+                                $('#body_pre').append(i + ") " + val.res_nombre + '<br>')
+                            $('#respuesta_pre').html("<b>Respuesta: </b>" + val.pre_res_num);
                             i++;
 //                           body+=val.tipPre_nombre;
                         });
