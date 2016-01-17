@@ -1,0 +1,211 @@
+@font-face {
+    font-family: "roboto-bold";
+    src: url(../fonts/Roboto-Bold_0.ttf) format("truetype");
+}
+#contenido_pagina{
+    padding: 0 250px;
+    position: relative;
+    display: block;
+}
+
+.btn-headerImg{
+    width: 50px;
+    height: 50px;
+    background-color: #A2CC82;
+}
+.headerTxt{
+    padding: 0 !important;
+}
+.btn-headerTxt{
+    background-color: #6DAABF;
+    width: 100%;
+    color: white;
+    margin-top: 9px;
+}
+.btn-headerTxt:hover{
+    background-color: #4d8a9f;
+    color: white;
+}
+.btn-headerTxt:focus{
+    background-color: #4d8a9f;
+    color: white;
+}
+.logo_imagen{
+    width: 185px;
+    margin-top: 10px;
+}
+.header_position{
+    margin-top: 13px;
+}
+
+
+.circuloIcon{
+    width: 40px;
+    height: 40px;
+    background-color: #01567D;
+    border-radius: 50px;
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.circuloIcon:hover{
+    background-color: #2983AA;
+}
+.circuloIcon:active{
+    background-color: #A7D2F8;
+}
+.circuloIcon.none{
+    display: none;
+}
+.circuloIcon i {
+    color:white;
+    margin: 8px 10px;
+}
+.fa-3x {
+    font-size: 25px !important;
+}
+#posicionFlecha{ 
+    text-align: right;
+}
+.flechaHeader{
+    width: 40px;
+    height: 40px;
+    background-color: #A2CC82;
+    border-radius: 50px;
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    color: white;
+    cursor: pointer;
+}
+.flechaHeader i {
+    position: relative;
+    left: -11px;
+    top: 8px;
+}
+.cuerpoDescripcion{
+    margin-bottom: 10px;
+    margin-top: -50px !important;
+}
+.btn-cuerpoImg{
+    width: 50px;
+    height: 50px;
+    background-color: #A2CC82;
+}
+
+.btn-sst {
+    -moz-user-select: none;
+    background-image: none;
+    background-color: #01567D;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.btn-sst:hover{
+    background-color: #2983AA !important;
+    color: white !important;
+}
+.btn-sst:focus{
+    background-color: #2983AA !important;
+    color: white;
+}
+.tituloCuerpo{
+    
+}
+.txtTitulo, .txtTitulo a{
+    font-family: "roboto-bold";
+    font-size: 26px;
+    color: #0A7194;
+}
+.cuerpoContenido{ /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(rgba(165,209,248,1) 0%, rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(rgba(165,209,248,1) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(rgba(165,209,248,1) 0%, rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a5d1f8', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+    padding-top: 20px;
+    padding-left:25px;
+    padding-right: 25px;
+}
+.form-horizontal .control-label{
+    text-align: left !important;
+}
+.form-control{
+    border-radius: 0px !important;
+}
+.form-control[disabled],.form-control[readonly]{
+    background-color: transparent !important;
+}
+.tablesst{
+    border-collapse: separate;
+    border-spacing: 5px;
+    width: 100%;
+}
+.tablesst thead > tr > th{
+    background-color: #90C2E5;
+}
+.tablesst td{
+    background-color: #ffffff;
+    padding-left: 3px;
+}
+.tablesst td.transparent{
+    background-color: transparent;
+    text-align: center;
+}
+.modal {
+    color: #000 !important;
+}
+/* MODIFICACIONES LIBRERIAS */
+
+/*----------------------------------------------------------------------------*/
+/*                                     TABS                                   */
+/*----------------------------------------------------------------------------*/
+.nav > li > a {
+    padding: 5px 15px !important;
+}
+.nav-tabs > li > a {
+    background-color: #01567d;
+    color: white;
+}
+.nav-tabs > li > a:hover {
+    background-color: #2983AA !important;
+    color: white !important;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    background-color: #3399ff !important;
+    color: #fff !important;
+}
+
+/*----------------------------------------------------------------------------*/
+/*                          PLANES -> Actividad Padre                         */
+/*----------------------------------------------------------------------------*/
+
+.posicionIconoActividad{
+    display:inline-block;
+    float: right;
+}
+/*----------------------------------------------------------------------------*/
+/*                     ICONOS DE ACORDEON LADO DERECHO                        */
+/*----------------------------------------------------------------------------*/
+
+.posicionIconoAcordeon{
+    display:inline-block;
+    float: right;
+}
+.derechaCheck{
+    display:inline-block;
+    float: right;
+    clear: right;
+}
+

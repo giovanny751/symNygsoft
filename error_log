@@ -1,0 +1,29 @@
+[16-Feb-2015 01:49:09 UTC] PHP Fatal error:  Call to undefined method Ingreso_model::admin_inicio() in /home/giovanny751/public_html/application/controllers/Presentacion.php on line 19
+[17-Feb-2015 15:11:11 UTC] PHP Fatal error:  Call to undefined method administracion_model::rol() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 69
+[17-Feb-2015 15:11:24 UTC] PHP Fatal error:  Call to undefined method administracion_model::rol() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 69
+[17-Feb-2015 15:25:56 UTC] PHP Parse error:  syntax error, unexpected ''confirmac' (T_ENCAPSED_AND_WHITESPACE) in /home/giovanny751/public_html/application/models/Administracion_model.php on line 50
+[20-Feb-2015 20:50:32 UTC] PHP Fatal error:  Call to undefined method administracion_model::tipovinculacion() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 153
+[21-Feb-2015 15:36:10 UTC] PHP Fatal error:  Call to undefined method administracion_model::restricciones() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 73
+[21-Feb-2015 16:13:06 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/vehiculo.php on line 53
+[21-Feb-2015 16:57:51 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/empleado.php on line 152
+[24-Feb-2015 15:33:30 UTC] PHP Fatal error:  Call to a member function user() on a non-object in /home/giovanny751/public_html/application/controllers/Reportes.php on line 15
+[25-Feb-2015 19:07:54 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/vehiculo.php on line 53
+[25-Feb-2015 19:17:57 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/vehiculo.php on line 136
+[25-Feb-2015 19:22:36 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/vehiculo.php on line 53
+[26-Feb-2015 16:41:23 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/giovanny751/public_html/application/controllers/Administracion.php on line 533
+[26-Feb-2015 16:47:56 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/giovanny751/public_html/application/models/Ingresoform_model.php on line 501
+[26-Feb-2015 16:48:24 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/giovanny751/public_html/application/models/Ingresoform_model.php on line 501
+[26-Feb-2015 16:48:26 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/giovanny751/public_html/application/models/Ingresoform_model.php on line 501
+[26-Feb-2015 16:48:47 UTC] PHP Fatal error:  Call to a member function result_array() on a non-object in /home/giovanny751/public_html/application/models/Ingresoform_model.php on line 501
+[03-Mar-2015 16:51:11 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/giovanny751/public_html/application/views/administracion/pesv.php on line 373
+[03-Mar-2015 16:57:04 UTC] PHP Fatal error:  Call to undefined method administracion_model::tipoobjetivo() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 366
+[03-Mar-2015 16:57:26 UTC] PHP Fatal error:  Call to undefined method administracion_model::tipoobjetivo() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 366
+[03-Mar-2015 16:57:40 UTC] PHP Fatal error:  Call to undefined method administracion_model::tipoobjetivo() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 366
+[10-Mar-2015 20:12:51 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/giovanny751/public_html/application/views/administracion/pesv.php on line 66
+[13-Mar-2015 20:41:32 UTC] PHP Fatal error:  Call to undefined method administracion_model::comportamiento() in /home/giovanny751/public_html/application/controllers/Administracion.php on line 369
+[15-Mar-2015 00:14:34 UTC] PHP Fatal error:  Class 'TCPDF_FONTS' not found in /home/giovanny751/public_html/application/libraries/tcpdf/Tcpdf.php on line 4148
+[15-Mar-2015 00:14:38 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting ')' in /home/giovanny751/public_html/application/libraries/tcpdf/include/tcpdf_font_data.php on line 2477
+[15-Mar-2015 00:18:06 UTC] PHP Parse error:  syntax error, unexpected '=', expecting ')' in /home/giovanny751/public_html/application/libraries/tcpdf/fonts/dejavusansb.php on line 15
+[15-Mar-2015 00:19:32 UTC] PHP Parse error:  syntax error, unexpected '=', expecting ')' in /home/giovanny751/public_html/application/libraries/tcpdf/fonts/dejavusansb.php on line 15
+[15-Mar-2015 00:19:34 UTC] PHP Parse error:  syntax error, unexpected '=', expecting ')' in /home/giovanny751/public_html/application/libraries/tcpdf/fonts/dejavusansb.php on line 15
+[02-Dec-2015 20:36:54 UTC] PHP Fatal error:  Call to a member function guardarCarpeta() on a non-object in /home/giovanny751/public_html/pruebabasc/application/controllers/Indicador.php on line 203
