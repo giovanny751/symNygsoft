@@ -1148,6 +1148,8 @@ class Administrativo extends My_Controller {
     }
 
     function empresa() {
+        $this->data['title'] = "Empresa";
+        $this->data['subtitle'] = "Datos";
         $this->load->model(array("Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
         $this->data['mensaje'] = "";
         if ($this->session->guardadoexito == "guardado con exito") {

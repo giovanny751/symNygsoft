@@ -1,13 +1,35 @@
 <div class="row">
     <div class="circuloIcon" id="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">DATOS EMPRESA</span>
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i><?= $title ?>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form method="post" class="horizontal-form">
+                    
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="portlet box green">
+    <div class="portlet-tittle">
+        
+    </div>
+</div>
+
+
 <div class="cuerpoContenido">
     <?php if (!empty($mensaje)) { ?>
         <p class="alert alert-info"  style='margin-top:10px;font-weight: bold;text-align: center;'><?php echo $mensaje ?></p>

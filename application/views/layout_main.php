@@ -265,9 +265,6 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="page-tittle">
-                    Titulo <small>reporte y estadisticas</small>
-                </h3>
                 <!-- Contenido -->
                 <?php echo $content_for_layout ?>
                 <!-- Final Contenido -->
