@@ -13,7 +13,6 @@ $contenido_ejemplo= "
       <li>Root node 2</li>
       <li>Root node 3</li>";
 	  
-
 $contenido="";  
 	  
 foreach($documentos_padre as $key){	 
@@ -44,7 +43,6 @@ foreach($documentos_padre as $key){
   <script src="../../js/jquery-1.9.1.js"></script> 
   <script src="../../js/jstree/dist/jstree.min.js"></script>
 </head>
-
 <body>
 <div class="row">
     <div class="col-md-12 page-404">    
@@ -53,25 +51,11 @@ foreach($documentos_padre as $key){
         </div>
     </div>
 </div>
-
-
-  <!-- 3 setup a container element -->
-  <div id="jstree">
-    <!-- in this example the tree is populated from inline HTML -->	
+  <div id="jstree">	
     <ul>
-      <?php 
-	  //echo $contenido_ejemplo; 
-	  echo $contenido; 	  
-	  ?>
+      <?php echo $contenido; ?>
     </ul>
   </div>
-  
-  
-  <!-- <button>demo button</button> -->
-
-
-  
-  
   <script>
   $(function () {
     // 6 create an instance when the DOM is ready

@@ -6,7 +6,7 @@
 <script src="<?php echo  base_url('js/jquery-ui.js') ?>"></script>
 
 </head>
-<h3 align="center">ADMINISTRACION USUARIOS</h3>
+<h3 align="center">ADMINISTRACIÓN USUARIOS</h3>
 <br>
     <div class="table-responsive ">
         <table class="table table-responsive table-striped table-bordered">
@@ -28,12 +28,9 @@
 </div>
 <div id="modulos">
 </div>
-
 <script>
     
     $('#modulos').hide();
-//    $('#modulos').draggable({ scrollSpeed: 20 });
-    
     $('.permisos').click(function(){
         $('#modulos *').remove();
         var usuario = 1;

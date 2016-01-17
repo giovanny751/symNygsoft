@@ -36,7 +36,12 @@ class Tareas extends My_Controller {
                     'Empresa_model',
                     'Norma_model',
                     'Planes_model',
-                    'Normaarticulo_model'
+                    'Normaarticulo_model',
+                    'Empleado_model',
+                    "Avancetarea_model",
+                    "Riesgoclasificaciontipo_model",
+                    'Actividad_model',
+                    'Actividadpadre_model'
                 )
         );
         $this->data['tareas'] = $this->Tarea_model->detail();
@@ -63,7 +68,6 @@ class Tareas extends My_Controller {
                 if (!empty($this->input->post("nuevoavance")))
                     $this->data["nuevoavance"] = $this->input->post("nuevoavance");
                 $this->data['riesgos_guardada'] = $this->Tarea_model->lista_riesgos_guardados($this->input->post('tar_id'));
-                $this->load->model('Empleado_model');
                 $carpeta = $this->Registrocarpeta_model->detailxtareas($this->input->post('tar_id'));
                 $this->data['carpetas'] = $this->Registrocarpeta_model->detailxtareascarpetas($this->input->post('tar_id'));
                 $d = array();
@@ -80,17 +84,13 @@ class Tareas extends My_Controller {
                 }
                 $this->data["avance"] = "";
                 if (!empty($this->input->post('avaTar_id'))):
-                    $this->load->model("Avancetarea_model");
                     $this->data["avance"] = $this->Avancetarea_model->avancexTarea($this->input->post("avaTar_id"));
                 endif;
                 $this->data['carpeta'] = $d;
                 $this->data['tarea'] = $this->Tarea_model->detailxid($this->input->post("tar_id"))[0];
-                $this->load->model("Riesgoclasificaciontipo_model");
                 $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($this->data['tarea']->rieCla_id);
-
                 $this->data['tarea_norma'] = $this->Tarea_model->tarea_norma($this->input->post("tar_id"));
                 $this->data['normaarticulo'] = $this->Normaarticulo_model->detailxId($this->data['tarea']->nor_id);
-
                 $this->data["hijo"] = $this->Actividad_model->actividadxPlan($this->data['tarea']->pla_id);
                 $this->data['empleado'] = $this->Empleado_model->empleadoxcargo($this->data['tarea']->car_id);
             endif;
@@ -100,11 +100,8 @@ class Tareas extends My_Controller {
                     $this->data['pla_id'] = $this->input->post("pla_id");
                 if (!empty($this->data['tarea']->pla_id))
                     $this->data['pla_id'] = $this->data['tarea']->pla_id;
-
-                $this->load->model('Actividadpadre_model');
                 $this->data["actividades"] = $this->Actividadpadre_model->detailxplaid($this->data['pla_id']);
                 if (!empty($this->data['tarea']->actPad_id)) {
-                    $this->load->model('Actividad_model');
                     $this->data["actividadhijo"] = $this->Actividad_model->consultaxActividad($this->data['tarea']->actPad_id);
                 }
             }

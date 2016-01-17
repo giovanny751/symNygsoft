@@ -1,9 +1,6 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="guardarInspeccion" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <!--<div class="circuloIcon" ><i class="fa fa-pencil-square-o fa-3x"></i></div>-->
-        <!--<div class="circuloIcon" ><i class="fa fa-trash-o fa-3x"></i></div>-->
-        <!--<div class="circuloIcon" ><i class="fa fa-folder-open fa-3x"></i></div>-->
     </div>
 </div>
 <div class="row">

@@ -51,7 +51,8 @@ class Tarea_model extends CI_Model {
         try {
             $this->db->trans_begin();
             $this->db->where("tar_id", $tar_id);
-            $this->db->delete("tarea");
+            $this->db->set("est_id",3);
+            $this->db->update("tarea");
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
             } else {
@@ -126,6 +127,8 @@ class Tarea_model extends CI_Model {
                 $this->db->where("tarea.tar_id", $tarea);
             if (!empty($responsable))
                 $this->db->where("emp_id", $responsable);
+            
+            $this->db->where("planes.est_id",1);
             $this->db->select("tarea.tar_fechaInicio");
             $this->db->select("DATEDIFF((tar_fechaFinalizacion),(tar_fechaInicio)) diferencia");
             $this->db->select("tarea.tar_nombre");

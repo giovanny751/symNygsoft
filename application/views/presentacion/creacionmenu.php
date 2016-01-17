@@ -81,15 +81,11 @@
                     </div>
                     <div class="well">
                         <div class="row">
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                                <label>Nombre</label><input type="text" id="nombre" class="form-control">
-                            </div>
+                            <label class="col-md-12 col-lg-12 col-sm-12 col-sx-12">Nombre</label><input type="text" id="nombre" class="form-control">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
                                 <label>Controlador</label><input type="text" name="controlador" id="controlador"  class="form-control">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                                <label>Accion</label><input type="text" name="accion" id="accion"  class="form-control">
-                            </div>
+                            <label class="col-md-12 col-lg-12 col-sm-12 col-sx-12">Accion</label><input type="text" name="accion" id="accion"  class="form-control">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
                                 <label>Estado</label>
                                 <select id="estado"  class="form-control">
@@ -129,9 +125,7 @@
                     </div>
                     <div class="well">
                         <div class="row">
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                                <label>Nombre Menu</label><input type="text" placeholder="Modulo" id="modulo" class="form-control">
-                            </div>
+                            <label class="col-md-12 col-lg-12 col-sm-12 col-sx-12">Nombre Menu</label><input type="text" placeholder="Modulo" id="modulo" class="form-control">
                         </div>
                     </div>
                 </div>

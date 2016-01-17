@@ -54,8 +54,7 @@
                             <option value="">::Seleccionar::</option>
                             <?php
                             if (!empty($rie_id)):
-                                foreach ($tipo as $t):
-                                    ?>
+                                foreach ($tipo as $t): ?>
                                     <option <?php echo ((!empty($riesgo->rieClaTip_id)) && ($t->rieClaTip_id == $riesgo->rieClaTip_id)) ? "selected" : ""; ?> value="<?php echo $t->rieClaTip_id ?>"><?php echo $t->rieClaTip_tipo ?></option> <?php
                                 endforeach;
                             endif;

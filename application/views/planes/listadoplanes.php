@@ -134,15 +134,17 @@
     $('body').delegate('.eliminar', 'click', function () {
         var sum = $(this).attr('sum');
         var coun = $(this).attr('coun');
+        var enumeracion = "";
         if (coun != 0) {
             var result = (100 * coun);
             if (sum < result) {
-                alerta('rojo', 'No se puede eliminar poque hay tareas pendientes');
-                return false;
+                enumeracion = 1;
             }
         }
         var objeto = $(this);
-        if (confirm("Esta seguro de eliminar el plan")) {
+        if (enumeracion == 1) var confirmacion = confirm("El plan tiene tareas asignadas ¿esta seguro de eliminarlo? - Se eliminaran las tareas asignadas al plan");
+        else var confirmacion = confirm("¿Esta seguro de eliminar el plan?");
+        if (confirmacion) {
             $.post("<?php echo base_url("index.php/planes/eliminarplan") ?>"
                     , {
                         id: $(this).attr('pla_id')

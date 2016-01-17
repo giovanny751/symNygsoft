@@ -13,67 +13,36 @@
 <div class='cuerpoContenido'>
     <form action="<?php echo base_url('index.php/') . '/Preguntas/consult_preguntas'; ?>" method="post" >
         <div class="row">
-
-
-            <div class="col-md-3">
-                <label for="eva_id">
-                    Evaluación                        </label>
-            </div>
+            <label for="eva_id" class="col-md-3">
+                Evaluación                        
+            </label>
             <div class="col-md-3">
                 <?php echo lista("eva_id", "eva_id", "form-control obligatorio", "evaluacion", "eva_id", "eva_nombre", (isset($post['eva_id']) ? $post['eva_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
                 <br>
             </div>
-
-            <!--<div class="col-md-3">
-                <label for="tem_id">
-                    Tema                        </label>
-            </div>
+            <label for="tipPre_id" class="col-md-3">
+                Tipo pregunta                        
+            </label>
             <div class="col-md-3">
-
-                <?php // echo lista("tem_id", "tem_id", "form-control obligatorio", "tema", "tem_id", "tem_nombre", (isset($post['tem_id']) ? $post['tem_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
-                <br>
-            </div>
-
-            <div class="col-md-3">
-                <label for="are_id">
-                    Area                        </label>
-            </div>
-            <div class="col-md-3">
-                <?php //echo lista("are_id", "are_id", "form-control obligatorio", "area", "are_id", "are_nombre", (isset($post['are_id']) ? $post['are_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
-                <br>
-            </div>
--->
-            <div class="col-md-3">
-                <label for="tipPre_id">
-                    Tipo pregunta                        </label>
-            </div>
-            <div class="col-md-3">
-
                 <input type="text" value="<?php echo (isset($post['tipPre_id']) ? $post['tipPre_id'] : '' ) ?>" class="form-control obligatorio  " id="tipPre_id" name="tipPre_id">
                 <br>
             </div>
-
+            <label for="pre_nombre" class="col-md-3">
+                pregunta                        
+            </label>
             <div class="col-md-3">
-                <label for="pre_nombre">
-                    pregunta                        </label>
-            </div>
-            <div class="col-md-3">
-
                 <input type="text" value="<?php echo (isset($post['pre_nombre']) ? $post['pre_nombre'] : '' ) ?>" class="form-control obligatorio  " id="pre_nombre" name="pre_nombre">
                 <br>
             </div>
         </div>
         <button class="btn btn-sst">Consultar</button>
     </form>
-
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered">
                 <thead>
                 <th style='display:none'></th>
                 <th>Evaluación</th>
-<!--                <th>Tema</th>
-                <th>Area</th>-->
                 <th>Tipo pregunta</th>
                 <th>pregunta</th>
                 <th>Numero de respuestas</th>
@@ -86,9 +55,7 @@
                     foreach ($datos as $key => $value) {
                         echo "<tr>";
                         $i = 0;
-
                         foreach ($value as $key2 => $value2) {
-
                             if ($i == 0) {
                                 $campo = $key2;
                                 $valor = "'" . $value->$key2 . "'";
@@ -155,7 +122,7 @@
                         io.css('color', 'green')
                     else
                         io.css('color', '#CCC')
-                    io.attr('estado',pre_visible);
+                    io.attr('estado', pre_visible);
 
                 })
                 .fail(function (msg) {

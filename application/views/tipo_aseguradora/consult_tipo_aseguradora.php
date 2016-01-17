@@ -11,27 +11,16 @@
 <div class='cuerpoContenido'>
     <form action="<?php echo base_url('index.php/') . '/Tipo_aseguradora/consult_tipo_aseguradora'; ?>" method="post" >
         <div class="row">
+            <label for="TipAse_Nombre" class="col-md-6">
+                Tipo aseguradora                        
+            </label>
             <div class="col-md-6">
-                <label for="TipAse_Nombre">
-                    Tipo aseguradora                        </label>
-            </div>
-            <div class="col-md-6">
-                <script>
-                    $('document').ready(function () {
-                        $('#TipAse_Nombre').autocomplete({
-                            source: "<?php echo base_url("index.php//Tipo_aseguradora/autocomplete_TipAse_Nombre") ?>",
-                            minLength: 3
-                        });
-                    });
-                </script>
                 <input type="text" value="<?php echo (isset($post['TipAse_Nombre']) ? $post['TipAse_Nombre'] : '' ) ?>" class="form-control obligatorio  " id="TipAse_Nombre" name="TipAse_Nombre">
                 <br>
             </div>
-
         </div>
         <button class="btn-sst">Consultar</button>
     </form>
-
     <div class="row">
         <div class="col-md-12">
             <table class="tablesst">
@@ -53,14 +42,12 @@
                                 $valor = "'" . $value->$key2 . "'";
                             }
                             $i++;
-                            
                         }
                         echo "<td class='transparent'> <a href=\"javascript:\" onclick=\"editar(" . $valor . ")\"><i class='fa fa-pencil-square-o fa-2x'></i></a> </td>";
                         echo "<td class='transparent'> <a href=\"javascript:\" onclick=\"delete_(" . $valor . ")\"><i class='fa fa-trash-o fa-2x'></i></a> </td>";
                         echo "</tr>";
                     }
                     ?>
-
                 </tbody>
             </table>
         </div>
@@ -77,6 +64,12 @@
     </form>
 <?php } ?>
 <script>
+    $('document').ready(function () {
+        $('#TipAse_Nombre').autocomplete({
+            source: "<?php echo base_url("index.php//Tipo_aseguradora/autocomplete_TipAse_Nombre") ?>",
+            minLength: 3
+        });
+    });
     function editar(num) {
         $('#<?php echo $campo ?>2').val(num);
         $('#editar').submit();

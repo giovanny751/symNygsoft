@@ -27,23 +27,19 @@
 <div class='cuerpoContenido'>
     <form action="<?php echo base_url('index.php/') . "/Tipo_aseguradora/save_tipo_aseguradora"; ?>" method="post" onsubmit="return campos()" id="form1"  enctype="multipart/form-data">
         <div class="row">
-            <div class="col-md-6">
-                <label for="TipAse_Nombre">
-                    *                             Tipo aseguradora                        </label>
-            </div>
+            <label for="TipAse_Nombre" class="col-md-6">
+                * Tipo aseguradora 
+            </label>
             <div class="col-md-6">
                 <input type="text" value="<?php echo (isset($datos[0]->TipAse_Nombre) ? $datos[0]->TipAse_Nombre : '' ) ?>" class=" form-control obligatorio  " id="TipAse_Nombre" name="TipAse_Nombre">
             </div>
-
         </div>
         <?php if (isset($post['campo'])) { ?>
             <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
             <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
         <?php } ?>
         <div class="row">
-            <span id="boton_guardar">
-
-            </span>
+            <span id="boton_guardar"></span>
             <span id="boton_cargar" style="display: none">
                 <h2>Cargando ...</h2>
             </span>
@@ -54,7 +50,6 @@
 <script>
 
     $('#TipAse_Nombre').change(function () {
-
         var data = $(this);
         $.post(
                 "<?php echo base_url("index.php/Tipo_aseguradora/validatipoaseguradora") ?>",
@@ -67,12 +62,12 @@
             }
         })
                 .fail(function (msg) {
-
+                    alerta("rojo", "Error favor comunicarse con el administrador");
                 });
 
     });
-    
-    $("#btnguardar").click(function(){
+
+    $("#btnguardar").click(function () {
         $("#form1").submit();
     });
     $('.limpiar').click(function () {
@@ -98,11 +93,4 @@
             return true;
         }
     }
-    $('body').delegate('.number', 'keypress', function (tecla) {
-        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-            return false;
-    });
-    $('.fecha').datepicker({dateFormat: 'yy-mm-dd'});
-
-
 </script>

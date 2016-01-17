@@ -5,14 +5,6 @@
                 <i class="fa fa-cogs"></i>INICIO
             </div>
             <div class="tools">
-<!--                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                </a>-->
-<!--                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                </a>
-                <a href="javascript:;" class="reload" data-original-title="" title="">
-                </a>-->
-<!--                <a href="javascript:;" class="remove" data-original-title="" title="">
-                </a>-->
             </div>
         </div>
         <div class="portlet-body">
@@ -27,9 +19,7 @@
 <script type="text/javascript" src="../../js/fusionchart/themes/fusioncharts.theme.fint.js"></script>
 
   <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <label for="plan"><span class="campoobligatorio">*</span>Plan</label>
-                    </div>
+                    <label for="plan" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Plan</label>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <select name="plan" id="plan" class="form-control" >
                             <option value="">::Seleccionar::</option>
@@ -39,10 +29,10 @@
                         </select>
                     </div>
                 </div>
- <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <label for="dimensionuno"><?php echo $empresa[0]->Dim_id?></label>
-                    </div>
+                <div class="row">
+                    <label for="dimensionuno" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <?php echo $empresa[0]->Dim_id?>
+                    </label>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <select name="dimensionuno" id="dimensionuno" class="form-control" >
                             <option value="">::Seleccionar::</option>
@@ -52,10 +42,8 @@
                         </select> 
                     </div>
                 </div>
-<div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <label for="dimensionuno"><?php echo $empresa[0]->Dimdos_id?></label>
-                    </div>
+                <div class="row">
+                    <label for="dimensionuno" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><?php echo $empresa[0]->Dimdos_id?></label>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <select name="dimensionuno" id="dimensionuno" class="form-control" >
                             <option value="">::Seleccionar::</option>
@@ -65,11 +53,7 @@
                         </select> 
                     </div>
                 </div>
-
-
-<div id="chart-container-budget">
-
-</div>
+<div id="chart-container-budget"></div>
 <div id="chart-container-gantt"></div>
 <div id="chart-container-radar"></div>
 <script>

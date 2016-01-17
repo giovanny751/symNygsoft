@@ -17,6 +17,9 @@
             <th style='text-align: left;'><b>Clave: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></th>
             <td style='text-transform: capitalize'><?php echo $contrasena; ?></td>
         </tr>
+        <tr>
+            <th colspan="2">http://sym.nygsoft.com/index.php/login</th>
+        </tr>
     </table>    
     <br>
     <p>Consideraciones de Seguridad: El usuario es personal e intransferible, no permita que terceros usen esta informaci&oacute;n.</p>

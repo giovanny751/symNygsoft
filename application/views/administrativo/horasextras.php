@@ -18,7 +18,7 @@
                 <label for="empleado" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Empleado</label>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <select name="emp_id" id="empleado" class="form-control">
-                        <option>::Seleccionar::</option>
+                        <option value="0">::Seleccionar::</option>
                         <?php foreach ($empleados as $e): ?>
                             <option value="<?php echo $e->Emp_Id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
                         <?php endforeach; ?>
@@ -59,11 +59,12 @@
             if (!jQuery.isEmptyObject(msg.message))
                 alerta("rojo", msg['message'])
             else {
-
+                $('#FrmHorasExtras input,select').val("");
+                alerta('verde','Guardado con exito');
             }
         })
                 .fail(function (msg) {
-
+                    alerta("rojo","Error, comunicarse con el administrador");
                 });
     });
 </script>    

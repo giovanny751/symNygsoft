@@ -18,76 +18,41 @@
         <div class="row">
             <?php $id = (isset($datos[0]->pre_id) ? $datos[0]->pre_id : '' ) ?>
             <input type="hidden" value="<?php echo (isset($datos[0]->pre_id) ? $datos[0]->pre_id : '' ) ?>" class=" form-control   " id="pre_id" name="pre_id">
-
-            <div class="col-md-3">
-                <label for="eva_id">
-                    *                             Evaluación                        </label>
-            </div>
+            <label for="eva_id" class="col-md-3">
+                *Evaluación 
+            </label>
             <div class="col-md-3">
                 <?php echo lista("eva_id", "eva_id", "form-control obligatorio", "evaluacion", "eva_id", "eva_nombre", (isset($datos[0]->eva_id) ? $datos[0]->eva_id : (isset($post['eva_id']) ? $post['eva_id'] : '' )), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
                 <br>
             </div>
-            <!--<div class="col-md-3">
-                <label for="tem_id">
-                    *                             Tema                        </label>
-            </div>
-            <div class="col-md-3">
-            <?php //echo lista("tem_id", "tem_id", "form-control obligatorio", "tema", "tem_id", "tem_nombre", (isset($datos[0]->tem_id) ? $datos[0]->tem_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
-                <br>
-            </div>
-
-
-
-            <div class="col-md-3">
-                <label for="are_id">
-                    *                             Area                        </label>
-            </div>
-            <div class="col-md-3">
-            <?php //echo lista("are_id", "are_id", "form-control obligatorio", "area", "are_id", "are_nombre", (isset($datos[0]->are_id) ? $datos[0]->are_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
-                <br>
-            </div>
-            -->
-
-
-            <div class="col-md-3">
-                <label for="tipPre_id">
-                    *                             Tipo pregunta                        </label>
-            </div>
+            <label for="tipPre_id" class="col-md-3">
+                * Tipo pregunta
+            </label>
             <div class="col-md-3">
                 <?php echo lista("tipPre_id", "tipPre_id", "form-control obligatorio", "tipo_pregunta", "tipPre_id", "tipPre_nombre", (isset($datos[0]->tipPre_id) ? $datos[0]->tipPre_id : '2'), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
-
                 <br>
             </div>
-
-
-
             <div class="row">
-                <div class="col-md-3">
-                    <label for="pre_nombre">
-                        Contexto                        </label>
-                </div>
+                <label for="pre_nombre" class="col-md-3">
+                    Contexto                        
+                </label>
                 <div class="col-md-9">
                     <textarea style="width: 100%" class=" form-control   " id="pre_contexto" name="pre_contexto"><?php echo (isset($datos[0]->pre_contexto) ? $datos[0]->pre_contexto : '' ) ?></textarea>
                     <br>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <label for="pre_nombre">
-                        *                             pregunta                        </label>
-                </div>
+                <label for="pre_nombre" class="col-md-3">
+                    * pregunta 
+                </label>
                 <div class="col-md-9">
                     <textarea style="width: 100%" class=" form-control obligatorio  " id="pre_nombre" name="pre_nombre"><?php echo (isset($datos[0]->pre_nombre) ? $datos[0]->pre_nombre : '' ) ?></textarea>
                     <br>
                 </div>
             </div>
-
-
-
-            <div class="col-md-3">
-                <label for="pre_res_num">
-                    *                             Numero de respuestas                        </label>
-            </div>
+            <label for="pre_res_num" class="col-md-3">
+                * Numero de respuestas  
+            </label>
             <div class="col-md-3">
                 <span id="ocultar_res"></span>
                 <select class=" form-control obligatorio  " id="pre_res_num" name="pre_res_num">
@@ -123,20 +88,18 @@
                             <a title="Eliminar" class="eliminar" href="javascript:"><i class="fa fa-trash-o fa-2x"></i></a>
                         </div>
                     </div>
-    <?php } ?>
+                <?php } ?>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <label for="res_id_1">
-                    *                             Respuesta Correcta                        </label>
-            </div>
+            <label for="res_id_1" class="col-md-3">
+                * Respuesta Correcta 
+            </label>
             <div class="col-md-3">
                 <select class=" form-control obligatorio  number" id="res_id" name="res_id_1">
                     <option value="">Seleccione</option>
                 </select>
                 <br>
             </div>
-
         </div>
         <?php
         if (isset($post['campo']))
@@ -144,13 +107,8 @@
                 ?>
                 <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
                 <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
-    <?php } ?>
+            <?php } ?>
         <div class="row">
-<!--            <span id="boton_guardar">
-                <button class="btn btn-dcs" >Guardar</button> 
-                <input class="btn btn-dcs" type="reset" value="Limpiar">
-                <a href="<?php //echo base_url('index.php') . "/Preguntas/consult_preguntas"  ?>" class="btn btn-dcs">Listado </a>
-            </span>-->
             <span id="boton_cargar" style="display: none">
                 <h2>Cargando ...</h2>
             </span>
@@ -159,9 +117,9 @@
     </form>
 </div>
 <script>
-    
-    tinymce.init({ selector:'textarea' });
-    
+
+    tinymce.init({selector: 'textarea'});
+
     cantidad = <?php echo $ij ?>;
     $('#guardar').click(function () {
         var r = campos();

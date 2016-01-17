@@ -7,18 +7,15 @@
                 <?php } else { ?>
                     <div class="circuloIcon" id="btnguardar" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
                 <?php } ?>
-                <!--<div class="circuloIcon limpiar"  title="Limpiar"><i class="fa fa-eraser fa-3x"></i></div>-->
                 <a href="<?php echo base_url('index.php') . "/Tipo_contrato/consult_tipo_contrato" ?>">
                     <div class="circuloIcon"  title="Listado"><i class="fa fa-sticky-note fa-3x"></i></div>
                 </a>
             </div>
         </span>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <div class="tituloCuerpo">
-
                 <span class="txtTitulo">
                     <a href="<?php echo base_url("index.php/presentacion/principal") ?>">HOME</a>/
                     <a href="<?php echo base_url("index.php/administrativo/empresa") ?>">EMPRESA</a>/
@@ -28,13 +25,10 @@
         </div>
     </div>
     <div class='cuerpoContenido'>
-
         <div class="row">
-            <div class="col-md-12">
-                <label for="TipCon_Descripcion">
-                    *Tipo de contrato                        
-                </label>
-            </div>
+            <label for="TipCon_Descripcion" class="col-md-12">
+                *Tipo de contrato                        
+            </label>
             <div class="col-md-12">
                 <input type="text" value="<?php echo (isset($datos[0]->TipCon_Descripcion) ? $datos[0]->TipCon_Descripcion : '' ) ?>" class=" form-control obligatorio  " id="TipCon_Descripcion" name="TipCon_Descripcion">
                 <br>
@@ -44,19 +38,12 @@
             <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
             <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
         <?php } ?>
-
         <div class="row">
-
-            <!--<button type="button" class="btn btn-success"  id="btnguardar"  >Guardar</button>--> 
-    <!--            <input class="btn btn-success" type="reset" value="Limpiar">-->
-            <!--<a href="<?php echo base_url('index.php') . "/Tipo_contrato/consult_tipo_contrato" ?>" class="btn btn-success">Listado </a>-->
-
             <span id="boton_cargar" style="display: none">
                 <h2>Cargando ...</h2>
             </span>
         </div>
         <div class="row"><div style="float: right"><b>Los campos en * son obligatorios</b></div></div>
-
     </div>
 </form>
 <script>
@@ -78,9 +65,8 @@
                     }
                 })
                 .fail(function (msg) {
-                    return false
+                    alerta("rojo","Error, Comunicarse con el administrador");
                 });
-
     });
 
     function campos() {
@@ -102,11 +88,4 @@
             return true;
         }
     }
-    $('body').delegate('.number', 'keypress', function (tecla) {
-        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-            return false;
-    });
-    $('.fecha').datepicker({dateFormat: 'yy-mm-dd'});
-
-
 </script>

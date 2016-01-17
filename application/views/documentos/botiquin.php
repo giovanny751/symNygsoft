@@ -87,7 +87,7 @@
                 )
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
-                        alerta("amarillo", msg['message'])
+                        alerta("rojo", msg['message'])
                     else {
                         $('input[type="text"],select,textarea').val();
                         $('input').prop('checked', false);

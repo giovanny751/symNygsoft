@@ -36,7 +36,8 @@ class Planes_model extends CI_Model {
                 $this->db->where("planes.est_id", $estado);
             if (!empty($tareaspropias))
                 $this->db->where("tarea.emp_id", $tareaspropias);
-
+            
+            $this->db->where("planes.est_id",1);
             $this->db->select("planes.*");
             $this->db->select("empleado.Emp_Nombre");
             $this->db->select("empleado.Emp_Apellidos,sum(replace(tar_costopresupuestado,LTRIM(RTRIM(',')),'')) AS tar_costopresupuestado", false);
@@ -62,7 +63,8 @@ class Planes_model extends CI_Model {
         try {
             $this->db->trans_begin();
             $this->db->where('pla_id', $id);
-            $this->db->delete('planes');
+            $this->db->set("est_id",3);
+            $this->db->update('planes');
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
             } else {
