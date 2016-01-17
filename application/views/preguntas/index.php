@@ -32,12 +32,20 @@
                 <?php echo lista("tipPre_id", "tipPre_id", "form-control obligatorio", "tipo_pregunta", "tipPre_id", "tipPre_nombre", (isset($datos[0]->tipPre_id) ? $datos[0]->tipPre_id : '2'), array("ACTIVO" => "S"), /* readOnly? */ false); ?>
                 <br>
             </div>
+            <label for="tipPre_id" class="col-md-3">
+               * Nombre Pregunta
+            </label>
+            <div class="col-md-9">
+                <input type="text" name="pre_nombre_busqueda" id="pre_nombre_busqueda" value="<?php echo (isset($datos[0]->pre_nombre_busqueda) ? $datos[0]->pre_nombre_busqueda : '' ) ?>" class=" form-control obligatorio  ">
+                <br>
+            </div>
             <div class="row">
-                <label for="pre_nombre" class="col-md-3">
+                <label for="pre_contexto" class="col-md-3">
                     Contexto                        
                 </label>
                 <div class="col-md-9">
-                    <textarea style="width: 100%" class=" form-control   " id="pre_contexto" name="pre_contexto"><?php echo (isset($datos[0]->pre_contexto) ? $datos[0]->pre_contexto : '' ) ?></textarea>
+                    <textarea style="width: 100%" class=" form-control  textarea " id="pre_contexto" name="pre_contexto"><?php echo (isset($datos[0]->pre_contexto) ? $datos[0]->pre_contexto : '' ) ?></textarea>
+                    <input type="hidden" name="pre_contexto" id="pre_contexto1">
                     <br>
                 </div>
             </div>
@@ -46,7 +54,8 @@
                     * pregunta 
                 </label>
                 <div class="col-md-9">
-                    <textarea style="width: 100%" class=" form-control obligatorio  " id="pre_nombre" name="pre_nombre"><?php echo (isset($datos[0]->pre_nombre) ? $datos[0]->pre_nombre : '' ) ?></textarea>
+                    <textarea style="width: 100%" class=" form-control  textarea" id="pre_nombre" ><?php echo (isset($datos[0]->pre_nombre) ? $datos[0]->pre_nombre : '' ) ?></textarea>
+                    <input type="hidden" name="pre_nombre" id="pre_nombre1" class=" form-control obligatorio  ">
                     <br>
                 </div>
             </div>
@@ -118,7 +127,7 @@
 </div>
 <script>
 
-    tinymce.init({selector: 'textarea'});
+    tinymce.init({selector: '.textarea'});
 
     cantidad = <?php echo $ij ?>;
     $('#guardar').click(function () {
@@ -129,6 +138,10 @@
 
     })
     function campos() {
+        
+        $('#pre_nombre1').val(tinyMCE.get('pre_nombre').getContent())
+        $('#pre_contexto1').val(tinyMCE.get('pre_contexto').getContent())
+        
         $('input[type="file"]').each(function (key, val) {
             var img = $(this).val();
             if (img != "") {
@@ -241,7 +254,7 @@
                 $('.respuestas').html('');
                 $('#pre_res_num').hide();
                 $('#ocultar_res').hide();
-                $('#pre_res_num').val('');
+                $('#pre_res_num').val(1);
                 $('#res_id').append('<option value="1">Respuesta abierta</option>');
                 $('#res_id').val(1)
                 break;

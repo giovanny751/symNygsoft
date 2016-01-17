@@ -69,6 +69,7 @@ class Preguntas__model extends CI_Model {
             
         }
     }
+
     function pre_visible($post) {
         try {
             $this->db->set('pre_visible', $post['pre_visible']);
@@ -78,6 +79,7 @@ class Preguntas__model extends CI_Model {
             
         }
     }
+
     function inactivar_preguntas($post) {
         try {
             $this->db->set('ACTIVO', 'N');
@@ -137,7 +139,7 @@ class Preguntas__model extends CI_Model {
 //            $this->db->select('tem_nombre');
 //            $this->db->select('are_nombre');
             $this->db->select('tipPre_nombre');
-            $this->db->select('pre_nombre');
+            $this->db->select('pre_nombre_busqueda');
             $this->db->select('pre_res_num');
             $this->db->select('pre_visible');
             $this->db->where('preguntas.ACTIVO', 'S');
@@ -147,6 +149,21 @@ class Preguntas__model extends CI_Model {
             $this->db->join('tipo_pregunta tp', 'tp.tipPre_id=preguntas.tipPre_id');
             $datos = $this->db->get('preguntas');
             $datos = $datos->result();
+            return $datos;
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function buscar_pregunta($post) {
+        try {
+            $this->db->where('preguntas.pre_id', $post['id']);
+            $this->db->select('preguntas.*,tp.*,re.* ');
+            $this->db->join('tipo_pregunta tp', 'tp.tipPre_id=preguntas.tipPre_id');
+            $this->db->join('respuestas re', "re.pre_id=preguntas.pre_id and re.activo='S'",'left',false);
+            $datos = $this->db->get('preguntas');
+            $datos = $datos->result();
+//            echo $this->db->last_query();
             return $datos;
         } catch (exception $e) {
             
