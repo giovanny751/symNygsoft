@@ -1,4 +1,9 @@
 <div class="row">
+    <div class="col-md-6">
+        <a href="<?php echo base_url('index.php/administrativo/accidente ')?>"><div title="Nuevo Accidente" class="circuloIcon"><i class="fa fa-folder-open fa-3x"></i></div></a>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="tituloCuerpo">
             <span class="txtTitulo">LISTADO ACCIDENTES</span>

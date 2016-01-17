@@ -43,7 +43,7 @@ class Administrativo extends My_Controller {
                 'Empleadoincapacidad_model'
             ));
             $this->data['tipoHora'] = $this->Horaextratipo_model->tipos();
-            $empleadoId = (!empty($this->input->post('emp_id')))?$this->input->post('emp_id'):"";
+            $empleadoId = (!empty($this->input->post('emp_id'))) ? $this->input->post('emp_id') : "";
             if (isset($empleadoId)) {
                 $this->data['horasExtras'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($empleadoId);
                 $this->data['tiposContrato'] = $this->Empleadocontrato_model->contratosxEmpleado($empleadoId);
@@ -57,7 +57,7 @@ class Administrativo extends My_Controller {
                 $this->data['registro'] = array();
                 foreach ($registro as $campo)
                     $this->data['registro'][$campo->empCar_id][$campo->empCar_nombre . " - " . $campo->empCar_descripcion][] = array($campo->nombreempleado, $campo->empReg_archivo, $campo->empReg_descripcion, $campo->empReg_version, $campo->empReg_id, $campo->empReg_tamano, $campo->empgReg_fecha);
-                
+
                 $this->data['empleadoresponsable'] = $this->Empleadoresponsable_model->detail();
             }
             $this->data['empresa'] = $this->Empresa_model->detail();
@@ -81,25 +81,24 @@ class Administrativo extends My_Controller {
             
         }
     }
-    
-    function guardarHorasExtras(){
-        try{
+
+    function guardarHorasExtras() {
+        try {
             $this->load->model(array("Empleadohoraextra_model"));
             $data = array(
-                "emp_id" =>$this->input->post("emp_id"),
-                "empHorExt_fecha" =>$this->input->post("fecha"),
-                "horExtTip_id" =>$this->input->post("tipo"),
-                "empHorExt_horas" =>$this->input->post("horas"),
-                "creatorUser" =>$this->data['usu_id'],
-                "creatorDate" =>date("Y-m-d H:i:s")
+                "emp_id" => $this->input->post("emp_id"),
+                "empHorExt_fecha" => $this->input->post("fecha"),
+                "horExtTip_id" => $this->input->post("tipo"),
+                "empHorExt_horas" => $this->input->post("horas"),
+                "creatorUser" => $this->data['usu_id'],
+                "creatorDate" => date("Y-m-d H:i:s")
             );
             $this->Empleadohoraextra_model->save($data);
-            
+
             $data['Json'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($this->input->post("emp_id"));
+        } catch (exception $e) {
             
-        }catch(exception $e){
-            
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
@@ -137,6 +136,17 @@ class Administrativo extends My_Controller {
                 $data['Json'] = $this->Empleadoausentismo_model->detailxEmpleado($this->input->post("emp_id"));
             else
                 throw new Exception("Error por favor comunicarse con el administrador");
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    function obtener_lugar() {
+        try {
+            $this->load->model(array("Accidentes_model"));
+            $data['Json'] = $this->Accidentes_model->obtener_lugar($this->input->post());
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
@@ -287,7 +297,7 @@ class Administrativo extends My_Controller {
                 'creationDate' => date("Y-m-d H:i:s")
             );
             $this->Empleadoincapacidad_model->create($data);
-            
+
             $this->data["tablaincapacidad"] = $this->Empleadoincapacidad_model->detailxid($this->input->post('empleadoInc'));
             $this->output->set_content_type('application/json')->set_output(json_encode($this->data["tablaincapacidad"]));
         } catch (exception $e) {
@@ -566,29 +576,27 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
-    function guardarContrato(){
-        try{
-        $this->load->model('Empleadocontrato_model');
-        $data = array(
-            "empCon_fechaDesde"=>$this->input->post("fInicioContrato"),
-            "empCon_fechaHasta"=>$this->input->post("fFinalContrato"),
-            "tipCon_id"=>$this->input->post("tipContrato"),
-            "empCon_observacion"=>$this->input->post("obsContrato"),
-            "emp_id"=>$this->input->post("emp_id"),
-            "creatorUser"=>$this->data['usu_id'],
-            "creatorDate"=>date('Y-m-d H:i:s')
-        );
-        $contrato = $this->Empleadocontrato_model->CreacionContrato($data);
-        
-        $data['Json'] = $this->Empleadocontrato_model->contratosxEmpleado($this->input->post("emp_id"));
-        
-        }catch(exception $e){
+
+    function guardarContrato() {
+        try {
+            $this->load->model('Empleadocontrato_model');
+            $data = array(
+                "empCon_fechaDesde" => $this->input->post("fInicioContrato"),
+                "empCon_fechaHasta" => $this->input->post("fFinalContrato"),
+                "tipCon_id" => $this->input->post("tipContrato"),
+                "empCon_observacion" => $this->input->post("obsContrato"),
+                "emp_id" => $this->input->post("emp_id"),
+                "creatorUser" => $this->data['usu_id'],
+                "creatorDate" => date('Y-m-d H:i:s')
+            );
+            $contrato = $this->Empleadocontrato_model->CreacionContrato($data);
+
+            $data['Json'] = $this->Empleadocontrato_model->contratosxEmpleado($this->input->post("emp_id"));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
-        
     }
 
     function consultacontratosvencidos() {
@@ -1209,8 +1217,9 @@ class Administrativo extends My_Controller {
         $info = auto("user", "usu_id", "usu_nombre", $this->input->get('term'));
         $this->output->set_content_type('application/json')->set_output(json_encode($info));
     }
+
     function autocompletarIncapacidadReferencia() {
-        $info = auto("incapacidad_referencia", "incRef_cod", "incRef_nombre", $this->input->get('term'),10);
+        $info = auto("incapacidad_referencia", "incRef_cod", "incRef_nombre", $this->input->get('term'), 10);
         $this->output->set_content_type('application/json')->set_output(json_encode($info));
     }
 
@@ -1383,9 +1392,11 @@ class Administrativo extends My_Controller {
         if (!empty($idAccidente)) {
             $rieClaTip = array();
             $resultadoAccidentes = $this->Accidentes_model->detailAccidente($idAccidente);
+//            print_y($resultadoAccidentes);
             foreach ($resultadoAccidentes as $resultadoAccidente) {
                 $this->data["accidente"]["datos"]["id"] = $resultadoAccidente->id;
                 $this->data["accidente"]["datos"]["empleado"] = $resultadoAccidente->empleado;
+                $this->data["accidente"]["datos"]["acc_lugar_incidente"] = $resultadoAccidente->acc_lugar_incidente;
                 $this->data["accidente"]["datos"]["lugar"] = $resultadoAccidente->lugar;
                 $this->data["accidente"]["datos"]["dimension1"] = $resultadoAccidente->dimension1;
                 $this->data["accidente"]["datos"]["dimension2"] = $resultadoAccidente->dimension2;
@@ -1437,6 +1448,7 @@ class Administrativo extends My_Controller {
                 , "acc_zona" => $this->input->post("zona")
                 , "acc_jefeInmediato" => $this->input->post("jefe")
                 , "tipEve_id" => $this->input->post("tipo")
+                , "acc_lugar_incidente" => $this->input->post("lugar_asociado")
                 , "acc_lugarAccidente" => $this->input->post("sitio")
                 , "acc_fechaAccidente" => $this->input->post("accidenteFecha") . " " . $this->input->post("accidenteHora")
                 , "acc_descripcion" => $this->input->post("descripcion")
@@ -1564,6 +1576,7 @@ class Administrativo extends My_Controller {
                 , "acc_zona" => $this->input->post("zona")
                 , "acc_jefeInmediato" => $this->input->post("jefe")
                 , "tipEve_id" => $this->input->post("tipo")
+                , "acc_lugar_incidente" => $this->input->post("lugar_asociado")
                 , "acc_lugarAccidente" => $this->input->post("sitio")
                 , "acc_fechaAccidente" => $this->input->post("accidenteFecha") . " " . $this->input->post("accidenteHora")
                 , "acc_descripcion" => $this->input->post("descripcion")

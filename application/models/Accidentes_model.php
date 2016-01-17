@@ -24,6 +24,24 @@ class Accidentes_model extends CI_Model {
             return $id;
         }
     }
+    function obtener_lugar($post) {
+        try {
+            $this->db->select("acc_id,acc_lugar,acc_zona");
+            if(!empty($post['dim1']))
+            $this->db->where("dim1_id",$post['dim1']);
+            if(!empty($post['dim2']))
+            $this->db->where("dim2_id",$post['dim2']);
+            if(!empty($post['acc_lugar_incidente']))
+            $this->db->where("acc_lugar_incidente",$post['acc_lugar_incidente']);
+            if(empty($post['acc_lugar_incidente']))
+            $this->db->where("tipEve_id",2);
+            $tipo = $this->db->get("accidentes");
+//            echo $this->db->last_query();
+            return $tipo->result();
+        } catch (exception $e) {
+            
+        }
+    }
     function update($data,$id){
         try{
             $id = false;
@@ -57,6 +75,7 @@ class Accidentes_model extends CI_Model {
     function detailAccidente($idAccidente){
         try{
             
+            $this->db->select("accidentes.acc_lugar_incidente");
             $this->db->select("accidentes.acc_id as id");
             $this->db->select("accidentes.emp_id as empleado");
             $this->db->select("accidentes.acc_lugar as lugar");
@@ -95,7 +114,7 @@ class Accidentes_model extends CI_Model {
             $this->db->join("dimension","dimension.dim_id = accidentes.dim1_id","left");
             $this->db->join("dimension2","dimension2.dim_id = accidentes.dim2_id","left");
             
-            $this->db->where("accidentes.acc_id",9);
+            $this->db->where("accidentes.acc_id",$idAccidente);
             
             $resultado = $this->db->get("accidentes");
             return $resultado->result();

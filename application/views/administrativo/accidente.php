@@ -31,13 +31,15 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <center>
-                    <label><b>A. INFORMACIÓN GENERAL</b></label>
+                    <label><b>A. INFORMACI&Oacute;N GENERAL</b></label>
                 </center>
             </div>
         </div>
         <hr />
         <div class="row">
-            <label for="empresa" class="control-label col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="campoobligatorio">*</span>Empleado:</label>  
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="empresa"><span class="campoobligatorio">*</span>Empleado:</label>  
+            </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <select name="empleado" id="empleado" class="form-control obligatorio">
                     <option value="">::Seleccionar::</option>
@@ -48,17 +50,17 @@
             </div>
         </div>
         <div class="row">
-            <label for="lugar" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                <span class="campoobligatorio">*</span>Lugar
-            </label>  
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="lugar"><span class="campoobligatorio">*</span>Lugar</label>  
+            </div>
             <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                 <input type="text" name="lugar" id="lugar" class="form-control obligatorio" value="<?php echo (isset($accidente)) ? $accidente["datos"]["lugar"] : "" ?>">
             </div>
         </div>
         <div class="row">
-            <label for="dimension1" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                <span class="campoobligatorio">*</span><?php echo $empresa->Dim_id ?>
-            </label>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="dimension1"><span class="campoobligatorio">*</span><?php echo $empresa->Dim_id ?></label>
+            </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                 <select name="dimension1" id="dimension1" class="form-control obligatorio">
                     <option value="">::Seleccionar::</option>
@@ -67,7 +69,9 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <label for="dimension2" class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><?php echo $empresa->Dimdos_id ?></label>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <label for="dimension2"><?php echo $empresa->Dimdos_id ?></label>
+            </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                 <select name="dimension2" id="dimension2" class="form-control">
                     <option value="">::Seleccionar::</option>
@@ -147,6 +151,42 @@
             echo ($i == 0 || count($tipo_eventos) == $j) ? "</div></div>" : "";
         endforeach;
         ?>
+        <div class="row buscar_accidente" style="display: none" >
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <label for="dimension1_bus"><?php echo $empresa->Dim_id ?></label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <select  id="dimension1_bus" class="form-control ">
+                            <option value="">::Seleccionar::</option>
+                            <?php foreach ($dimension as $d): ?>
+                                <option value="<?php echo $d->dim_id; ?>"><?php echo $d->dim_descripcion ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <label for="dimension2_bus"><?php echo $empresa->Dimdos_id ?></label>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <select  id="dimension2_bus" class="form-control">
+                            <option value="">::Seleccionar::</option>
+                            <?php foreach ($dimension2 as $d2): ?>
+                                <option value="<?php echo $d2->dim_id; ?>"><?php echo $d2->dim_descripcion ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row buscar_accidente" style="display: none">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                Lugar
+            </div>
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                <select id="lugar_asociado" name="lugar_asociado" class="form-control"></select>
+            </div>
+        </div>
         <hr />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -176,7 +216,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <center>
-                    <label><b>B. DESCRIPCIÓN DEL ACCIDENTE</b></label>
+                    <label><b>B. DESCRIPCI&Oacute;N DEL ACCIDENTE</b></label>
                 </center>
             </div>
         </div>
@@ -230,10 +270,9 @@
             </div>
         </div>
         <div class="row">
-            <label for="descripcion" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span class="campoobligatorio">*</span>
-                11. Descripción de lo ocurrido:<i>(posición,personas,partes,documentos)</i>
-            </label>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="descripcion"><span class="campoobligatorio">*</span>11. DescripciÃ³n de lo ocurrido:<i>(posiciÃ³n,personas,partes,documentos)</i></label>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -242,7 +281,9 @@
         </div>
         <hr />
         <div class="row">
-            <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12">12. Tipo de Riesgo:</label>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label>12. Tipo de Riesgo:</label>
+            </div>
         </div>
         <?php
         $i = 0;
@@ -317,7 +358,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <center>
-                    <label><b>C. INFORMACIÓN DEL REPORTE</b></label>
+                    <label><b>C. INFORMACI&Oacute;N DEL REPORTE</b></label>
                 </center>
             </div> 
         </div>
@@ -366,6 +407,44 @@
 <br>
 <br>
 <script type="text/javascript">
+    $('#dimension1_bus').change(function () {
+        obtener_lugar();
+    })
+    $('#dimension2_bus').change(function () {
+        obtener_lugar();
+    })
+    function obtener_lugar() {
+        var dim1 = $('#dimension1_bus').val()
+        var dim2 = $('#dimension2_bus').val()
+        var url = "<?php echo base_url("index.php/Administrativo/obtener_lugar") ?>";
+        $('#lugar_asociado').html('');
+        $.post(url, {dim1: dim1, dim2: dim2})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message']);
+                    else {
+                        var body = "";
+                        $.each(msg.Json, function (key, val) {
+                            body += "<option value='"+val.acc_id+"'>";
+                            body += "" + val.acc_lugar+"-"+val.acc_zona+ "";
+                            body += "</option>";
+                        });
+                        $('#lugar_asociado').html(body);
+                    }
+                })
+                .fail(function () {
+
+                })
+
+    }
+
+    $('input[name="tipo"]').click(function () {
+        if ($(this).val() == 1) {
+            $('.buscar_accidente').show()
+        } else {
+            $('.buscar_accidente').hide()
+        }
+    })
     $("#guardarAccidente").click(function () {
 
         var radio = false;
@@ -386,6 +465,8 @@
                         alerta("verde", "Guardado");
                         if (confirm("Desea generar otro accidente?")) {
                             $(":input", "#formAccidente").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").removeAttr("selected")
+                        }else{
+                            location.href='<?php echo base_url('index.php/Administrativo/listadoaccidente') ?>'
                         }
                     })
                     .fail(function (msg) {
@@ -499,6 +580,27 @@
             }
         }
     }
+    <?php if(isset($accidente["datos"]["acc_lugar_incidente"])){?>
+$('.buscar_accidente').show()
+var url = "<?php echo base_url("index.php/Administrativo/obtener_lugar") ?>";
+        $.post(url,{acc_lugar_incidente:<?php echo $accidente["datos"]["acc_lugar_incidente"]; ?>})
+              .done(function(msg){
+                  if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message']);
+                    else {
+                        var body = "";
+                        $.each(msg.Json, function (key, val) {
+                            body += "<option value='"+val.acc_id+"'>";
+                            body += "" + val.acc_lugar+"-"+val.acc_zona+ "";
+                            body += "</option>";
+                        });
+                        $('#lugar_asociado').html(body);
+                    }
+              })
+              .fail(function(){
+                  
+              })
+    <?php }?>
 
 
 </script>

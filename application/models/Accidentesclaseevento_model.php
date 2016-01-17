@@ -21,7 +21,9 @@ class Accidentesclaseevento_model extends CI_Model {
             return $this->db->trans_status();
         }
     }
-    function insert($data,$id){
+    
+    
+    function update($data,$id){
         try{
             $this->db->trans_begin();
             $this->db->where("acc_id",$id);

@@ -21,7 +21,7 @@ class Accidentescorreo_model extends CI_Model {
             return $this->db->trans_status();
         }
     }
-    function insert($data){
+    function update($data){
         try{
             $this->db->trans_begin();
             $this->db->where("acc_id",$id);
