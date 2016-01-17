@@ -86,7 +86,7 @@ class Preguntas extends My_Controller {
 
     function buscar_pregunta() {
         try {
-            sleep(10);
+//            sleep(10);
             $data['Json'] = $this->Preguntas__model->buscar_pregunta($this->input->post());
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
