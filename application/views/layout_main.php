@@ -43,7 +43,12 @@
     <!-- Datepicker -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') ?>"/>
     
-    
+    <!--------------------------------------------------------------------------
+                            SCRIPTS LIBRERIAS
+    ------------------------------------------------------------------------ -->
+    <script type="text/javascript" src="<?php echo base_url("js/jquery-1.12.0.min.js") ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("js/jquery-ui_11.11.4.min.js") ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url("js/bootstrap_3.3.5.min.js") ?>"></script>
     
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid page-footer-fixed">
@@ -272,7 +277,7 @@
     <!-- FOOTER -->
     <div class="page-footer">
         <div class="page-footer-inner">
-             2016 &copy; Nygsoft.
+             2016 &copy; NYGSOFT.
         </div>
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>
@@ -282,11 +287,6 @@
     <!-- ------------------------------------------------------------
                                  SCRIPTS
     ---------------------------------------------------------------- -->
-    
-    <!-- Librerias  -->
-    <script type="text/javascript" src="<?php echo base_url("js/jquery-1.12.0.min.js") ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("js/jquery-ui_11.11.4.min.js") ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url("js/bootstrap_3.3.5.min.js") ?>"></script>
 
     <!-- Scripts Pagina -->
     <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
@@ -307,7 +307,7 @@
         Metronic.init(); // init metronic core componets
         Layout.init(); // Menu 
         Index.initDashboardDaterange(); // Fecha
-        UINotific8.init();
+        UINotific8.init(); //Notificaciones
     }); 
     //    --------------------------------------------------------------------------
     //COLORES DE ALERTAS DE METRONIC
