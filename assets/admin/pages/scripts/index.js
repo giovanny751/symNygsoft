@@ -606,12 +606,13 @@ var Index = function () {
                     format: 'MM/DD/YYYY',
                     separator: ' to ',
                     locale: {
-                        applyLabel: 'Apply',
-                        fromLabel: 'From',
-                        toLabel: 'To',
-                        customRangeLabel: 'Custom Range',
-                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        applyLabel: 'Agregar',
+                        cancelLabel: "Cancel",
+                        fromLabel: 'De',
+                        toLabel: 'A',
+                        customRangeLabel: 'Rango',
+                        daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                         firstDay: 1
                     }
                 },
