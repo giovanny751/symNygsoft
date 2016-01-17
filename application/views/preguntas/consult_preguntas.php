@@ -139,7 +139,7 @@
                             $('#tipo_pre').html('Tipo pregunta: '+val.tipPre_nombre);
                             if (val.pre_contexto != '<p></p>' && val.pre_contexto != '' && val.pre_contexto!=null)
                                 $('#contex_pre').html("Contexto: <br>"+val.pre_contexto);
-                            $('#nombre_pre').html(val.pre_nombre);
+                            $('#nombre_pre').html('Pregunta: <br>'+val.pre_nombre);
                             if (val.res_nombre != '<p></p>' && val.res_nombre != '' && val.res_nombre!=null)
                                 $('#body_pre').append(i+") "+val.res_nombre + '<br>')
                             $('#respuesta_pre').html("Respuesta: "+val.pre_res_num);
@@ -196,9 +196,5 @@
     $('body').delegate('.number', 'keypress', function (tecla) {
         if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
             return false;
-    });
-    $('.fecha').datepicker({
-        rtl: Metronic.isRTL(),
-        autoclose: true
     });
 </script>
