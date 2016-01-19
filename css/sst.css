@@ -138,15 +138,6 @@
     padding-left:25px;
     padding-right: 25px;
 }
-.form-horizontal .control-label{
-    text-align: left !important;
-}
-.form-control{
-    border-radius: 0px !important;
-}
-.form-control[disabled],.form-control[readonly]{
-    background-color: transparent !important;
-}
 .tablesst{
     border-collapse: separate;
     border-spacing: 5px;

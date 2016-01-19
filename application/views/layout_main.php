@@ -11,13 +11,13 @@
 
         <!--------------------------------------------------------------------------
         Iconos
------------------------------------------------------------------------- -->
+        ------------------------------------------------------------------------ -->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/font-awesome/css/font-awesome.min.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/simple-line-icons/simple-line-icons.min.css") ?>" />
 
         <!--------------------------------------------------------------------------
         Estilos Librerias
------------------------------------------------------------------------- -->
+        ------------------------------------------------------------------------ -->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/sst.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/bootstrap_3.3.5.min.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/bootstrap_theme_3.3.5.min.css") ?>" />
@@ -25,27 +25,35 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("css/jquery-ui.theme_11.11.4.min.css") ?>" />
 
         <!--------------------------------------------------------------------------
+        Otros Estilos Necesarios
+        ------------------------------------------------------------------------ -->
+        <!-- Calendario -->
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") ?>" />
+        <!-- Notificaciones -->
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.css') ?>"/>
+        <!-- Datepicker -->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') ?>"/>
+        <!-- Select y multiselect -->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/select2/select2.css') ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/jquery-multi-select/css/multi-select.css') ?>"/>
+        <!-- Data Table -->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') ?>"/>
+        
+        <!--------------------------------------------------------------------------
         Estilos Layoud
------------------------------------------------------------------------- -->
+        ------------------------------------------------------------------------ -->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/css/components.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/css/plugins.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/admin/layout/css/layout.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/admin/layout/css/themes/blue.css") ?>" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/admin/layout/css/custom.css") ?>" />
 
-        <!--------------------------------------------------------------------------
-        Otros Estilos Necesarios
------------------------------------------------------------------------- -->
-        <!-- Calendario -->
-        <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") ?>" />
-        <!-- Notificaciones -->
-        <link type="text/css" rel="stylesheet" href="<?= base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.css') ?>"/>
-        <!-- Datepicker -->
-        <link rel="stylesheet" type="text/css" href="<?= base_url('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') ?>"/>
 
         <!--------------------------------------------------------------------------
         SCRIPTS LIBRERIAS
------------------------------------------------------------------------- -->
+        ------------------------------------------------------------------------ -->
         <script type="text/javascript" src="<?php echo base_url("js/jquery-1.12.0.min.js") ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("js/jquery-ui_11.11.4.min.js") ?>"></script>
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap_3.3.5.min.js") ?>"></script>
@@ -285,8 +293,8 @@
                 </div>
 
                 <!-- ------------------------------------------------------------
-                SCRIPTS
----------------------------------------------------------------- -->
+                                    SCRIPTS
+                ---------------------------------------------------------------- -->
 
                 <!-- Scripts Pagina -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
@@ -295,7 +303,16 @@
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") ?>"></script> <!-- Fecha Inicio (2,3) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/admin/pages/scripts/ui-notific8.js') ?>"></script> <!-- Notificacion (2,2) -->
-                <script type="text/javascript" src="<?= base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
+                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
+                
+                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/select2/select2.min.js') ?>"></script> <!-- Select y multiple (1,2) -->
+                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') ?>"></script><!-- Select y multiple (2,2) -->
+                
+                <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script> <!-- Script datatable -->
+                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script> <!-- Exportar Archivos datatable -->
+                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script> <!-- Arrastra y suelta posición conlumnas-->
+                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script><!-- Titulo estatico -->
+                <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script><!-- Estilo script bootstrap -->
 
                 <!-- Inicio Pagina -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/scripts/metronic.js") ?>"></script>
@@ -309,6 +326,9 @@
                         Index.initDashboardDaterange(); // Fecha
                         UINotific8.init(); //Notificaciones
                     });
+
+
+                    
                     //    --------------------------------------------------------------------------
                     //COLORES DE ALERTAS DE METRONIC
                     //    --------------------------------------------------------------------------
@@ -472,6 +492,89 @@
                         $.blockUI.defaults.message = 'Procesando...';
                         $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
                     });
+                    
+                    // ------------------------------------------------------------------
+                    //                  DATABLE
+                    // ------------------------------------------------------------------
+                    
+                    
+                    var initTable2 = function () {
+                        var table = $('#sample_2');
+
+                        /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
+
+                        /* Set tabletools buttons and button container */
+
+                        $.extend(true, $.fn.DataTable.TableTools.classes, {
+                            "container": "btn-group tabletools-btn-group pull-right",
+                            "buttons": {
+                                "normal": "btn btn-sm default",
+                                "disabled": "btn btn-sm default disabled"
+                            }
+                        });
+
+                        var oTable = table.dataTable({
+
+                            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                            "language": {
+                                "aria": {
+                                    "sortAscending": ": activate to sort column ascending",
+                                    "sortDescending": ": activate to sort column descending"
+                                },
+                                "emptyTable": "No hay datos disponibles en la tabla",
+                                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                                "infoEmpty": "No se encontraron entradas",
+                                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                                "lengthMenu": "Mostrar _MENU_ entradas",
+                                "search": "Buscar:",
+                                "zeroRecords": "No se encontraron registros coincidente"
+                            },
+                            "order": [
+                                [0, 'asc']
+                            ],
+                            "lengthMenu": [
+                                [5, 15, 20, -1],
+                                [5, 15, 20, "All"] // change per page values here
+                            ],
+
+                            // set the initial value
+                            "pageLength": 10,
+                            "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+                            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+                            // So when dropdowns used the scrollable div should be removed. 
+                            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+                            "tableTools": {
+                                "sSwfPath": "<?php echo base_url('assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'); ?>",
+                                "aButtons": [{
+                                    "sExtends": "pdf",
+                                    "sButtonText": "PDF"
+                                }, {
+                                    "sExtends": "csv",
+                                    "sButtonText": "CSV"
+                                }, {
+                                    "sExtends": "xls",
+                                    "sButtonText": "Excel"
+                                }, {
+                                    "sExtends": "print",
+                                    "sButtonText": "Print",
+                                    "sInfo": 'Porfavor presiona "CTRL+P" a imprimir o "ESC" para salir',
+                                    "sMessage": "Generated by DataTables"
+                                }, {
+                                    "sExtends": "copy",
+                                    "sButtonText": "Copy"
+                                }]
+                            }
+                        });
+
+                        var tableWrapper = $('#sample_2_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+                        tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+                    }
+                    
+                    window.addEventListener("load",initTable2);
+                                        
                 </script>
 
                 </body>

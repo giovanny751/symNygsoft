@@ -1,4 +1,107 @@
 <div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i><?= $title ?>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form method="post" id="formcargos" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cargo" class="control-label col-md-3">* Cargo</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control obligatorio texto" name="cargo" id="cargo" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cargojefe" class="control-label col-md-3">Cargo jefe directo</label>
+                                    <div class="col-md-9">
+                                        <select name="cargojefe" id="cargojefe" class="form-control select2me" >
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($cargo as $d) { ?>
+                                                <option value="<?php echo $d->car_id ?>"><?php echo $d->car_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="porcentaje" class="control-label col-md-3">* %Cotizacion ARL</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="porcentaje" id="porcentaje" class="form-control obligatorio number2 texto" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-10 col-md-2">
+                                <input type="button" value="Agregar" class="btn btn-block green guardarcargo" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Datatable -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-table"></i>Tabla
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="Abrir/Cerrar"></a>
+                    <a href="javascript:;" class="reload" data-original-title="Recargar"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <table class="table table-striped table-bordered table-hover" id="sample_2">
+                        <thead>
+                            <tr>
+                                <th>Prueba1</th>
+                                <th>Prueba2</th>
+                                <th>Prueba3</th>
+                                <th>Prueba4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
     <div class="circuloIcon guardarcargo" tittle="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
 </div>
 <div class="row">

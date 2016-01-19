@@ -797,6 +797,7 @@ class Administrativo extends My_Controller {
 
     function cargos() {
         try {
+            $this->data['title'] = "Cargos";
             $this->load->model(array("Empresa_model", 'Cargo_model'));
             $this->data["cargo"] = $this->Cargo_model->detail();
             $this->data['informacion'] = $this->Empresa_model->detail();
