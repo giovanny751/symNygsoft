@@ -60,7 +60,7 @@
         <script src="<?= base_url('js/jquery.blockUI.js') ?>" type="text/javascript"></script>
 
     </head>
-    <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid page-footer-fixed">
+    <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
         <?php
 
         function modulos($datosmodulos, $idusuario, $dato = null, $prueba = null) {
