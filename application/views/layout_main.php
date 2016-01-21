@@ -530,7 +530,7 @@
                                 "zeroRecords": "No se encontraron registros coincidente"
                             },
                             "order": [
-                                [0, 'asc']
+                                [1, 'asc']
                             ],
                             "lengthMenu": [
                                 [5, 15, 20, -1],
