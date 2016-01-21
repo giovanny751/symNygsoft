@@ -550,7 +550,7 @@
                                 "sSwfPath": "<?php echo base_url('assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'); ?>",
                                 "aButtons": [{
                                     "sExtends": "pdf",
-                                    "sButtonText": "PDFFF"
+                                    "sButtonText": "PDF"
                                 }, {
                                     "sExtends": "csv",
                                     "sButtonText": "CSV"
