@@ -499,7 +499,7 @@
                     
                     
                     var initTable2 = function () {
-                        var table = $('#sample_2');
+                        var table = $('.tabla-sst');
 
                         /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
 
@@ -569,7 +569,7 @@
                             }
                         });
 
-                        var tableWrapper = $('#sample_2_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+                        var tableWrapper = $('.tabla-sst_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
                         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
                     }
                     

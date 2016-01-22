@@ -998,6 +998,7 @@ class Administrativo extends My_Controller {
     }
 
     function dimension2() {
+        $this->data['title'] = "Dimensión 2";
         $this->load->model(array('Dimension2_model', 'Empresa_model'));
         $this->data['empresa'] = $this->Empresa_model->detail();
         if (!empty($this->data['empresa'][0]->Dimdos_id)) {
@@ -1077,6 +1078,7 @@ class Administrativo extends My_Controller {
     }
 
     function dimension() {
+        $this->data['title'] = "Dimensión 1";
         $this->load->model(array('Dimension_model', 'Empresa_model'));
         $this->data['empresa'] = $this->Empresa_model->detail();
         if (!empty($this->data['empresa'][0]->Dim_id)) {

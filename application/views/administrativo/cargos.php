@@ -70,7 +70,7 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <table class="table table-striped table-bordered table-hover" id="sample_2">
+                    <table class="table table-striped table-bordered table-hover tabla-sst">
                         <thead>
                             <tr>
                                 <th>Cargo</th>
@@ -81,7 +81,7 @@
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bodycargo">
                             <?php foreach ($cargo as $c) { ?>
                                 <tr>
                                     <td><?php echo $c->car_nombre ?></td> 
