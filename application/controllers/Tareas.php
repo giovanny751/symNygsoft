@@ -595,6 +595,83 @@ class Tareas extends My_Controller {
             
         }
     }
+    function lista_articulos() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->lista_articulos($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function norma() {
+        try {
+            $this->load->model('Tarea_model');
+            $this->data["norma"] = $this->Tarea_model->lista_norma();
+            $this->layout->view("tareas/norma", $this->data);
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function crear_norma() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->crear_norma($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function eliminar_norma() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->actualizar_norma($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function actualizar_norma() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->actualizar_norma($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function actualizar_articulo() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->actualizar_articulo($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function eliminar_articulo() {
+        try {
+            $this->load->model('Tarea_model');
+            $data['Json'] = $this->Tarea_model->actualizar_articulo($this->input->post());
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
 
     function consultatareas() {
 

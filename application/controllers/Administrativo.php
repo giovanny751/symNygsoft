@@ -1693,6 +1693,11 @@ class Administrativo extends My_Controller {
         $this->data['tipo'] = $this->Horaextratipo_model->tipos();
         $this->layout->view("administrativo/horasextras", $this->data);
     }
+    function elementos_proteccion() {
+        $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
+        $this->data['empleados'] = $this->Empleado_model->detail();
+        $this->layout->view("administrativo/elementos_proteccion", $this->data);
+    }
 
     function consultaClasificacion() {
         try {

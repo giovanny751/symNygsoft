@@ -38,6 +38,81 @@ class Tarea_model extends CI_Model {
         }
     }
 
+    function crear_norma($post) {
+        try {
+            $this->db->set('nor_norma', $post['norma']);
+            $this->db->set('nor_descripcion', $post['descripcion']);
+//            $this->db->where('nor_id', $post['nor_id']);
+            $this->db->insert("norma");
+            return $this->lista_norma();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function actualizar_norma($post) {
+        try {
+            if (isset($post['norma'])) {
+                $this->db->set('nor_norma', $post['norma']);
+                $this->db->set('nor_descripcion', $post['descripcion']);
+            } else {
+                $this->db->set('est_id', 3);
+            }
+            $this->db->where('nor_id', $post['nor_id']);
+            $this->db->update("norma");
+//            echo $this->db->last_query();
+            return $this->lista_norma();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function lista_norma() {
+        try {
+            $this->db->select("norma.*,(select count(*) from norma_articulo where norma_articulo.nor_id=norma.nor_id and norma_articulo.est_id=1) cantidad_articulos",false);
+//            $this->db->join("norma_articulo", "norma_articulo.nor_id=norma.nor_id");
+            $this->db->where("est_id", 1);
+            $datos = $this->db->get("norma");
+            return $datos->result();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function lista_articulos($post) {
+        try {
+            $this->db->select("norma_articulo.*");
+            $this->db->where("nor_id", $post['nor_id']);
+            $this->db->where("est_id", 1);
+//            $this->db->join("norma_articulo", "norma_articulo.nor_id=norma.nor_id");
+            $datos = $this->db->get("norma_articulo");
+            return $datos->result();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function actualizar_articulo($post) {
+        try {
+            if (isset($post['articulo_mod'])) {
+                $this->db->set('norArt_articulo', $post['articulo_mod']);
+                $this->db->set('nor_id', $post['nor_id']);
+            } else {
+                $this->db->set('est_id', 3);
+            }
+            if (!empty($post['norArt_id'])) {
+                $this->db->where('norArt_id', $post['norArt_id']);
+                $this->db->update("norma_articulo");
+            } else {
+                $this->db->insert("norma_articulo");
+            }
+//            echo $this->db->last_query();
+            return $this->lista_articulos($post);
+        } catch (exception $e) {
+            
+        }
+    }
+
     function update($data, $idtarea) {
         try {
             $this->db->where("tar_id", $idtarea);
@@ -51,7 +126,7 @@ class Tarea_model extends CI_Model {
         try {
             $this->db->trans_begin();
             $this->db->where("tar_id", $tar_id);
-            $this->db->set("est_id",3);
+            $this->db->set("est_id", 3);
             $this->db->update("tarea");
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -127,8 +202,8 @@ class Tarea_model extends CI_Model {
                 $this->db->where("tarea.tar_id", $tarea);
             if (!empty($responsable))
                 $this->db->where("emp_id", $responsable);
-            
-            $this->db->where("planes.est_id",1);
+
+            $this->db->where("planes.est_id", 1);
             $this->db->select("tarea.tar_fechaInicio");
             $this->db->select("DATEDIFF((tar_fechaFinalizacion),(tar_fechaInicio)) diferencia");
             $this->db->select("tarea.tar_nombre");
@@ -211,23 +286,23 @@ class Tarea_model extends CI_Model {
             
         }
     }
-    function tarea_riegos_clasificacion($id,$clasificacionriesgo,$tiposriesgos){
-        $this->db->where('tar_id',$id);
+
+    function tarea_riegos_clasificacion($id, $clasificacionriesgo, $tiposriesgos) {
+        $this->db->where('tar_id', $id);
         $this->db->delete('tarea_riegos_clasificacion');
-        $this->db->where('tar_id',$id);
+        $this->db->where('tar_id', $id);
         $this->db->delete('tarea_riesgo_clasificacion_tipo');
-        
+
         foreach ($clasificacionriesgo as $key => $value) {
-            $this->db->set('rieCla_id',$value);
-            $this->db->set('tar_id',$id);
+            $this->db->set('rieCla_id', $value);
+            $this->db->set('tar_id', $id);
             $this->db->insert('tarea_riegos_clasificacion');
         }
         foreach ($tiposriesgos as $key => $value) {
-            $this->db->set('rieClaTip_id',$value);
-            $this->db->set('tar_id',$id);
+            $this->db->set('rieClaTip_id', $value);
+            $this->db->set('tar_id', $id);
             $this->db->insert('tarea_riesgo_clasificacion_tipo');
         }
-        
     }
 
     function lista_riesgos_guardados($id_tarea) {

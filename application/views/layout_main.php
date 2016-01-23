@@ -40,7 +40,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') ?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') ?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') ?>"/>
-        
+
         <!--------------------------------------------------------------------------
         Estilos Layoud
         ------------------------------------------------------------------------ -->
@@ -78,8 +78,8 @@
                     <li class="sidebar-toggler-wrapper">
                         <div class="sidebar-toggler"></div>
                     </li>
-                        <?php } else {
-                        ?>
+                <?php } else {
+                    ?>
                     <ul class='sub-menu'>
                         <?php
                     }
@@ -253,7 +253,7 @@
                     <!-- Empezar Barra Lateral -->
                     <div class="page-sidebar-wrapper">
                         <div class="page-sidebar navbar-collapse collapse">
-<?php echo modulos('prueba', $id, null); ?>
+                            <?php echo modulos('prueba', $id, null); ?>
                         </div>
                     </div>
                     <!-- Contenido -->
@@ -277,7 +277,7 @@
                                 </div>
                             </div>
                             <!-- Contenido -->
-<?php echo $content_for_layout ?>
+                            <?php echo $content_for_layout ?>
                             <!-- Final Contenido -->
                         </div>
                     </div>
@@ -293,8 +293,8 @@
                 </div>
 
                 <!-- ------------------------------------------------------------
-                                    SCRIPTS
-                ---------------------------------------------------------------- -->
+                SCRIPTS
+---------------------------------------------------------------- -->
 
                 <!-- Scripts Pagina -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
@@ -304,10 +304,10 @@
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/admin/pages/scripts/ui-notific8.js') ?>"></script> <!-- Notificacion (2,2) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
-                
+
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/select2/select2.min.js') ?>"></script> <!-- Select y multiple (1,2) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') ?>"></script><!-- Select y multiple (2,2) -->
-                
+
                 <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script> <!-- Script datatable -->
                 <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script> <!-- Exportar Archivos datatable -->
                 <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script> <!-- Arrastra y suelta posición conlumnas-->
@@ -328,7 +328,7 @@
                     });
 
 
-                    
+
                     //    --------------------------------------------------------------------------
                     //COLORES DE ALERTAS DE METRONIC
                     //    --------------------------------------------------------------------------
@@ -429,12 +429,14 @@
                     $(".email").change(function () {
                         email("email");
                     });
-
-                    $('.fecha').datepicker({
-                        language: "es",
-                        format: "yyyy-mm-dd",
-                        autoclose: true
+                    $("body").delegate(".fecha", "focusin", function () {
+                        $('.fecha').datepicker({
+                            language: "es",
+                            format: "yyyy-mm-dd",
+                            autoclose: true
+                        });
                     });
+
 
                     function difFecha(idFecha1, idFecha2) {
                         var valFecha1 = $(idFecha1).val();
@@ -492,12 +494,12 @@
                         $.blockUI.defaults.message = 'Procesando...';
                         $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
                     });
-                    
+
                     // ------------------------------------------------------------------
                     //                  DATABLE
                     // ------------------------------------------------------------------
-                    
-                    
+
+
                     var initTable2 = function () {
                         var table = $('.tabla-sst');
 
@@ -514,7 +516,6 @@
                         });
 
                         var oTable = table.dataTable({
-
                             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
                             "language": {
                                 "aria": {
@@ -536,7 +537,6 @@
                                 [5, 15, 20, -1],
                                 [5, 15, 20, "All"] // change per page values here
                             ],
-
                             // set the initial value
                             "pageLength": 10,
                             "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
@@ -549,32 +549,32 @@
                             "tableTools": {
                                 "sSwfPath": "<?php echo base_url('assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'); ?>",
                                 "aButtons": [{
-                                    "sExtends": "pdf",
-                                    "sButtonText": "PDF"
-                                }, {
-                                    "sExtends": "csv",
-                                    "sButtonText": "CSV"
-                                }, {
-                                    "sExtends": "xls",
-                                    "sButtonText": "Excel"
-                                }, {
-                                    "sExtends": "print",
-                                    "sButtonText": "Print",
-                                    "sInfo": 'Porfavor presiona "CTRL+P" a imprimir o "ESC" para salir',
-                                    "sMessage": "Generated by DataTables"
-                                }, {
-                                    "sExtends": "copy",
-                                    "sButtonText": "Copy"
-                                }]
+                                        "sExtends": "pdf",
+                                        "sButtonText": "PDF"
+                                    }, {
+                                        "sExtends": "csv",
+                                        "sButtonText": "CSV"
+                                    }, {
+                                        "sExtends": "xls",
+                                        "sButtonText": "Excel"
+                                    }, {
+                                        "sExtends": "print",
+                                        "sButtonText": "Print",
+                                        "sInfo": 'Porfavor presiona "CTRL+P" a imprimir o "ESC" para salir',
+                                        "sMessage": "Generated by DataTables"
+                                    }, {
+                                        "sExtends": "copy",
+                                        "sButtonText": "Copy"
+                                    }]
                             }
                         });
 
                         var tableWrapper = $('.tabla-sst_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
                         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
                     }
-                    
-                    window.addEventListener("load",initTable2);
-                                        
+
+                    window.addEventListener("load", initTable2);
+
                 </script>
 
                 </body>
