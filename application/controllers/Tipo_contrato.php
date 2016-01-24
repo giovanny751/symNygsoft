@@ -20,6 +20,7 @@ class Tipo_contrato extends My_Controller {
 
     function index() {
         try {
+            $this->data['title'] = "Tipo De Contrato";
             $this->data['post'] = $this->input->post();
             $this->layout->view('tipo_contrato/index', $this->data);
         } catch (exception $e) {
@@ -31,6 +32,7 @@ class Tipo_contrato extends My_Controller {
 
     function consult_tipo_contrato() {
         try {
+            $this->data['title'] = "Tipo De Contrato";
             $post = $this->input->post();
             $this->data['post'] = $this->input->post();
             $this->data['datos'] = $this->Tipo_contrato__model->consult_tipo_contrato($post);
@@ -80,6 +82,7 @@ class Tipo_contrato extends My_Controller {
 
     function edit_tipo_contrato() {
         try {
+            $this->data['title'] = "Tipo De Contrato";
             $this->data['post'] = $this->input->post();
             if (!isset($this->data['post']['campo']))
                 redirect('index.php/Tipo_contrato/consult_tipo_contrato', 'location');
