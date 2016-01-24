@@ -195,7 +195,7 @@
 </div>
 <script>
 
-    $('body').delegate(".nuevoregistro,.modificarregistro", "click", function() {
+    $('body').delegate(".nuevoregistro,.modificarregistro", "click", function () {
         $('#carpeta').val("");
         $('#version').val("");
         $('#reg_descripcion').val("");
@@ -204,11 +204,11 @@
         $('#carpeta').val($(this).attr('car_id'));
     });
 
-    $('body').delegate('.modificarregistro', 'click', function() {
+    $('body').delegate('.modificarregistro', 'click', function () {
         $.post(
-                "<?php echo base_url("index.php/planes/modificarregistro") ?>",
+                url + "index.php/planes/modificarregistro",
                 {registro: $(this).attr('reg_id')}
-        ).done(function(msg) {
+        ).done(function (msg) {
             $('#carpeta').val(msg.regCar_id);
             $('#version').val(msg.reg_version);
             $('#reg_descripcion').val(msg.reg_descripcion);
@@ -225,25 +225,25 @@
 
 //            alert(msg.tar_id);
             $.post(
-                    "<?php echo base_url("index.php/tareas/busqueda_carpeta") ?>",
+                    url + "index.php/tareas/busqueda_carpeta",
                     {tar_id: msg.tar_id}
-            ).done(function(msg) {
+            ).done(function (msg) {
                 $('.carpeta *').remove();
                 var option = "<option value=''>::Seleccionar::</option>";
-                $.each(msg, function(key, val) {
+                $.each(msg, function (key, val) {
                     option += "<option value='" + val.regCar_id + "'>" + val.regCar_nombre + "</option>";
                 });
                 $('.carpeta').append(option);
-            }).fail(function(msg) {
+            }).fail(function (msg) {
 
             });
 
 
-        }).fail(function(msg) {
+        }).fail(function (msg) {
 
         });
     });
-    $('#btnguardarregistro').click(function() {
+    $('#btnguardarregistro').click(function () {
         var file_data = $('#archivo').prop('files')[0];
         var form_data = new FormData();
         form_data.append('archivo', file_data);
@@ -253,14 +253,14 @@
         form_data.append('reg_version', $('#version').val());
         form_data.append('reg_descripcion', $('#reg_descripcion').val());
         $.ajax({
-            url: '<?php echo base_url("index.php/planes/guardarregistroempleado") ?>',
+            url: url + "index.php/planes/guardarregistroempleado",
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
             processData: false,
             data: form_data,
             type: 'post',
-            success: function(result) {
+            success: function (result) {
                 $('#consultar').trigger('click')
 //                $('#datatable_ajax tbody').append(filas);
                 $('#carpeta').val('');
@@ -272,70 +272,69 @@
             }
         });
     })
-    $('#planregistro').change(function() {
+    $('#planregistro').change(function () {
 
         $.post(
-                "<?php echo base_url("index.php/tareas/tareaxidplan") ?>",
+                url + "index.php/tareas/tareaxidplan",
                 {pla_id: $(this).val()}
-        ).done(function(msg) {
+        ).done(function (msg) {
             $('#tarearegistro *').remove();
             var option = "<option value=''>::Seleccionar::</option>";
-            $.each(msg, function(key, val) {
+            $.each(msg, function (key, val) {
                 option += "<option value='" + val.tar_id + "'>" + val.tar_nombre + "</option>";
             });
             $('#tarearegistro').append(option);
-        }).fail(function(msg) {
+        }).fail(function (msg) {
 
         });
 
     });
-    $('#tarearegistro').change(function() {
+    $('#tarearegistro').change(function () {
 
         $.post(
-                "<?php echo base_url("index.php/tareas/busqueda_carpeta") ?>",
+                url + "index.php/tareas/busqueda_carpeta",
                 {tar_id: $(this).val()}
-        ).done(function(msg) {
+        ).done(function (msg) {
             $('#carpeta *').remove();
             var option = "<option value=''>::Seleccionar::</option>";
-            $.each(msg, function(key, val) {
+            $.each(msg, function (key, val) {
                 option += "<option value='" + val.regCar_id + "'>" + val.regCar_nombre + "</option>";
             });
             $('#carpeta').append(option);
-        }).fail(function(msg) {
-
+        }).fail(function (msg) {
+            alerta("rojo", "Por favor comunicarse con el administrador del sistema");
         });
-
     });
 
-    $('#guardarRegistro').click(function() {
+    $('#guardarRegistro').click(function () {
         $('#formregistro').submit();
     });
 
-    $('#guardarcarpeta').click(function() {
+    $('#guardarcarpeta').click(function () {
         $.post(
-                "<?php echo base_url("index.php/tareas/guardarcarpeta") ?>",
+                url + "index.php/tareas/guardarcarpeta",
                 $('#formcarpeta').serialize()
                 )
-                .done(function() {
+                .done(function () {
                     $('#formcarpeta').find("input,textarea").val("");
                     alerta("verde", "Carpeta guardada con exito");
                 })
-                .fail(function() {
+                .fail(function () {
                     alerta("rojo", "Error por favor comunicarse con el administrador del sistema")
                 });
     });
-    $('#consultar').click(function() {
+    $('#consultar').click(function () {
         $.post(
-                "<?php echo base_url("index.php/tareas/consultaregistro") ?>",
+                url + "index.php/tareas/consultaregistro",
                 $('#frmregistro').serialize()
                 )
-                .done(function(msg) {
+                .done(function (msg) {
                     $('#cuerpodatos *').remove();
                     var body = ""
-                    $.each(msg.Json, function(key, val) {
+                    $.each(msg.Json, function (key, val) {
                         body += "<tr>";
                         body += "<td>" + (val.pla_nombre == null ? '' : val.pla_nombre) + "</td>";
-                        body += "<td><a target='_black' href='<?php echo base_url('') ?>"+val.reg_ruta+'/'+val.reg_id+'/'+val.reg_archivo+"'>" + (val.reg_archivo == null ? '' : val.reg_archivo) + "</a></td>";
+                        body += "<td><a target='_black' href='<?php echo base_url('') ?>" + val.reg_ruta + '/' + val.reg_id + '/' + val.reg_archivo + "'>" + (val.reg_archivo == null ? '' : val.reg_archivo) + "</a></td>";
                         body += "<td>" + (val.reg_descripcion == null ? '' : val.reg_descripcion) + "</td>";
                         body += "<td>" + val.reg_version + "</td>";
                         body += "<td></td>";
@@ -354,35 +353,35 @@
                     })
                     $('#cuerpodatos').append(body);
                 })
-                .fail(function(msg) {
+                .fail(function (msg) {
                     alerta("rojo", "Error por favor comunicarse con el administrador del sistema")
                 });
     });
 
-    $('body').delegate('.eliminarregistro', 'click', function() {
+    $('body').delegate('.eliminarregistro', 'click', function () {
         var registro = $(this);
         if (confirm("esta seguro de eliminar el registro")) {
             $.post(
-                    "<?php echo base_url("index.php/tareas/eliminarregistro") ?>",
+                    url+"index.php/tareas/eliminarregistro",
                     {registro: registro.attr("reg_id")}
-            ).done(function(msg) {
+            ).done(function (msg) {
                 registro.parents('tr').remove();
-            }).fail(function(msg) {
+            }).fail(function (msg) {
 
             });
         }
     });
 
     $('#tarea').autocomplete({
-        source: "<?php echo base_url("index.php/tareas/autocompletetareas") ?>",
+        source: url+"index.php/tareas/autocompletetareas",
         minLength: 3
     });
     $('#actividad').autocomplete({
-        source: "<?php echo base_url("index.php/tareas/autocompleteactividadhijo") ?>",
+        source: url+"index.php/tareas/autocompleteactividadhijo",
         minLength: 3
     });
     $('#plan').autocomplete({
-        source: "<?php echo base_url("index.php/tareas/autocompletar") ?>",
+        source: url+"index.php/tareas/autocompletar",
         minLength: 3
     });
     function validar() {

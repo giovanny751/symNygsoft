@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="<?php echo (empty($ind_id)) ? "guardar" : "actualizar"; ?>" title="<?php echo (empty($ind_id)) ? "Guardar" : "Actualizar"; ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <!--<div class="circuloIcon" ><i class="fa fa-trash-o fa-3x"></i></div> /* ELIMINAR */  -->
         <a href="<?php echo base_url() . "/index.php/indicador/nuevoindicador" ?>"><div class="circuloIcon" title="Nuevo Indicador" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
     <div class="col-md-6">
@@ -483,7 +482,7 @@
 
     $('body').delegate(".editarcarpeta", "click", function () {
         $.post(
-                "<?php echo base_url("index.php/planes/cargarplanescarpeta") ?>",
+                url+"index.php/planes/cargarplanescarpeta",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function (msg) {
@@ -504,7 +503,7 @@
         var reg_id = $(this).attr("reg_id");
         var registro = $(this);
         $.post(
-                "<?php echo base_url("index.php/planes/eliminarregistroplan") ?>",
+                url+"index.php/planes/eliminarregistroplan",
                 {reg_id: reg_id}
         ).done(function (msg) {
             registro.parents('tr').remove();
@@ -515,7 +514,7 @@
     $('body').delegate(".eliminar", "click", function () {
         var indVal_valor = $(this).attr("id");
         $.post(
-                "<?php echo base_url("index.php/indicador/eliminar_indicador_valores") ?>",
+                url+"index.php/indicador/eliminar_indicador_valores",
                 {indVal_valor: indVal_valor, ind_id: $('#ind_id').val()}
         ).done(function (msg) {
             tabla(msg);
@@ -526,7 +525,7 @@
     $('body').delegate(".modificar_indicador_valores", "click", function () {
         var indVal_valor = $(this).attr("id");
         $.post(
-                "<?php echo base_url("index.php/indicador/modificar_indicador_valores") ?>",
+                url+"index.php/indicador/modificar_indicador_valores",
                 {indVal_valor: indVal_valor, ind_id: $('#ind_id').val()}
         ).done(function (msg) {
             $('a[href="#tab2"]').trigger('click')
@@ -534,11 +533,9 @@
             $('#indVal_id').val(msg[0].indVal_id);
             $('#valor').val(msg[0].indVal_valor);
             $('#unidad').val(msg[0].indVal_unidad);
-//            alert(msg[0].indVal_fecha)
             $('.fecha_formulario').val(msg[0].indVal_fecha);
-
         }).fail(function (msg) {
-
+            alerta("rojo","Error, favor comunicarse con el administrador");
         })
     });
     $('a[href="#tab2"]').click(function () {
@@ -546,7 +543,7 @@
         $('#frmvalores input').val('');
         $('#frmvalores textarea').val('');
         $('.ind_id_ind_id').val($('#ind_id').val());
-        $('.fecha_formulario').val('<?= date("Y-m-d"); ?>');
+        $('.fecha_formulario').val('<?php echo date("Y-m-d"); ?>');
     })
 
     $('body').delegate(".carpeta", "click", function () {
@@ -562,8 +559,7 @@
     $('body').delegate(".eliminarcarpeta", "click", function () {
         if (confirm("Confirma la eliminación")) {
             var carpeta = $(this).attr("car_id");
-            var url = "<?php echo base_url("index.php/planes/eliminarcarpeta") ?>";
-            $.post(url, {carpeta: carpeta}
+            $.post(url+"index.php/planes/eliminarcarpeta", {carpeta: carpeta}
             ).done(function (msg) {
                 $('a[href="#collapse_' + carpeta + '"]').parents('.panel-default').remove();
             }).fail(function (msg) {
@@ -573,7 +569,8 @@
     });
     $('body').delegate(".modificarcarpeta", "click", function () {
 
-        $.post("<?php echo base_url("index.php/planes/modificarpeta") ?>",
+        $.post(
+                url+"index.php/planes/modificarpeta",
                 $('#frmcarpetaregistro').serialize()
                 ).done(function (msg) {
             $('a[href="#collapse_' + msg.regCar_id + '"]').text(msg.regCar_nombre + " - " + msg.regCar_descripcion);
@@ -581,7 +578,7 @@
             $('#modalCarpeta').modal("hide");
             alerta("verde", "Se actualizaron los datos correctamente");
         }).fail(function (msg) {
-
+            alerta("rojo","Error, comunicarse con el administrador");
         });
     });
     $('#valor').change(function () {
@@ -646,41 +643,10 @@
         }
     })
 
-//    $(".flechaHeader").click(function () {
-//        var url = "<?php echo base_url("index.php/administrativo/consultausuariosflechas") ?>";
-//        var idUsuarioCreado = $("#usuid").val();
-//        var metodo = $(this).attr("metodo");
-//        if (metodo != "documento") {
-//            $.post(url, {idUsuarioCreado: idUsuarioCreado, metodo: metodo})
-//                    .done(function (msg) {
-//                        $("input[type='text'],select").val("");
-//                        $("#usuid").val(msg.usu_id);
-//                        $("#cedula").val(msg.usu_cedula);
-//                        $("#nombres").val(msg.usu_nombre);
-//                        $("#apellidos").val(msg.usu_apellido);
-//                        $("#usuario").val(msg.usu_usuario);
-//                        $("#contrasena").val(msg.usu_contrasena);
-//                        $("#email").val(msg.usu_email);
-//                        $("#genero").val(msg.sex_id);
-//                        $("#estado").val(msg.est_id);//estado
-//                        $("#cargo").val(msg.car_id);//cargo
-//                        $("#empleado").val(msg.emp_id);//empleado
-//                        if (msg.cambiocontrasena == "1") {
-//                            $("#cambiocontrasena").is(":checked");
-//                        }
-//                    })
-//                    .fail(function (msg) {
-//                        alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
-//                        $("input[type='text'], select").val();
-//                    })
-//        } else {
-//            window.location = "<?php echo base_url("index.php/indicador/verindicadores"); ?>";
-//        }
-//
-//    });
     $("body").on("click", "#actualizar", function () {
         if (obligatorio("obligatorio")) {
-            $.post("<?php echo base_url("index.php/indicador/actualizarindicador") ?>", $("#indicador").serialize())
+            $.post(
+                    url+"index.php/indicador/actualizarindicador", $("#indicador").serialize())
                     .done(function (msg) {
                         alerta("verde", "Actualizado");
                     })
@@ -692,7 +658,9 @@
     });
     $("body").on("click", "#guardar", function () {
         if (obligatorio("obligatorio")) {
-            $.post("<?php echo base_url("index.php/indicador/guardarindicador") ?>", $("#indicador").serialize())
+            $.post(
+                    url+"index.php/indicador/guardarindicador", 
+                    $("#indicador").serialize())
                     .done(function (msg) {
                         alerta("verde", "Guardado con exito");
                         if (confirm("Desea guardar otro indicador?")) {
@@ -713,7 +681,7 @@
     });
     $('#cargo').change(function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultausuarioscargo") ?>",
+                url+"index.php/administrativo/consultausuarioscargo",
                 {
                     cargo: $(this).val()
                 }
@@ -733,7 +701,7 @@
     $('#guardarindicador').click(function () {
         if (obligatorio('valorobligatorio')) {
             $.post(
-                    "<?php echo base_url("index.php/indicador/guardarvalores") ?>",
+                    url+"index.php/indicador/guardarvalores",
                     $('#frmvalores').serialize()
                     ).done(function (msg) {
                 tabla(msg);
@@ -784,7 +752,7 @@
     $('body').delegate('.modificarregistro', 'click', function () {
         var registro = $(this).attr('reg_id');
         $.post(
-                "<?php echo base_url("index.php/planes/modificarregistro") ?>",
+                url+"index.php/planes/modificarregistro",
                 {registro: registro}
         ).done(function (msg) {
             $('#reg_id').val(registro);
@@ -808,7 +776,8 @@
     });
     $('body').delegate("#guardarcarpeta", "click", function () {
         if (obligatorio("carbligatorio")) {
-            $.post("<?php echo base_url("index.php/indicador/guardarcarpetatarea") ?>",
+            $.post(
+                    url+"index.php/indicador/guardarcarpetatarea",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function (msg) {
                 var option = "<option value='" + msg.regCar_id + "'>" + msg.regCar_nombre + " - " + msg.regCar_descripcion + "</option>"

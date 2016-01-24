@@ -53,7 +53,8 @@
 
     $('#btnguardar').click(function () {
         var tipo = $('#TipCon_Descripcion').val();
-        $.post("<?php echo base_url("index.php/tipo_contrato/exist") ?>"
+        $.post(
+                url + "index.php/tipo_contrato/exist"
                 , {tipo: tipo})
                 .done(function (msg) {
                     if (msg == 1) {
@@ -65,7 +66,7 @@
                     }
                 })
                 .fail(function (msg) {
-                    alerta("rojo","Error, Comunicarse con el administrador");
+                    alerta("rojo", "Error, Comunicarse con el administrador");
                 });
     });
 

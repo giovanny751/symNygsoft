@@ -134,7 +134,8 @@
             return false;
         }
         var posicion = $(this);
-        $.post("<?php echo base_url('index.php/presentacion/eliminarrol'); ?>", {id: $(this).attr('rol')})
+        $.post(
+                url + 'index.php/presentacion/eliminarrol', {id: $(this).attr('rol')})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -151,7 +152,9 @@
 //------------------------------------------------------------------------------    
     $('body').delegate('.guardar', 'click', function () {
         if (obligatorio("obligatorio")) {
-            $.post("<?php echo base_url('index.php/presentacion/guardarroles'); ?>", $('#nuevorol').serialize(), function (data) {
+            $.post(
+                    url + 'index.php/presentacion/guardarroles',
+                    $('#nuevorol').serialize(), function (data) {
                 $('#myModal').modal('hide');
                 var filas = "";
                 data = jQuery.parseJSON(data);
@@ -186,7 +189,9 @@
         $('input[type="checkbox"]').parent("span").removeClass("checked");
         $('input[type="checkbox"]').prop('checked', false);
         $('.agregarrol *').remove();
-        $.post("<?php echo base_url('index.php/presentacion/rolesasignados'); ?>", {id: $(this).attr('rol')}, function (data) {
+        $.post(
+                url + 'index.php/presentacion/rolesasignados',
+                {id: $(this).attr('rol')}, function (data) {
             data = jQuery.parseJSON(data);
             $.each(data, function (key, val) {
                 $('.seleccionados[value="' + val.menu_id + '"]').parent("span").addClass("checked");

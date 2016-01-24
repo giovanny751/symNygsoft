@@ -82,7 +82,8 @@
     });
 
     $('#guardarInspeccionBotiquin').click(function () {
-        $.post("<?php echo base_url("index.php/documento/guardarBotiquin") ?>",
+        $.post(
+                url+"index.php/documento/guardarBotiquin",
                 $('#FrmBotiquin').serialize()
                 )
                 .done(function (msg) {
@@ -95,7 +96,7 @@
                     }
                 })
                 .fail(function (msg) {
-
+                    alerta("rojo","Error por favor comunicarse con el administrador")
                 });
     });
 </script>

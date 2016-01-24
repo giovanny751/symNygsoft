@@ -250,9 +250,9 @@
     $('.dirigir').click(function () {
 
         if ($('#direccionar').val() == 1)
-            window.location.href = '<?php echo base_url("index.php/administrativo/cargos") ?>';
+            window.location.href = url+"index.php/administrativo/cargos";
         if ($('#direccionar').val() == 2)
-            window.location.href = '<?php echo base_url("index.php/administrativo/organigrama") ?>';
+            window.location.href = url+"index.php/administrativo/organigrama";
         if ($('#direccionar').val() == 3)
             window.location.href = '';
 

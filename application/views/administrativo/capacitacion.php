@@ -21,7 +21,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> 
                                     <?php
                                     $option = "";
-                                    $optionSelect = "<select id='responsable' name='responsable' class='form-control'>";
+                                    $optionSelect = "<select id='responsable' name='responsable' class='form-control obligatorio'>";
                                     $option .= "<option value=''>::Seleccionar::</option>";
                                     foreach ($empleados as $e):
                                         $option .= "<option value='" . $e->Emp_id . "'>" . $e->Emp_Nombre . " " . $e->Emp_Apellidos . '</option>';
@@ -34,13 +34,13 @@
                                     Fecha capacitación
                                 </label>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" name="fechaCapacitacion" id="fechaCapacitacion" class="form-control fecha">
+                                    <input type="text" name="fechaCapacitacion" id="fechaCapacitacion" class="form-control fecha obligatorio">
                                 </div>
                                 <label for="fechaCapacitacion" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                     Nombre capacitación
                                 </label>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" name="nombre" id="nombre" class="form-control">
+                                    <input type="text" name="nombre" id="nombre" class="form-control obligatorio">
                                 </div>
                             </div>
                         </div>
@@ -105,15 +105,16 @@
         ]).draw();
     });
     $('#guardar').click(function(){
-    
+        if(obligatorio('obligatorio') == true){
         $.post(
-                "<?php echo base_url("index.php/administrativo/guardarCapacitaciones") ?>",
+                url+"index.php/administrativo/guardarCapacitaciones",
                 $("#frmCapacitaciones").serialize()
                 ).done(function(msg){
                     
                 }).fail(function(msg){
                     
                 });
+        }
     
     });
 </script>    

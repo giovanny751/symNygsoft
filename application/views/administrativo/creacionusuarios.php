@@ -142,11 +142,10 @@
         }
     })
     $(".flechaHeader").click(function () {
-        var url = "<?php echo base_url("index.php/administrativo/consultausuariosflechas") ?>";
         var idUsuarioCreado = $("#usuid").val();
         var metodo = $(this).attr("metodo");
         if (metodo != "documento") {
-            $.post(url, {idUsuarioCreado: idUsuarioCreado, metodo: metodo})
+            $.post(url+"index.php/administrativo/consultausuariosflechas", {idUsuarioCreado: idUsuarioCreado, metodo: metodo})
                     .done(function (msg) {
                         $("input[type='text'],select").val("");
                         $("#usuid").val(msg.usu_id);
@@ -180,7 +179,7 @@
                         $("input[type='text'], select").val();
                     })
         } else {
-            window.location = "<?php echo base_url("index.php/administrativo/listadousuarios"); ?>";
+            window.location = url+"index.php/administrativo/listadousuarios";
         }
 
     });
@@ -188,7 +187,7 @@
     $('#cargo').change(function () {
 
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultausuarioscargo") ?>",
+                url+"index.php/administrativo/consultausuarioscargo",
                 {
                     cargo: $(this).val()
                 }
@@ -207,12 +206,12 @@
     $('.guardar').click(function () {
         var campousuid = $("#usuid").val();
         if (campousuid == "") {
-            var url = "<?php echo base_url('index.php/administrativo/guardarusuario'); ?>";
+             var ruta = url+'index.php/administrativo/guardarusuario';
         } else {
-            var url = "<?php echo base_url('index.php/administrativo/actualizarusuario'); ?>";
+             var ruta = url+'index.php/administrativo/actualizarusuario';
         }
         if ((obligatorio('obligatorio') == true) && (email("email") == true)) {
-            $.post(url, $('#f3').serialize()).
+            $.post(ruta, $('#f3').serialize()).
                     done(function (msg) {
                         alerta("verde", "Datos guardados correctamente");
                         if (confirm("¿Desea Guardar otro usuario?")) {
@@ -222,7 +221,7 @@
                             $('input[type="checkbox"]').attr("checked", false)
                             $('#empleado *').remove();
                         } else {
-                            window.location.href = '<?php echo base_url("index.php/administrativo/listadousuarios") ?>';
+                            window.location.href = url+"index.php/administrativo/listadousuarios";
                         }
                     })
                     .fail(function (msg) {

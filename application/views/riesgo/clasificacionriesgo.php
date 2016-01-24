@@ -158,8 +158,9 @@
 <script>
 
     $('#guardarElemento').click(function () {
-        
-        $.post("<?php echo base_url("index.php/Riesgo/elementos") ?>",
+
+        $.post(
+                url + "index.php/Riesgo/elementos",
                 {
                     elemento: $('#elemento').val(),
                     tipo: $(this).attr("tipo")
@@ -186,7 +187,8 @@
     $('body').delegate(".inspeccion", "click", function () {
         $('.filaElementos *').remove();
         $('#guardarElemento').attr("tipo", $(this).attr("rieclatip_id"));
-        $.post("<?php echo base_url("index.php/Riesgo/elementosXIdTipo") ?>",
+        $.post(
+                url + "index.php/Riesgo/elementosXIdTipo",
                 {
                     tipo: $(this).attr("rieclatip_id")
                 }
@@ -233,10 +235,11 @@
         var r = confirm('¿Desea Eliminarla?');
         if (r == false)
             return false;
-        var url = "<?php echo base_url("index.php/Riesgo/eliminar") ?>";
-        $.post(url, {
-            id: $(this).attr('rieClaTip_id')
-        })
+        $.post(
+                url + "index.php/Riesgo/eliminar",
+                {
+                    id: $(this).attr('rieClaTip_id')
+                })
                 .done(function (msg) {
                     agregarTabla(msg);
                 })
@@ -246,10 +249,10 @@
     });
 
     $('body').delegate(".eliminarcategoria", "click", function (key, val) {
-        var url = "<?php echo base_url("index.php/Riesgo/eliminarCategoria") ?>";
-        $.post(url, {
-            rieCla_id: $(this).attr('rieCla_id')
-        })
+        $.post(
+                url + "index.php/Riesgo/eliminarCategoria", {
+                    rieCla_id: $(this).attr('rieCla_id')
+                })
                 .done(function (msg) {
                     agregarTabla(msg);
                     alerta("verde", "Eliminado correctamente");
@@ -307,7 +310,7 @@
             return false;
         }
         $.post(
-                "<?php echo base_url("index.php/Riesgo/guardartipocategoria") ?>",
+                url + "index.php/Riesgo/guardartipocategoria",
                 $("#frmtipocategoria").serialize()
                 )
                 .done(function (msg) {
@@ -328,7 +331,7 @@
             return false;
         }
         $.post(
-                "<?php echo base_url("index.php/Riesgo/update") ?>",
+                url + "index.php/Riesgo/update",
                 {categoria: $('#categoria_m').val(), id_categoria: $('#categoria_id').val()}
         )
                 .done(function (msg) {
@@ -347,7 +350,8 @@
 
     $('.categoria').click(function () {
         var categoria = $('#cat').val();
-        $.post("<?php echo base_url("index.php/riesgo/guardarclasificacionriesgo") ?>",
+        $.post(
+                url + "index.php/riesgo/guardarclasificacionriesgo",
                 {categoria: categoria}
         ).done(function (msg) {
             if (msg != 1) {

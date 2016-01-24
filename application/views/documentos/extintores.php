@@ -211,7 +211,8 @@
 </div>
 <script>
     $('#guardarInsExtintores').click(function(){
-        $.post("<?php echo base_url("index.php/documento/guardarExtintor") ?>"
+        $.post(
+                url+"index.php/documento/guardarExtintor"
                 ,$('#FrmExtintores').serialize()
             ).done(function(msg){
                 

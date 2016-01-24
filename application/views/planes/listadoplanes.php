@@ -88,12 +88,13 @@
     });
 
     $('#nombre').autocomplete({
-        source: "<?php echo base_url("index.php/tareas/autocompletarresponsable") ?>",
+        source: url+"index.php/tareas/autocompletarresponsable",
         minLength: 3
     });
 
     $('#consultar').click(function () {
-        $.post("<?php echo base_url("index.php/planes/consultaplanes") ?>",
+        $.post(
+                url+"index.php/planes/consultaplanes",
                 $('#f9').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -145,7 +146,8 @@
         if (enumeracion == 1) var confirmacion = confirm("El plan tiene tareas asignadas ¿esta seguro de eliminarlo? - Se eliminaran las tareas asignadas al plan");
         else var confirmacion = confirm("¿Esta seguro de eliminar el plan?");
         if (confirmacion) {
-            $.post("<?php echo base_url("index.php/planes/eliminarplan") ?>"
+            $.post(
+                    url+"index.php/planes/eliminarplan"
                     , {
                         id: $(this).attr('pla_id')
                     }

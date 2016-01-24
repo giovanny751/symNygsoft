@@ -146,7 +146,7 @@
 <script>
 
     $('body').delegate('.seleccionRiesgo', "click", function () {
-        var form = "<form method='post' id='frmRiesgo' action='<?php echo base_url("index.php/riesgo/nuevoriesgo") ?>'>";
+        var form = "<form method='post' id='frmRiesgo' action='"+url+"index.php/riesgo/nuevoriesgo"+"'>";
         form += "<input type='hidden' value='" + $(this).attr('rie_id') + "' name='rie_id'>";
         form += "</form>";
         $('body').append(form);
@@ -156,7 +156,7 @@
     $('body').delegate(".riesgo", "click", function () {
         var dim_id = $(this).attr("dim_id");
         $.post(
-                "<?php echo base_url("index.php/administrativo/dimensionunoriesgo") ?>",
+                url+"index.php/administrativo/dimensionunoriesgo",
                 {
                     dim_id: dim_id
                 }
@@ -180,7 +180,7 @@
     });
     $('.guardarmodificacion').click(function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/guardarmodificaciondimension") ?>",
+                url+"index.php/administrativo/guardarmodificaciondimension",
                 {
                     dimid: $('#dimid').val(),
                     descripcion: $('#descripcion2').val()
@@ -199,7 +199,7 @@
 
     $('body').delegate(".modificar", "click", function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultadimensionxid") ?>",
+                url+"index.php/administrativo/consultadimensionxid",
                 {dim_id: $(this).attr('dim_id')}
         ).done(function (msg) {
             $('#dimid').val(msg.dim_id);
@@ -214,7 +214,8 @@
     $('body').delegate(".eliminar", "click", function () {
         var eliminar = $(this);
         if (confirm("Esta seguro de eliminar la dimension") == true) {
-            $.post("<?php echo base_url('index.php/administrativo/eliminardimension') ?>",
+            $.post(
+                    url+'index.php/administrativo/eliminardimension',
                     {id: $(this).attr('dim_id')}
             ).done(function (msg) {
                 if (!jQuery.isEmptyObject(msg.message))
@@ -230,7 +231,7 @@
     });
     $('.guardar').click(function () {
         if (obligatorio('obligatorio') == true) {
-            $.post("<?php echo base_url("index.php/administrativo/guardardimension") ?>"
+            $.post(url+"index.php/administrativo/guardardimension"
                     , {
                         descripcion: $('#descripcion').val()
                     })

@@ -150,7 +150,8 @@
     $('#ingresousuario').hide();
     $('.insertarrol').click(function () {
         $("#idusuario").val($(this).attr('usuarioid'));
-        $.post("<?php echo base_url('index.php/presentacion/guardarpermisos') ?>",
+        $.post(
+                url+'index.php/presentacion/guardarpermisos',
                 $('#f15').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -174,7 +175,8 @@
         $('.insertarrol').attr('usuarioid', id);
         $('input[type="checkbox"]').parent("span").removeClass('checked');
         $('input[type="checkbox"]').attr('checked', false);
-        $.post("<?= base_url('index.php/presentacion/consultarolxrolidusuario') ?>",
+        $.post(
+                url+'index.php/presentacion/consultarolxrolidusuario',
                 {id: id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -196,15 +198,15 @@
     });
 //    -----------------------------------------------------------------------------
     $('#cedula').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletaruacedula") ?>",
+        source: url+"index.php/administrativo/autocompletaruacedula",
         minLength: 1
     });
     $('#nombre').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletar") ?>",
+        source: url+"index.php/administrativo/autocompletar",
         minLength: 1
     });
     $('#apellido').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletaruapellido") ?>",
+        source: url+"index.php/administrativo/autocompletaruapellido",
         minLength: 1
     });
 
@@ -213,7 +215,7 @@
     });
     $('.consultar').click(function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultarusuario") ?>",
+                url+"index.php/administrativo/consultarusuario",
                 $("#f4").serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -256,7 +258,8 @@
         var asignacion = $(this);
         var usu_id = $(this).attr('usu_id');
         if (confirm("Esta seguro que desea eliminar el usuario?")) {
-            $.post("<?php echo base_url("index.php/administrativo/eliminarusuario") ?>", {usu_id: usu_id})
+            $.post(
+                    url+"index.php/administrativo/eliminarusuario", {usu_id: usu_id})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message'])

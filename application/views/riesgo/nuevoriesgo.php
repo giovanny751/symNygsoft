@@ -539,7 +539,8 @@
         var deficiencia = $("#nivelDeficiencia").val();
         var exposicion = $("#nivelExposicion").val();
         if (deficiencia != "" && exposicion != "") {
-            $.post("<?php echo base_url("index.php/riesgo/nivelProbabilidad") ?>",
+            $.post(
+                    url+"index.php/riesgo/nivelProbabilidad",
                     {
                         deficiencia: deficiencia,
                         exposicion: exposicion,
@@ -595,11 +596,8 @@
     });
 
     $('body').delegate(".editartarea", "click", function () {
-        
-        var action = '<?php echo base_url("index.php/tareas/nuevatarea") ?>';
         var tarea = $(this).attr("tar_id");
-    
-        var form = "<form method='post' id='frmFormAvance' action='"+action+"'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='tar_id' value='" + tarea + "'>";
         form += "<input type='hidden' name='rie_id' value='" + tarea + "'>";
         form += "</form>";
@@ -609,10 +607,8 @@
         
     });
     $('body').delegate(".nuevoavance", "click", function () {
-        
-        var action = '<?php echo base_url("index.php/tareas/nuevatarea") ?>';
         var tarea = $(this).attr("tar_id");
-        var form = "<form method='post' id='frmFormAvance' action='"+action+"'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='tar_id' value='" + tarea + "'>";
         form += "<input type='hidden' name='nuevoavance' value='" + tarea + "'>";
         form += "</form>";
@@ -624,10 +620,10 @@
             var carpeta = $(this).attr("car_id");
             var tipo = $(this).attr("tipo");
             if ($(this).attr('tipo') == "r")
-                var url = "<?php echo base_url("index.php/planes/eliminarcarpeta") ?>";
+                var ruta = url+"index.php/planes/eliminarcarpeta";
             else if ($(this).attr('tipo') == "c")
-                var url = "<?php echo base_url("index.php/planes/eliminaractividad") ?>";
-            $.post(url,
+                var ruta = url+"index.php/planes/eliminaractividad";
+            $.post(ruta,
                     {carpeta: carpeta}
             ).done(function (msg) {
                 $('a[href="#collapse_' + carpeta + tipo + '"]').parents('.panel-default').remove();
@@ -638,7 +634,7 @@
     });
     $('body').delegate(".editarcarpeta", "click", function () {
         $.post(
-                "<?php echo base_url("index.php/planes/cargarplanescarpeta") ?>",
+                url+"index.php/planes/cargarplanescarpeta",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function (msg) {
@@ -658,7 +654,7 @@
         var reg_id = $(this).attr("reg_id");
         var registro = $(this);
         $.post(
-                "<?php echo base_url("index.php/planes/eliminarregistroplan") ?>",
+                url+"index.php/planes/eliminarregistroplan",
                 {reg_id: reg_id}
         ).done(function (msg) {
             registro.parents('tr').remove();
@@ -668,7 +664,8 @@
     });
     $('#guardarcarpeta').click(function () {
         if (obligatorio("carbligatorio")) {
-            $.post("<?php echo base_url("index.php/planes/guardarcarpetaregistroriesgo") ?>",
+            $.post(
+                    url+"index.php/planes/guardarcarpetaregistroriesgo",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function (msg) {
                 var option = "<option value='" + msg.uno + "'>" + msg.dos + " - " + msg.tres + "</option>"
@@ -703,7 +700,8 @@
 
     $('body').delegate(".modificarcarpeta", "click", function () {
 
-        $.post("<?php echo base_url("index.php/planes/modificarpeta") ?>",
+        $.post(
+                url+"index.php/planes/modificarpeta",
                 $('#frmcarpetaregistro').serialize()
                 ).done(function (msg) {
             $('a[href="#collapse_' + msg.regCar_id + 'r"]').text(msg.regCar_nombre + " - " + msg.regCar_descripcion);
@@ -724,7 +722,7 @@
         form_data.append('reg_version', $('#version').val());
         form_data.append('reg_descripcion', $('#reg_descripcion').val());
         $.ajax({
-            url: '<?php echo base_url("index.php/planes/guardarregistroriesgo") ?>',
+            url: url+"index.php/planes/guardarregistroriesgo",
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -774,7 +772,7 @@
     $('body').delegate('.modificarregistro', 'click', function () {
         var reg_id = $(this).attr('reg_id');
         $.post(
-                "<?php echo base_url("index.php/planes/modificarregistro") ?>",
+                url+"index.php/planes/modificarregistro",
                 {registro: $(this).attr('reg_id')}
         ).done(function (msg) {
             $('#reg_id').val(reg_id);
@@ -823,8 +821,7 @@
 
     $('document').ready(function () {
         $('body').delegate(".editarhistorial", "click", function () {
-
-            var form = "<form method='post' id='frmFormAvance' action='<?php echo base_url("index.php/tareas/nuevatarea") ?>'>";
+            var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
             form += "<input type='hidden' name='avaTar_id' value='" + $(this).attr("avaTar_id") + "'>"
             form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
             form += "</form>";
@@ -834,7 +831,7 @@
         $('body').delegate(".eliminaravance", "click", function () {
             var puntero = $(this);
             $.post(
-                    "<?php echo base_url("index.php/tareas/eliminaravance") ?>",
+                    url+"index.php/tareas/eliminaravance",
                     {avaTar_id: $(this).attr("avaTar_id")}
             ).done(function (msg) {
                 puntero.parents("tr").remove();
@@ -845,7 +842,9 @@
         });
         tabla();
         function tabla() {
-            $.post('<?php echo base_url("index.php/riesgo/listadoavance2") ?>', {clasificacionriesgo: $('#categoria').val()})
+            $.post(
+                    url+"index.php/riesgo/listadoavance2", 
+                    {clasificacionriesgo: $('#categoria').val()})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message'])
@@ -885,7 +884,7 @@
         $('#categoria').change(function () {
 
             $.post(
-                    "<?php echo base_url("index.php/riesgo/consultatiporiesgo") ?>",
+                    url+"index.php/riesgo/consultatiporiesgo",
                     {categoria: $(this).val()}
             ).done(function (msg) {
                 if (!jQuery.isEmptyObject(msg.message))
@@ -910,11 +909,11 @@
 
 
     $(".flechaHeader").click(function () {
-        var url = "<?php echo base_url("index.php/riesgo/consultaRiesgoFlechas") ?>";
         var idRiesgo = $("#rie_id").val();
         var metodo = $(this).attr("metodo");
         if (metodo != "documento") {
-            $.post(url, {idRiesgo: idRiesgo, metodo: metodo})
+            $.post(url+"index.php/riesgo/consultaRiesgoFlechas", 
+                    {idRiesgo: idRiesgo, metodo: metodo})
                     .done(function (msg) {
                         $("#riesgos").find("#tipo,#color").html("<option value=''>::Seleccionar::</option>");
                         $("#riesgos").find("input[type='text']").val("");
@@ -942,20 +941,19 @@
                         $.each(msg.cargoId, function (indice, val) {
                             $('#cargo option[value=' + val.car_id + ']').attr('selected', true);
                         });
-                        //pendiente actividades
-                        //$("#actividades").val(msg.act_id);
                     })
                     .fail(function (msg) {
                         alerta("rojo", "Error en el sistema por favor comunicarse con el administrador del sistema");
                         $("input[type='text'], select").val();
                     })
         } else {
-            window.location = "<?php echo base_url("index.php/riesgo/listadoriesgo"); ?>";
+            window.location = url+"index.php/riesgo/listadoriesgo";
         }
     });
     $("body").on("click", "#guardar", function () {
         if (obligatorio("obligatorio")) {
-            $.post("<?php echo base_url("index.php/riesgo/guardarriesgo") ?>"
+            $.post(
+                    url+"index.php/riesgo/guardarriesgo"
                     , $("#riesgos").serialize()
                     ).done(function (msg) {
 
@@ -980,7 +978,8 @@
     });
     $("body").on("click", "#actualizar", function () {
         if (obligatorio("obligatorio")) {
-            $.post("<?php echo base_url("index.php/riesgo/actualizarriesgo") ?>"
+            $.post(
+                    url+"index.php/riesgo/actualizarriesgo"
                     , $("#riesgos").serialize()
                     ).done(function (msg) {
                 alerta("verde", "Actualizado");
@@ -990,9 +989,7 @@
                     });
         }
     });
-
-    var url = '<?php echo base_url("grant/index.php") ?>';
-    $.post(url, $('#formulario_grant').serialize())
+    $.post('<?php echo base_url("grant/index.php") ?>', $('#formulario_grant').serialize())
             .done(function (msg) {
                 var imagen = '<img src="<?php echo base_url("grant") ?>/imagenprueba.jpg">';
                 $('#grafica_granf').html(imagen)

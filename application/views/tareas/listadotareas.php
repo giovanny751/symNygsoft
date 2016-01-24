@@ -86,7 +86,7 @@
     });
 
     $('body').delegate(".nuevoavance", "click", function () {
-        var form = "<form method='post' id='frmFormAvance' action='<?php echo base_url("index.php/tareas/nuevatarea") ?>'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
         form += "<input type='hidden' name='nuevoavance' value='" + $(this).attr("tar_id") + "'>"
         form += "</form>";
@@ -95,7 +95,8 @@
     });
 
     $('#consultar').click(function () {
-        $.post("<?php echo base_url("index.php/tareas/consultatareas") ?>",
+        $.post(
+                url+"index.php/tareas/consultatareas",
                 $('#f9').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -173,7 +174,7 @@
     $('body').delegate(".riesgos", "click", function () {
         var seleccion = $(this)
         $.post(
-                "<?php echo base_url("index.php/tareas/obtener_riesgos") ?>",
+                url+"index.php/tareas/obtener_riesgos",
                 {tar_id: $(this).attr("tar_id")}
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -196,7 +197,7 @@
     $('body').delegate(".eliminar", "click", function () {
         var seleccion = $(this)
         $.post(
-                "<?php echo base_url("index.php/tareas/eliminartarea") ?>",
+                url+"index.php/tareas/eliminartarea",
                 {tarea: $(this).attr("tar_id")}
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))

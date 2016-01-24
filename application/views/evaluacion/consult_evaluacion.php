@@ -82,7 +82,7 @@
         $('#editar').submit();
     }
     function preguntas(num) {
-        $('#editar').attr('action','<?php echo base_url('index.php/') . "/Preguntas/consult_preguntas"; ?>');
+        $('#editar').attr('action',url+"index.php/Preguntas/consult_preguntas");
         $('#<?php echo $campo ?>2').val(num);
         $('#editar').submit();
     }

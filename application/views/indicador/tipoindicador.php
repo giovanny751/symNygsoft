@@ -68,7 +68,7 @@
 <script>
     $('.guardarmodificacion').click(function () {
         $.post(
-                "<?php echo base_url("index.php/indicador/guardarmodificaciontipoindicador") ?>",
+                url+"index.php/indicador/guardarmodificaciontipoindicador",
                 {
                     tipIndid: $('#dimid').val(),
                     tipIndTipo: $('#descripcion2').val()
@@ -85,7 +85,7 @@
 
     $('body').delegate(".modificar", "click", function () {
         $.post(
-                "<?php echo base_url("index.php/indicador/consultaIndicadorxid") ?>",
+                url+"index.php/indicador/consultaIndicadorxid",
                 {tipoIndicador: $(this).attr('dim_id')}
         ).done(function (msg) {
             $('#dimid').val(msg.indTip_id);
@@ -99,7 +99,8 @@
     $('body').delegate(".eliminar", "click", function () {
         var eliminar = $(this);
         if (confirm("Esta seguro de eliminar el tipo de indicador") == true) {
-            $.post("<?php echo base_url('index.php/indicador/eliminarindicador') ?>",
+            $.post(
+                    url+'index.php/indicador/eliminarindicador',
                     {id: $(this).attr('dim_id')}
             ).done(function (msg) {
                 eliminar.parents('tr').remove();
@@ -111,7 +112,8 @@
     });
     $('.guardar').click(function () {
         if (obligatorio('obligatorio') == true) {
-            $.post("<?php echo base_url("index.php/indicador/guardarTipoIndicador") ?>"
+            $.post(
+                    url+"index.php/indicador/guardarTipoIndicador"
                     , {
                         tipoindicador: $('#descripcion').val()
                     })

@@ -130,10 +130,9 @@
         $('#nombre_pre').html('');
         $('#body_pre').html('')
         $('#respuesta_pre').html('');
-
         var id = $(this).attr('id');
-        var url = '<?php echo base_url() . "/index.php/Preguntas/buscar_pregunta" ?>';
-        $.post(url, {id: id})
+        $.post(
+                url+"index.php/Preguntas/buscar_pregunta", {id: id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message']);
@@ -150,9 +149,7 @@
                                 $('#body_pre').append(i + ") " + val.res_nombre + '<br>')
                             $('#respuesta_pre').html("<b>Respuesta: </b>" + val.pre_res_num);
                             i++;
-//                           body+=val.tipPre_nombre;
                         });
-//                        $('#body_pre').html(body); 
                     }
                 })
                 .fail(function () {
@@ -160,7 +157,7 @@
                 })
     })
     $('#nueva_pregunta').click(function () {
-        $('#editar').attr('action', '<?php echo base_url() . "/index.php/Preguntas/index" ?>');
+        $('#editar').attr('action', url+"index.php/Preguntas/index");
         $('#eva_id2').val($('#eva_id').val())
         $('#editar').submit();
     })
@@ -176,8 +173,7 @@
         else
             pre_visible = 'S'
         var io = $(this);
-        var url = '<?php echo base_url() . "/index.php/Preguntas/pre_visible" ?>';
-        $.post(url, {pre_visible: pre_visible, pre_id: pre_id})
+        $.post(url+"index.php/Preguntas/pre_visible", {pre_visible: pre_visible, pre_id: pre_id})
                 .done(function (msg) {
                     if (pre_visible == 'S')
                         io.css('color', 'green')

@@ -35,10 +35,7 @@
         $('#modulos *').remove();
         var usuario = 1;
         var idpadre= $(this).attr('idpadre');
-        
-        var url = "<?php echo  base_url('index.php/presentacion/retornamenutotal') ?>";
-        $.post(url,{usuario : usuario,idpadre : idpadre},function(data){
-            
+        $.post(url+'index.php/presentacion/retornamenutotal',{usuario : usuario,idpadre : idpadre},function(data){
             var formulario = "<form id='permisos' method='post'>"+data+"\
                 <input type='hidden' value='"+usuario+"' name='usuario' id='usuario'></form>";
             
@@ -53,8 +50,7 @@
                         id : 'guardar',
                         text : 'Guardar',
                         click : function(){
-                            var url2 = "<?php echo  base_url('index.php/presentacion/savepermissionsuser') ?>";
-                            $.post(url2,$('form').serialize(),function(data){
+                            $.post(url+"index.php/presentacion/savepermissionsuser",$('form').serialize(),function(data){
                                 $('#modulos').dialog('close');
                             });
                         }

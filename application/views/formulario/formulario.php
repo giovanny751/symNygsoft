@@ -5,14 +5,6 @@
                 <i class="fa fa-cogs"></i>CAMPO
             </div>
             <div class="tools">
-                <!--                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>-->
-                <!--                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>-->
-                <!--                <a href="javascript:;" class="remove" data-original-title="" title="">
-                                </a>-->
                 <button type="button" id="guardar" class="btn btn-default" >Guardar</button>
             </div>
         </div>

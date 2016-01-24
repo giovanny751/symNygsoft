@@ -1752,6 +1752,36 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function capacitacion(){
+        try{
+            $this->load->model(array("Empleado_model"));
+            $this->data["empleados"] = $this->Empleado_model->empleados();
+            $this->layout->view("administrativo/capacitacion",$this->data);
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
+    }
+    function guardarCapacitaciones(){
+        $this->load->model(array("Capacitaciones_model","Empleadocapacitacion_model"));
+        $responsable =  array( 
+            "emp_id_responsable" =>$this->input->post("responsable"),
+            "cap_fechaCapacitacion" => $this->input->post("fechaCapacitacion"),
+            "cap_observacion" => $this->input->post("observacion"),
+            "cap_nombreCapacitacion" => $this->input->post("nombre")
+                ); 
+        $id = $this->Capacitaciones_model->guardarCapacitacion($responsable);
+        $guardarEmpleados = array();
+        $empleados = $this->input->post("empleado");
+        for($i = 0; $i < count($empleados); $i++){
+            $guardarEmpleados[] = array(
+                "emp_id"=>$empleados[$i], 
+                "cap_id"=>$id
+            );
+        }
+        $this->Empleadocapacitacion_model->guardar($guardarEmpleados);
+    }
 
 }
 

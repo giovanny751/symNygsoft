@@ -186,7 +186,7 @@
     $('body').delegate(".riesgo", "click", function () {
         var car_id = $(this).attr("car_id");
         $.post(
-                "<?php echo base_url("index.php/administrativo/cargoriesgo") ?>",
+                url+"index.php/administrativo/cargoriesgo",
                 {
                     car_id: car_id
                 }
@@ -210,7 +210,7 @@
     });
     $('.guardarmodificacion').click(function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/modificacioncargo") ?>",
+                url+"index.php/administrativo/modificacioncargo",
                 {
                     cargo: $('#cargo2').val(),
                     jefe: $('#cargojefedir').val(),
@@ -230,7 +230,7 @@
 
     $('body').delegate(".modificar", "click", function () {
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultacargoxid") ?>",
+                url+"index.php/administrativo/consultacargoxid",
                 {
                     car_id: $(this).attr('car_id')
                 }
@@ -252,7 +252,7 @@
     $('body').delegate(".eliminar", "click", function () {
         var fila = $(this);
         if (confirm("Esta seguro de eliminar el cargo") == true) {
-            $.post("<?php echo base_url('index.php/administrativo/eliminarcargo') ?>", {id: $(this).attr('car_id')})
+            $.post(url+'index.php/administrativo/eliminarcargo', {id: $(this).attr('car_id')})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message']);
@@ -275,7 +275,7 @@
 
     $('.guardarcargo').click(function () {
         if (obligatorio('obligatorio') == true) {
-            $.post("<?php echo base_url('index.php/administrativo/guardarcargo') ?>",
+            $.post(url+'index.php/administrativo/guardarcargo',
                     $("#formcargos").serialize())
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))

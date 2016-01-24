@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon estado" title="Guardar" ><i class="fa fa-floppy-o fa-3x"></i></div>
-        <a href="<?php echo base_url()."/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+        <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
 <div class="row">
@@ -22,15 +22,15 @@
     </div>
     <div class="row">
         <table class="tablesst" id="tablaPrincipal">
-            <?php foreach ($estadoaceptacion as $id=>$es): ?>
-                <?php foreach ($es as $descripcionEstado=>$col): ?>
+            <?php foreach ($estadoaceptacion as $id => $es): ?>
+                <?php foreach ($es as $descripcionEstado => $col): ?>
                     <thead>
                         <tr>
                             <th><b><?php echo $descripcionEstado; ?></b></th>
                             <th><i class="fa fa-pencil-square-o fa-2x modificarEstado" title="Modificar Estado" estId="<?php echo $id ?>"></i></th>
                             <th><i class="fa fa-trash-o fa-2x eliminarEstado" title="Eliminar Estado" estId="<?php echo $id ?>" descripcion="<?php echo $descripcionEstado; ?>"></i></th>
                         </tr>
-                    <?php if($col != null){ ?>
+                        <?php if ($col != null) { ?>
                             <tr>
                                 <th width="80%"><b>Color</b></th>
                                 <th width="10%"><b>Editar</b></th>
@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($col as $colId=>$colColor): ?>
+                            <?php foreach ($col as $colId => $colColor): ?>
                                 <tr>
                                     <td><b><?php echo $colColor; ?></b></td>
                                     <td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificarColor" title="Modificar Color" colId="<?php echo $colId ?>"></i></td>
@@ -46,7 +46,7 @@
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
-                    <?php }else{ ?>
+                    <?php }else { ?>
                         </thead>
                     <?php } ?>
                 <?php endforeach; ?>
@@ -150,97 +150,98 @@
     </div>
 </div>
 <script>
-    $("#estadoaceptacion, #color").keypress(function(key){
-        if(key.charCode == 34){
+    $("#estadoaceptacion, #color").keypress(function (key) {
+        if (key.charCode == 34) {
             return false;
         }
     });
-    $('#guardarmodificacion').click(function(){
-        var url = "<?php echo base_url("index.php/riesgo/guardarcolorxestado") ?>";
-        $.post(url,$('#frmestadocolor').serialize())
-                .done(function(msg){
+    $('#guardarmodificacion').click(function () {
+        $.post(
+                url + "index.php/riesgo/guardarcolorxestado",
+                $('#frmestadocolor').serialize())
+                .done(function (msg) {
                     if (msg != 1) {
                         actualizarTabla();
                         $("#nuevoColor").modal("hide");
                         alerta("verde", "Estado guardada con exito");
                     } else {
-                        alerta("amarillo","El color ya existe en este estado")
+                        alerta("amarillo", "El color ya existe en este estado")
                     }
-                }).fail(function(msg){
-                    alerta("rojo","error en el sistema por favor comunicarse con el administrador");
-                });
+                }).fail(function (msg) {
+            alerta("rojo", "error en el sistema por favor comunicarse con el administrador");
+        });
     });
     //Guardar Estado
     $('.estado').click(function () {
-        var url = "<?php echo base_url("index.php/riesgo/guardaestadoaceptacion") ?>";
         var estadoaceptacion = $('#estadoaceptacion').val();
-        $.post(url,{estadoaceptacion: estadoaceptacion})
-            .done(function (msg) {
-                if (msg != 1) {
-                    var select = "<option value=''>::Seleccionar::</option>";
-                    $.each(msg,function(id,val){
-                        select += "<option value='"+val.estAce_id+"'>" + val.estAce_estado + "</option>";
-                    })
-                    //Restauramos el select
-                    $("#estados").html(select);
-                    //Actualizamos tabla
-                    actualizarTabla();
-                    //Dejamos en blanco el campo
-                    $('#estadoaceptacion').val(''); 
-                    //Alerta
-                    alerta("verde", "Estado guardado con exito")
-                } else {
-                    alerta("amarillo","Estado ya existe en el sistema")
-                }
-            })
-            .fail(function (msg) {
-                alerta("rojo", "Error por favor comunicarse con el administrador del sistema");
-            });
+        $.post(url + "index.php/riesgo/guardaestadoaceptacion",
+                {estadoaceptacion: estadoaceptacion})
+                .done(function (msg) {
+                    if (msg != 1) {
+                        var select = "<option value=''>::Seleccionar::</option>";
+                        $.each(msg, function (id, val) {
+                            select += "<option value='" + val.estAce_id + "'>" + val.estAce_estado + "</option>";
+                        })
+                        //Restauramos el select
+                        $("#estados").html(select);
+                        //Actualizamos tabla
+                        actualizarTabla();
+                        //Dejamos en blanco el campo
+                        $('#estadoaceptacion').val('');
+                        //Alerta
+                        alerta("verde", "Estado guardado con exito")
+                    } else {
+                        alerta("amarillo", "Estado ya existe en el sistema")
+                    }
+                })
+                .fail(function (msg) {
+                    alerta("rojo", "Error por favor comunicarse con el administrador del sistema");
+                });
     });
     //--------------------------------------------------------------------------
     //                                  ESTADO
     //--------------------------------------------------------------------------
-    $("body").on("click",".eliminarEstado",function(){
-        if(confirm("Deseas eliminar el estado?")){
+    $("body").on("click", ".eliminarEstado", function () {
+        if (confirm("Deseas eliminar el estado?")) {
             var idEstado = $(this).attr("estId");
             var descripcion = $(this).attr("descripcion");
-            var url = "<?php echo base_url("index.php/riesgo/eliminaestadoaceptacion") ?>";
-            $.post(url,{idEstado:idEstado,descripcion:descripcion})
-                    .done(function(msg){
+            $.post(url + "index.php/riesgo/eliminaestadoaceptacion",
+                    {idEstado: idEstado, descripcion: descripcion})
+                    .done(function (msg) {
                         //Actualizamos tabla
                         actualizarTabla();
                         //alerta
-                        alerta("verde","Eliminado");
+                        alerta("verde", "Eliminado");
                     })
-                    .fail(function(){
-                        alerta("rojo","Error eliminar")
+                    .fail(function () {
+                        alerta("rojo", "Error eliminar")
                     });
         }
     });
     //Boton modificar Modal
-    $("body").on("click",".modificarEstado",function(){
+    $("body").on("click", ".modificarEstado", function () {
         var idEstado = $(this).attr("estId");
-        var url = "<?php echo base_url("index.php/riesgo/consultaestadoaceptacion") ?>";
-        $.post(url,{idEstado:idEstado})
-                .done(function(msg){
-                        $("#editarNuevoEstado").val(msg.estAce_estado);
-                        $("#EditarNuevoEstadoId").val(idEstado);
-                        $("#editarEstado").modal("toggle");
+        $.post(url + "index.php/riesgo/consultaestadoaceptacion",
+                {idEstado: idEstado})
+                .done(function (msg) {
+                    $("#editarNuevoEstado").val(msg.estAce_estado);
+                    $("#EditarNuevoEstadoId").val(idEstado);
+                    $("#editarEstado").modal("toggle");
                 })
-                .fail(function(){
-                    alerta("rojo","Error consultar estado");
+                .fail(function () {
+                    alerta("rojo", "Error consultar estado");
                 })
     });
     //Editar Estado
-    $("body").on("click","#guardarNuevoEstado",function(){
-        var url = "<?php echo base_url("index.php/riesgo/actualizarestadoaceptacion") ?>";
-        var envio = $("#frmEditarNuevoEstado").serialize();
-        $.post(url,envio)
-                .done(function(msg){
-                    if(msg != 1){
+    $("body").on("click", "#guardarNuevoEstado", function () {
+        $.post(
+                url + "index.php/riesgo/actualizarestadoaceptacion",
+                $("#frmEditarNuevoEstado").serialize())
+                .done(function (msg) {
+                    if (msg != 1) {
                         var select = "<option value=''>::Seleccionar::</option>";
-                        $.each(msg,function(id,val){
-                            select += "<option value='"+val.estAce_id+"'>" + val.estAce_estado + "</option>";
+                        $.each(msg, function (id, val) {
+                            select += "<option value='" + val.estAce_id + "'>" + val.estAce_estado + "</option>";
                         })
                         //Restauramos el select
                         $("#estados").html(select);
@@ -250,86 +251,81 @@
                         $("#editarNuevoEstado").val("");
                         $("#EditarNuevoEstadoId").val("");
                         $("#editarEstado").modal("toggle");
-                    }else{
-                        alerta("amarillo","Estado ya existe en el sistema");
+                    } else {
+                        alerta("amarillo", "Estado ya existe en el sistema");
                     }
                 })
-                .fail(function(){
-                    alerta("rojo","Error editar estado");
+                .fail(function () {
+                    alerta("rojo", "Error editar estado");
                 })
     });
     //--------------------------------------------------------------------------
     //                                  COLOR
     //--------------------------------------------------------------------------
-    $("body").on("click",".eliminarColor",function(){
-        if(confirm("Deseas eliminar este Color?")){
+    $("body").on("click", ".eliminarColor", function () {
+        if (confirm("Deseas eliminar este Color?")) {
             var idColor = $(this).attr("colId");
             var idEstado = $(this).attr("estId");
-            var url = "<?php echo base_url("index.php/riesgo/eliminacolor") ?>";
-            $.post(url,{idColor:idColor,idEstado:idEstado})
-                    .done(function(msg){
-                        //Actualizamos tabla
+            $.post(url + "index.php/riesgo/eliminacolor",
+                    {idColor: idColor, idEstado: idEstado})
+                    .done(function (msg) {
                         actualizarTabla();
-                        //alerta
-                        alerta("verde","Color Eliminado");
+                        alerta("verde", "Color Eliminado");
                     })
-                    .fail(function(){
-                        alerta("rojo","Error eliminar color")
+                    .fail(function () {
+                        alerta("rojo", "Error eliminar color")
                     });
         }
     });
     //Boton modificar Modal
-    $("body").on("click",".modificarColor",function(){
+    $("body").on("click", ".modificarColor", function () {
         var idColor = $(this).attr("colId");
-        var url = "<?php echo base_url("index.php/riesgo/consultacolor") ?>";
-        $.post(url,{idColor:idColor})
-                .done(function(msg){
-                        $("#editarNuevoColor").val(msg.rieCol_id);
-                        $("#editarNuevoColorId").val(idColor);
-                        $("#editarColor").modal("toggle");
+        $.post(url + "index.php/riesgo/consultacolor",
+                {idColor: idColor})
+                .done(function (msg) {
+                    $("#editarNuevoColor").val(msg.rieCol_id);
+                    $("#editarNuevoColorId").val(idColor);
+                    $("#editarColor").modal("toggle");
                 })
-                .fail(function(){
-                    alerta("rojo","Error consultar color");
+                .fail(function () {
+                    alerta("rojo", "Error consultar color");
                 })
     });
     //Editar Color
-    $("body").on("click","#guardarNuevoColor",function(){
-        var url = "<?php echo base_url("index.php/riesgo/actualizarcolor") ?>";
-        var envio = $("#frmEditarNuevoColor").serialize();
-        $.post(url,envio)
-                .done(function(msg){
-                    if(msg != 1){
-                        //Actualizamos tabla
+    $("body").on("click", "#guardarNuevoColor", function () {
+        $.post(
+                url+"index.php/riesgo/actualizarcolor",
+                $("#frmEditarNuevoColor").serialize())
+                .done(function (msg) {
+                    if (msg != 1) {
                         actualizarTabla();
-                        //Cerramos Modal
                         $("#editarNuevoColor").val("");
                         $("#editarNuevoColorId").val("");
                         $("#editarColor").modal("toggle");
-                    }else{
-                        alerta("amarillo","Color ya existe en el sistema");
+                    } else {
+                        alerta("amarillo", "Color ya existe en el sistema");
                     }
                 })
-                .fail(function(){
-                    alerta("rojo","Error editar color");
+                .fail(function () {
+                    alerta("rojo", "Error editar color");
                 })
     });
     //--------------------------------------------------------------------------
     //                                  TABLA
     //--------------------------------------------------------------------------
-    function actualizarTabla(){
-        var url = "<?php echo base_url("index.php/riesgo/tablaestadosaceptacion") ?>";
-        $.post(url)
-                .done(function(msg){
+    function actualizarTabla() {
+        $.post("<?php echo base_url("index.php/riesgo/tablaestadosaceptacion") ?>")
+                .done(function (msg) {
                     var table = "";
-                    $.each(msg,function(id,es){
-                        $.each(es,function(descripcionEstado,col){
+                    $.each(msg, function (id, es) {
+                        $.each(es, function (descripcionEstado, col) {
                             table += "<thead>";
                             table += "<tr>";
                             table += "<th><b>" + descripcionEstado + "</b></th>";
                             table += "<th><i class='fa fa-pencil-square-o fa-2x modificarEstado' title='Modificar Estado' estId='" + id + "'></i></th>";
-                            table += "<th><i class='fa fa-trash-o fa-2x eliminarEstado' title='Eliminar Estado' estId='" + id + "' descripcion='" + descripcionEstado +"'></i></th>";
+                            table += "<th><i class='fa fa-trash-o fa-2x eliminarEstado' title='Eliminar Estado' estId='" + id + "' descripcion='" + descripcionEstado + "'></i></th>";
                             table += "<tr>";
-                            if(col != null){
+                            if (col != null) {
                                 table += "<tr>";
                                 table += "<th width='80%'><b>Color</b></th>";
                                 table += "<th width='10%'><b>Editar</b></th>";
@@ -337,26 +333,26 @@
                                 table += "</tr>";
                                 table += "</thead>";
                                 table += "<tbody>";
-                                $.each(col,function(colId,colColor){
+                                $.each(col, function (colId, colColor) {
                                     table += "<tr>";
                                     table += "<td><b>" + colColor + "</b></td>";
-                                    table += "<td class='transparent'><i class='fa fa-pencil-square-o fa-2x modificarColor' title='Modificar Color' colId='"+ colId +"'></i></td>";
-                                    table += "<td class='transparent'><i class='fa fa-trash-o fa-2x eliminarColor' title='Eliminar Color' colId='"+colId+"' estId='" + id + "'></i></td>";
+                                    table += "<td class='transparent'><i class='fa fa-pencil-square-o fa-2x modificarColor' title='Modificar Color' colId='" + colId + "'></i></td>";
+                                    table += "<td class='transparent'><i class='fa fa-trash-o fa-2x eliminarColor' title='Eliminar Color' colId='" + colId + "' estId='" + id + "'></i></td>";
                                     table += "</tr>";
                                 });
                                 table += "</tbody>";
-                            }else{
+                            } else {
                                 table += "</thead>";
                             }
                         });
                     });
                     $("#tablaPrincipal").html(table);
                 })
-                .fail(function(msg){
-                    alerta("rojo","Error cargar tabla");
+                .fail(function (msg) {
+                    alerta("rojo", "Error cargar tabla");
                 })
     }
-    
-    
-    
+
+
+
 </script>    

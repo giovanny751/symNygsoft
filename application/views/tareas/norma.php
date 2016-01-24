@@ -167,8 +167,9 @@
     $('body').delegate('.num_articulos', 'click', function () {
         var id = $(this).attr('nor_id');
         $('#nor_id_articulo').val(id);
-        var url = "<?php echo base_url('index.php/Tareas/lista_articulos'); ?>";
-        $.post(url, {nor_id: id})
+        $.post(
+                url + 'index.php/Tareas/lista_articulos',
+                {nor_id: id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -184,8 +185,9 @@
         var nor_id_articulo = $('#nor_id_articulo').val();
         var norArt_id = $('#norArt_id').val();
         var articulo_mod = $('#articulo_mod').val();
-        var url = "<?php echo base_url('index.php/Tareas/actualizar_articulo'); ?>";
-        $.post(url, {nor_id: nor_id_articulo, norArt_id: norArt_id, articulo_mod: articulo_mod})
+        $.post(
+                url + 'index.php/Tareas/actualizar_articulo',
+                {nor_id: nor_id_articulo, norArt_id: norArt_id, articulo_mod: articulo_mod})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -198,10 +200,10 @@
                 })
     })
     $('body').delegate('.eliminar_articulo', 'click', function () {
-        var norArt_id=$(this).attr('norArt_id');
+        var norArt_id = $(this).attr('norArt_id');
         var nor_id_articulo = $('#nor_id_articulo').val();
-        var url = "<?php echo base_url('index.php/Tareas/eliminar_articulo'); ?>";
-        $.post(url, {norArt_id: norArt_id,nor_id: nor_id_articulo})
+        $.post(url + 'index.php/Tareas/eliminar_articulo',
+                {norArt_id: norArt_id, nor_id: nor_id_articulo})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -232,8 +234,8 @@
     $('body').delegate('.guardar', 'click', function () {
         var norma = $('#norma').val();
         var descripcion = $('#descripcion').val();
-        var url = "<?php echo base_url('index.php/Tareas/crear_norma'); ?>";
-        $.post(url, {norma: norma, descripcion: descripcion})
+        $.post(url + 'index.php/Tareas/crear_norma', 
+                {norma: norma, descripcion: descripcion})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -242,8 +244,8 @@
                         construccionTabla(msg);
                     }
                 })
-                .fail(function () {
-
+                .fail(function (msg) {
+                    alerta("rojo","Error,comunicarse con el administrador");
                 })
     })
     $('body').delegate('.modificar', 'click', function () {
@@ -255,8 +257,8 @@
         var nor_id = $('#nor_id').val();
         var norma = $('#norma_edi').val();
         var descripcion = $('#descripcion_edi').val();
-        var url = "<?php echo base_url('index.php/Tareas/actualizar_norma'); ?>";
-        $.post(url, {nor_id: nor_id, norma: norma, descripcion: descripcion})
+        $.post(url+'index.php/Tareas/actualizar_norma', 
+                {nor_id: nor_id, norma: norma, descripcion: descripcion})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -271,8 +273,8 @@
     })
     $('body').delegate('.eliminar', 'click', function () {
         var nor_id = $(this).attr('nor_id');
-        var url = "<?php echo base_url('index.php/Tareas/eliminar_norma'); ?>";
-        $.post(url, {nor_id: nor_id})
+        $.post(url+'index.php/Tareas/eliminar_norma', 
+                {nor_id: nor_id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])

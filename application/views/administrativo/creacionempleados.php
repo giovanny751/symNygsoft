@@ -838,7 +838,7 @@ endforeach;
     $("body").delegate("#guardarInc","click", function () {
         if (obligatorio('obligatorioInc') == true) {
             if (difFechaIncapacidad("#fechaInicioInc", "#fechaFinalInc") > 0) {
-                $.post("<?php echo base_url("index.php/administrativo/guardarincapacidad"); ?>", $("#crearIncapacidad").serialize())
+                $.post(url+"index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
                         .done(function (msg) {
                             if (!jQuery.isEmptyObject(msg.message))
                                 alerta("amarillo", msg['message'])
@@ -863,7 +863,7 @@ endforeach;
 
     $("#btnContrato").click(function () {
         var tableBody = "";
-        $.post("<?php echo base_url("index.php/administrativo/guardarContrato") ?>", $("#frmContrato").serialize())
+        $.post(url+"index.php/administrativo/guardarContrato", $("#frmContrato").serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -889,7 +889,8 @@ endforeach;
 
     $('.guardarHorasExtra').click(function () {
         if (obligatorio('obligatorioHoraExtra') == true) {
-            $.post("<?php echo base_url("index.php/administrativo/guardarHorasExtras") ?>",
+            $.post(
+                    url+"index.php/administrativo/guardarHorasExtras",
                     $('#FrmHorasExtras').serialize()
                     )
                     .done(function (msg) {
@@ -916,7 +917,7 @@ endforeach;
     });
 
     $('#motivoIncapacidad').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletarIncapacidadReferencia") ?>",
+        source: url+"index.php/administrativo/autocompletarIncapacidadReferencia",
         minLength: 3,
         max: 10,
         open: function () {
@@ -931,9 +932,9 @@ endforeach;
 
     $('body').delegate("#guardarVacaciones", "click", function () {
         if ($('#vac_id').length == 0)
-            var ruta = "<?php echo base_url("index.php/administrativo/guardarVacaciones") ?>";
+            var ruta = url+"index.php/administrativo/guardarVacaciones";
         else
-            var ruta = "<?php echo base_url("index.php/administrativo/updateHolidays") ?>";
+            var ruta = url+"index.php/administrativo/updateHolidays";
         $.post(ruta, $('#FrmVacaciones').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -948,9 +949,9 @@ endforeach;
     });
     $('body').delegate("#guardarAusentismo", "click", function () {
         if ($('#empAus_id').length == 0)
-            var ruta = "<?php echo base_url("index.php/administrativo/guardarAusentismo") ?>";
+            var ruta = url+"index.php/administrativo/guardarAusentismo";
         else
-            var ruta = "<?php echo base_url("index.php/administrativo/actualizarAusentismo") ?>";
+            var ruta = url+"index.php/administrativo/actualizarAusentismo";
         $.post(ruta, $('#FrmAusentismo').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -998,7 +999,7 @@ endforeach;
 
     $('body').delegate(".modifyHolidays", "click", function () {
         $.post(
-                "<?php echo base_url('index.php/administrativo/dataHolidaysxId') ?>",
+                url+'index.php/administrativo/dataHolidaysxId',
                 {vac_id: $(this).attr('vac_id')}
         )
                 .done(function (msg) {
@@ -1020,7 +1021,7 @@ endforeach;
     });
     $('body').delegate(".modificarAusentismo", "click", function () {
         $.post(
-                "<?php echo base_url('index.php/administrativo/dataHolidaysxId') ?>",
+                url+'index.php/administrativo/dataHolidaysxId',
                 {vac_id: $(this).attr('vac_id')}
         )
                 .done(function (msg) {
@@ -1046,7 +1047,7 @@ endforeach;
         var apuntador = $(this);
         var vac_id = $(this).attr('vac_id');
         $.post(
-                "<?php echo base_url('index.php/administrativo/removeHolidays') ?>",
+                url+'index.php/administrativo/removeHolidays',
                 {vac_id: vac_id}
         )
                 .done(function (msg) {
@@ -1082,7 +1083,7 @@ endforeach;
     $(document).ready(<?php echo (!empty($empleado[0]->Emp_Id)) ? "tabla()" : "" ?>);
     $('body').delegate(".modificarcarpeta", "click", function () {
 
-        $.post("<?php echo base_url("index.php/administrativo/modificarcarpeta") ?>",
+        $.post(url+"index.php/administrativo/modificarcarpeta",
                 $('#formcarpeta').serialize()
                 ).done(function (msg) {
 
@@ -1107,7 +1108,7 @@ endforeach;
         var empCar_id = $(this).attr("car_id");
         if (confirm("Esta seguro de eliminar la carpeta")) {
             $('#empReg_carpeta option[value="' + empCar_id + '"]').remove();
-            $.post("<?php echo base_url("index.php/administrativo/eliminarcarpeta") ?>",
+            $.post(url,"index.php/administrativo/eliminarcarpeta",
                     {empCar_id: empCar_id}
             ).done(function (msg) {
                 $('a[href="#collapse_' + empCar_id + '"]').parents('.panel-default').remove();
@@ -1121,7 +1122,7 @@ endforeach;
     $('body').delegate(".editarcarpeta", "click", function () {
 
         $.post(
-                "<?php echo base_url("index.php/administrativo/cargarempleadocarpeta") ?>",
+                url+"index.php/administrativo/cargarempleadocarpeta",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function (msg) {
@@ -1153,7 +1154,7 @@ endforeach;
     $('body').delegate('.modificar', 'click', function () {
         $('#guardarRegistro').text("Actualizar");
         $.post(
-                "<?php echo base_url("index.php/administrativo/searchxid") ?>",
+                url+"index.php/administrativo/searchxid",
                 {empReg_id: $(this).attr("emp_id")}
         ).done(function (msg) {
             $('.archivo').remove()
@@ -1178,7 +1179,7 @@ endforeach;
         var apuntador = $(this);
         if (confirm("Esta seguro de eliminar el registro"))
             $.post(
-                    "<?php echo base_url("index.php/administrativo/eliminarregistro"); ?>"
+                    url+"index.php/administrativo/eliminarregistro"
                     , {empReg_id: $(this).attr('empreg_id')}
             ).done(function (msg) {
                 apuntador.parents('tr').remove();
@@ -1191,7 +1192,7 @@ endforeach;
     $('#cedula').change(function () {
         var data = $(this);
         $.post(
-                "<?php echo base_url("index.php/administrativo/validarcedula") ?>",
+                url+"index.php/administrativo/validarcedula",
                 {cedula: $(this).val()}
         ).done(function (msg) {
             if (msg == 1) {
@@ -1256,7 +1257,8 @@ endforeach;
     });
 
     $('body').delegate("#guardarcarpeta", "click", function () {
-        $.post("<?php echo base_url("index.php/administrativo/guardarcarpeta") ?>",
+        $.post(
+                url+"index.php/administrativo/guardarcarpeta",
                 $("#formcarpeta").serialize()
                 ).done(function (msg) {
 
@@ -1306,7 +1308,6 @@ endforeach;
     });
 
     $(".flechaHeader").click(function () {
-        var url = "<?php echo base_url("index.php/administrativo/consultaempleadoflechas") ?>";
         var idEmpleadoCreado = $("#emp_id").val();
         var metodo = $(this).attr("metodo");
         var activoActualizar = $("#actualizar").attr("activo");
@@ -1314,7 +1315,7 @@ endforeach;
         $("#btnRegistro").hide();
         $("#guardar").hide();
         if (metodo != "documento") {
-            $.post(url, {idEmpleadoCreado: idEmpleadoCreado, metodo: metodo})
+            $.post(url+"index.php/administrativo/consultaempleadoflechas", {idEmpleadoCreado: idEmpleadoCreado, metodo: metodo})
                     .done(function (msg) {
                         $("input[type='text'], select").val();
                         $("#emp_id").val(msg.Emp_Id);
@@ -1346,8 +1347,7 @@ endforeach;
                             $("#guardar").show();
                         }
                         $('#incluiraseguradoras').find("#agregarClones").html("");
-                        var url2 = "<?php echo base_url("index.php/administrativo/consultaempleadoflechasaseguradora") ?>";
-                        $.post(url2, {idEmpleadoCreado: msg.Emp_Id})
+                        $.post(url+"index.php/administrativo/consultaempleadoflechasaseguradora", {idEmpleadoCreado: msg.Emp_Id})
                                 .done(function (msg) {
                                     if (msg != " null") {
                                         $.each(msg, function (key, val) {
@@ -1371,7 +1371,7 @@ endforeach;
                     })
 
         } else {
-            window.location = "<?php echo base_url("index.php/administrativo/listadoempleados"); ?>";
+            window.location = url+"index.php/administrativo/listadoempleados";
         }
 
     });
@@ -1379,7 +1379,8 @@ endforeach;
     $('#guardar').click(function () {
         if ((obligatorio('obligatorio') == true) && (email("email") == true))
         {
-            $.post("<?php echo base_url('index.php/administrativo/guardarempleado') ?>",
+            $.post(
+                    url+"index.php/administrativo/guardarempleado",
                     $('#f1').serialize()
                     )
                     .done(function (msg) {
@@ -1390,7 +1391,7 @@ endforeach;
                             $('#tipoaseguradora *').remove();
                             $("#agregarClones").html(agregarClonAseguradora());
                         } else {
-                            window.location.href = '<?php echo base_url("index.php/administrativo/listadoempleados") ?>';
+                            window.location.href = url+"index.php/administrativo/listadoempleados"; 
                         }
                     }).fail(function (msg) {
                 alerta("rojo", "Error en el sistema por favor comunicarse con el administrador");
@@ -1401,7 +1402,8 @@ endforeach;
 
         if (obligatorio('obligatorio') == true)
         {
-            $.post("<?php echo base_url('index.php/administrativo/guardaractualizacion') ?>",
+            $.post(
+                    url+'index.php/administrativo/guardaractualizacion',
                     $('#f1').serialize()
                     )
                     .done(function (msg) {
@@ -1436,7 +1438,7 @@ endforeach;
         form_data.append('empReg_descripcion', $('#empReg_descripcion').val());
         form_data.append('Emp_Id', $('#emp_id').val());
         $.ajax({
-            url: '<?php echo base_url("index.php/administrativo/guardarregistroempleado") ?>',
+            url: url+"index.php/administrativo/guardarregistroempleado",
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -1482,11 +1484,14 @@ endforeach;
 
         var boton = $(this);
         if (confirm("Esta seguro de eliminar el empleado?")) {
-            $.post("<?php echo base_url("index.php/administrativo/eliminarempleado"); ?>"
-                    , {id: $(this).attr('emp_id')}
+            $.post(
+                    url+"index.php/administrativo/eliminarempleado"
+                    , {
+                        id: $(this).attr('emp_id')
+                    }
             ).done(function (msg) {
                 alerta("verde", "Eliminado Correctamente");
-                location.href = "<?php base_url('index.php/administrativo/creacionempleados') ?>";
+                location.href = url+'index.php/administrativo/creacionempleados';
             }).fail(function (msg) {
                 alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
             })
@@ -1496,7 +1501,6 @@ endforeach;
     
     function tabla(msg) {
         var tbody = "";
-//        console.log(msg);
         $.each(msg, function (indice, valor) {
             tbody += "<tr>";
             tbody += "<td>" + valor.responsable + "</td>";

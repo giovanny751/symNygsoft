@@ -52,7 +52,7 @@
     $('#TipAse_Nombre').change(function () {
         var data = $(this);
         $.post(
-                "<?php echo base_url("index.php/Tipo_aseguradora/validatipoaseguradora") ?>",
+                url+"index.php/Tipo_aseguradora/validatipoaseguradora",
                 {TipAse_Nombre: $(this).val()}
         ).done(function (msg) {
             if (msg == 1) {

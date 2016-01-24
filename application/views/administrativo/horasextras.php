@@ -53,7 +53,8 @@
 </div>
 <script>
     $('.guardar').click(function () {
-        $.post("<?php echo base_url("index.php/administrativo/guardarHorasExtras") ?>",
+        $.post(
+                url+"index.php/administrativo/guardarHorasExtras",
                 $('#FrmHorasExtras').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))

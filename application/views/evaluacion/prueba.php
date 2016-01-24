@@ -17,14 +17,6 @@
             foreach ($preguntas_evaluacion as $key => $value) {
                 echo '<tr><td><span><b>Pregunta # ' . $i . '</b></span><span style="float:right">Tipo pregunta: ' . $value->tipPre_nombre . '</span></td></tr><tr><td>';
                 $i++;
-//                if ($value->are_nombre != $area) {
-//                    echo '<b>Area: ' . $value->are_nombre . '</b><p>';
-//                    $area = $value->are_nombre;
-//                }
-//                if ($value->tem_nombre != $tema) {
-//                    echo '<b>Tema: ' . $value->tem_nombre . '</b><p>';
-//                    $tema = $value->tem_nombre;
-//                }
                 if (!empty($value->pre_contexto))
                     echo '<b>Contexto:</b> <br>' . utf8_encode($value->pre_contexto) . '<p>';
                 echo '<b>Pregunta:</b> <br>' . utf8_encode($value->pre_nombre) . '<p>';
@@ -49,7 +41,6 @@
         <center>
             <button class="btn btn-sst">Enviar</button>
         </center>
-        <!--</div>-->
     </form>
 </div>
 

@@ -171,7 +171,7 @@
 <script>
 
     $('body').delegate("#guardarmetodos", "click", function () {
-        $.post("<?php echo base_url("index.php/presentacion/guardarMetodos") ?>", $('#FrmMetodos').serialize())
+        $.post(url + "index.php/presentacion/guardarMetodos", $('#FrmMetodos').serialize())
                 .done(function (msg) {
                     $('#myModal5').modal("hide");
                     alerta("verde", "Guardado");
@@ -180,36 +180,36 @@
                     alerta("rojo", "Error");
                 });
     });
-    
-    function htmlModal(datos){
-        var clases = ["TxtClaseEliminar[]","TxtClaseActualizar[]","TxtClaseConsultar[]","TxtClaseInsertar[]"];
-        var metodos = ["TxtMetodoEliminar[]","TxtMetodoActualizar[]","TxtMetodoConsultar[]","TxtMetodoInsertar[]"];
-        var idEtiqueta = ["filaEliminar","filaActualizar","filaConsultar","filaInsertar"];
-        var titulo = ["Eliminar","Actualizar","Consultar","Insertar"];
+
+    function htmlModal(datos) {
+        var clases = ["TxtClaseEliminar[]", "TxtClaseActualizar[]", "TxtClaseConsultar[]", "TxtClaseInsertar[]"];
+        var metodos = ["TxtMetodoEliminar[]", "TxtMetodoActualizar[]", "TxtMetodoConsultar[]", "TxtMetodoInsertar[]"];
+        var idEtiqueta = ["filaEliminar", "filaActualizar", "filaConsultar", "filaInsertar"];
+        var titulo = ["Eliminar", "Actualizar", "Consultar", "Insertar"];
         var html = "";
-        for(var i=0 ; i<4; i++){
+        for (var i = 0; i < 4; i++) {
             var fila = false;
             html += "<div class=\"marginV20\">";
             html += "<div class=\"widgetTitle\">";
-            html += "<h5><i class=\"glyphicon glyphicon-pencil\"></i> "+titulo[i]+"</h5>";
+            html += "<h5><i class=\"glyphicon glyphicon-pencil\"></i> " + titulo[i] + "</h5>";
             html += "</div>";
-            html += "<div class=\"well\" id=\""+idEtiqueta[i]+"\">";
+            html += "<div class=\"well\" id=\"" + idEtiqueta[i] + "\">";
             html += "<div class=\"row\">";
             html += "<div class=\"col-md-12 col-lg-12 col-sm-12 col-sx-12\">";
-            html += "<button type=\"button\" class=\"agregarmetodo btn btn-success\" tipo=\""+parseInt(i+1)+"\">+</button>";
+            html += "<button type=\"button\" class=\"agregarmetodo btn btn-success\" tipo=\"" + parseInt(i + 1) + "\">+</button>";
             html += "</div>";
             html += "</div>";
-            $.each(datos,function(metodo,cantidad){
-                if(metodo == (i+1)){
-                    $.each(cantidad,function(index,valor){
+            $.each(datos, function (metodo, cantidad) {
+                if (metodo == (i + 1)) {
+                    $.each(cantidad, function (index, valor) {
                         html += "<div class=\"row\">";
                         html += "<div class=\"col-md-5 col-lg-5 col-sm-5 col-sx-5\">";
                         html += "<label>Clase</label>";
-                        html += "<input type=\"text\" placeholder=\"Modulo\" name=\"" + clases[i] + "\" value=\""+valor[0]+"\" id=\"modulo\" class=\"form-control\" >";
+                        html += "<input type=\"text\" placeholder=\"Modulo\" name=\"" + clases[i] + "\" value=\"" + valor[0] + "\" id=\"modulo\" class=\"form-control\" >";
                         html += "</div>";
                         html += "<div class=\"col-md-5 col-lg-5 col-sm-5 col-sx-5\">";
                         html += "<label>Metodo</label>";
-                        html += "<input type=\"text\" placeholder=\"Modulo\" name=\"" + metodos[i] + "\" value=\""+valor[1]+"\" id=\"modulo\" class=\"form-control\" >";
+                        html += "<input type=\"text\" placeholder=\"Modulo\" name=\"" + metodos[i] + "\" value=\"" + valor[1] + "\" id=\"modulo\" class=\"form-control\" >";
                         html += "</div>";
                         html += "<div class=\"col-md-2 col-lg-2 col-sm-2 col-sx-2\">";
                         html += "<button type=\"button\" class=\"eliminarmetodo btn btn-danger\">-</button>";
@@ -220,8 +220,8 @@
                     return false;
                 }
             });
-            
-            if(fila == false){
+
+            if (fila == false) {
                 html += "<div class=\"row\">";
                 html += "<div class=\"col-md-5 col-lg-5 col-sm-5 col-sx-5\">";
                 html += "<label>Clase</label>";
@@ -236,19 +236,18 @@
                 html += "</div>";
                 html += "</div>";
             }
-            
+
             html += "</div>";
         }
         $("#modalHtml").html(html);
     }
 
-    
+
     $('body').delegate(".metodos", "click", function () {
         var modulo = $(this).attr('idgeneral');
-        var url = "<?php echo base_url("index.php/presentacion/cargarMetodos") ?>";
         var datos = {modulo: modulo};
         $('#Hdnmodulo').val(modulo);
-        $.post(url, datos)
+        $.post(url + "index.php/presentacion/cargarMetodos", datos)
                 .done(function (msg) {
                     htmlModal(msg);
                     $('#myModal5').modal("show");
@@ -314,9 +313,9 @@
     $('body').delegate(".opciones", "click", function () {
         var idgeneral = $(this).attr('idgeneral');
         $('.guardar').attr('generalid', idgeneral);
-        $.post("<?php echo base_url('index.php/presentacion/consultadatosmenu') ?>",
+        $.post(
+                url + 'index.php/presentacion/consultadatosmenu',
                 {idgeneral: idgeneral}, function (data) {
-//            $('.modal-backdrop').css('z-index', '-1');
             $('#nombre').val(data['menu_nombrepadre']);
             $('#papa').val(data['menu_idpadre']);
             $('#controlador').val(data['menu_controlador']);
@@ -328,7 +327,8 @@
     $('body').delegate('.eliminarSubModulo', 'click', function () {
         var apuntador = $(this);
         if (confirm("Esta seguro de eliminar el modulo") == true) {
-            $.post("<?php echo base_url('index.php/presentacion/eliminarmodulo') ?>",
+            $.post(
+                    url+'index.php/presentacion/eliminarmodulo',
                     {idgeneral: $(this).attr('generalid')})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
@@ -345,15 +345,17 @@
     $('.page-breadcrumb a').click(function () {
         var papa = $(this).attr('padre');
         $('a').each(function (key, val) {
-            if ($(this).attr('padre') > papa) $(this).remove();
+            if ($(this).attr('padre') > papa)
+                $(this).remove();
         });
         $('#idgeneral2').val(papa);
         $('#nombrepadre2').val($('.page-breadcrumb').html());
-        $('#redireccion').attr('href', "<?= base_url('index.php/presentacion/menu') ?>");
+        $('#redireccion').attr('href', url+'index.php/presentacion/menu');
         $('#redireccion').submit();
     });
     $('#guardar').click(function () {
-        $.post("<?php echo base_url('index.php/presentacion/guardarmodulo') ?>", {modulo: $('#modulo').val(), padre: $(this).attr('padre'), general: $(this).attr('general')}, function (data) {
+        $.post(
+                url+'index.php/presentacion/guardarmodulo', {modulo: $('#modulo').val(), padre: $(this).attr('padre'), general: $(this).attr('general')}, function (data) {
             $('#cuerpomodulo *').remove();
             var tabla = "";
             $.each(data.Json, function (key, val) {
@@ -379,7 +381,8 @@
     });
     $('body').delegate('.guardar', 'click', function () {
 
-        $.post("<?php echo base_url('index.php/presentacion/guardaratributosmenu') ?>"
+        $.post(
+                url+'index.php/presentacion/guardaratributosmenu'
                 , {id: $(this).attr('generalid')
                     , nombre: $('#nombre').val()
                     , controlador: $('#controlador').val()
@@ -393,7 +396,7 @@
         $('#menu').val($(this).attr('menu'));
         $('#idgeneral').val($(this).attr('idgeneral'));
         $("#nombrepadre").val($(".page-breadcrumb").html() + "<li><a padre='" + $(this).attr('menu') + "'>" + $(this).attr('nombrepadre') + "</a><i class='fa fa-angle-right'></i></li>")
-        $('#formulario').attr('href', "<?php echo base_url('index.php/presentacion/menu') ?>");
+        $('#formulario').attr('href', url+'index.php/presentacion/menu');
         $('#formulario').submit();
     });
     /*---------------- ICONOS ---------------*/

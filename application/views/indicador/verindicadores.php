@@ -77,9 +77,9 @@
         $('select,input').val("");
     });
     $("body").on("click", "#consultar", function () {
-        var datos = $("#f4").serialize();
-        var url = "<?php echo base_url("index.php/indicador/consultarindicador") ?>";
-        $.post(url, datos)
+        $.post(
+                url+"index.php/indicador/consultarindicador", $("#f4").serialize()
+                )
                 .done(function (msg) {
                     $('#bodyIndicador *').remove();
                     var tbody = "";
@@ -132,8 +132,7 @@
 
     });
     $('body').delegate('.eliminar', 'click', function () {
-        var url = "<?php echo base_url("index.php/Indicador/eliminar_Indicador") ?>";
-        $.post(url, {ind_id: $(this).attr('ind_id')})
+        $.post(url+"index.php/Indicador/eliminar_Indicador", {ind_id: $(this).attr('ind_id')})
                 .done(function () {
                     $('#consultar').trigger('click');
                 })

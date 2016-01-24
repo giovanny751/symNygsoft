@@ -120,10 +120,9 @@
 
 <script>
     $("body").on("click","#consultar",function(){
-        var url = "<?php echo base_url("index.php/Administrativo/filtroaccidente") ?>";
         var datos = $("#f2").serialize();
-        
-        $.post(url,datos)
+        $.post(
+                url+"index.php/Administrativo/filtroaccidente",datos)
                 .done(function(msg){
                     var html = ""
                     $("#bodyaccidente").empty();
@@ -161,13 +160,10 @@
             document.getElementById("accidente").value = accidente;
             var formulario = document.getElementById("frmAccidente");
             formulario.method = "post";
-            formulario.action = "<?php echo base_url("index.php/administrativo/accidente") ?>";
+            formulario.action = url+"index.php/administrativo/accidente";
             formulario.submit();
         }else{
             return false
         }
-    });
-    $("body").on("click",".eliminarAccidente",function(){
-        
     });
 </script>

@@ -160,12 +160,11 @@
         if(obli==false){
             return false;
         }
-        var url="<?php echo base_url('index.php/form_proteccion') ?>";
-        $.post(url,$('#').serialize())
-                .done(function(){
+        $.post(url+'index.php/form_proteccion',$('#').serialize())
+                .done(function(msg){
                     
                 })
-                .fail(function(){
+                .fail(function(msg){
                     
                 })
     })

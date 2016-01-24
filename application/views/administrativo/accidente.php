@@ -414,11 +414,10 @@
         obtener_lugar();
     })
     function obtener_lugar() {
-        var dim1 = $('#dimension1_bus').val()
-        var dim2 = $('#dimension2_bus').val()
-        var url = "<?php echo base_url("index.php/Administrativo/obtener_lugar") ?>";
+        var dim1 = $('#dimension1_bus').val();
+        var dim2 = $('#dimension2_bus').val();
         $('#lugar_asociado').html('');
-        $.post(url, {dim1: dim1, dim2: dim2})
+        $.post(url+"index.php/Administrativo/obtener_lugar", {dim1: dim1, dim2: dim2})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message']);
@@ -503,10 +502,9 @@
     $("body").on("click", ".tipoRiesgo", function () {
         if ($(this).is(":checked")) {
             var check = $(this);
-            var url = "<?php echo base_url("index.php/Administrativo/consultaClasificacion"); ?>";
             var datos = {riesgo: $(this).val()};
             var html = "";
-            $.post(url, datos)
+            $.post(url+"index.php/Administrativo/consultaClasificacion", datos)
                     .done(function (msg) {
                         var i = 0;
                         var j = 0;

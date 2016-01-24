@@ -1,9 +1,6 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="guardartarea" title="<?php echo (empty($tarea->tar_id)) ? "Guardar" : "Actualizar" ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <!--<div class="circuloIcon" ><i class="fa fa-pencil-square-o fa-3x"></i></div>-->
-        <!--<div class="circuloIcon" ><i class="fa fa-trash-o fa-3x"></i></div>-->
-        <!--<div class="circuloIcon" ><i class="fa fa-folder-open fa-3x"></i></div>-->
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
@@ -27,9 +24,6 @@
         <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="id" id="interno">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <!-- <button type="button" id="guardartarea" class="btn btn-success">
-                <?php echo (!empty($tarea->tar_id)) ? "Actualizar" : "Guardar"; ?>
-                </button> -->
                 <button type="button" id="" class="btn btn-danger">Eliminar</button>
                 <?php if (!empty($pla_id)): ?>
                     <button type="button" id="cancelar" class="btn btn-default"  plan="<?php echo $pla_id ?>">Cancelar</button>
@@ -158,7 +152,7 @@
                                 }
                                 ?>
 
-                                <option <?php echo $select; ?> value="<?= $value->norArt_id ?>"><?= $value->norArt_articulo ?></option>
+                                <option <?php echo $select; ?> value="<?= $value->norArt_id ?>"><?php echo $value->norArt_articulo ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -355,7 +349,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End: life time stats -->
                                 </div>
                             </div>
                         </div>
@@ -603,8 +596,8 @@
 <script>
     $('document').ready(function () {
         $('body').delegate("#registro", "change", function () {
-            var url = "<?php echo base_url("index.php/tareas/consultaTipoActividad") ?>";
-            $.post(url, {actividad: $(this).val()}).done(function (msg) {
+            $.post(url + "index.php/tareas/consultaTipoActividad",
+                    {actividad: $(this).val()}).done(function (msg) {
                 $('#tipo').val(parseInt(msg));
             })
                     .fail(function (msg) {
@@ -613,8 +606,8 @@
         });
     });
     $('body').delegate("#norma", "change", function () {
-        var url = "<?php echo base_url("index.php/tareas/consultaarticulo") ?>";
-        $.post(url, {norma: $("#norma").val()}
+        $.post(url + "index.php/tareas/consultaarticulo",
+                {norma: $("#norma").val()}
         ).done(function (msg) {
             $('#articulosnorma *').remove();
             var option = "";
@@ -631,7 +624,7 @@
     $('body').delegate("#actividad", "change", function () {
 
         $.post(
-                "<?php echo base_url("index.php/tareas/consultaactividad") ?>",
+                url + "index.php/tareas/consultaactividad",
                 {carpeta: $(this).val()}
         ).done(function (msg) {
             $("#registro *").remove();
@@ -653,7 +646,7 @@
     $('body').delegate(".eliminarregistro", "click", function () {
         var puntero = $(this).attr("car_id");
         $.post(
-                "<?php echo base_url("index.php/tareas/eliminarregistrocarpeta") ?>",
+                url + "index.php/tareas/eliminarregistrocarpeta",
                 {carpeta: puntero}
         )
                 .done(function (msg) {
@@ -684,7 +677,7 @@
     $('body').delegate(".modificarregistro", "click", function () {
         var puntero = $(this).attr("reg_id");
         $.post(
-                "<?php echo base_url("index.php/tareas/modificarregistro") ?>",
+                url + "index.php/tareas/modificarregistro",
                 {registro: puntero}
         )
                 .done(function (msg) {
@@ -709,7 +702,7 @@
     $("body").delegate("#actualizar", "click", function () {
 
         $.post(
-                "<?php echo base_url("index.php/tareas/actualizarcarpeta") ?>",
+                url + "index.php/tareas/actualizarcarpeta",
                 $('#frmcarpetaregistro').serialize()
                 ).done(function (msg) {
             $("a[href='#collapse_" + msg.uno + "r']").text(msg.dos + " - " + msg.tres);
@@ -724,7 +717,7 @@
     $('body').delegate(".editarcarpeta", "click", function () {
 
         $.post(
-                "<?php echo base_url("index.php/tareas/consultacarpeta") ?>",
+                url + "index.php/tareas/consultacarpeta",
                 {carpeta: $(this).attr("car_id")}
         ).done(function (msg) {
             $('#nombrecarpeta').val(msg.dos);
@@ -746,7 +739,7 @@
         function clasificacionRiesgoTipo() {
 
             $.post(
-                    "<?php echo base_url("index.php/riesgo/consultatiporiesgoxclasificacion") ?>",
+                    url + "index.php/riesgo/consultatiporiesgoxclasificacion",
                     {categoria: $("#clasificacionriesgo").val()}
             )
                     .done(function (msg) {
@@ -775,9 +768,9 @@
     });
 
     function tabla() {
-        var url = '<?php echo base_url("index.php/tareas/listadoavance2") ?>';
         var tar_id = $('#interno').val();
-        $.post(url, {tar_id: tar_id})
+        $.post(url + "index.php/tareas/listadoavance2",
+                {tar_id: tar_id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -822,7 +815,7 @@
     $('body').delegate('.eliminaravance', 'click', function () {
         var puntero = $(this);
         $.post(
-                "<?php echo base_url("index.php/tareas/eliminaravance") ?>",
+                url + "index.php/tareas/eliminaravance",
                 {avaTar_id: $(this).attr("avaTar_id")}
         ).done(function (msg) {
             puntero.parents("tr").remove();
@@ -838,7 +831,7 @@
         $('#plan').change(function () {
             var plan = $(this).val();
             $.post(
-                    "<?php echo base_url("index.php/tareas/consultaractividadpadre") ?>",
+                    url + "index.php/tareas/consultaractividadpadre",
                     {plan: plan}
             ).done(function (msg) {
                 $('#actividad *').remove();
@@ -877,7 +870,7 @@
     });
     $('#gavance').click(function () {
         $.post(
-                "<?php echo base_url("index.php/tareas/guardaravance") ?>",
+                url + "index.php/tareas/guardaravance",
                 $('#guardaravance').serialize()
                 ).done(function (msg) {
             $('.avance').val("");
@@ -891,7 +884,8 @@
     });
     function primer() {
         $.post(
-                "<?php echo base_url("index.php/tareas/consulta") ?>", {idtarea: '<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>'}
+                url + "index.php/tareas/consulta",
+                {idtarea: '<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>'}
         ).done(function (msg) {
             $('.avance').val("");
             $('.avance').prop("checked", false);
@@ -916,8 +910,8 @@
 
     $('body').delegate('.avances_', 'click', function () {
         var avaTar_id = $(this).attr('avaTar_id');
-        var url = "<?php echo base_url("index.php/tareas/consulta2") ?>";
-        $.post(url, {avaTar_id: avaTar_id})
+        $.post(url + "index.php/tareas/consulta2",
+                {avaTar_id: avaTar_id})
                 .done(function (msg) {
                     $('#avaTar_id').val(msg.avaTar_id)
                     $('#fecha').val(msg.avaTar_fecha)
@@ -942,26 +936,8 @@
         });
     });
 
-//    $(".flechaHeader").click(function () {
-//        var url = "<?php echo base_url("index.php/tareas/consultaTareasFlechas") ?>";
-//        var idTarea = $("#tareid").val();
-//        var metodo = $(this).attr("metodo");
-//        if (metodo != "documento") {
-//            $.post(url, {idTarea: idTarea, metodo: metodo})
-//                    .done(function (msg) {
-//                        $("#riesgos input[type='text'],#riesgos select").val("");
-//                        $("#tareid").val(msg.tar_id);
-//                    })
-//                    .fail(function (msg) {
-//                        alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
-//                        $("input[type='text'], select").val();
-//                    })
-//        } else {
-//            window.location = "<?php echo base_url("index.php/tareas/listadotareas"); ?>";
-//        }
-//    });
     $('#cancelar').click(function () {
-        var form = "<form method='post' id='enviotarea' action='<?php echo base_url("index.php/planes/nuevoplan") ?>'>";
+        var form = "<form method='post' id='enviotarea' action='"+url+"index.php/planes/nuevoplan"+"'>";
         form += "<input type='hidden' value='" + $(this).attr('plan') + "' name='pla_id'>";
         form += "</form>"
         $('#planes').append(form);
@@ -972,11 +948,12 @@
             $('#fechaIncio').addClass("obligado");
             $('#fechafinalizacion').addClass("obligado");
             if ($(this).attr("title") == 'Actualizar')
-                var ruta = "<?php echo base_url("index.php/tareas/listadotareas") ?>"
+                var ruta = url+"index.php/tareas/listadotareas";
             else
-                ruta = "<?php echo base_url("index.php/planes/nuevoplan") ?>";
+                ruta = url+"index.php/planes/nuevoplan";
             if (obligatorio("obligatorio")) {
-                $.post("<?php echo base_url("index.php/tareas/guardartarea") ?>",
+                $.post(
+                        url+"index.php/tareas/guardartarea",
                         $('#f8').serialize()
                         ).done(function (msg) {
 
@@ -1007,7 +984,8 @@
 
     $('body').delegate("#guardarcarpeta", "click", function () {
         if (obligatorio("carbligatorio")) {
-            $.post("<?php echo base_url("index.php/tareas/guardarcarpetatarea") ?>",
+            $.post(
+                    url+"index.php/tareas/guardarcarpetatarea",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function (msg) {
                 var option = "<option value='" + msg.regCar_id + "'>" + msg.regCar_nombre + " - " + msg.regCar_descripcion + "</option>"
@@ -1042,22 +1020,17 @@
 
     $('#guardarregistro').click(function () {
         if (obligatorio("tarRegObligatorio")) {
-            //Capturamos el archivo
             var file_data = $('#nombreactividad').prop('files')[0];
-            //Creamos formularios archivo
             var form_data = new FormData();
-            //Agremamos Datos a enviar (Archivo)
             form_data.append('archivo', file_data);
-            //Agregamos Datos a enviar
             form_data.append('pla_id', $('#plan').val());
-            //        form_data.append('tarea', $('#tarea').val());
             form_data.append('regCar_id', $('#carpeta').val());
             form_data.append('reg_version', $('#version').val());
             form_data.append('tar_id', $('#tar_id_registro').val());
             form_data.append('reg_descripcion', $('#descripcion_tarea').val());
             form_data.append('reg_id', $('#reg_id').val());
             $.ajax({
-                url: '<?php echo base_url("index.php/tareas/guardar_registro_tarea") ?>',
+                url: url+"index.php/tareas/guardar_registro_tarea",
                 dataType: 'text', // what to expect back from the PHP script, if anything
                 cache: false,
                 contentType: false,
@@ -1151,8 +1124,8 @@
     }
 
     $('#tiposriesgos').change(function () {
-        var url = '<?php echo base_url("index.php/tareas/traer_riesgos") ?>';
-        $.post(url, {tiposriesgos: $('#tiposriesgos').val(), clasificacionriesgo: $('#clasificacionriesgo').val()})
+        $.post(url+"index.php/tareas/traer_riesgos", 
+                {tiposriesgos: $('#tiposriesgos').val(), clasificacionriesgo: $('#clasificacionriesgo').val()})
                 .done(function (msg) {
                     $('#lista_riesgos').html('');
                     var titulo = '';
@@ -1166,7 +1139,7 @@
                     })
                 })
                 .fail(function () {
-
+                    alerta("rojo","Error por favor comunicarse con el administrador");
                 })
     });
     $('#fechaIncio').change(function () {
@@ -1181,10 +1154,6 @@
 
 
     });
-
-
-
-
     $('.envio').click(function () {
         $('#tar_id3').val($(this).attr('nuevo'));
         $('#formulario_siguiente').submit();
@@ -1193,7 +1162,6 @@
 <form id="formulario_siguiente" action="<?php echo base_url('index.php/Tareas/nuevatarea') ?>" method="POST">
     <input type="hidden" id="tar_id3" name="tar_id">
 </form>
-
 <style>
     #guardaravance{
         color:#000;

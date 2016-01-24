@@ -27,13 +27,14 @@
     $('body').delegate('#guardar', 'click', function () {
         if (obligatorio('obligatorio') == true && $('#password').val() == $('#rpassword').val()) {
             $('.error').remove();
-            $.post("<?php echo base_url('index.php/presentacion/guardarcontrasena') ?>",
+            $.post(
+                    url + 'index.php/presentacion/guardarcontrasena',
                     {password: $('#password').val()}, function () {
-                        alerta("verde",'Contraseña Actualizada');
+                alerta("verde", 'Contraseña Actualizada');
             });
         }
         if ($('#password').val() != $('#rpassword').val()) {
-            alerta("rojo",'No coinciden las contraseñas');
+            alerta("rojo", 'No coinciden las contraseñas');
         }
 
     });

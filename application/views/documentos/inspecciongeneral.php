@@ -77,7 +77,8 @@
 <script>
 
     $('#guardarInspeccion').click(function () {
-        $.post("<?php echo base_url("index.php/documento/guardarInspeccion") ?>",
+        $.post(
+                url+"index.php/documento/guardarInspeccion",
                 $('#FrmInspeccion').serialize()
                 )
                 .done(function (msg) {
@@ -90,7 +91,7 @@
                     }
                 })
                 .fail(function (msg) {
-
+                    alerta("rojo","Error por favor comunicarse con el administrador");
                 });
     });
 </script>

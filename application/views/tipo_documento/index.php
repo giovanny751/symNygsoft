@@ -52,13 +52,14 @@
     })
     $('#btnguardar').click(function () {
         var tipDoc_Descripcion = $('#tipDoc_Descripcion').val();
-        $.post("<?php echo base_url("index.php/tipo_documento/save_tipo_documento") ?>"
+        $.post(
+                url + "index.php/tipo_documento/save_tipo_documento"
                 , {tipDoc_Descripcion: tipDoc_Descripcion}
         )
                 .done(function (msg) {
-                        $('#tipDoc_Descripcion').val("");
-                        $('#tipDoc_Descripcion').focus();
-                        alerta("verde", "Tipo de contrato guardado correctamente")
+                    $('#tipDoc_Descripcion').val("");
+                    $('#tipDoc_Descripcion').focus();
+                    alerta("verde", "Tipo de contrato guardado correctamente")
                 })
                 .fail(function (msg) {
                     return false
@@ -84,9 +85,4 @@
             return true;
         }
     }
-    $('body').delegate('.number', 'keypress', function (tecla) {
-        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-            return false;
-    });
-    $('.fecha').datepicker({dateFormat: 'yy-mm-dd'});
 </script>

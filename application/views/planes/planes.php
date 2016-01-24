@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="guardarplan" title="<?php echo (empty($plan[0]->pla_id)) ? "Guardar":"Actualizar"; ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <!--<div class="circuloIcon" ><i class="fa fa-trash-o fa-3x"></i></div>-->
         <a href="<?php echo base_url()."/index.php/planes/nuevoplan" ?>"><div class="circuloIcon" title="Nuevo Plan" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
     <div class="col-md-6">
@@ -97,7 +96,6 @@
                 <div class="form-group">
                     <label for="estado"><span class="campoobligatorio">*</span>Estado</label>
                     <select name="estado" id="estado" class="form-control obligatorio">
-                        <!--<option value="">::Seleccionar::</option>-->
                         <?php foreach ($estado as $e) { ?>
                             <option <?php echo (!empty($plan[0]->est_id) && $e->est_id == $plan[0]->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
                         <?php } ?>
@@ -120,9 +118,6 @@
         <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id">
     </form>    
     <hr>
-
-
-
     <?php if (!empty($plan[0]->pla_id)): ?>
         <div class="portlet box blue">
             <div class="portlet-body">
@@ -673,22 +668,20 @@
     $('document').ready(function(){
         costo = $('#costo').text();
         costoreal = $('#costorealplan').val();
-//        console.log(costoreal);
         $('#costo').text(num_miles(costo.replace(",","").replace(".","")));
         $('#costorealplan').val(num_miles(costoreal.replace(",","").replace(".","")));
-//        console.log(num_miles(costoreal.replace(",","").replace(".","")));
         $('.presupuesto').val(num_miles($('.presupuesto').val()));
     });
 
     $('body').delegate(".editartarea", "click", function() {
-        var form = "<form method='post' id='frmFormAvance' action='<?php echo base_url("index.php/tareas/nuevatarea") ?>'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
         form += "</form>";
         $("body").append(form);
         $('#frmFormAvance').submit();
     });
     $('body').delegate(".nuevoavance", "click", function() {
-        var form = "<form method='post' id='frmFormAvance' action='<?php echo base_url("index.php/tareas/nuevatarea") ?>'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
         form += "<input type='hidden' name='nuevoavance' value='" + $(this).attr("tar_id") + "'>"
         form += "</form>";
@@ -698,7 +691,7 @@
 
     $('body').delegate(".editarhistorial", "click", function() {
 
-        var form = "<form method='post' id='frmFormAvance' action='<?php echo base_url("index.php/tareas/nuevatarea") ?>'>";
+        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
         form += "<input type='hidden' name='avaTar_id' value='" + $(this).attr("avance") + "'>"
         form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
         form += "</form>";
@@ -709,7 +702,7 @@
     $('body').delegate(".eliminaravance", "click", function() {
         var puntero = $(this);
         $.post(
-                "<?php echo base_url("index.php/tareas/eliminaravance") ?>",
+                url+"index.php/tareas/eliminaravance",
                 {avaTar_id: $(this).attr("avaTar_id")}
         ).done(function(msg) { 
             puntero.parents("tr").remove();
@@ -724,7 +717,7 @@
         var car_id = $(this).attr('car_id');
         $("#idpadre *").remove();
         $.post(
-                "<?php echo base_url("index.php/planes/detailxplaid") ?>"
+                url+"index.php/planes/detailxplaid>"
                 , {pla_id: pla_id}
         ).done(function(msg) {
             var option = "<option value=''>::Seleccionar::</option>";
@@ -750,10 +743,10 @@
             var carpeta = $(this).attr("car_id");
             var tipo = $(this).attr("tipo");
             if ($(this).attr('tipo') == "r")
-                var url = "<?php echo base_url("index.php/planes/eliminarcarpeta") ?>";
+                var ruta = url+"index.php/planes/eliminarcarpeta";
             else if ($(this).attr('tipo') == "c")
-                var url = "<?php echo base_url("index.php/planes/eliminaractividad") ?>";
-            $.post(url,
+                var ruta = url+"index.php/planes/eliminaractividad";
+            $.post(ruta,
                     {carpeta: carpeta}
             ).done(function(msg) {
                 $('a[href="#collapse_' + carpeta + tipo + '"]').parents('.panel-default').remove();
@@ -765,7 +758,7 @@
 
     $('body').delegate(".editarcarpeta", "click", function() {
         $.post(
-                "<?php echo base_url("index.php/planes/cargarplanescarpeta") ?>",
+                url+"index.php/planes/cargarplanescarpeta",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function(msg) {
@@ -784,7 +777,7 @@
 
     $('body').delegate(".editaractividad", "click", function() {
         $.post(
-                "<?php echo base_url("index.php/planes/datosactividad") ?>",
+                url+"index.php/planes/datosactividad",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function(msg) {
@@ -803,7 +796,8 @@
     });
     $('body').delegate(".modificaractividad", "click", function() {
 
-        $.post("<?php echo base_url("index.php/planes/modificaractividad") ?>",
+        $.post(
+                url+"index.php/planes/modificaractividad",
                 $('#formactividadpadre').serialize()
                 ).done(function(msg) {
             $('a[href="#collapse_' + msg.actPad_id + 'c"]').html("<i class='fa fa-folder-o carpeta'></i>&nbsp; " + msg.actPad_nombre + " - " + msg.actPad_codigo);
@@ -815,7 +809,8 @@
     });
     $('body').delegate(".modificarcarpeta", "click", function() {
 
-        $.post("<?php echo base_url("index.php/planes/modificarpeta") ?>",
+        $.post(
+                url+"index.php/planes/modificarpeta",
                 $('#frmcarpetaregistro').serialize()
                 ).done(function(msg) {
             $('a[href="#collapse_' + msg.regCar_id + 'r"]').text(msg.regCar_descripcion);
@@ -836,7 +831,7 @@
 
     $('body').delegate('.modificarregistro', 'click', function() {
         $.post(
-                "<?php echo base_url("index.php/planes/modificarregistro") ?>",
+                url+"index.php/planes/modificarregistro",
                 {registro: $(this).attr('reg_id')}
         ).done(function(msg) {
             $('#carpeta').val(msg.regCar_id);
@@ -860,7 +855,7 @@
         var reg_id = $(this).attr("reg_id");
         var registro = $(this);
         $.post(
-                "<?php echo base_url("index.php/planes/eliminarregistroplan") ?>",
+                url+"index.php/planes/eliminarregistroplan",
                 {reg_id: reg_id}
         ).done(function(msg) {
             registro.parents('tr').remove();
@@ -882,7 +877,8 @@
 
     $('#guardarcarpeta').click(function() {
         if (obligatorio("carbligatorio")) {
-            $.post("<?php echo base_url("index.php/planes/guardarcarpetaregistro") ?>",
+            $.post(
+                    url+"index.php/planes/guardarcarpetaregistro",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function(msg) {
                 var option = "<option value='" + msg.uno + "'>" + msg.dos + "</option>"
@@ -918,9 +914,9 @@
     $('.direccionar').click(function() {
 
         if ($(this).attr('num') == 1)
-            $('#frmdireccionar').attr("action", "<?php echo base_url("index.php/tareas/nuevatarea") ?>");
+            $('#frmdireccionar').attr("action", url+"index.php/tareas/nuevatarea");
         if ($(this).attr('num') == 2)
-            $('#frmdireccionar').attr("action", "<?php echo base_url("index.php/tareas/registro") ?>");
+            $('#frmdireccionar').attr("action", url+"index.php/tareas/registro");
         $('#frmdireccionar').submit();
     });
     $('body').delegate(".editarhistorial", "click", function() {
@@ -930,7 +926,7 @@
     $('#guardar').click(function() {
         if(obligatorio('actividadobligatoria')){
         $.post(
-                "<?php echo base_url("index.php/planes/guardaractividadhijo") ?>",
+                url+"index.php/planes/guardaractividadhijo",
                 $('#f6').serialize()
                 ).done(function(msg) {
             var body = "";
@@ -964,7 +960,8 @@
         numero = $('#accordion1').last('div').attr("id");
         if (obligatorio('acobligatorio')) {
 
-            $.post("<?php echo base_url("index.php/planes/guardaractividadpadre") ?>",
+            $.post(
+                    url+"index.php/planes/guardaractividadpadre",
                     $('#formactividadpadre').serialize()
                     )
                     .done(function(msg) {
@@ -1030,7 +1027,7 @@
         if ($('#cargo').val() == '')
             return false;
         $.post(
-                "<?php echo base_url("index.php/administrativo/consultausuarioscargo") ?>",
+                url+"index.php/administrativo/consultausuarioscargo",
                 {
                     cargo: $(this).val()
                 }
@@ -1080,7 +1077,7 @@ echo (empty($plan[0]->pla_id)) ? base_url('index.php/planes/guardarplan') : base
         form_data.append('reg_version', $('#version').val());
         form_data.append('reg_descripcion', $('#reg_descripcion').val());
         $.ajax({
-            url: '<?php echo base_url("index.php/planes/guardarregistroempleado") ?>',
+            url: url+"index.php/planes/guardarregistroempleado",
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -1132,8 +1129,7 @@ echo (empty($plan[0]->pla_id)) ? base_url('index.php/planes/guardarplan') : base
             return false;
         }
         $(this).parent().parent().remove();
-        var url = '<?php echo base_url("index.php/tareas/eliminar_actividad_hijo") ?>';
-        $.post(url, {actHij_id: $(this).attr('actHij_id')})
+        $.post(url+'index.php/tareas/eliminar_actividad_hijo', {actHij_id: $(this).attr('actHij_id')})
                 .done(function() {
                     alerta('verde', 'Eliminado con exito')
                 }).fail(function() {
@@ -1144,8 +1140,7 @@ echo (empty($plan[0]->pla_id)) ? base_url('index.php/planes/guardarplan') : base
         var acthij_id = $(this).attr('acthij_id');
         if (acthij_id == "")
             return false;
-        var url = '<?php echo base_url("index.php/tareas/editar_actividad_hijo") ?>';
-        $.post(url,
+        $.post(url+'index.php/tareas/editar_actividad_hijo',
                 {
                     acthij_id: acthij_id,
                     actPad_id: $(this).parents(".panel").attr('id')

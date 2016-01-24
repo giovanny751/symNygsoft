@@ -23,46 +23,11 @@
         <link href="<?php echo base_url('/assets/admin/layout/css/layout.css') ?>" rel="stylesheet" type="text/css"/>
         <link href="<?php echo base_url('/assets/admin/layout/css/themes/default.css') ?>" id="style_color" rel="stylesheet" type="text/css"/>
         <link href="<?php echo base_url('/assets/admin/layout/css/custom.css') ?>" rel="stylesheet" type="text/css"/>
-        <style type="text/css">
-/*            html{
-                background-image: url("<?php echo base_url("/img/Ingreso_ultima.png") ?>");
-                background-size: 100%;
-                background-repeat: no-repeat;
-            }
-            body{
-                background-color: transparent;
-            }
-            .login{
-                background-color: transparent !important;
-            }
-            .login .content{
-                margin: 0 65%;
-                background-color: rgba(150, 208, 222, 0.15);
-            }
-            .login .content h3 {
-                color: #0C7093;
-            }
-            .login .content h4 {
-                color: #0C7093;
-            }
-            .login .content p, .login .content label {
-                color: #0C7093;
-            }
-            a {
-                color: #0C7093;
-                cursor: pointer;
-                text-decoration: underline;
-                text-shadow: none;
-            }*/
-        </style>
     </head>
     <body class="login">
         <!-- BEGIN LOGO -->
         <div class="logo">
-            <a href="<?php echo base_url('') ?>">
-                <!--<img src="<?php echo base_url('/images/vice/logo_vice_02.png') ?>" alt=""/>-->
-                <!--<img src="<?php echo base_url('uploads/FinalG22.jpg'); ?>" style="width: 90px">-->
-            </a>
+            <a href="<?php echo base_url('') ?>"></a>
         </div>
         <div class="menu-toggler sidebar-toggler">
         </div>

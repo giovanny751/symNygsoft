@@ -125,15 +125,15 @@
 </form>
 <script>
     $('#cedula').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletarcedula") ?>",
+        source: url+"index.php/administrativo/autocompletarcedula",
         minLength: 3
     });
     $('#nombre').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletarnombre") ?>",
+        source: url+"index.php/administrativo/autocompletarnombre",
         minLength: 3
     });
     $('#apellido').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletarapellido") ?>",
+        source: url+"index.php/administrativo/autocompletarapellido",
         minLength: 3
     });
 
@@ -148,7 +148,7 @@
     });
     $('.consultar').click(function () {
         $.post(
-                "<?php echo base_url('index.php/administrativo/consultaempleados') ?>",
+                url+'index.php/administrativo/consultaempleados',
                 $('#f2').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message)) alerta("rojo", msg['message']);
@@ -177,7 +177,7 @@
                 $('#bodyempleados').append(body);
             }
         }).fail(function (msg) {
-            alerta("rojo", "Error, por favor comunicarse con el administrador del sitema")
+            alerta("rojo", "Error, por favor comunicarse con el administrador del sitema");
         });
     });
     $('body').delegate('.eliminar', 'click', function () {
@@ -193,7 +193,8 @@
         }
         var boton = $(this);
         if (confirm("Esta seguro de eliminar el empleado?")) {
-            $.post("<?php echo base_url("index.php/administrativo/eliminarempleado") ?>"
+            $.post(
+                    url+"index.php/administrativo/eliminarempleado"
                     , {id: $(this).attr('emp_id')}
             ).done(function (msg) {
                 if (!jQuery.isEmptyObject(msg.message))

@@ -133,10 +133,9 @@
 </div>
 <script type="text/javascript">
     $("#consultar").click(function () {
-        var url = "<?php echo base_url("index.php/riesgo/filtroSolicitud"); ?>";
-        var datos = $("#consultaSolicitud").serialize();
-        
-        $.post(url,datos)
+        $.post(
+                url+"index.php/riesgo/filtroSolicitud",
+                $("#consultaSolicitud").serialize())
                 .done(function(msg){
                     var html = ""
                     $("#tablaSolicitud").empty();
@@ -168,10 +167,7 @@
         var button = $(event.relatedTarget);
         var recipient = button.data('whatever'); 
         var modal = $(this)
-        
-        var url = "<?php echo base_url("index.php/riesgo/consultaSolicitud"); ?>";
-        var datos = {solicitud: recipient}
-        $.post(url,datos)
+        $.post(url+"index.php/riesgo/consultaSolicitud",{solicitud: recipient})
                 .done(function(msg){
                     if(typeof(msg.message) != "undefined"){
                         alerta("rojo","Error al momento de ingresar datos");

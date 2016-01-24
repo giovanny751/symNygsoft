@@ -21,7 +21,7 @@ Descargar Guia : <a href="<?php echo base_url('uploads/empleados_a_plano/archivo
             }
         }
         $.ajax({
-            url: "<?php echo base_url('index.php/Administrativo/subir_archivo'); ?>",
+            url: url+'index.php/Administrativo/subir_archivo',
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,

@@ -97,7 +97,9 @@
 <script>
     $("body").on("click", ".cargoMultiple", function () {
         var rie_id = $(this).attr("rie_id");
-        $.post("<?php echo base_url("index.php/riesgo/listadoriesgocargos") ?>", {rie_id: rie_id})
+        $.post(
+                url + "index.php/riesgo/listadoriesgocargos",
+                {rie_id: rie_id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message']);
@@ -120,7 +122,8 @@
         $('#f13').submit();
     });
     $('#categoria').change(function () {
-        $.post("<?php echo base_url("index.php/riesgo/consultatiporiesgo") ?>",
+        $.post(
+                url + "index.php/riesgo/consultatiporiesgo",
                 {categoria: $(this).val()})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -144,7 +147,8 @@
 
     $('.buscar').click(function () {
 
-        $.post("<?php echo base_url("index.php/riesgo/busquedariesgo") ?>",
+        $.post(
+                url + "index.php/riesgo/busquedariesgo",
                 $('#busquedariesgo').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -203,8 +207,8 @@
     });
 
     $('body').delegate('.eliminar', 'click', function () {
-        var url = "<?php echo base_url("index.php/riesgo/eliminar_riesgos") ?>";
-        $.post(url, {rie_id: $(this).attr('rie_id')})
+        $.post(url + "index.php/riesgo/eliminar_riesgos",
+                {rie_id: $(this).attr('rie_id')})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])

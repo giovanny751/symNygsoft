@@ -1,8 +1,3 @@
-<!--<div class="row">
-    <div class="col-md-6">
-        <a href="<?php echo base_url() . "index.php/Evaluacion/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>-->
 <div class='cuerpoContenido'>
     <form method="post" id="f4">
         <div class="row">
@@ -111,7 +106,8 @@
     $('#ingresousuario').hide();
     $('.insertarrol').click(function () {
         $("#idusuario").val($(this).attr('usuarioid'));
-        $.post("<?php echo base_url('index.php/Evaluacion/guardarpermisos') ?>",
+        $.post(
+                url+'index.php/Evaluacion/guardarpermisos',
                 $('#f15').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -130,8 +126,9 @@
             info+=$(this).val()+'||';
         })
         
-        var url="<?php echo base_url('index.php/Evaluacion/arignar_evaluacion') ?>";
-        $.post(url,{info:info,usuarioid:$('#usuarioid').val()})
+        $.post(
+                url+'index.php/Evaluacion/arignar_evaluacion',
+                {info:info,usuarioid:$('#usuarioid').val()})
                 .done(function(msg){
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
@@ -150,7 +147,9 @@
         $('.asignar').show();
         var usuarioid=$(this).attr('usuarioid')
         $('#usuarioid').val(usuarioid);
-        $.post("<?php echo base_url('index.php/Evaluacion/ver_evaluaciones') ?>",{usuarioid:usuarioid})
+        $.post(
+                url+'index.php/Evaluacion/ver_evaluaciones',
+                {usuarioid:usuarioid})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
@@ -171,7 +170,9 @@
     $('.asignar').hide();
         var usuarioid=$(this).attr('usuarioid')
         $('#usuarioid').val(usuarioid);
-        $.post("<?php echo base_url('index.php/Evaluacion/ver_evaluaciones_resueltas') ?>",{usuarioid:usuarioid})
+        $.post(
+                url+"index.php/Evaluacion/ver_evaluaciones_resueltas",
+                {usuarioid:usuarioid})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
@@ -201,7 +202,8 @@
         $('.insertarrol').attr('usuarioid', id);
         $('input[type="checkbox"]').parent("span").removeClass('checked');
         $('input[type="checkbox"]').attr('checked', false);
-        $.post("<?= base_url('index.php/Evaluacion/consultarolxrolidusuario') ?>",
+        $.post(
+                url+'index.php/Evaluacion/consultarolxrolidusuario',
                 {id: id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -223,15 +225,15 @@
     });
 //    -----------------------------------------------------------------------------
     $('#cedula').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletaruacedula") ?>",
+        source: url+"index.php/administrativo/autocompletaruacedula",
         minLength: 1
     });
     $('#nombre').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletar") ?>",
+        source: url+"index.php/administrativo/autocompletar",
         minLength: 1
     });
     $('#apellido').autocomplete({
-        source: "<?php echo base_url("index.php/administrativo/autocompletaruapellido") ?>",
+        source: url+"index.php/administrativo/autocompletaruapellido",
         minLength: 1
     });
 
@@ -240,7 +242,7 @@
     });
     $('.consultar').click(function () {
         $.post(
-                "<?php echo base_url("index.php/Evaluacion/consultarusuario") ?>",
+                url+"index.php/Evaluacion/consultarusuario",
                 $("#f4").serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -279,7 +281,9 @@
         var asignacion = $(this);
         var usu_id = $(this).attr('usu_id');
         if (confirm("Esta seguro que desea eliminar el usuario?")) {
-            $.post("<?php echo base_url("index.php/administrativo/eliminarusuario") ?>", {usu_id: usu_id})
+            $.post(
+                    url+"index.php/administrativo/eliminarusuario", 
+                    {usu_id: usu_id})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message'])
