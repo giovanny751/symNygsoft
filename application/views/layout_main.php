@@ -7,7 +7,7 @@
         var url = "<?php echo base_url() ?>";
         </script>
         <!--------------------------------------------------------------------------
-        Fondos <!-- Stiven -->
+        Fondos <!-- Gerson -->
 ------------------------------------------------------------------------ -->
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" />
 
