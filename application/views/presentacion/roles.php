@@ -1,35 +1,76 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">ADMINISTRACIÓN DE ROLES</span>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i><?= $title ?>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form method="post" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn green opciones" data-toggle="modal" data-target="#myModal">Nuevo Rol</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-<div class="cuerpoContenido">
-    <div class="row">
-        <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-info opciones">Nuevo Rol</button>
-        <table class="tablesst">
-            <thead>
-            <th>Nombre</th>
-            <th>Fecha de creación</th>
-            <th>Fecha de modificación</th>
-            <th>Opciones</th>
-            <th>Eliminar</th>
-            </thead>
-            <tbody id="cuerporol">
-                <?php foreach ($roles as $datos) { ?>
-                    <tr>
-                        <td><?php echo $datos['rol_nombre']; ?></td>
-                        <td><?php echo $datos['rol_fechaCreacion']; ?></td>
-                        <td><?php echo $datos['rol_fechaModificacion']; ?></td>
-                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="btn btn-info modificar">Opciones</button></td>
-                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-danger eliminar">Eliminar</button></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>	
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-table"></i> Tabla
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <table class="table table-striped table-bordered table-hover tabla-sst">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha de creación</th>
+                                <th>Fecha de modificación</th>
+                                <th>Opciones</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerporol">
+                            <?php foreach ($roles as $datos) { ?>
+                                <tr>
+                                    <td><?php echo $datos['rol_nombre']; ?></td>
+                                    <td><?php echo $datos['rol_fechaCreacion']; ?></td>
+                                    <td><?php echo $datos['rol_fechaModificacion']; ?></td>
+                                    <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="btn btn-info modificar">Opciones</button></td>
+                                    <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-danger eliminar">Eliminar</button></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -219,9 +260,3 @@
         $('body').tooltip();
     });
 </script>
-<style>
-    label {
-        display: inline-block;
-        width: 5em;
-    }
-</style>

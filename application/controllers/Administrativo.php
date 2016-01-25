@@ -528,6 +528,7 @@ class Administrativo extends My_Controller {
 
     function listadoempleados() {
         try {
+            $this->data['title'] = "Listado Empleados";
             $this->load->model('Empresa_model');
             $this->data['empresa'] = $this->Empresa_model->detail();
             if ((!empty($this->data['empresa'][0]->Dim_id)) && (!empty($this->data['empresa'][0]->Dimdos_id))) {

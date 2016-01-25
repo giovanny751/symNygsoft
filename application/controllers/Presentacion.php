@@ -247,6 +247,7 @@ class Presentacion extends My_Controller {
 
     function roles() {
         try {
+            $this->data['title'] = "Administración de Roles";
             $this->load->model("Roles_model");
             $this->data['content'] = "<table border='0' width='100%'>" . $this->permisoroles('prueba', null) . "</table>";
             $this->data['roles'] = $this->Roles_model->roles();

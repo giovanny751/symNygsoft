@@ -1,4 +1,89 @@
 <div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i><?= $title ?>
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form method="post" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cedula" class="control-label col-md-3">Cédula</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="cedula" id="cedula" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nombre" class="control-label col-md-3">Nombre</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="nombre" id="nombre" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="apellido" class="control-label col-md-3">Apellido</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="apellido" id="apellido" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dimension1" class="control-label col-md-3"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-9">
+                                        <select id="dimension1" name="dimension1" class="form-control select2me">
+                                            <option value=""></option>
+                                            <?php foreach ($dimension as $d) { ?>
+                                                <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dimension2" class="control-label col-md-3"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-9">
+                                        <select id="dimension2" name="dimension2" class="form-control select2me">
+                                            <option value=""></option>
+                                            <?php foreach ($dimension2 as $d2) { ?>
+                                                <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="contratosvencidos" class="control-label col-md-3">Contratos vencidos</label>
+                                    <div class="col-md-9">
+                                        <input type="checkbox" value="1" name="contratosvencidos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
     <div class="col-md-6">
         <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>"><div class="circuloIcon" title="Nuevo Empleado" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
