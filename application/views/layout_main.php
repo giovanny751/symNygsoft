@@ -526,7 +526,8 @@
                                 },
                                 "emptyTable": "No hay datos disponibles en la tabla",
                                 "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-                                "infoEmpty": "No se encontraron entradas",
+                                "infoEmpty": "No se encontraron entradas.",
+                                
                                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
                                 "lengthMenu": "Mostrar _MENU_ entradas",
                                 "search": "Buscar:",
