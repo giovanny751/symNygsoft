@@ -3,7 +3,7 @@
 <input type="file" id="documento3" name="files[]" required="required"   ><br>
 <button class="btn btn-primary" id="procesar">Procesar</button> 
 
-Descargar Guia : <a href="<?php echo base_url('uploads/empleados_a_plano/archivo_empleados.xlsx'); ?>" target="_black">Descargar</a><br>
+Descargar Guía : <a href="<?php echo base_url('uploads/empleados_a_plano/archivo_empleados.xlsx'); ?>" target="_black">Descargar</a><br>
 <div id="resultados"></div>
 <script>
 

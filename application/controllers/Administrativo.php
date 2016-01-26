@@ -40,12 +40,14 @@ class Administrativo extends My_Controller {
                 'Horaextratipo_model',
                 'Empleadohoraextra_model',
                 'Empleadocontrato_model',
-                'Empleadoincapacidad_model'
+                'Empleadoincapacidad_model',
+                'Capacitaciones_model'
             ));
             $this->data['tipoHora'] = $this->Horaextratipo_model->tipos();
             $empleadoId = (!empty($this->input->post('emp_id'))) ? $this->input->post('emp_id') : "";
             if (isset($empleadoId)) {
                 $this->data['horasExtras'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($empleadoId);
+                $this->data['capacitaciones'] = $this->Capacitaciones_model->capacitacionesXidEmpleado($empleadoId);
                 $this->data['tiposContrato'] = $this->Empleadocontrato_model->contratosxEmpleado($empleadoId);
                 $this->data['vacaciones'] = $this->Vacaciones_model->detailxEmpleado($empleadoId);
                 $this->data['incapacidades'] = $this->Empleadoincapacidad_model->detailxid($empleadoId);

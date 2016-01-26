@@ -57,6 +57,9 @@
                             <a data-toggle="tab" href="#tab7">Horas extras</a>
                         </li>
                         <li>
+                            <a data-toggle="tab" href="#tab8">Capacitaciones</a>
+                        </li>
+                        <li>
                             <a data-toggle="tab" href="#tab6">Registro</a>
                         </li>
                     <?php } ?>
@@ -116,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="sexo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Genero</label>
+                                <label for="sexo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Género</label>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <select name="sexo" id="sexo" class="form-control obligatorio">
                                         <option value="">::Seleccionar::</option>
@@ -542,6 +545,32 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div id="tab8" class="tab-pane">
+                        <div class="portlet-title">
+                        </div>   
+                        <div class="portlet-body">
+                        <table class="tabla-sst" >
+                            <thead>
+                            <td>Capacitación</td>
+                            <td>Fecha</td>
+                            <td>Observacion</td>
+                            <td>Editar</td>
+                            <td>Eliminar</td>
+                            </thead>
+                            <tbody>
+                                <?php foreach($capacitaciones as $ca):?>
+                                <tr>
+                                    <td><?php echo $ca->cap_nombreCapacitacion ?></td>
+                                    <td><?php echo $ca->cap_fechaCapacitacion ?></td>
+                                    <td><?php echo $ca->cap_observacion ?></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        </div>    
                     </div>
                 </div>
             </div>

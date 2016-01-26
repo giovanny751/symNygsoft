@@ -34,8 +34,12 @@ class Empresa_model extends CI_Model {
             $this->db->select("emp_logo");
             $this->db->select("emp_arl");
             $this->db->select("secEco_id");
-            $this->db->select("(select count(*) from empleado where est_id = 1 ) as numEmpleados");
+            $this->db->select("(select distinct count(*) from "
+                    . "empleado "
+                    . "join empleado_contratos on empleado_contratos.emp_id = empleado.Emp_id "
+                    . "where est_id = 1 and empleado_contratos.empCon_fechaHasta > '".date('Y-m-d')."' ) as numEmpleados");
             $empresa = $this->db->get("empresa");
+                        
             return $empresa->result();
         } catch (exception $e) {
             
