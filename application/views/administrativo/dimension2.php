@@ -16,6 +16,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="descripcion" class="control-label col-md-3">*<?= $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-9">
+                                        <?php echo lista("dim_id", "dim_id", "form-control obligatorio", "dimension", "dim_id", "dim_descripcion", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="descripcion" class="control-label col-md-3">*Descripción</label>
                                     <div class="col-md-9">
                                         <input type="text" name="descripcion" id="descripcion" class="form-control obligatorio"/>
@@ -53,6 +59,7 @@
                     <table class="table table-striped table-bordered table-hover tabla-sst">
                         <thead>
                             <tr>
+                                <th><?= $empresa[0]->Dim_id ?></th>
                                 <th>Descripción</th>
                                 <th>Riesgos</th>
                                 <th>Editar</th>
@@ -62,6 +69,7 @@
                         <tbody id="bodydimension">
                         <?php foreach ($dimension as $d) { ?>
                             <tr>
+                                <td><?php echo $d->dim_id1?></td>
                                 <td><?php echo $d->dim_descripcion ?></td>
                                 <td>
                                     <?php if($d->cantidadRiesgo > 0): ?>
@@ -99,6 +107,14 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <center>
+                            <input type="hidden" name="dimid" id="dimid">
+                            <label for="descripcion2">*<?= $empresa[0]->Dim_id ?></label>
+                            <?php echo lista("dim_id_ant", "dim_id_ant", "form-control ", "dimension", "dim_id", "dim_descripcion", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                            <br>
+                        </center>
+                    </div>
                     <div class="col-sm-offset-2 col-sm-8">
                         <center>
                             <input type="hidden" name="dimid" id="dimid">
@@ -178,9 +194,19 @@
         });
     });
     $('.guardarmodificacion').click(function () {
+    if($('#dim_id_ant').val()==""){
+        alerta('rojo','Campo <?= $empresa[0]->Dim_id ?> obligatorio');
+        return false;
+    }
+    if($('#descripcion2').val()==""){
+        alerta('rojo','Campo descripción obligatorio');
+        return false;
+    }
+    
         $.post(
                 url+"index.php/administrativo/guardarmodificaciondimension2",
                 {
+                    dimid1: $('#dim_id_ant').val(),
                     dimid: $('#dimid').val(),
                     descripcion: $('#descripcion2').val()
                 }
@@ -205,6 +231,7 @@
                 alerta("rojo", msg['message'])
             else {
                 $('#dimid').val(msg.Json[0].dim_id);
+                $('#dim_id_ant').val(msg.Json[0].dim_id1);
                 $('#descripcion2').val(msg.Json[0].dim_descripcion);
                 $('#myModal').modal('show');
             }
@@ -236,13 +263,17 @@
             $.post(
                     url+"index.php/administrativo/guardardimension2"
                     , {
-                        descripcion: $('#descripcion').val()
+                        descripcion: $('#descripcion').val(),
+                        dim_id: $('#dim_id').val()
                     })
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("amarillo", msg['message'])
-                        else 
+                        else {
                             construccionTabla(msg);
+                            $('#descripcion').val('')
+                            $('#dim_id').val('')
+                        }
                     })
                     .fail(function (msg) {
                         alerta("rojo", "Error, por favor comunicarse con el administrador");
@@ -255,6 +286,7 @@
         var bodydimension = "";
         $.each(msg.Json, function (key, val) {
             bodydimension += "<tr>";
+            bodydimension += "<td>" + (val.dim_id1!=null?val.dim_id1:'') + "</td>";
             bodydimension += "<td>" + val.dim_descripcion + "</td>";
             bodydimension += "<td >";
             if(val.cantidadRiesgo > 0){

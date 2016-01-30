@@ -1069,7 +1069,7 @@ class Administrativo extends My_Controller {
         try {
             $this->load->model('Dimension2_model');
             $respuesta = $this->Dimension2_model->guardarmodificaciondimension(
-                    $this->input->post('descripcion'), $this->input->post('dimid')
+                    $this->input->post('descripcion'), $this->input->post('dimid'),$this->input->post('dimid1')
             );
             if ($respuesta == true)
                 $data['Json'] = $this->Dimension2_model->detail();
@@ -1086,7 +1086,8 @@ class Administrativo extends My_Controller {
         try {
             $this->load->model('Dimension2_model');
             $guardar = array(
-                "dim_descripcion" => $this->input->post('descripcion')
+                "dim_descripcion" => $this->input->post('descripcion'),
+                 "dim_id1" => $this->input->post('dim_id')
             );
             if (empty($this->Dimension2_model->consultxname($this->input->post('descripcion')))) {
                 $respuesta = $this->Dimension2_model->create($guardar);

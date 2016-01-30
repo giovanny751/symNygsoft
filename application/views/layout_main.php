@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <title>SG-SST</title>
         <script>
-        var url = "<?php echo base_url() ?>";
+            var url = "<?php echo base_url() ?>";
         </script>
         <!--------------------------------------------------------------------------
         Fondos <!-- Gerson -->
------------------------------------------------------------------------- -->
+        ------------------------------------------------------------------------ -->
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" />
 
         <!--------------------------------------------------------------------------
@@ -322,263 +322,273 @@
                 <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
 
                 <script type="text/javascript">
-                    jQuery(document).ready(function () {
-                        Metronic.init(); // init metronic core componets
-                        Layout.init(); // Menu 
-                        Index.initDashboardDaterange(); // Fecha
-                        UINotific8.init(); //Notificaciones
-                    });
+            jQuery(document).ready(function () {
+                Metronic.init(); // init metronic core componets
+                Layout.init(); // Menu 
+                Index.initDashboardDaterange(); // Fecha
+                UINotific8.init(); //Notificaciones
+            });
 
 
 
-                    //    --------------------------------------------------------------------------
-                    //COLORES DE ALERTAS DE METRONIC
-                    //    --------------------------------------------------------------------------
-                    function alerta(color, texto) {
-                        switch (color) {
-                            case "rojo":
-                                var alerta = 'ruby sticky';
-                                break;
-                            case "morado":
-                                var alerta = 'amethyst sticky';
-                                break;
-                            case "azul":
-                                var alerta = 'teal sticky';
-                                break;
-                            case "amarillo":
-                                var alerta = 'lemon sticky';
-                                break;
-                            case "verde":
-                                var alerta = 'lime sticky';
-                                break;
-                            case "naranja":
-                                var alerta = 'tangerine sticky';
-                                break;
-                            default:
-                                break;
-                        }
-                        $.notific8('', {
-                            horizontalEdge: 'bottom',
-                            life: 5000,
-                            theme: alerta,
-                            heading: texto
-                        });
+            //    --------------------------------------------------------------------------
+            //COLORES DE ALERTAS DE METRONIC
+            //    --------------------------------------------------------------------------
+            function alerta(color, texto) {
+                switch (color) {
+                    case "rojo":
+                        var alerta = 'ruby sticky';
+                        break;
+                    case "morado":
+                        var alerta = 'amethyst sticky';
+                        break;
+                    case "azul":
+                        var alerta = 'teal sticky';
+                        break;
+                    case "amarillo":
+                        var alerta = 'lemon sticky';
+                        break;
+                    case "verde":
+                        var alerta = 'lime sticky';
+                        break;
+                    case "naranja":
+                        var alerta = 'tangerine sticky';
+                        break;
+                    default:
+                        break;
+                }
+                $.notific8('', {
+                    horizontalEdge: 'bottom',
+                    life: 5000,
+                    theme: alerta,
+                    heading: texto
+                });
+            }
+
+
+            $('body').delegate('.number', 'keypress', function (tecla) {
+                if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
+                    return false;
+            });
+            //numero que permite comas        
+            $('body').delegate('.number2', 'keypress', function (tecla) {
+                console.log(tecla.charCode);
+                if (tecla.charCode > 0 && (tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 45 || tecla.charCode > 47))
+                    return false;
+            });
+            $('body').delegate('.miles', 'keyup', function (tecla) {
+                $(this).val(num_miles($(this).val()))
+            });
+            $('body').delegate('.float', 'keypress', function (tecla) {
+                if (tecla.charCode == 46)
+                    return true;
+                if ((tecla.charCode > 0 && tecla.charCode < 48) || (tecla.charCode > 57))
+                    return false;
+            });
+            function obligatorio(clase) {
+                var i = 0;
+                $('.' + clase).each(function (key, val) {
+                    if ($(this).val() != "")
+                        $(this).removeClass('obligado');
+                    else {
+                        $(this).addClass('obligado');
+                        i++;
                     }
+                });
+                if (i == 0)
+                    return true;
+                else {
+                    alerta('naranja', "FALTAN CAMPOS POR LLENAR");
+                    return false;
+                }
+            }
+            ;
+
+            function email(classemail) {
+                var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+                //Se utiliza la funcion test() nativa de JavaScript
+                if (regex.test($('.' + classemail).val().trim())) {
+                    $("." + classemail).removeClass('obligado');
+                    return true;
+                } else {
+                    $("." + classemail).addClass('obligado');
+                    alerta("amarillo", "Correo no valido")
+                    return false;
+                }
+            }
+
+            ;
+            (function ($) {
+                $.fn.datepicker.dates['es'] = {
+                    days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+                    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+                };
+            }(jQuery));
+
+            $(".email").change(function () {
+                email("email");
+            });
+            $("body").delegate(".fecha", "focusin", function () {
+                $('.fecha').datepicker({
+                    language: "es",
+                    format: "yyyy-mm-dd",
+                    autoclose: true
+                });
+            });
 
 
-                    $('body').delegate('.number', 'keypress', function (tecla) {
-                        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-                            return false;
-                    });
-                    //numero que permite comas        
-                    $('body').delegate('.number2', 'keypress', function (tecla) {
-                        console.log(tecla.charCode);
-                        if (tecla.charCode > 0 && (tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 45 || tecla.charCode > 47))
-                            return false;
-                    });
-                    $('body').delegate('.miles', 'keyup', function (tecla) {
-                        $(this).val(num_miles($(this).val()))
-                    });
-                    $('body').delegate('.float', 'keypress', function (tecla) {
-                        if (tecla.charCode == 46)
-                            return true;
-                        if ((tecla.charCode > 0 && tecla.charCode < 48) || (tecla.charCode > 57))
-                            return false;
-                    });
-                    function obligatorio(clase) {
-                        var i = 0;
-                        $('.' + clase).each(function (key, val) {
-                            if ($(this).val() != "")
-                                $(this).removeClass('obligado');
-                            else {
-                                $(this).addClass('obligado');
-                                i++;
-                            }
-                        });
-                        if (i == 0)
-                            return true;
-                        else {
-                            alerta('naranja', "FALTAN CAMPOS POR LLENAR");
-                            return false;
-                        }
+            function difFecha(idFecha1, idFecha2) {
+                var valFecha1 = $(idFecha1).val();
+                var valFecha2 = $(idFecha2).val();
+                var arrayFecha1 = valFecha1.split("-");
+                var arrayFecha2 = valFecha2.split("-");
+                var fecha1 = new Date(arrayFecha1[0], arrayFecha1[1] - 1, arrayFecha1[2]);
+                var fecha2 = new Date(arrayFecha2[0], arrayFecha2[1] - 1, arrayFecha2[2]);
+                var resta = (fecha2 - fecha1) / 1000 / 3600 / 24;
+                if (resta >= 0) {
+                    $(idFecha1, idFecha2).removeClass("obligado");
+                    return resta;
+                } else {
+                    $(idFecha1, idFecha2).addClass("obligado");
+                    alerta("amarillo", "Fecha no es valida");
+                    return false;
+                }
+            }
+            function difFechaIncapacidad(idFecha1, idFecha2) {
+                var valFecha1 = $(idFecha1).val();
+                var valFecha2 = $(idFecha2).val();
+                var arrayFecha1 = valFecha1.split("-");
+                var arrayFecha2 = valFecha2.split("-");
+                var fecha1 = new Date(arrayFecha1[0], arrayFecha1[1] - 1, arrayFecha1[2]);
+                var fecha2 = new Date(arrayFecha2[0], arrayFecha2[1] - 1, arrayFecha2[2]);
+                var resta = (fecha2 - fecha1) / 1000 / 3600 / 24;
+                if (resta >= 0) {
+                    $(idFecha1).removeClass("obligado");
+                    $(idFecha2).removeClass("obligado");
+                    return resta + 1;
+                } else {
+                    $(idFecha1).addClass("obligado");
+                    $(idFecha2).addClass("obligado");
+                    alerta("amarillo", "Fecha no es valida");
+                    return false;
+                }
+            }
+            function num_miles(num) {
+                num = num.toString().replace(/\$|\,/g, '');
+                if (isNaN(num))
+                    num = "0";
+                sign = (num == (num = Math.abs(num)));
+                num = Math.floor(num * 100 + 0.50000000001);
+                cents = num % 100;
+                num = Math.floor(num / 100).toString();
+                if (cents < 10)
+                    cents = "0" + cents;
+                for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+                    num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+                            num.substring(num.length - (4 * i + 3));
+                return (((sign) ? '' : '-') + num);
+            }
+            $(function () {
+                //Se pone para que en todos los llamados ajax se bloquee la pantalla mostrando el mensaje Procesando...
+                $.blockUI.defaults.message = 'Procesando...';
+                $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+            });
+
+            // ------------------------------------------------------------------
+            //                  DATABLE
+            // ------------------------------------------------------------------
+
+
+            var initTable2 = function () {
+                var table = $('.tabla-sst');
+
+                /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
+
+                /* Set tabletools buttons and button container */
+
+                $.extend(true, $.fn.DataTable.TableTools.classes, {
+                    "container": "btn-group tabletools-btn-group pull-right",
+                    "buttons": {
+                        "normal": "btn btn-sm default",
+                        "disabled": "btn btn-sm default disabled"
                     }
-                    ;
+                });
 
-                    function email(classemail) {
-                        var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
-                        //Se utiliza la funcion test() nativa de JavaScript
-                        if (regex.test($('.' + classemail).val().trim())) {
-                            $("." + classemail).removeClass('obligado');
-                            return true;
-                        } else {
-                            $("." + classemail).addClass('obligado');
-                            alerta("amarillo", "Correo no valido")
-                            return false;
-                        }
+                var oTable = table.dataTable({
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                        "infoEmpty": "No se encontraron entradas.",
+                        "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "search": "Buscar:",
+                        "zeroRecords": "No se encontraron registros coincidente"
+                    },
+                    "order": [
+                        [0, 'asc']
+                    ],
+                    "lengthMenu": [
+                        [5, 15, 20, -1],
+                        [5, 15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "pageLength": 10,
+                    "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+                    // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                    // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+                    // So when dropdowns used the scrollable div should be removed. 
+                    //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+                    "tableTools": {
+                        "sSwfPath": "<?php echo base_url('assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'); ?>",
+                        "aButtons": [{
+                                "sExtends": "pdf",
+                                "sButtonText": "PDF"
+                            }, {
+                                "sExtends": "csv",
+                                "sButtonText": "CSV"
+                            }, {
+                                "sExtends": "xls",
+                                "sButtonText": "Excel"
+                            }, {
+                                "sExtends": "print",
+                                "sButtonText": "Print",
+                                "sInfo": 'Porfavor presiona "CTRL+P" a imprimir o "ESC" para salir',
+                                "sMessage": "Generated by DataTables"
+                            }, {
+                                "sExtends": "copy",
+                                "sButtonText": "Copy"
+                            }]
                     }
+                });
 
-                    ;
-                    (function ($) {
-                        $.fn.datepicker.dates['es'] = {
-                            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-                            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-                            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-                            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-                        };
-                    }(jQuery));
+                var tableWrapper = $('.tabla-sst_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+                tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+            }
 
-                    $(".email").change(function () {
-                        email("email");
-                    });
-                    $("body").delegate(".fecha", "focusin", function () {
-                        $('.fecha').datepicker({
-                            language: "es",
-                            format: "yyyy-mm-dd",
-                            autoclose: true
-                        });
-                    });
-
-
-                    function difFecha(idFecha1, idFecha2) {
-                        var valFecha1 = $(idFecha1).val();
-                        var valFecha2 = $(idFecha2).val();
-                        var arrayFecha1 = valFecha1.split("-");
-                        var arrayFecha2 = valFecha2.split("-");
-                        var fecha1 = new Date(arrayFecha1[0], arrayFecha1[1] - 1, arrayFecha1[2]);
-                        var fecha2 = new Date(arrayFecha2[0], arrayFecha2[1] - 1, arrayFecha2[2]);
-                        var resta = (fecha2 - fecha1) / 1000 / 3600 / 24;
-                        if (resta >= 0) {
-                            $(idFecha1, idFecha2).removeClass("obligado");
-                            return resta;
-                        } else {
-                            $(idFecha1, idFecha2).addClass("obligado");
-                            alerta("amarillo", "Fecha no es valida");
-                            return false;
-                        }
-                    }
-                    function difFechaIncapacidad(idFecha1, idFecha2) {
-                        var valFecha1 = $(idFecha1).val();
-                        var valFecha2 = $(idFecha2).val();
-                        var arrayFecha1 = valFecha1.split("-");
-                        var arrayFecha2 = valFecha2.split("-");
-                        var fecha1 = new Date(arrayFecha1[0], arrayFecha1[1] - 1, arrayFecha1[2]);
-                        var fecha2 = new Date(arrayFecha2[0], arrayFecha2[1] - 1, arrayFecha2[2]);
-                        var resta = (fecha2 - fecha1) / 1000 / 3600 / 24;
-                        if (resta >= 0) {
-                            $(idFecha1).removeClass("obligado");
-                            $(idFecha2).removeClass("obligado");
-                            return resta + 1;
-                        } else {
-                            $(idFecha1).addClass("obligado");
-                            $(idFecha2).addClass("obligado");
-                            alerta("amarillo", "Fecha no es valida");
-                            return false;
-                        }
-                    }
-                    function num_miles(num) {
-                        num = num.toString().replace(/\$|\,/g, '');
-                        if (isNaN(num))
-                            num = "0";
-                        sign = (num == (num = Math.abs(num)));
-                        num = Math.floor(num * 100 + 0.50000000001);
-                        cents = num % 100;
-                        num = Math.floor(num / 100).toString();
-                        if (cents < 10)
-                            cents = "0" + cents;
-                        for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
-                            num = num.substring(0, num.length - (4 * i + 3)) + ',' +
-                                    num.substring(num.length - (4 * i + 3));
-                        return (((sign) ? '' : '-') + num);
-                    }
-                    $(function () {
-                        //Se pone para que en todos los llamados ajax se bloquee la pantalla mostrando el mensaje Procesando...
-                        $.blockUI.defaults.message = 'Procesando...';
-                        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-                    });
-
-                    // ------------------------------------------------------------------
-                    //                  DATABLE
-                    // ------------------------------------------------------------------
-
-
-                    var initTable2 = function () {
-                        var table = $('.tabla-sst');
-
-                        /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
-
-                        /* Set tabletools buttons and button container */
-
-                        $.extend(true, $.fn.DataTable.TableTools.classes, {
-                            "container": "btn-group tabletools-btn-group pull-right",
-                            "buttons": {
-                                "normal": "btn btn-sm default",
-                                "disabled": "btn btn-sm default disabled"
-                            }
-                        });
-
-                        var oTable = table.dataTable({
-                            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-                            "language": {
-                                "aria": {
-                                    "sortAscending": ": activate to sort column ascending",
-                                    "sortDescending": ": activate to sort column descending"
-                                },
-                                "emptyTable": "No hay datos disponibles en la tabla",
-                                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-                                "infoEmpty": "No se encontraron entradas.",
-                                
-                                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                                "lengthMenu": "Mostrar _MENU_ entradas",
-                                "search": "Buscar:",
-                                "zeroRecords": "No se encontraron registros coincidente"
-                            },
-                            "order": [
-                                [0, 'asc']
-                            ],
-                            "lengthMenu": [
-                                [5, 15, 20, -1],
-                                [5, 15, 20, "All"] // change per page values here
-                            ],
-                            // set the initial value
-                            "pageLength": 10,
-                            "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-
-                            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-                            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-                            // So when dropdowns used the scrollable div should be removed. 
-                            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
-                            "tableTools": {
-                                "sSwfPath": "<?php echo base_url('assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf'); ?>",
-                                "aButtons": [{
-                                        "sExtends": "pdf",
-                                        "sButtonText": "PDF"
-                                    }, {
-                                        "sExtends": "csv",
-                                        "sButtonText": "CSV"
-                                    }, {
-                                        "sExtends": "xls",
-                                        "sButtonText": "Excel"
-                                    }, {
-                                        "sExtends": "print",
-                                        "sButtonText": "Print",
-                                        "sInfo": 'Porfavor presiona "CTRL+P" a imprimir o "ESC" para salir',
-                                        "sMessage": "Generated by DataTables"
-                                    }, {
-                                        "sExtends": "copy",
-                                        "sButtonText": "Copy"
-                                    }]
-                            }
-                        });
-
-                        var tableWrapper = $('.tabla-sst_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
-                        tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
-                    }
-
-                    window.addEventListener("load", initTable2);
+            window.addEventListener("load", initTable2);
 
                 </script>
+                <style>
+                    .blockOverlay{
+                        z-index:10000000000000 !important;
+                    }
+                    .blockUI {
+                        z-index:10000000000000 !important;
+                    }
+                    .obligado{
+                        background-color: rgb(250, 255, 189);
+                    }
+                </style>
 
                 </body>
                 </html>
