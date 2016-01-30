@@ -32,10 +32,11 @@ class Empleadohoraextra_model extends CI_Model {
         $this->db->select("hora_extra_tipo.horExtTip_tipo");
         $this->db->select("empleado.Emp_Nombre");
         $this->db->select("empleado.Emp_Apellidos");
-        $this->db->where("empleado_horas_extra.creatorDate",date("Y-m-d"));
+        $this->db->where("DATE(empleado_horas_extra.creatorDate)",date("Y-m-d"));
         $this->db->join("empleado","empleado.Emp_id = empleado_horas_extra.emp_id");
         $this->db->join("hora_extra_tipo","hora_extra_tipo.horExtTip_id = empleado_horas_extra.horExtTip_id ");
         $emp = $this->db->get("empleado_horas_extra");
+//        echo $this->db->last_query();die;
         return $emp->result();
     }
     

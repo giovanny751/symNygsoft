@@ -88,8 +88,8 @@ class Administrativo extends My_Controller {
         try{
             $data = array();
             $this->load->model(array("Empleadohoraextra_model"));
-            $data['Json'] = $this->Empleadohoraextra_model->horasGuardadasHoy($data);
-            if(!empty($data['Json']))
+            $data['Json'] = $this->Empleadohoraextra_model->horasGuardadasHoy();
+            if(empty($data['Json']))
                 throw new Exception("No ha registrado horas extra");
         }catch(exception $e){
             $data['message'] = $e->getMessage(); 
@@ -101,7 +101,7 @@ class Administrativo extends My_Controller {
     function guardarHorasExtras() {
         try {
             $this->load->model(array("Empleadohoraextra_model"));
-            $data = array(
+            $dataGuardar = array(
                 "emp_id" => $this->input->post("emp_id"),
                 "empHorExt_fecha" => $this->input->post("fecha"),
                 "horExtTip_id" => $this->input->post("tipo"),
@@ -109,7 +109,7 @@ class Administrativo extends My_Controller {
                 "creatorUser" => $this->data['usu_id'],
                 "creatorDate" => date("Y-m-d H:i:s")
             );
-            $this->Empleadohoraextra_model->save($data);
+            $this->Empleadohoraextra_model->save($dataGuardar);
 
             $data['Json'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($this->input->post("emp_id"));
         } catch (exception $e) {
@@ -118,10 +118,19 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function eliminarHorasExtrasEmpleado(){
+        try{
+            
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
+    }
     function guardarHorasExtrasEmpleado() {
         try {
             $this->load->model(array("Empleadohoraextra_model"));
-            $data = array(
+            $dataSave = array(
                 "emp_id" => $this->input->post("emp_id"),
                 "empHorExt_fecha" => $this->input->post("fecha"),
                 "horExtTip_id" => $this->input->post("tipo"),
@@ -129,8 +138,8 @@ class Administrativo extends My_Controller {
                 "creatorUser" => $this->data['usu_id'],
                 "creatorDate" => date("Y-m-d H:i:s")
             );
-            $this->Empleadohoraextra_model->save($data);
-            $data['Json'] = $this->Empleadohoraextra_model->detalleHoraTodosEmpleados();
+            $this->Empleadohoraextra_model->save($dataSave);
+            $data['Json'] = $this->Empleadohoraextra_model->horasGuardadasHoy();
         } catch (exception $e) {
             $data['message'] = $e->getMessage(); 
         } finally {

@@ -91,7 +91,7 @@
                     val.empHorExt_fecha,
                     val.empHorExt_horas,
                     val.horExtTip_tipo,
-                    "<button type='button' class='btn btn-danger' title='Eliminar'>-</button>"
+                    "<button type='button' class='btn btn-danger eliminar' title='Eliminar'>-</button>"
                 ]).draw();
             })
         }
@@ -114,6 +114,16 @@
                             alerta("rojo", "Error, comunicarse con el administrador");
                         });
             }
+        });
+        
+        $('body').delegate(".eliminar","click",function(){
+            $.post(
+                        url + "index.php/administrativo/eliminarHorasExtrasEmpleado"
+                        ).done(function (msg) {
+                            
+                        }).fail(function(msg){
+                            
+                        });
         });
     });
 </script>    
