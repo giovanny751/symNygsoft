@@ -26,7 +26,7 @@ class MY_Controller extends CI_Controller {
         $this->data['user'] = $this->session->userdata();
         $this->data["usu_id"] = $this->session->userdata('usu_id');
         validate_login($this->data['user']['usu_id']);
-//        $this->verificacion();
+        $this->verificacion();
     }
 
     function verificacion() {
@@ -34,32 +34,25 @@ class MY_Controller extends CI_Controller {
             $ci = & get_instance();
             $controller = $ci->router->fetch_class();
             $method = $ci->router->fetch_method();
-            
-            if (
-                    ((strtoupper($controller) != strtoupper('login')) &&
-                    (strtoupper($method) != strtoupper('index') || strtoupper($method) != strtoupper('verify'))
-                    )
-            ) {
-                $view = $this->Ingreso_model->consultapermisosmenu($this->data['user']['usu_id'], $controller, $method,$this->data['user']['rol_id']);
-                $permisosPeticion = $this->Ingreso_model->consultaPermisosAccion($this->data['user']['usu_id'], $controller, $method);
-                if (!empty($view)) {
-                    if (!empty($view[0]['clase']) && !empty($view[0]['metodo']) && empty($view[0]['usu_id']))
-                        echo "No tiene permisos por favor comunicarse con el administrador";
-                } else if (!empty($permisosPeticion)) {
-                    if (!empty($permisosPeticion[0]['clase']) && !empty($permisosPeticion[0]['metodo']) && empty($permisosPeticion[0]['usu_id'])) {
-                        throw new Exception("No tiene permisos de ejecutar la acción");
-                    } else if ($permisosPeticion[0]['accion'] == 4 && empty($permisosPeticion[0]['perRol_crear'])) {
-                        throw new Exception("No tiene permisos de crear");
-                    } else if ($permisosPeticion[0]['accion'] == 1 && empty($permisosPeticion[0]['perRol_eliminar'])) {
-                        throw new Exception("No tiene permisos de eliminar");
-                    } else if ($permisosPeticion[0]['accion'] == 2 && empty($permisosPeticion[0]['perRol_modificar'])) {
-                        throw new Exception("No tiene permisos de modificar");
-                    } else if ($permisosPeticion[0]['accion'] == 3 && empty($permisosPeticion[0]['perRol_id'])) {
-                        throw new Exception("No tiene permisos de consultar");
-                    }
-                } else if (empty($permisosPeticion) || empty($view)) {
-                    throw new Exception("No tiene permisos por favor comunicarse con el administrador");
+            $view = $this->Ingreso_model->consultapermisosmenu($this->data['user']['usu_id'], $controller, $method, $this->data['user']['rol_id']);
+            $permisosPeticion = $this->Ingreso_model->consultaPermisosAccion($this->data['user']['usu_id'], $controller, $method);
+            if (!empty($view)) {
+                if (!empty($view[0]['clase']) && !empty($view[0]['metodo']) && empty($view[0]['usu_id']))
+                    echo "No tiene permisos por favor comunicarse con el administrador";
+            } else if (!empty($permisosPeticion)) {
+                if (!empty($permisosPeticion[0]['clase']) && !empty($permisosPeticion[0]['metodo']) && empty($permisosPeticion[0]['usu_id'])) {
+                    throw new Exception("No tiene permisos de ejecutar la acción");
+                } else if ($permisosPeticion[0]['accion'] == 4 && empty($permisosPeticion[0]['perRol_crear'])) {
+                    throw new Exception("No tiene permisos de crear");
+                } else if ($permisosPeticion[0]['accion'] == 1 && empty($permisosPeticion[0]['perRol_eliminar'])) {
+                    throw new Exception("No tiene permisos de eliminar");
+                } else if ($permisosPeticion[0]['accion'] == 2 && empty($permisosPeticion[0]['perRol_modificar'])) {
+                    throw new Exception("No tiene permisos de modificar");
+                } else if ($permisosPeticion[0]['accion'] == 3 && empty($permisosPeticion[0]['perRol_id'])) {
+                    throw new Exception("No tiene permisos de consultar");
                 }
+            } else if (empty($permisosPeticion) || empty($view)) {
+                throw new Exception("No tiene permisos por favor comunicarse con el administrador");
             }
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
