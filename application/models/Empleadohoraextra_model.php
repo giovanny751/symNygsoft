@@ -17,6 +17,27 @@ class Empleadohoraextra_model extends CI_Model {
         $emp = $this->db->get("empleado_horas_extra");
         return $emp->result();
     }
+    function detalleHoraTodosEmpleados(){
+        $this->db->select("empleado_horas_extra.*");
+        $this->db->select("hora_extra_tipo.horExtTip_tipo");
+        $this->db->select("empleado.Emp_Nombre");
+        $this->db->select("empleado.Emp_Apellidos");
+        $this->db->join("empleado","empleado.Emp_id = empleado_horas_extra.emp_id");
+        $this->db->join("hora_extra_tipo","hora_extra_tipo.horExtTip_id = empleado_horas_extra.horExtTip_id ");
+        $emp = $this->db->get("empleado_horas_extra");
+        return $emp->result();
+    }
+    function horasGuardadasHoy(){
+        $this->db->select("empleado_horas_extra.*");
+        $this->db->select("hora_extra_tipo.horExtTip_tipo");
+        $this->db->select("empleado.Emp_Nombre");
+        $this->db->select("empleado.Emp_Apellidos");
+        $this->db->where("empleado_horas_extra.creatorDate",date("Y-m-d"));
+        $this->db->join("empleado","empleado.Emp_id = empleado_horas_extra.emp_id");
+        $this->db->join("hora_extra_tipo","hora_extra_tipo.horExtTip_id = empleado_horas_extra.horExtTip_id ");
+        $emp = $this->db->get("empleado_horas_extra");
+        return $emp->result();
+    }
     
 }
 

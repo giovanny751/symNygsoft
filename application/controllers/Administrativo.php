@@ -83,7 +83,21 @@ class Administrativo extends My_Controller {
             
         }
     }
-
+    
+    function horasExtrasGuardadasHoy(){
+        try{
+            $data = array();
+            $this->load->model(array("Empleadohoraextra_model"));
+            $data['Json'] = $this->Empleadohoraextra_model->horasGuardadasHoy($data);
+            if(!empty($data['Json']))
+                throw new Exception("No ha registrado horas extra");
+        }catch(exception $e){
+            $data['message'] = $e->getMessage(); 
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
     function guardarHorasExtras() {
         try {
             $this->load->model(array("Empleadohoraextra_model"));
@@ -100,6 +114,25 @@ class Administrativo extends My_Controller {
             $data['Json'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($this->input->post("emp_id"));
         } catch (exception $e) {
             
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function guardarHorasExtrasEmpleado() {
+        try {
+            $this->load->model(array("Empleadohoraextra_model"));
+            $data = array(
+                "emp_id" => $this->input->post("emp_id"),
+                "empHorExt_fecha" => $this->input->post("fecha"),
+                "horExtTip_id" => $this->input->post("tipo"),
+                "empHorExt_horas" => $this->input->post("horas"),
+                "creatorUser" => $this->data['usu_id'],
+                "creatorDate" => date("Y-m-d H:i:s")
+            );
+            $this->Empleadohoraextra_model->save($data);
+            $data['Json'] = $this->Empleadohoraextra_model->detalleHoraTodosEmpleados();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage(); 
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
