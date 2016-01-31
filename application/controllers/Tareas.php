@@ -800,31 +800,7 @@ class Tareas extends My_Controller {
         }
     }
 
-    function actualizarplan() {
-        try {
-            $data = array(
-                "pla_avanceProgramado" => $this->input->post("avanceprogramado"),
-                "pla_avanceReal" => $this->input->post("avancereal"),
-                "car_id" => $this->input->post("cargo"),
-                "pla_costoReal" => $this->input->post("costoreal"),
-                "pla_descripcion" => $this->input->post("descripcion"),
-                "pla_eficiencia" => $this->input->post("eficiencia"),
-                "emp_id" => $this->input->post("empleado"),
-                "est_id" => $this->input->post("estado"),
-                "pla_fechaFin" => $this->input->post("fechafin"),
-                "pla_fechaInicio" => $this->input->post("fechainicio"),
-                "pla_nombre" => $this->input->post("nombre"),
-                "nor_id" => $this->input->post("norma"),
-                "pla_presupuesto" => $this->input->post("presupuesto")
-            );
-            $this->load->model("Planes_model");
-            $this->Planes_model->actualizar($data, $this->input->post('pla_id'));
-        } catch (Exception $e) {
-            
-        } finally {
-            
-        }
-    }
+    
 
     function consultar_actividad_padre() {
         try {

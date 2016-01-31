@@ -16,10 +16,22 @@ class Planes_model extends CI_Model {
         }
     }
 
-    function create($data) {
+    function create() {
         try {
-            $this->db->insert("planes", $data);
+            $this->db->insert("planes");
             return $this->db->insert_id();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function create_plan_norma($data, $id = null) {
+        try {
+            if ($id != null) {
+                $this->db->where('pla_id', $id);
+                $this->db->delete('planes_normas');
+            }
+            $this->db->insert_batch("planes_normas", $data);
         } catch (exception $e) {
             
         }
@@ -36,8 +48,8 @@ class Planes_model extends CI_Model {
                 $this->db->where("planes.est_id", $estado);
             if (!empty($tareaspropias))
                 $this->db->where("tarea.emp_id", $tareaspropias);
-            
-            $this->db->where("planes.est_id",1);
+
+            $this->db->where("planes.est_id", 1);
             $this->db->select("planes.*");
             $this->db->select("empleado.Emp_Nombre");
             $this->db->select("empleado.Emp_Apellidos,sum(replace(tar_costopresupuestado,LTRIM(RTRIM(',')),'')) AS tar_costopresupuestado", false);
@@ -63,7 +75,7 @@ class Planes_model extends CI_Model {
         try {
             $this->db->trans_begin();
             $this->db->where('pla_id', $id);
-            $this->db->set("est_id",3);
+            $this->db->set("est_id", 3);
             $this->db->update('planes');
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -83,6 +95,25 @@ class Planes_model extends CI_Model {
             $datos = $this->db->get('planes');
             $datos = $datos->result();
             return $datos[0]->pla_id;
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function norma_planes($id) {
+        try {
+            $this->db->select('nor_id', FALSE);
+            $this->db->where('pla_id', $id);
+            $datos = $this->db->get('planes_normas');
+            $datos = $datos->result();
+            if (count($datos)) {
+                $datos2 = array();
+                foreach ($datos as $value) {
+                    $datos2[] = $value->nor_id;
+                }
+                return $datos2;
+            }
+            return $datos;
         } catch (exception $e) {
             
         }
@@ -127,10 +158,38 @@ class Planes_model extends CI_Model {
         }
     }
 
-    function actualizar($data, $pla_id) {
+    function actualizar($post, $pla_id) {
         try {
-            $this->db->where('pla_id', $pla_id);
-            $this->db->update("planes", $data);
+            $this->db->where('pla_id', $pla_id,false);
+            if (!empty($post['avanceprogramado']))
+            $this->db->set("pla_avanceProgramado", $post['avanceprogramado']);
+            if (!empty($post['avancereal']))
+            $this->db->set("pla_avanceReal", $post['avancereal']);
+            if (!empty($post['cargo']))
+            $this->db->set("car_id", $post['cargo']);
+            if (!empty($post['costoreal']))
+            $this->db->set("pla_costoReal", $post['costoreal']);
+            if (!empty($post['descripcion']))
+            $this->db->set("pla_descripcion", $post['descripcion']);
+            if (!empty($post['eficiencia']))
+            $this->db->set("pla_eficiencia", $post['eficiencia']);
+            if (!empty($post['empleado']))
+            $this->db->set("emp_id", $post['empleado']);
+            if (!empty($post['estado']))
+            $this->db->set("est_id", $post['estado']);
+            if (!empty($post['fechafin']))
+            $this->db->set("pla_fechaFin", $post['fechafin']);
+            if (!empty($post['fechainicio']))
+            $this->db->set("pla_fechaInicio", $post['fechainicio']);
+            
+            if (!empty($post['presupuesto']))
+            $this->db->set("pla_presupuesto", $post['presupuesto']);
+            if (!empty($post['nombre']))
+            $this->db->set("pla_nombre", $post['nombre']);
+            
+            
+            $this->db->update("planes");
+//            echo $this->db->last_query();
         } catch (exception $e) {
             
         }
@@ -588,14 +647,14 @@ class Planes_model extends CI_Model {
         $pla_id > 0 ? $whereplan = " AND pla_id = $pla_id" : $whereplan = "";
         $dim_id > 0 ? $wheredim = " AND dim_id = $dim_id" : $wheredim = "";
         $dim2_id > 0 ? $wheredim2 = " AND dim2_id = $dim2_id" : $wheredim2 = "";
-        
-       $this->db->select("tar_id as id,  "
-               . "tar_descripcion as nombre  , "
-               . "DATE_FORMAT(tar_fechaInicio,'%d/%m/%Y') as fechainicio, "
-               . "DATE_FORMAT(tar_fechaFinalizacion,'%d/%m/%Y')  as fechafin ");
-       $this->db->where("1",1);
-       $this->db->order_by("tar_fechaInicio");
-       $datos = $this->db->get("tarea t");
+
+        $this->db->select("tar_id as id,  "
+                . "tar_descripcion as nombre  , "
+                . "DATE_FORMAT(tar_fechaInicio,'%d/%m/%Y') as fechainicio, "
+                . "DATE_FORMAT(tar_fechaFinalizacion,'%d/%m/%Y')  as fechafin ");
+        $this->db->where("1", 1);
+        $this->db->order_by("tar_fechaInicio");
+        $datos = $this->db->get("tarea t");
 //       echo $this->db->last_query();die;
 //        var_dump($datos);die;
         return $datos->result();

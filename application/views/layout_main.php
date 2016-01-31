@@ -388,11 +388,11 @@
             function obligatorio(clase) {
                 var i = 0;
                 $('.' + clase).each(function (key, val) {
-                    if ($(this).val() != "")
-                        $(this).removeClass('obligado');
-                    else {
+                    if ($(this).val() == "" || $(this).val() == null) {
                         $(this).addClass('obligado');
                         i++;
+                    } else {
+                        $(this).removeClass('obligado');
                     }
                 });
                 if (i == 0)

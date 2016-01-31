@@ -137,7 +137,7 @@ class Planes extends My_Controller {
 
     function listadotareas() {
         try {
-            $this->load->model(array('Planes_model','Tarea_model'));
+            $this->load->model(array('Planes_model', 'Tarea_model'));
             $this->data["planes"] = $this->Planes_model->detail();
             $this->data["tareas"] = $this->Tarea_model->detail();
             $this->data["responsables"] = $this->Tarea_model->responsables();
@@ -162,7 +162,7 @@ class Planes extends My_Controller {
 
     function registro() {
         try {
-            $this->load->model(array('Registrocarpeta_model','Planes_model'));
+            $this->load->model(array('Registrocarpeta_model', 'Planes_model'));
             $this->data['carpeta'] = $this->Registrocarpeta_model->detail();
             $this->data['plan'] = $this->Planes_model->detail();
             $this->layout->view("tareas/registro", $this->data);
@@ -225,18 +225,18 @@ class Planes extends My_Controller {
     function nuevoplan() {
         try {
             $this->load->model(array(
-                                    'User_model'
-                                    ,'Tipo_model'
-                                    ,"Estados_model"
-                ,"Cargo_model"
-                ,"Planes_model"
-                ,"Norma_model"
-                ,"Notificacion_model"
-                ,"Actividad_padre__model"
-                ,"Registrocarpeta_model"
-                ,"Avancetarea_model"
-                                    )
-                    );
+                'User_model'
+                , 'Tipo_model'
+                , "Estados_model"
+                , "Cargo_model"
+                , "Planes_model"
+                , "Norma_model"
+                , "Notificacion_model"
+                , "Actividad_padre__model"
+                , "Registrocarpeta_model"
+                , "Avancetarea_model"
+                    )
+            );
 
             $this->data['plan'] = array();
             if (!empty($this->input->post('pla_id'))) {
@@ -292,6 +292,7 @@ class Planes extends My_Controller {
                 $this->data['tareafechafinal'] = $this->Tarea_model->fechaFinalTareaxPlan($this->input->post('pla_id'));
                 $this->data['plan_grant'] = $this->Planes_model->plan_grant($this->input->post('pla_id'));
                 $this->data['avances'] = $this->Avancetarea_model->listadoAvancexPlan($this->input->post('pla_id'));
+                $this->data['norma_planes'] = $this->Planes_model->norma_planes($this->input->post('pla_id'));
             }
             $this->data['notificacion'] = $this->Notificacion_model->detail();
             $this->data['norma'] = $this->Norma_model->detail();
@@ -396,23 +397,28 @@ class Planes extends My_Controller {
 
     function actualizarplan() {
         try {
-            $data = array(
-                "pla_avanceProgramado" => $this->input->post("avanceprogramado"),
-                "pla_avanceReal" => $this->input->post("avancereal"),
-                "car_id" => $this->input->post("cargo"),
-                "pla_costoReal" => $this->input->post("costoreal"),
-                "pla_descripcion" => $this->input->post("descripcion"),
-                "pla_eficiencia" => $this->input->post("eficiencia"),
-                "emp_id" => $this->input->post("empleado"),
-                "est_id" => $this->input->post("estado"),
-                "pla_fechaFin" => $this->input->post("fechafin"),
-                "pla_fechaInicio" => $this->input->post("fechainicio"),
-                "pla_nombre" => $this->input->post("nombre"),
-                "nor_id" => $this->input->post("norma"),
-                "pla_presupuesto" => $this->input->post("presupuesto")
-            );
             $this->load->model("Planes_model");
-            $this->Planes_model->actualizar($data, $this->input->post('pla_id'));
+            $post = $this->input->post();
+            $this->Planes_model->actualizar($post, $this->input->post('pla_id'));
+            $id_plna = $this->input->post('pla_id');
+            if (!empty($id_plna)) {
+                $norma = $this->input->post('norma');
+                if (isset($norma))
+                    if (!empty($this->input->post('norma'))) {
+                        $norma = $this->input->post('norma');
+                        $data = array();
+                        $i = 0;
+                        foreach ($norma as $value) {
+                            $data[$i] = array(
+                                'nor_id' => $value,
+                                'pla_id' => $this->input->post('pla_id')
+                            );
+                            $i++;
+                        }
+
+                        $this->Planes_model->create_plan_norma($data, $this->input->post('pla_id'));
+                    }
+            }
         } catch (Exception $e) {
             
         } finally {
@@ -453,22 +459,51 @@ class Planes extends My_Controller {
     function guardarplan() {
         try {
             $this->load->model("Planes_model");
-            $data = array(
-                'est_id' => $this->input->post('estado'),
-                'pla_nombre' => $this->input->post('nombre'),
-                'pla_descripcion' => $this->input->post('descripcion'),
-                'pla_fechaInicio' => $this->input->post('fechainicio'),
-                'pla_fechaFin' => $this->input->post('fechafin'),
-                'pla_avanceProgramado' => $this->input->post('avanceprogramado'),
-                'pla_presupuesto' => $this->input->post('presupuesto'),
-                'pla_avanceReal' => $this->input->post('avancereal'),
-                'pla_costoReal' => $this->input->post('costoreal'),
-                'pla_eficiencia' => $this->input->post('eficiencia'),
-                'emp_id' => $this->input->post('empleado'),
-                'car_id' => $this->input->post('cargo'),
-                'nor_id' => $this->input->post('norma')
-            );
-            echo $this->Planes_model->create($data);
+            $post = $this->input->post();
+            if (!empty($post['estado']))
+                $this->db->set('est_id', $post['estado']);
+            if (!empty($post['nombre']))
+                $this->db->set('pla_nombre', $post['nombre']);
+            if (!empty($post['descripcion']))
+                $this->db->set('pla_descripcion', $post['descripcion']);
+            if (!empty($post['fechainicio']))
+                $this->db->set('pla_fechaInicio', $post['fechainicio']);
+            if (!empty($post['fechafin']))
+                $this->db->set('pla_fechaFin', $post['fechafin']);
+            if (!empty($post['avanceprogramado']))
+                $this->db->set('pla_avanceProgramado', $post['avanceprogramado']);
+            if (!empty($post['presupuesto']))
+                $this->db->set('pla_presupuesto', $post['presupuesto']);
+            if (!empty($post['avancereal']))
+                $this->db->set('pla_avanceReal', $post['avancereal']);
+            if (!empty($post['costoreal']))
+                $this->db->set('pla_costoReal', $post['costoreal']);
+            if (!empty($post['eficiencia']))
+                $this->db->set('pla_eficiencia', $post['eficiencia']);
+            if (!empty($post['empleado']))
+                $this->db->set('emp_id', $post['empleado']);
+            if (!empty($post['cargo']))
+                $this->db->set('car_id', $post['cargo']);
+
+            $id_plna = $this->Planes_model->create();
+            if (!empty($id_plna)) {
+                $norma = $this->input->post('norma');
+                if (isset($norma))
+                    if (!empty($this->input->post('norma'))) {
+                        $norma = $this->input->post('norma');
+                        $data = array();
+                        $i = 0;
+                        foreach ($norma as $value) {
+                            $data[$i] = array(
+                                'nor_id' => $value,
+                                'pla_id' => $id_plna
+                            );
+                            $i++;
+                        }
+
+                        $this->Planes_model->create_plan_norma($data);
+                    }
+            }
         } catch (exception $e) {
             
         } finally {
@@ -478,7 +513,7 @@ class Planes extends My_Controller {
 
     function listadoplanes() {
         try {
-            $this->load->model(array("Estados_model","Planes_model"));
+            $this->load->model(array("Estados_model", "Planes_model"));
             $this->data['responsable'] = $this->Planes_model->responsables();
             $this->data['estados'] = $this->Estados_model->finalizados();
             $this->layout->view("planes/listadoplanes", $this->data);
@@ -595,89 +630,89 @@ class Planes extends My_Controller {
     }
 
     function configuracionsistema() {
-        try{
-        $this->layout->view("tareas/configuracionsistema");
-        }catch(exception $e){
+        try {
+            $this->layout->view("tareas/configuracionsistema");
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function cargarplanescarpeta() {
-        try{
-        $this->load->model('Registrocarpeta_model');
-        $data = $this->Registrocarpeta_model->cargarcarpetas(
-                $this->input->post("carpeta")
-        );
-        $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
-        }catch(exception $e){
+        try {
+            $this->load->model('Registrocarpeta_model');
+            $data = $this->Registrocarpeta_model->cargarcarpetas(
+                    $this->input->post("carpeta")
+            );
+            $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function eliminarcarpeta() {
-        try{
-        $this->load->model('Registrocarpeta_model');
-        $data = $this->Registrocarpeta_model->eliminarcarpeta($this->input->post("carpeta"));
-        }catch(exception $e){
+        try {
+            $this->load->model('Registrocarpeta_model');
+            $data = $this->Registrocarpeta_model->eliminarcarpeta($this->input->post("carpeta"));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function modificarpeta() {
-        try{
-        $this->load->model('Registrocarpeta_model');
-        $this->Registrocarpeta_model->modificarpeta(
-                $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("plaCar_id")
-        );
-        $data = $this->Registrocarpeta_model->cargarcarpetas($this->input->post("plaCar_id"));
-        $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
-        }catch(exception $e){
+        try {
+            $this->load->model('Registrocarpeta_model');
+            $this->Registrocarpeta_model->modificarpeta(
+                    $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("plaCar_id")
+            );
+            $data = $this->Registrocarpeta_model->cargarcarpetas($this->input->post("plaCar_id"));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function eliminaractividad() {
-        try{
-        $this->load->model('Actividadpadre_model');
-        $data = $this->Actividadpadre_model->eliminaractividad($this->input->post("carpeta"));
-        }catch(exception $e){
+        try {
+            $this->load->model('Actividadpadre_model');
+            $data = $this->Actividadpadre_model->eliminaractividad($this->input->post("carpeta"));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function datosactividad() {
-        try{
-        $this->load->model('Actividadpadre_model');
-        $data = $this->Actividadpadre_model->cargardatos($this->input->post("carpeta"));
-        $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
-        }catch(exception $e){
+        try {
+            $this->load->model('Actividadpadre_model');
+            $data = $this->Actividadpadre_model->cargardatos($this->input->post("carpeta"));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
 
     function modificaractividad() {
-        try{
-        $this->load->model('Actividadpadre_model');
-        $this->Actividadpadre_model->modificardatos(
-                $this->input->post("actividadpadre"), $this->input->post("idactividad"), $this->input->post("nombreactividad")
-        );
-        $data = $this->Actividadpadre_model->cargardatos($this->input->post("actividadpadre"));
-        $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
-        }catch(exception $e){
+        try {
+            $this->load->model('Actividadpadre_model');
+            $this->Actividadpadre_model->modificardatos(
+                    $this->input->post("actividadpadre"), $this->input->post("idactividad"), $this->input->post("nombreactividad")
+            );
+            $data = $this->Actividadpadre_model->cargardatos($this->input->post("actividadpadre"));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
