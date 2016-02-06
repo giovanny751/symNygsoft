@@ -12,11 +12,29 @@ class Empleado_model extends CI_Model {
         $this->db->select("empleado.Emp_cedula");
         $this->db->select("empleado.Emp_Nombre");
         $this->db->select("empleado.Emp_Apellidos");
+        $this->db->where("est_id",1);
         $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
         $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
         $empleado = $this->db->get("empleado");
 //        echo $this->db->last_query();die;
         return $empleado->result();
+    }
+    
+    function detail() {
+        try {
+            $this->db->distinct("empleado.Emp_id");
+            $this->db->select("empleado.Emp_id");
+            $this->db->select("empleado.Emp_cedula");
+            $this->db->select("empleado.Emp_Nombre");
+            $this->db->select("empleado.Emp_Apellidos");
+            $this->db->where("est_id",1);
+            $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+            $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
+            $empleado = $this->db->get("empleado");
+            return $empleado->result();
+        } catch (exception $e) {
+            
+        }
     }
 
     function create($data) {
@@ -47,15 +65,7 @@ class Empleado_model extends CI_Model {
         }
     }
 
-    function detail() {
-        try {
-            $this->db->where("est_id",1);
-            $empleado = $this->db->get("empleado");
-            return $empleado->result();
-        } catch (exception $e) {
-            
-        }
-    }
+    
 
     function detail_order() {
         try {
@@ -95,8 +105,12 @@ class Empleado_model extends CI_Model {
                 $this->db->where('cargo.car_id', $cargo);
             if (!empty($estado))
                 $this->db->where('estados.Est_id', $estado);
-            if (!empty($contratosvencidos))
-                $this->db->where("Emp_FechaFinContrato <", date('Y-m-d'));
+            if (!empty($contratosvencidos)):
+                $this->db->where("empleado_contratos.empCon_fechaHasta <",date("Y-m-d"));
+            else:
+                $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+            endif;
+            
             $this->db->select("(
             select count(tarea.tar_id)  
             from tarea
@@ -113,6 +127,8 @@ class Empleado_model extends CI_Model {
             $this->db->select("tipo_contrato.*");
             $this->db->select("cargo.*");
             $this->db->where("empleado.est_id ",1);
+            
+            $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
             $this->db->join("tipo_contrato", "tipo_contrato.TipCon_Id = empleado.TipCon_Id","LEFT");

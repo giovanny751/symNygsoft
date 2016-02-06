@@ -72,15 +72,6 @@
                                 <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cédula</label>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
-                                </div>
-                                <label for="tipocontrato" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Tipo Contrato</label>  
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="tipocontrato" name="tipocontrato" class="form-control obligatorio"  >
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($tipocontrato as $tp) { ?>
-                                            <option <?php echo (!empty($empleado[0]->TipCon_Id) && $empleado[0]->TipCon_Id == $tp->TipCon_Id) ? "selected" : ""; ?> value="<?php echo $tp->TipCon_Id ?>"><?php echo $tp->TipCon_Descripcion; ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>    
                             </div>
                             <div class="row">

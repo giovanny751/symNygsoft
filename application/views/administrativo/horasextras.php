@@ -21,7 +21,7 @@
                 <select name="emp_id" id="empleado" class="form-control obligatorio">
                     <option value="0">::Seleccionar::</option>
                     <?php foreach ($empleados as $e): ?>
-                        <option value="<?php echo $e->Emp_Id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
+                        <option value="<?php echo $e->Emp_id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -50,6 +50,9 @@
             </div>
         </form>
     </div>
+    <div class="alert alert-info">
+        <center><b>Horas guardadas el día de Hoy</b></center>
+    </div>
     <div class="row">
         <table class="tabla-sst" id="horasEmpleados">
             <thead>
@@ -60,7 +63,6 @@
             <th>Eliminar</th>
             </thead>
             <tbody>
-
             </tbody>
         </table>
     </div>
@@ -85,13 +87,17 @@
 
         function horasExtras(msg) {
             var table = $('#horasEmpleados').DataTable();
+            table
+                    .clear()
+                    .draw();
+
             $.each(msg.Json, function (key, val) {
                 table.row.add([
                     val.Emp_Nombre + " " + val.Emp_Apellidos,
                     val.empHorExt_fecha,
                     val.empHorExt_horas,
                     val.horExtTip_tipo,
-                    "<button type='button' class='btn btn-danger eliminar' title='Eliminar'>-</button>"
+                    "<button type='button' class='btn btn-danger eliminar' HorExtId='" + val.empHorExt_id + "' title='Eliminar'>-</button>"
                 ]).draw();
             })
         }
@@ -115,15 +121,18 @@
                         });
             }
         });
-        
-        $('body').delegate(".eliminar","click",function(){
-            $.post(
-                        url + "index.php/administrativo/eliminarHorasExtrasEmpleado"
-                        ).done(function (msg) {
-                            
-                        }).fail(function(msg){
-                            
-                        });
+
+        $('body').delegate(".eliminar", "click", function () {
+            if (confirm("Esta seguro de eliminar la hora extra")) {
+                $.post(
+                        url + "index.php/administrativo/eliminarHorasExtrasEmpleado",
+                        {HorExtId: $(this).attr('HorExtId')}
+                ).done(function (msg) {
+                    horasExtras(msg);
+                }).fail(function (msg) {
+                    alerta("rojo", "Ocurrio un error por favor comunicarse con el administrador");
+                });
+            }
         });
     });
 </script>    

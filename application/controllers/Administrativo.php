@@ -120,11 +120,16 @@ class Administrativo extends My_Controller {
     }
     function eliminarHorasExtrasEmpleado(){
         try{
-            
+            $this->load->model(array("Empleadohoraextra_model"));
+            $this->Empleadohoraextra_model->eliminarHoraExtra($this->input->post("HorExtId"));
+            $data['Json'] = $this->Empleadohoraextra_model->horasGuardadasHoy();
+            if(empty($data['Json'])){
+                throw new Exception("No hay registros de horas extras");
+            }
         }catch(exception $e){
-            
+            $data['message'] = $e->getMessage();
         }finally{
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
     function guardarHorasExtrasEmpleado() {
@@ -446,7 +451,6 @@ class Administrativo extends My_Controller {
                 'Emp_TelefonoContacto' => $this->input->post('telefonocontacto'),
                 'Emp_Email' => $this->input->post('email'),
                 'EstCiv_id' => $this->input->post('estadocivil'),
-                'TipCon_Id' => $this->input->post('tipocontrato'),
                 'Emp_FechaInicioContrato' => $this->input->post('fechainiciocontrato'),
                 'Emp_FechaFinContrato' => $this->input->post('fechafincontrato'),
                 'Emp_PlanObligatorioSalud' => $this->input->post('planobligatoriodesalud'),
@@ -1735,7 +1739,8 @@ class Administrativo extends My_Controller {
 
     function horasextras() {
         $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
-        $this->data['empleados'] = $this->Empleado_model->detail();
+        $this->data['empleados'] = $this->Empleado_model->empleados();
+//        var_dump($this->data['empleados']);die;
         $this->data['tipo'] = $this->Horaextratipo_model->tipos();
         $this->layout->view("administrativo/horasextras", $this->data);
     }
