@@ -6,6 +6,13 @@ class Empleado_model extends CI_Model {
         parent::__construct();
     }
     
+    function empleadosNomina(){
+//        $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
+        $this->db->join("cargo","cargo.Car_id = empleado.Car_id");
+        $empleado = $this->db->get("empleado");
+        return $empleado->result();
+    }
+    
     function empleados(){
         $this->db->distinct("empleado.Emp_id");
         $this->db->select("empleado.Emp_id");

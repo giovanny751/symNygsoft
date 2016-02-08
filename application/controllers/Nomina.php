@@ -37,5 +37,17 @@ class Nomina extends My_Controller {
         );
         $this->Parametrosnomina_model->guardarParametros($parametros);
     }
+    function nominaEmpleados(){
+        $this->load->model(array("Empleado_model","Parametrosnomina_model"));
+        $this->data['empleados'] = $this->Empleado_model->empleadosNomina();
+        $this->data['auxilioTransporte'] = $this->Parametrosnomina_model->parametrosNomina()[0];
+        
+        $this->layout->view("nomina/nominaEmpleados",$this->data);
+    }
+    function cajaMenor(){
+        $this->load->model(array("Empleado_model","Parametrosnomina_model"));
+        $this->data['empleado'] = $this->Empleado_model->empleados();
+        $this->layout->view("nomina/cajaMenor",$this->data);
+    }
     
 }
