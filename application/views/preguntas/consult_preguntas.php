@@ -71,7 +71,7 @@
                                 echo '<a href="javascript:" class="btn btn-dcs" ><i class="modificar fa fa-check fa-2x " modificar=' . $valor . ' estado=' . "'" . $value->$key2 . "'" . ' style="color:' . $d . '"></i></a>';
                                 echo "</td>";
                             } else {
-                                echo "<td>" . utf8_encode($value->$key2) . "</td>";
+                                echo "<td>" . ($value->$key2) . "</td>";
                             }
                             $i++;
                         }

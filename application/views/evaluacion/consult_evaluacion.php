@@ -24,6 +24,7 @@
 
         </div>
         <button class="btn btn-sst" >Consultar</button>
+        <br>
     </form>
 
     <div class="row">
@@ -31,7 +32,7 @@
             <table class="table table-bordered">
                 <thead>
                 <th style="display: none"></th>
-                <th>eva_nombre</th>
+                <th>Nombre</th>
                 <th>Acción</th>
                 </thead>
                 <tbody>
