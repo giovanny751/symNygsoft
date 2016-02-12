@@ -322,6 +322,20 @@
                 <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
 
                 <script type="text/javascript">
+                    $('.dimencion_uno_se').change(function(){
+                    $('.dimencion_dos_se').html('');    
+                        var url='<?php echo base_url('index.php/Administrativo/traer_dimencion') ?>';
+                        $.post(url,{dimencion1:$(this).val()})
+                                .done(function(msg){
+                                    $.each(msg,function(key, val){
+                                        $('.dimencion_dos_se').append('<option value="'+val.dim_id+'">'+val.dim_descripcion+'</option>')
+                                    });
+                                })
+                                .fail(function(msg){
+                                    alerta('rojo','Error en la consulta');
+                                })
+                    })
+                    
             jQuery(document).ready(function () {
                 Metronic.init(); // init metronic core componets
                 Layout.init(); // Menu 

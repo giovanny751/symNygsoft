@@ -52,7 +52,7 @@ class Tarea_model extends CI_Model {
 
     function actualizar_norma($post) {
         try {
-            if (isset($post['norma'])) {
+            if (!isset($post['est_id'])) {
                 $this->db->set('nor_norma', $post['norma']);
                 $this->db->set('nor_descripcion', $post['descripcion']);
             } else {

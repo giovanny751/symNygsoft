@@ -171,6 +171,16 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    public function traer_dimencion() {
+        try {
+            $this->load->model('Dimension2_model');
+            $data['Json']=$this->Dimension2_model->traer_dimencion();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
     function guardarAusentismo() {
         try {

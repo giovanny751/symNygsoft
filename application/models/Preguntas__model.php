@@ -147,6 +147,7 @@ class Preguntas__model extends CI_Model {
 //            $this->db->join('tema t', 't.tem_id=preguntas.tem_id');
 //            $this->db->join('area a', 'a.are_id=preguntas.are_id');
             $this->db->join('tipo_pregunta tp', 'tp.tipPre_id=preguntas.tipPre_id');
+            $this->db->order_by('eva_nombre,tipPre_nombre,pre_nombre_busqueda');
             $datos = $this->db->get('preguntas');
             $datos = $datos->result();
             return $datos;

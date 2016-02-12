@@ -69,7 +69,9 @@
                                 <tr>
                                     <td><?php echo $d->nor_norma ?></td>
                                     <td><?php echo $d->nor_descripcion ?></td>
-                                    <td><a href="javascript:" class="num_articulos" nor_id="<?php echo $d->nor_id ?>" data-toggle="modal" data-target="#myModal2"><?php echo $d->cantidad_articulos ?></a></td>
+                                    <td>
+                                        <a href="javascript:" class="num_articulos" nor_id="<?php echo $d->nor_id ?>" data-toggle="modal" data-target="#myModal2"><?php echo $d->cantidad_articulos ?></a>
+                                    </td>
                                     <td>
                                         <a href="javascript:" class="btn btn-xs default modificar" norma="<?php echo $d->nor_norma ?>" descri="<?php echo $d->nor_descripcion ?>" nor_id="<?php echo $d->nor_id ?>" data-toggle="modal" data-target="#myModal">
                                             <i class="fa fa-pencil-square-o" title="Modificar"></i>
@@ -241,6 +243,8 @@
                         alerta("amarillo", msg['message'])
                     else {
                         $('#myModal').modal('hide');
+                        $('#norma').val('');
+                        $('#descripcion').val('');
                         construccionTabla(msg);
                     }
                 })
@@ -274,7 +278,7 @@
     $('body').delegate('.eliminar', 'click', function () {
         var nor_id = $(this).attr('nor_id');
         $.post(url+'index.php/Tareas/eliminar_norma', 
-                {nor_id: nor_id})
+                {nor_id: nor_id,est_id:3})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
@@ -294,7 +298,7 @@
             tabla_norma += "<tr>";
             tabla_norma += "<td>" + val.nor_norma + "</td>";
             tabla_norma += "<td>" + val.nor_descripcion + "</td>";
-            tabla_norma += "<td>" + val.cantidad_articulos + "</td>";
+            tabla_norma += '<td><a href="javascript:" class="num_articulos" nor_id="'+val.nor_norma +'" data-toggle="modal" data-target="#myModal2">' + val.cantidad_articulos + "</a></td>";
 
             tabla_norma += '<td >';
             tabla_norma += '<a href="javascript:;" class="btn btn-xs default modificar" norma="' + val.nor_norma + '" descri="' + val.nor_descripcion + '" data-toggle="modal" data-target="#myModal" nor_id="' + val.nor_id + '">';

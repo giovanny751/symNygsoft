@@ -117,6 +117,14 @@ class Dimension2_model extends CI_Model {
             
         }
     }
+    
+    public function traer_dimencion() {
+        $post=$this->input->post();
+        $this->db->where();
+        $datos=$this->db->get();
+        $datos=$datos->result();
+        return $datos;
+    }
 
 }
 
