@@ -38,7 +38,7 @@ class Preguntas extends My_Controller {
         try {
             $post = $this->input->post();
             $id = $this->Preguntas__model->save_preguntas($post);
-//            redirect('index.php/Preguntas/consult_preguntas', 'location');
+            redirect('index.php/Preguntas/consult_preguntas', 'location');
         } catch (exception $e) {
             
         } finally {
