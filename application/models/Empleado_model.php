@@ -98,8 +98,6 @@ class Empleado_model extends CI_Model {
                 $this->db->where('empleado.Dim_id', $dim1);
             if (!empty($dim2))
                 $this->db->where('empleado.Dim_IdDos', $dim2);
-            if (!empty($tipocontrato))
-                $this->db->where('tipo_contrato.TipCon_Id', $tipocontrato);
             if (!empty($cedula))
                 $this->db->where('Emp_Cedula', $cedula);
             if (!empty($nombre))
@@ -131,14 +129,12 @@ class Empleado_model extends CI_Model {
             ) as planes_emp,", false);
             $this->db->select("empleado.*");
             $this->db->select("estados.*");
-            $this->db->select("tipo_contrato.*");
             $this->db->select("cargo.*");
             $this->db->where("empleado.est_id ",1);
             
             $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
-            $this->db->join("tipo_contrato", "tipo_contrato.TipCon_Id = empleado.TipCon_Id","LEFT");
             $empleado = $this->db->get("empleado");
             return $empleado->result();
         } catch (exception $e) {

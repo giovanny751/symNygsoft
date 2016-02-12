@@ -723,7 +723,7 @@
         var car_id = $(this).attr('car_id');
         $("#idpadre *").remove();
         $.post(
-                url + "index.php/planes/detailxplaid>"
+                url + "index.php/planes/detailxplaid"
                 , {pla_id: pla_id}
         ).done(function (msg) {
             var option = "<option value=''>::Seleccionar::</option>";
@@ -1063,13 +1063,13 @@ echo (empty($plan[0]->pla_id)) ? base_url('index.php/planes/guardarplan') : base
                     alerta("rojo", msg['message']);
                 else {
                     if (confirm("Desea guardar otro Plan ?")) {
-//                        $('input,select,textarea').val("");
+                        $('input,select,textarea').val("");
                     } else {
-//                        var form = "<form method='post' id='frmEditarPlan'>";
-//                        form += "<input type='hidden' value='" + msg + "' name='pla_id'>";
-//                        form += "</form>";
-//                        $('body').append(form);
-//                        $('#frmEditarPlan').submit();
+                        var form = "<form method='post' id='frmEditarPlan'>";
+                        form += "<input type='hidden' value='" + msg + "' name='pla_id'>";
+                        form += "</form>";
+                        $('body').append(form);
+                        $('#frmEditarPlan').submit();
                     }
                     alerta("verde", "Datos guardados correctamente");
                 }

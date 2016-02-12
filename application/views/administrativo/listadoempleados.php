@@ -139,17 +139,7 @@
             </div>
         </div>    
         <div class="form-group">
-            <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="tipocontrato">
-                Tipo Contrato
-            </label>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <select name="tipocontrato" id="tipocontrato" class="form-control">
-                    <option value="">::Seleccionar::</option>
-                    <?php foreach ($tipocontrato as $tp) { ?>
-                        <option value="<?php echo $tp->TipCon_Id ?>"><?php echo $tp->TipCon_Descripcion ?></option>
-                    <?php } ?>
-                </select>
-            </div>
+            
             <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="cargo">
                 Cargo
             </label>
@@ -188,7 +178,6 @@
             <th>Apellidos</th>
             <th>Teléfono</th>
             <th>Estado</th>
-            <th>Tipo contrato</th>
             <th>Cargo</th>
             <th>Fecha inicio</th>
             <th>Fecha fin</th>
@@ -247,7 +236,6 @@
                     body += "<td>" + val.Emp_Apellidos + "</td>";
                     body += "<td>" + val.Emp_Telefono + "</td>";
                     body += "<td>" + val.est_nombre + "</td>";
-                    body += "<td>" + val.TipCon_Descripcion + "</td>";
                     body += "<td>" + val.car_nombre + "</td>";
                     body += "<td>" + val.Emp_FechaInicioContrato + "</td>";
                     body += "<td>" + val.Emp_FechaFinContrato + "</td>";

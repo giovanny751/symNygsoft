@@ -17,10 +17,6 @@
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
-            <div class="flechaHeader IzquierdaDoble" metodo="flechaIzquierdaDoble"><i class="fa fa-step-backward fa-2x"></i></div>
-            <div class="flechaHeader Izquierda" metodo="flechaIzquierda"><i class="fa fa-arrow-left fa-2x"></i></div>
-            <div class="flechaHeader Derecha" metodo="flechaDerecha"><i class="fa fa-arrow-right fa-2x"></i></div>
-            <div class="flechaHeader DerechaDoble" metodo="flechaDerechaDoble"><i class="fa fa-step-forward fa-2x"></i></div>
             <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
         </div>
     </div>
@@ -227,9 +223,9 @@
                         <form id="frmContrato" class="form-horizontal">
                             <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
                             <div class="form-group">
-                                <label for="fInicioContrato" class="control-label col-sm-2">Fecha Inicio</label>
+                                <label for="fInicioContrato" class="control-label col-sm-2">*Fecha Inicio</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control obliContrato fecha" name="fInicioContrato" id="fInicioContrato"  />
+                                    <input type="text" class="obligatorioContrato form-control obliContrato fecha" name="fInicioContrato" id="fInicioContrato"  />
                                 </div>
                                 <label for="fFinalContrato" class="control-label col-sm-2">Fecha Final</label>
                                 <div class="col-sm-4">
@@ -237,9 +233,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="fInicioContrato" class="control-label col-sm-2">Tipo Contrato</label>
+                                <label for="fInicioContrato" class="control-label col-sm-2">*Tipo Contrato</label>
                                 <div class="col-sm-4">
-                                    <select name="tipContrato" id="tipContrato" class="form-control obliContrato">
+                                    <select name="tipContrato" id="tipContrato" class="obligatorioContrato form-control obliContrato">
                                         <option value="">::Seleccionar::</option>
                                         <?php foreach ($tipocontrato as $tp) { ?>
                                             <option value="<?php echo $tp->TipCon_Id ?>"><?php echo $tp->TipCon_Descripcion; ?></option>
@@ -267,13 +263,13 @@
                                 </tr>
                             </thead>
                             <tbody id="tabContrato">
-                                <?php foreach($tiposContrato as $tc): ?>
-                                <tr>
-                                    <td><?php echo $tc->empCon_fechaDesde ?></td>
-                                    <td><?php echo $tc->empCon_fechaHasta ?></td>
-                                    <td><?php echo $tc->TipCon_Descripcion ?></td>
-                                    <td><?php echo $tc->empCon_observacion ?></td>
-                                </tr>
+                                <?php foreach ($tiposContrato as $tc): ?>
+                                    <tr>
+                                        <td><?php echo $tc->empCon_fechaDesde ?></td>
+                                        <td><?php echo $tc->empCon_fechaHasta ?></td>
+                                        <td><?php echo $tc->TipCon_Descripcion ?></td>
+                                        <td><?php echo $tc->empCon_observacion ?></td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -303,16 +299,16 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tablaIncapacidad">
-                                    <?php foreach($incapacidades as $in): ?>
-                                    <tr>
-                                    <td><?php echo $in->responsable ?></td>
-                                    <td><?php echo $in->fechaInicio ?></td>
-                                    <td><?php echo $in->fechaFinal ?></td>
-                                    <td><?php echo $in->dias ?></td>
-                                    <td><?php echo $in->motivo ?></td>
-                                    <td><?php echo $in->observacion ?></td>
-                                    <td><?php echo $in->usuario ?></td>
-                                    </tr>
+                                    <?php foreach ($incapacidades as $in): ?>
+                                        <tr>
+                                            <td><?php echo $in->responsable ?></td>
+                                            <td><?php echo $in->fechaInicio ?></td>
+                                            <td><?php echo $in->fechaFinal ?></td>
+                                            <td><?php echo $in->dias ?></td>
+                                            <td><?php echo $in->motivo ?></td>
+                                            <td><?php echo $in->observacion ?></td>
+                                            <td><?php echo $in->usuario ?></td>
+                                        </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -541,26 +537,26 @@
                         <div class="portlet-title">
                         </div>   
                         <div class="portlet-body">
-                        <table class="tabla-sst" >
-                            <thead>
-                            <td>Capacitación</td>
-                            <td>Fecha</td>
-                            <td>Observacion</td>
-                            <td>Editar</td>
-                            <td>Eliminar</td>
-                            </thead>
-                            <tbody>
-                                <?php foreach($capacitaciones as $ca):?>
-                                <tr>
-                                    <td><?php echo $ca->cap_nombreCapacitacion ?></td>
-                                    <td><?php echo $ca->cap_fechaCapacitacion ?></td>
-                                    <td><?php echo $ca->cap_observacion ?></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                            <table class="tabla-sst" >
+                                <thead>
+                                <td>Capacitación</td>
+                                <td>Fecha</td>
+                                <td>Observacion</td>
+                                <td>Editar</td>
+                                <td>Eliminar</td>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($capacitaciones as $ca): ?>
+                                        <tr>
+                                            <td><?php echo $ca->cap_nombreCapacitacion ?></td>
+                                            <td><?php echo $ca->cap_fechaCapacitacion ?></td>
+                                            <td><?php echo $ca->cap_observacion ?></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>    
                     </div>
                 </div>
@@ -746,8 +742,8 @@
                     <input type="hidden" id="vac_id" name="vac_id" />
                     <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
                     <div class="row">
-                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="iniciovacaciones">Fecha Inicio</label>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="iniciovacaciones" id="iniciovacaciones" class="form form-control fecha"/></div>
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="iniciovacaciones">*Fecha Inicio</label>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="iniciovacaciones" id="iniciovacaciones" class="form form-control fecha obligacionVaciones"/></div>
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="finvacaciones">Fecha Fin</label>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="finvacaciones" id="finvacaciones" class="form form-control fecha"/></div>
                     </div>
@@ -855,10 +851,10 @@ foreach ($tipoaseguradora as $ta):
 endforeach;
 ?>
 <script>
-    $("body").delegate("#guardarInc","click", function () {
+    $("body").delegate("#guardarInc", "click", function () {
         if (obligatorio('obligatorioInc') == true) {
             if (difFechaIncapacidad("#fechaInicioInc", "#fechaFinalInc") > 0) {
-                $.post(url+"index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
+                $.post(url + "index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
                         .done(function (msg) {
                             if (!jQuery.isEmptyObject(msg.message))
                                 alerta("amarillo", msg['message'])
@@ -882,35 +878,37 @@ endforeach;
     // -------------------------------------------------------------------------
 
     $("#btnContrato").click(function () {
-        var tableBody = "";
-        $.post(url+"index.php/administrativo/guardarContrato", $("#frmContrato").serialize())
-                .done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
-                        alerta("amarillo", msg['message'])
-                    else {
-                        var body = "";
-                        $('#tabContrato *').remove();
-                        $.each(msg.Json,function(key,val){
-                            body += "<tr>"; 
-                            body += "<td>"+val.empCon_fechaDesde+"</td>"; 
-                            body += "<td>"+val.empCon_fechaHasta+"</td>"; 
-                            body += "<td>"+val.TipCon_Descripcion+"</td>"; 
-                            body += "<td>"+val.empCon_observacion+"</td>"; 
-                            body += "</tr>"; 
-                        });
-                        $('#tabContrato').append(body);
-                        $('#frmContrato input,select,textarea').val("");
-                    }
-                })
-                .fail(function (msg) {
+        if (obligatorio('obligatorioContrato') == true) {
+            var tableBody = "";
+            $.post(url + "index.php/administrativo/guardarContrato", $("#frmContrato").serialize())
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("amarillo", msg['message'])
+                        else {
+                            var body = "";
+                            $('#tabContrato *').remove();
+                            $.each(msg.Json, function (key, val) {
+                                body += "<tr>";
+                                body += "<td>" + val.empCon_fechaDesde + "</td>";
+                                body += "<td>" + val.empCon_fechaHasta + "</td>";
+                                body += "<td>" + val.TipCon_Descripcion + "</td>";
+                                body += "<td>" + val.empCon_observacion + "</td>";
+                                body += "</tr>";
+                            });
+                            $('#tabContrato').append(body);
+                            $('#frmContrato input,select,textarea').val("");
+                        }
+                    })
+                    .fail(function (msg) {
 
-                });
+                    });
+        }
     });
 
     $('.guardarHorasExtra').click(function () {
         if (obligatorio('obligatorioHoraExtra') == true) {
             $.post(
-                    url+"index.php/administrativo/guardarHorasExtras",
+                    url + "index.php/administrativo/guardarHorasExtras",
                     $('#FrmHorasExtras').serialize()
                     )
                     .done(function (msg) {
@@ -937,7 +935,7 @@ endforeach;
     });
 
     $('#motivoIncapacidad').autocomplete({
-        source: url+"index.php/administrativo/autocompletarIncapacidadReferencia",
+        source: url + "index.php/administrativo/autocompletarIncapacidadReferencia",
         minLength: 3,
         max: 10,
         open: function () {
@@ -951,27 +949,28 @@ endforeach;
     });
 
     $('body').delegate("#guardarVacaciones", "click", function () {
-        if ($('#vac_id').length == 0)
-            var ruta = url+"index.php/administrativo/guardarVacaciones";
-        else
-            var ruta = url+"index.php/administrativo/updateHolidays";
-        $.post(ruta, $('#FrmVacaciones').serialize())
-                .done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
-                        alerta("rojo", msg['message'])
-                    else
-                        cargarTablaVacaciones(msg, "bodyVacation");
-
-                })
-                .fail(function (msg) {
-                    alert("rojo", "Error, por favor comunicarse con el administrador");
-                });
+        if (obligatorio("obligacionVaciones")) {
+            if ($('#vac_id').length == 0)
+                var ruta = url + "index.php/administrativo/guardarVacaciones";
+            else
+                var ruta = url + "index.php/administrativo/updateHolidays";
+            $.post(ruta, $('#FrmVacaciones').serialize())
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("rojo", msg['message']);
+                        else
+                            cargarTablaVacaciones(msg, "bodyVacation");
+                    })
+                    .fail(function (msg) {
+                        alert("rojo", "Error, por favor comunicarse con el administrador");
+                    });
+        }
     });
     $('body').delegate("#guardarAusentismo", "click", function () {
         if ($('#empAus_id').length == 0)
-            var ruta = url+"index.php/administrativo/guardarAusentismo";
+            var ruta = url + "index.php/administrativo/guardarAusentismo";
         else
-            var ruta = url+"index.php/administrativo/actualizarAusentismo";
+            var ruta = url + "index.php/administrativo/actualizarAusentismo";
         $.post(ruta, $('#FrmAusentismo').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -1019,7 +1018,7 @@ endforeach;
 
     $('body').delegate(".modifyHolidays", "click", function () {
         $.post(
-                url+'index.php/administrativo/dataHolidaysxId',
+                url + 'index.php/administrativo/dataHolidaysxId',
                 {vac_id: $(this).attr('vac_id')}
         )
                 .done(function (msg) {
@@ -1041,7 +1040,7 @@ endforeach;
     });
     $('body').delegate(".modificarAusentismo", "click", function () {
         $.post(
-                url+'index.php/administrativo/dataHolidaysxId',
+                url + 'index.php/administrativo/dataHolidaysxId',
                 {vac_id: $(this).attr('vac_id')}
         )
                 .done(function (msg) {
@@ -1067,7 +1066,7 @@ endforeach;
         var apuntador = $(this);
         var vac_id = $(this).attr('vac_id');
         $.post(
-                url+'index.php/administrativo/removeHolidays',
+                url + 'index.php/administrativo/removeHolidays',
                 {vac_id: vac_id}
         )
                 .done(function (msg) {
@@ -1103,7 +1102,7 @@ endforeach;
     $(document).ready(<?php echo (!empty($empleado[0]->Emp_Id)) ? "tabla()" : "" ?>);
     $('body').delegate(".modificarcarpeta", "click", function () {
 
-        $.post(url+"index.php/administrativo/modificarcarpeta",
+        $.post(url + "index.php/administrativo/modificarcarpeta",
                 $('#formcarpeta').serialize()
                 ).done(function (msg) {
 
@@ -1128,7 +1127,7 @@ endforeach;
         var empCar_id = $(this).attr("car_id");
         if (confirm("Esta seguro de eliminar la carpeta")) {
             $('#empReg_carpeta option[value="' + empCar_id + '"]').remove();
-            $.post(url,"index.php/administrativo/eliminarcarpeta",
+            $.post(url, "index.php/administrativo/eliminarcarpeta",
                     {empCar_id: empCar_id}
             ).done(function (msg) {
                 $('a[href="#collapse_' + empCar_id + '"]').parents('.panel-default').remove();
@@ -1142,7 +1141,7 @@ endforeach;
     $('body').delegate(".editarcarpeta", "click", function () {
 
         $.post(
-                url+"index.php/administrativo/cargarempleadocarpeta",
+                url + "index.php/administrativo/cargarempleadocarpeta",
                 {carpeta: $(this).attr("car_id")}
         )
                 .done(function (msg) {
@@ -1174,7 +1173,7 @@ endforeach;
     $('body').delegate('.modificar', 'click', function () {
         $('#guardarRegistro').text("Actualizar");
         $.post(
-                url+"index.php/administrativo/searchxid",
+                url + "index.php/administrativo/searchxid",
                 {empReg_id: $(this).attr("emp_id")}
         ).done(function (msg) {
             $('.archivo').remove()
@@ -1199,7 +1198,7 @@ endforeach;
         var apuntador = $(this);
         if (confirm("Esta seguro de eliminar el registro"))
             $.post(
-                    url+"index.php/administrativo/eliminarregistro"
+                    url + "index.php/administrativo/eliminarregistro"
                     , {empReg_id: $(this).attr('empreg_id')}
             ).done(function (msg) {
                 apuntador.parents('tr').remove();
@@ -1212,7 +1211,7 @@ endforeach;
     $('#cedula').change(function () {
         var data = $(this);
         $.post(
-                url+"index.php/administrativo/validarcedula",
+                url + "index.php/administrativo/validarcedula",
                 {cedula: $(this).val()}
         ).done(function (msg) {
             if (msg == 1) {
@@ -1278,7 +1277,7 @@ endforeach;
 
     $('body').delegate("#guardarcarpeta", "click", function () {
         $.post(
-                url+"index.php/administrativo/guardarcarpeta",
+                url + "index.php/administrativo/guardarcarpeta",
                 $("#formcarpeta").serialize()
                 ).done(function (msg) {
 
@@ -1327,80 +1326,13 @@ endforeach;
 
     });
 
-    $(".flechaHeader").click(function () {
-        var idEmpleadoCreado = $("#emp_id").val();
-        var metodo = $(this).attr("metodo");
-        var activoActualizar = $("#actualizar").attr("activo");
-        $("#actualizar").show();
-        $("#btnRegistro").hide();
-        $("#guardar").hide();
-        if (metodo != "documento") {
-            $.post(url+"index.php/administrativo/consultaempleadoflechas", {idEmpleadoCreado: idEmpleadoCreado, metodo: metodo})
-                    .done(function (msg) {
-                        $("input[type='text'], select").val();
-                        $("#emp_id").val(msg.Emp_Id);
-                        $("#cedula").val(msg.Emp_Cedula);
-                        $("#nombre").val(msg.Emp_Nombre);
-                        $("#apellidos").val(msg.Emp_Apellidos);
-                        $("#sexo").val(msg.sex_Id);
-                        $("#fechadenacimiento").val(msg.Emp_FechaNacimiento);
-                        $("#estatura").val(msg.Emp_Estatura);
-                        $("#peso").val(msg.Emp_Peso);
-                        $("#telefono").val(msg.Emp_Telefono);
-                        $("#direcion").val(msg.Emp_Direccion);
-                        $("#contacto").val(msg.Emp_contacto);
-                        $("#telefonocontacto").val(msg.Emp_TelefonoContacto);
-                        $("#email").val(msg.Emp_Email);
-                        $("#estadocivil").val(msg.EstCiv_id);
-                        $("#tipocontrato").val(msg.TipCon_Id);
-                        $("#fechainiciocontrato").val(msg.Emp_FechaInicioContrato);
-                        $("#fechafincontrato").val(msg.Emp_FechaFinContrato);
-                        $("#planobligatoriodesalud").val(msg.Emp_PlanObligatorioSalud);
-                        $("#fechaafiliacionarl").val(msg.Emp_FechaAfiliacionArl);
-                        $("#fondo").val(msg.emp_fondo);
-                        $("#dimension1").val(msg.Dim_id);
-                        $("#dimension2").val(msg.Dim_IdDos);
-                        $("#cargo").val(msg.Car_id);
-                        if ($("#emp_id").val() == "") {
-                            $("#actualizar").hide();
-                            $("#btnRegistro").show();
-                            $("#guardar").show();
-                        }
-                        $('#incluiraseguradoras').find("#agregarClones").html("");
-                        $.post(url+"index.php/administrativo/consultaempleadoflechasaseguradora", {idEmpleadoCreado: msg.Emp_Id})
-                                .done(function (msg) {
-                                    if (msg != " null") {
-                                        $.each(msg, function (key, val) {
-                                            $('#incluiraseguradoras').find("#agregarClones").append(agregarClonAseguradora());
-                                            $('#incluiraseguradoras').find("#agregarClones").find(".tipoaseguradora:last").val(val.tipAse_id);
-                                            $('#incluiraseguradoras').find("#agregarClones").find(".nombreaseguradora:last").html("<option value='" + val.ase_id + "'>" + val.ase_nombre + "</option>")
-                                        });
-                                    } else {
-                                        $('#incluiraseguradoras').find("#agregarClones").append(agregarClonAseguradora());
-                                    }
-                                })
-                                .fail(function () {
-                                    alert("Error al traer empleado");
-                                })
-                    })
-                    .fail(function (msg) {
-                        alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
-                        $("#actualizar").hide();
-                        $("#btnRegistro").show();
-                        $("#guardar").show();
-                    })
 
-        } else {
-            window.location = url+"index.php/administrativo/listadoempleados";
-        }
-
-    });
 
     $('#guardar').click(function () {
         if ((obligatorio('obligatorio') == true) && (email("email") == true))
         {
             $.post(
-                    url+"index.php/administrativo/guardarempleado",
+                    url + "index.php/administrativo/guardarempleado",
                     $('#f1').serialize()
                     )
                     .done(function (msg) {
@@ -1411,7 +1343,7 @@ endforeach;
                             $('#tipoaseguradora *').remove();
                             $("#agregarClones").html(agregarClonAseguradora());
                         } else {
-                            window.location.href = url+"index.php/administrativo/listadoempleados"; 
+                            window.location.href = url + "index.php/administrativo/listadoempleados";
                         }
                     }).fail(function (msg) {
                 alerta("rojo", "Error en el sistema por favor comunicarse con el administrador");
@@ -1421,9 +1353,10 @@ endforeach;
     $('#actualizar').click(function () {
 
         if (obligatorio('obligatorio') == true)
+            guardarVacaciones
         {
             $.post(
-                    url+'index.php/administrativo/guardaractualizacion',
+                    url + 'index.php/administrativo/guardaractualizacion',
                     $('#f1').serialize()
                     )
                     .done(function (msg) {
@@ -1458,7 +1391,7 @@ endforeach;
         form_data.append('empReg_descripcion', $('#empReg_descripcion').val());
         form_data.append('Emp_Id', $('#emp_id').val());
         $.ajax({
-            url: url+"index.php/administrativo/guardarregistroempleado",
+            url: url + "index.php/administrativo/guardarregistroempleado",
             dataType: 'text', // what to expect back from the PHP script, if anything
             cache: false,
             contentType: false,
@@ -1505,20 +1438,20 @@ endforeach;
         var boton = $(this);
         if (confirm("Esta seguro de eliminar el empleado?")) {
             $.post(
-                    url+"index.php/administrativo/eliminarempleado"
+                    url + "index.php/administrativo/eliminarempleado"
                     , {
                         id: $(this).attr('emp_id')
                     }
             ).done(function (msg) {
                 alerta("verde", "Eliminado Correctamente");
-                location.href = url+'index.php/administrativo/creacionempleados';
+                location.href = url + 'index.php/administrativo/creacionempleados';
             }).fail(function (msg) {
                 alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
             })
         }
 
     });
-    
+
     function tabla(msg) {
         var tbody = "";
         $.each(msg, function (indice, valor) {

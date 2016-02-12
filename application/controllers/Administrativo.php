@@ -522,7 +522,6 @@ class Administrativo extends My_Controller {
                 'Emp_TelefonoContacto' => $this->input->post('telefonocontacto'),
                 'Emp_Email' => $this->input->post('email'),
                 'EstCiv_id' => $this->input->post('estadocivil'),
-                'TipCon_Id' => $this->input->post('tipocontrato'),
                 'Emp_FechaInicioContrato' => $this->input->post('fechainiciocontrato'),
                 'Emp_FechaFinContrato' => $this->input->post('fechafincontrato'),
                 'Emp_PlanObligatorioSalud' => $this->input->post('planobligatoriodesalud'),
