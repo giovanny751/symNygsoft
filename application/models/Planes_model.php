@@ -574,68 +574,7 @@ class Planes_model extends CI_Model {
 
     /* Devuelve todos los meses de un plan en texto para imprimir columnas en gantt */
 
-    function listaMesesPlan($pla_id = null, $dim_id = null, $dim2_id = null) {
-        $pla_id > 0 ? $whereplan = " AND pla_id = $pla_id" : $whereplan = "";
-        $dim_id > 0 ? $wheredim = " AND dim_id = $dim_id" : $wheredim = "";
-        $dim2_id > 0 ? $wheredim2 = " AND dim2_id = $dim2_id" : $wheredim2 = "";
-        $arreglo_meses[1][0] = "Enero";
-        $arreglo_meses[2][0] = "Febrero";
-        $arreglo_meses[3][0] = "Marzo";
-        $arreglo_meses[4][0] = "Abril";
-        $arreglo_meses[5][0] = "Mayo";
-        $arreglo_meses[6][0] = "Junio";
-        $arreglo_meses[7][0] = "Julio";
-        $arreglo_meses[8][0] = "Agosto";
-        $arreglo_meses[9][0] = "Septiembre";
-        $arreglo_meses[10][0] = "Octubre";
-        $arreglo_meses[11][0] = "Noviembre";
-        $arreglo_meses[12][0] = "Diciembre";
-        $arreglo_meses[13][0] = "Enero";
-        $arreglo_meses[14][0] = "Febrero";
-
-        $arreglo_meses[1][1] = "31";
-        $arreglo_meses[2][1] = "28";
-        $arreglo_meses[3][1] = "31";
-        $arreglo_meses[4][1] = "30";
-        $arreglo_meses[5][1] = "31";
-        $arreglo_meses[6][1] = "30";
-        $arreglo_meses[7][1] = "31";
-        $arreglo_meses[8][1] = "31";
-        $arreglo_meses[9][1] = "30";
-        $arreglo_meses[10][1] = "31";
-        $arreglo_meses[11][1] = "30";
-        $arreglo_meses[12][1] = "31";
-        $arreglo_meses[13][1] = "31";
-        $arreglo_meses[14][1] = "28";
-        //SELECT TIMESTAMPDIFF(MONTH, '2012-05-05', '2012-12-16')
-        $query = "SELECT TIMESTAMPDIFF(MONTH,MIN(tar_fechaInicio), MAX(tar_fechaFinalizacion))  as meses 
-                  FROM tarea t
-                  WHERE 1=1 
-                $whereplan
-                $wheredim
-                $wheredim2    
-                ";
-        $datos = $this->db->query($query);
-        $datos = $datos->result();
-        $numero_meses = $datos[0]->meses;
-
-        $query = "SELECT MONTH(MIN(tar_fechaInicio))  as mesinicio 
-                FROM tarea t
-                WHERE 1=1 
-                $whereplan
-                $wheredim
-                $wheredim2    
-                ";
-        $datos = $this->db->query($query);
-        $datos = $datos->result();
-        $mes_inicio = $datos[0]->mesinicio;
-
-        for ($i = 0; $i <= $numero_meses; $i++) {
-            $lista_meses[$i] = $arreglo_meses[$i + $mes_inicio];
-        }
-
-        return $lista_meses;
-    }
+  
 
     /*
       Devuelve fecha inicio y fecha fin de un plan, para gráficas principalmente

@@ -26,24 +26,7 @@ class Presentacion extends My_Controller {
         
         if ($this->data['user']['rol_id'] != 60) {
             $id = $this->data['user']['emp_id'];
-            $this->load->model('Planes_model');
-            $this->load->model('Tarea_model');
-            $this->load->model('Dimension_model');
-            $this->load->model('Dimension2_model');
-            $this->load->model('Empresa_model');
-            $this->data['inicio'] = $this->Ingreso_model->admin_inicio();
-            $this->data['content'] = $this->modulos('prueba', null, $this->data['user']['usu_id']);
-            $this->data['planes'] = $this->Planes_model->detail();
-            $this->data['dimension'] = $this->Dimension_model->detail();
-            $this->data['dimension2'] = $this->Dimension2_model->detail();
-            //$this->data['presupuesto'] = $this->Tarea_model->datosTareaPresupuesto($_POST['plan'],$_POST['dimensionuno'],$_POST['dimensiondos']);
-            $this->data['presupuesto'] = $this->Tarea_model->datosTareaPresupuesto();
-            $this->data['mesesplan'] = $this->Planes_model->mesesPlan();
-            $this->data['listameses'] = $this->Planes_model->listaMesesPlan();
-            $this->data['tareasplangrafica'] = $this->Planes_model->tareasPlanGrafica();
-            $this->data['empresa'] = $this->Empresa_model->detail();
-            $this->data['tareasphva'] = $this->Planes_model->tareasPHVA();
-            $this->data['tareasphvaavance'] = $this->Planes_model->tareasPHVAAvance();
+            
             $this->layout->view('presentacion/principal', $this->data);
         } else {
             $this->load->model("User_model");

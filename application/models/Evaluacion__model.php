@@ -71,7 +71,7 @@ class Evaluacion__model extends CI_Model {
     function preguntas_evaluacion($post) {
 
         $this->db->select('preguntas.pre_id,preguntas.pre_contexto, preguntas.pre_nombre,'
-                . '  tipo_pregunta.tipPre_nombre');
+                . '  tipo_pregunta.tipPre_nombre,tipo_pregunta.tipPre_id');
         $this->db->where('preguntas.activo', 'S');
         $this->db->where('pre_visible', 'S');
         $this->db->where('eva_id', $post['eva_id']);
@@ -83,6 +83,7 @@ class Evaluacion__model extends CI_Model {
         $datos = $datos->result();
         return $datos;
     }
+
     function preguntas_evaluacion2($post) {
 
         $this->db->select('preguntas.pre_id,preguntas.pre_contexto, preguntas.pre_nombre,'
@@ -109,6 +110,7 @@ class Evaluacion__model extends CI_Model {
         $datos = $datos->result();
         return $datos;
     }
+
     function respondio($post) {
         $this->db->select('*', false);
         $this->db->where('eva_id', $post['eva_id']);
@@ -118,12 +120,13 @@ class Evaluacion__model extends CI_Model {
         $datos = $datos->result();
         return $datos;
     }
+
     function ver_evaluaciones_resueltas($post) {
         $this->db->select('evaluacion.eva_id, eva_nombre,user_evaluacion.use_id', false);
         $this->db->join('user_evaluacion', "user_evaluacion.eva_id=evaluacion.eva_id and user_evaluacion.useEva_activo='S' and user_evaluacion.use_id=" . $post['usuarioid'], 'inner', false);
         $this->db->join('respuesta_evaluacion', "respuesta_evaluacion.eva_id=evaluacion.eva_id", 'inner', false);
         $this->db->where('ACTIVO', 'S');
-        $this->db->where('respuesta_evaluacion.usu_id',$post['usuarioid']);
+        $this->db->where('respuesta_evaluacion.usu_id', $post['usuarioid']);
         $this->db->group_by('evaluacion.eva_id');
         $datos = $this->db->get('evaluacion');
 //        echo $this->db->last_query();
@@ -173,7 +176,11 @@ class Evaluacion__model extends CI_Model {
                 $this->db->set('eva_id', $datos[0]->eva_id);
                 $this->db->set('usu_id', $this->data['usu_id']);
                 $this->db->set('pre_id', $key);
-                $this->db->set('res_id', $value);
+                if (is_numeric($value))
+                    $this->db->set('res_id', $value);
+                else
+                    $this->db->set('res_texto', $value);
+
                 $this->db->set('resEva_fecha_creacion', $hoy);
                 $this->db->insert('respuesta_evaluacion');
             }

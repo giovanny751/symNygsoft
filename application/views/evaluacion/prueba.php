@@ -20,19 +20,28 @@
                 if (!empty($value->pre_contexto))
                     echo '<b>Contexto:</b> <br>' . utf8_encode($value->pre_contexto) . '<p>';
                 echo '<b>Pregunta:</b> <br>' . utf8_encode($value->pre_nombre) . '<p>';
-                $pregu[] = $value->pre_id;
+
                 @$datos = Evaluacion::obtener_respuestas($value->pre_id);
-                foreach ($datos as $value2) {
-                    ?>
-                    <div class="col-md-12">
-                        <div class="col-md-1">
-                            <input type="radio" name="<?php echo $value2->pre_id ?>" class="obligado" value="<?php echo $value2->res_id ?>" >
+                if (count($datos)) {
+                    $pregu[] = $value->pre_id;
+                    foreach ($datos as $value2) {
+                        ?>
+                        <div class="col-md-12">
+                            <div class="col-md-1">
+                                <input type="radio" name="<?php echo $value2->pre_id ?>" class="obligado" value="<?php echo $value2->res_id ?>" >
+                            </div>
+                            <div class="col-md-10">
+                                <?php echo $value2->res_nombre ?>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <?php echo $value2->res_nombre ?>
-                        </div>
-                    </div>
+                        <?php
+                    }
+                } else {
+                    if ($value->tipPre_id == 3) {
+                        ?>
+                        <textarea name="<?php echo $value->pre_id; ?>" class="obligatorio form-control"></textarea>
                     <?php
+                    }
                 }
                 echo "</td></tr>";
             }
@@ -54,6 +63,11 @@
             }
 <?php } ?>
 
+        var r = obligatorio('obligatorio');
+        if (r == false) {
+            
+            return false;
+        }
         var r = confirm('Desea enviar el formulario');
         if (r == false)
             return false

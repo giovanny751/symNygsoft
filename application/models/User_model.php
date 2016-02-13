@@ -155,6 +155,7 @@ class User_model extends CI_Model {
             
             $datos=$this->db->query('select eva_id from respuesta_evaluacion where usu_id='.$id.' group by eva_id');
             $datos=$datos->result();
+            $d=array();
             foreach ($datos as $value) {
                 $d[]=$value->eva_id;
             }
@@ -162,6 +163,7 @@ class User_model extends CI_Model {
             $this->db->select("evaluacion.*");
             $this->db->where("ue.use_id", $id);
             $this->db->where("ue.useEva_activo", 'S');
+            if(count($d))
             $this->db->where_not_in("evaluacion.eva_id", $d);
             $this->db->join("user_evaluacion ue ", "ue.eva_id=evaluacion.eva_id", "inner",false);
             $user = $this->db->get('evaluacion');

@@ -53,31 +53,30 @@
         <script type="text/javascript" src="<?php echo base_url() ?>/js/bootstrap_3.3.5.min.js"></script>
     </head>
     <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tituloCuerpo">
-                <span class="txtTitulo"><?php echo $nombre_evaluacion[0]->eva_nombre ?></span>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tituloCuerpo">
+                    <span class="txtTitulo"><?php echo $nombre_evaluacion[0]->eva_nombre ?></span>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="cuerpoContenido">
-        <form action="<?php echo base_url('index.php/Evaluacion/calificar') ?>" method="post" id="" onsubmit="return enviar();">
-            <!--<div class="container">-->
-            <table width="100%">
-                <?php
-                $area = '';
-                $tema = '';
-                $tipo = '';
-                $i = 1;
-                $corecctas=0;
-                foreach ($respondio as $key => $value) {
-                    $respuesta[$value->pre_id] = $value->res_id;
-                }
 
-                foreach ($preguntas_evaluacion as $key => $value) {
-                    echo '<tr><td><span><b>Pregunta # ' . $i . '</b></span><span style="float:right">Tipo pregunta: ' .utf8_encode($value->tipPre_nombre) . '</span></td></tr><tr><td>';
-                    $i++;
+        <div class="cuerpoContenido">
+            <form action="<?php echo base_url('index.php/Evaluacion/calificar') ?>" method="post" id="" onsubmit="return enviar();">
+                <!--<div class="container">-->
+                <table width="100%">
+                    <?php
+                    $area = '';
+                    $tema = '';
+                    $tipo = '';
+                    $i = 1;
+                    $corecctas = 0;
+                    foreach ($respondio as $key => $value) {
+                        $respuesta[$value->pre_id] = (is_numeric($value->res_id)?$value->res_id:$value->res_texto);
+                    }
+                    foreach ($preguntas_evaluacion as $key => $value) {
+                        echo '<tr><td><span><b>Pregunta # ' . $i . '</b></span><span style="float:right">Tipo pregunta: ' . utf8_encode($value->tipPre_nombre) . '</span></td></tr><tr><td>';
+                        $i++;
 //                    if ($value->are_nombre != $area) {
 //                        echo '<b>Area: ' . $value->are_nombre . '</b><p>';
 //                        $area = $value->are_nombre;
@@ -86,58 +85,63 @@
 //                        echo '<b>Tema: ' . $value->tem_nombre . '</b><p>';
 //                        $tema = $value->tem_nombre;
 //                    }
-                    if (!empty($value->pre_contexto))
-                        echo '<b>Contexto:</b> <br>' . utf8_encode($value->pre_contexto) . '<p>';
-                    echo '<b>Pregunta:</b> <br>' . utf8_encode($value->pre_nombre) . '<p>';
-                    $pregu[] = $value->pre_id;
-                    @$datos = Evaluacion::obtener_respuestas($value->pre_id);
-                    
-                    foreach ($datos as $value2) {
-                        if ($respuesta[$value->pre_id] == $value2->res_id) {
-                            $s = 'checked';
-                            $st = 'style="background-color:#ed6b75;opacity: 0.65;"';
-                        } else {
-                            $s = '';
-                            $st = '';
-                        }
-                        if ($value2->res_id == $value->res_id) {
-                            $st = 'style="background-color:#32c5d2;opacity: 0.65;"';
-                        }
-                        if(($respuesta[$value->pre_id] == $value2->res_id) && ($value2->res_id == $value->res_id) ){
-                            $corecctas++;
-                        }
-                        ?>
-                        <div class="col-md-12" <?php echo $st; ?>>
-                            <div class="col-md-1">
-                                <?php
+                        if (!empty($value->pre_contexto))
+                            echo '<b>Contexto:</b> <br>' . utf8_encode($value->pre_contexto) . '<p>';
+                        echo '<b>Pregunta:</b> <br>' . utf8_encode($value->pre_nombre) . '<p>';
+                        @$datos = Evaluacion::obtener_respuestas($value->pre_id);
+                        if (count($datos)) {
+                            $pregu[] = $value->pre_id;
+                            foreach ($datos as $value2) {
                                 if ($respuesta[$value->pre_id] == $value2->res_id) {
                                     $s = 'checked';
+                                    $st = 'style="background-color:#ed6b75;opacity: 0.65;"';
                                 } else {
                                     $s = '';
+                                    $st = '';
+                                }
+                                if ($value2->res_id == $value->res_id) {
+                                    $st = 'style="background-color:#32c5d2;opacity: 0.65;"';
+                                }
+                                if (($respuesta[$value->pre_id] == $value2->res_id) && ($value2->res_id == $value->res_id)) {
+                                    $corecctas++;
                                 }
                                 ?>
-                                <input type="radio" <?php echo $s; ?> name="<?php echo $value2->pre_id ?>" class="obligado" value="<?php echo $value2->res_id ?>" >
-                            </div>
-                            <div class="col-md-10">
-                                <?php echo $value2->res_nombre ?>
-                            </div>
-                        </div>
-                        <?php
+                                <div class="col-md-12" <?php echo $st; ?>>
+                                    <div class="col-md-1">
+                                        <?php
+                                        if ($respuesta[$value->pre_id] == $value2->res_id) {
+                                            $s = 'checked';
+                                        } else {
+                                            $s = '';
+                                        }
+                                        ?>
+                                        <input type="radio" <?php echo $s; ?> name="<?php echo $value2->pre_id ?>" class="obligado" value="<?php echo $value2->res_id ?>" >
+                                    </div>
+                                    <div class="col-md-10">
+                                        <?php echo $value2->res_nombre ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        } else {
+                            echo "<b>Respuesta:</b><br>";
+                            echo $respuesta[$value->pre_id];
+                        }
+                        echo "</td></tr>";
                     }
-                    echo "</td></tr>";
-                }
-                ?>
-            </table>
-            <!--</div>-->
-        </form>
-        <div class="row">
-            <div class="col-md-12">
-                <center>
-                    <h2>Calificación:  <?php echo  $corecctas.'/'.count($preguntas_evaluacion);echo '<br>'.number_format(($corecctas*5)/count($preguntas_evaluacion),2) ?></h2><p><br></p>
-                </center>
+                    ?>
+                </table>
+                <!--</div>-->
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <center>
+                        <h2>Calificación:  <?php echo $corecctas . '/' . count($preguntas_evaluacion);
+                    echo '<br>' . number_format(($corecctas * 5) / count($preguntas_evaluacion), 2) ?></h2><p><br></p>
+                    </center>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <style>
