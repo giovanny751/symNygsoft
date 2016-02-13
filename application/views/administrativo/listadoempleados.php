@@ -75,6 +75,38 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="cargo">
+                                        Cargo
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <select name="cargo" id="cargo" class="form-control select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($cargo as $c) { ?>
+                                                <option value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="estado">
+                                        Estado
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <select name="estado" id="estado" class="form-control select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($estado as $e) { ?>
+                                                <option value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -139,7 +171,7 @@
             </div>
         </div>    
         <div class="form-group">
-            
+
             <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="cargo">
                 Cargo
             </label>
@@ -199,15 +231,15 @@
 </form>
 <script>
     $('#cedula').autocomplete({
-        source: url+"index.php/administrativo/autocompletarcedula",
+        source: url + "index.php/administrativo/autocompletarcedula",
         minLength: 3
     });
     $('#nombre').autocomplete({
-        source: url+"index.php/administrativo/autocompletarnombre",
+        source: url + "index.php/administrativo/autocompletarnombre",
         minLength: 3
     });
     $('#apellido').autocomplete({
-        source: url+"index.php/administrativo/autocompletarapellido",
+        source: url + "index.php/administrativo/autocompletarapellido",
         minLength: 3
     });
 
@@ -222,10 +254,11 @@
     });
     $('.consultar').click(function () {
         $.post(
-                url+'index.php/administrativo/consultaempleados',
+                url + 'index.php/administrativo/consultaempleados',
                 $('#f2').serialize()
                 ).done(function (msg) {
-            if (!jQuery.isEmptyObject(msg.message)) alerta("rojo", msg['message']);
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("rojo", msg['message']);
             else {
                 $('#bodyempleados *').remove();
                 var body = "";
@@ -267,7 +300,7 @@
         var boton = $(this);
         if (confirm("Esta seguro de eliminar el empleado?")) {
             $.post(
-                    url+"index.php/administrativo/eliminarempleado"
+                    url + "index.php/administrativo/eliminarempleado"
                     , {id: $(this).attr('emp_id')}
             ).done(function (msg) {
                 if (!jQuery.isEmptyObject(msg.message))

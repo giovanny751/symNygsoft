@@ -114,7 +114,7 @@
                                             <span class="campoobligatorio">*</span>Contraseña
                                         </label>   
                                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="password" id="contrasena" name="contrasena" class="form-control obligatorio" value="<?php echo (!empty($usuario[0]->usu_contrasena)) ? $usuario[0]->usu_contrasena : ""; ?>" />
+                                            <input type="password" id="contrasena" name="contrasena" class="form-control obligatorio"  />
                                         </div>    
                                     </div>    
                                 </div>
