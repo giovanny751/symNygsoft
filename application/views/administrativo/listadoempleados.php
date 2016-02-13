@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <label for="dimension1" class="control-label col-md-3"><?php echo $empresa[0]->Dim_id ?></label>
                                     <div class="col-md-9">
-                                        <select id="dimension1" name="dimension1" class="form-control select2me">
+                                        <select id="dimension1" name="dimension1" class="form-control select2me dimencion_uno_se">
                                             <option value=""></option>
                                             <?php foreach ($dimension as $d) { ?>
                                                 <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
@@ -57,7 +57,7 @@
                                 <div class="form-group">
                                     <label for="dimension2" class="control-label col-md-3"><?php echo $empresa[0]->Dimdos_id ?></label>
                                     <div class="col-md-9">
-                                        <select id="dimension2" name="dimension2" class="form-control select2me">
+                                        <select id="dimension2" name="dimension2" class="form-control  dimencion_dos_se">
                                             <option value=""></option>
                                             <?php foreach ($dimension2 as $d2) { ?>
                                                 <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
