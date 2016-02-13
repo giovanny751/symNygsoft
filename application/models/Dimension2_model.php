@@ -121,8 +121,8 @@ class Dimension2_model extends CI_Model {
     
     public function traer_dimencion() {
         $post=$this->input->post();
-        $this->db->where();
-        $datos=$this->db->get();
+        $this->db->where('dim_id1',$post['dimencion1']);
+        $datos=$this->db->get('dimension2');
         $datos=$datos->result();
         return $datos;
     }
