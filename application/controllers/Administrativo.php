@@ -1102,7 +1102,7 @@ class Administrativo extends My_Controller {
                 "dim_descripcion" => $this->input->post('descripcion'),
                  "dim_id1" => $this->input->post('dim_id')
             );
-            if (empty($this->Dimension2_model->consultxname($this->input->post('descripcion')))) {
+            if (empty($this->Dimension2_model->consultxname($this->input->post('descripcion'),$this->input->post('dim_id')))) {
                 $respuesta = $this->Dimension2_model->create($guardar);
                 if ($respuesta == true)
                     $data['Json'] = $this->Dimension2_model->detail();

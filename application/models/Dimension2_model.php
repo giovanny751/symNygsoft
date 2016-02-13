@@ -47,10 +47,11 @@ class Dimension2_model extends CI_Model {
         }
     }
 
-    function consultxname($name) {
+    function consultxname($name,$dim) {
         try {
             $this->db->where("dim_descripcion", $name);
             $this->db->where("est_id", 1);
+            $this->db->where("dim_id1", $dim);
             $cargo = $this->db->get("dimension2");
             return $cargo->result();
         } catch (exception $e) {
