@@ -17,7 +17,9 @@
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
+            <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
             <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
+            </a>
         </div>
     </div>
 </div>
@@ -174,7 +176,7 @@
                                 </div>    
                                 <label for="dimension1" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dim_id ?></label>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="dimension1" name="dimension1" class="form-control">
+                                    <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
                                         <option value="">::Seleccionar::</option>
                                         <?php foreach ($dimension as $d) { ?>
                                             <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
@@ -189,7 +191,7 @@
                                 </div>    
                                 <label for="dimension2" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="dimension2" name="dimension2" class="form-control">
+                                    <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
                                         <option value="">::Seleccionar::</option>
                                         <?php foreach ($dimension2 as $d2) { ?>
                                             <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
@@ -253,7 +255,7 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="tablesst">
+                        <table class="table table-striped table-bordered table-hover tabla-sst">
                             <thead>
                                 <tr>
                                     <th>Fecha Inicio</th>
@@ -286,7 +288,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="tablesst">
+                            <table class="table table-striped table-bordered table-hover tabla-sst">
                                 <thead>
                                     <tr>
                                         <th>RESPONSABLE</th>
@@ -326,7 +328,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="tablesst">
+                            <table class="table table-striped table-bordered table-hover tabla-sst">
                                 <thead>
                                 <th>Fecha inicio</th>
                                 <th>Fecha fin</th>
@@ -362,7 +364,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="tablesst">
+                            <table class="table table-striped table-bordered table-hover tabla-sst">
                                 <thead>
                                 <th>Fecha inicio</th>
                                 <th>Fecha fin</th>
@@ -515,7 +517,7 @@
                             </div>
                         </form>
                         <div class="row">
-                            <table class="tablesst">
+                            <table class="table table-striped table-bordered table-hover tabla-sst">
                                 <thead>
                                 <th>Fecha</th>
                                 <th>Cantidad de horas</th>
@@ -537,7 +539,7 @@
                         <div class="portlet-title">
                         </div>   
                         <div class="portlet-body">
-                            <table class="tabla-sst" >
+                            <table class="table table-striped table-bordered table-hover tabla-sst" >
                                 <thead>
                                 <td>Capacitación</td>
                                 <td>Fecha</td>

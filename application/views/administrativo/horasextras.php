@@ -54,7 +54,7 @@
         <center><b>Horas guardadas el día de Hoy</b></center>
     </div>
     <div class="row">
-        <table class="tabla-sst" id="horasEmpleados">
+        <table class="table table-striped table-bordered table-hover tabla-sst" id="horasEmpleados">
             <thead>
             <th>Empleado</th>
             <th>Fecha</th>
