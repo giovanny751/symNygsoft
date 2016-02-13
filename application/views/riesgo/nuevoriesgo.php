@@ -67,7 +67,7 @@
                         <label for="dimensionuno"><?php echo $empresa[0]->Dim_id ?></label>
                     </div>    
                     <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                        <select type="text" name="dimensionuno" id="dimensionuno" class="form-control" >
+                        <select type="text" name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
                             <option value="">::Seleccionar::</option>
                             <?php foreach ($dimension as $d1) { ?>
                                 <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo $d1->dim_descripcion; ?></option>
@@ -80,7 +80,7 @@
                         <?php echo $empresa[0]->Dimdos_id ?>
                     </label>
                     <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                        <select type="text" name="dimensiondos" id="dimensiondos" class="form-control" >
+                        <select type="text" name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
                             <option value="">::Seleccionar::</option>
                             <?php foreach ($dimension2 as $d2) { ?>
                                 <option <?php echo ((!empty($riesgo->dim2_id)) && ($d2->dim_id == $riesgo->dim2_id) ? "selected" : "") ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>

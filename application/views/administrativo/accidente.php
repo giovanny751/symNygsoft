@@ -62,7 +62,7 @@
                 <label for="dimension1"><span class="campoobligatorio">*</span><?php echo $empresa->Dim_id ?></label>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                <select name="dimension1" id="dimension1" class="form-control obligatorio">
+                <select name="dimension1" id="dimension1" class="form-control obligatorio dimencion_uno_se">
                     <option value="">::Seleccionar::</option>
                     <?php foreach ($dimension as $d): ?>
                         <option <?php echo ((isset($accidente) && $d->dim_id == $accidente["datos"]["dimension1"]) ? "selected" : ""); ?> value="<?php echo $d->dim_id; ?>"><?php echo $d->dim_descripcion ?></option>
@@ -73,7 +73,7 @@
                 <label for="dimension2"><?php echo $empresa->Dimdos_id ?></label>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                <select name="dimension2" id="dimension2" class="form-control">
+                <select name="dimension2" id="dimension2" class="form-control dimencion_dos_se">
                     <option value="">::Seleccionar::</option>
                     <?php foreach ($dimension2 as $d2): ?>
                         <option <?php echo ((isset($accidente) && $d2->dim_id == $accidente["datos"]["dimension2"]) ? "selected" : ""); ?> value="<?php echo $d2->dim_id; ?>"><?php echo $d2->dim_descripcion ?></option>

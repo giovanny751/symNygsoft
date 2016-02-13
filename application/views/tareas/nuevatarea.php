@@ -96,7 +96,7 @@
                 <div class="row">
                     <label for="dimensionuno" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><?php echo $empresa[0]->Dim_id ?></label>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="dimensionuno" id="dimensionuno" class="form-control" >
+                        <select name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
                             <option value="">::Seleccionar::</option>
                             <?php foreach ($dimension as $d1) { ?>
                                 <option  <?php echo ((!empty($tarea->dim_id)) && $tarea->dim_id == $d1->dim_id) ? "selected" : ""; ?> value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
@@ -107,7 +107,7 @@
                 <div class="row">
                     <label for="dimensiondos" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><?php echo $empresa[0]->Dimdos_id ?></label>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select  name="dimensiondos" id="dimensiondos" class="form-control" >
+                        <select  name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
                             <option value="">::Seleccionar::</option>
                             <?php foreach ($dimension2 as $d2) { ?>
                                 <option  <?php echo ((!empty($tarea->dim2_id)) && $tarea->dim2_id == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>

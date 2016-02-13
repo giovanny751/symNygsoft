@@ -27,7 +27,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-group">
                     <label for="dimensionUno"><?php echo $empresa[0]->Dim_id ?></label>
-                    <select name="dimensionUno" id="dimensionUno" class="form-control">
+                    <select name="dimensionUno" id="dimensionUno" class="form-control dimencion_uno_se">
                         <option value="">::Seleccionar::</option>
                         <?php foreach ($dimension as $d1) { ?>
                             <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
@@ -38,7 +38,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-group">
                     <label for="dimesionDos"><?php echo $empresa[0]->Dimdos_id ?></label>
-                    <select name="dimesionDos" id="dimesionDos" class="form-control">
+                    <select name="dimesionDos" id="dimesionDos" class="form-control dimencion_dos_se">
                         <option value="">::Seleccionar::</option>
                         <?php foreach ($dimension2 as $d2) { ?>
                             <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>

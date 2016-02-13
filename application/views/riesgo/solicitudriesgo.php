@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="dimension1" class="col-sm-1 control-label"><?php echo $empresa->Dim_id ?></label>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                    <select name="dimension1" id="dimension1" class="form-control obligatorio">
+                    <select name="dimension1" id="dimension1" class="form-control obligatorio dimencion_uno_se">
                         <option value="">::Seleccionar::</option>
                         <?php foreach($dimension as $d): ?>
                             <option value="<?php echo $d->dim_id; ?>"><?php echo $d->dim_descripcion ?></option>
@@ -42,7 +42,7 @@
                 </div>
                 <label for="dimension2" class="col-sm-1 control-label"><?php echo $empresa->Dimdos_id ?></label>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                    <select name="dimension2" id="dimension2" class="form-control">
+                    <select name="dimension2" id="dimension2" class="form-control dimencion_dos_se">
                         <option value="">::Seleccionar::</option>
                         <?php foreach($dimension2 as $d2): ?>
                             <option value="<?php echo $d2->dim_id; ?>"><?php echo $d2->dim_descripcion ?></option>
