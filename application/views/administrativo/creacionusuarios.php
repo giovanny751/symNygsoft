@@ -15,25 +15,19 @@
             <div class="portlet-body form">
                 <div class="row">
                     <div class="col-md-6">
+                        <br>
                         <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "none" : "" ?> guardar" title="Guardar Usuario" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
                         <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "" : "none" ?> guardar" title="Guardar Usuario"  metodo="actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
                         <a href="<?php echo base_url() . "/index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                        <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
+                        <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
                     </div>
-                    <div class="col-md-6">
-                        <div id="posicionFlecha">
-                            <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <form id="f3" method="post" class="form-horizontal">
                     <div class="form-body">
-                        <div class='cuerpoContenido'>
 
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><button type="button" class="btn-sst">Crear Rol</button></a>
-                                </div>
-                            </div>
+                           
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -185,7 +179,7 @@
                                 </div>    
                             </div>
                             <input type="hidden" name="usuid" id="usuid" value="<?php echo (!empty($usuario[0]->usu_id)) ? $usuario[0]->usu_id : ""; ?>">
-                        </div>    
+                        
                     </div>    
                 </form>
             </div>    
@@ -199,8 +193,10 @@
             $('.aspirante select').removeClass("form-control obligado");
             $('.aspirante select').removeClass("form-control obligatorio");
             $('.aspirante select').attr('class', 'form-control ');
+            $('.aspirante').hide();
         } else {
             $('.aspirante select').attr('class', 'form-control obligatorio obligado');
+            $('.aspirante').show();
         }
     });
 
@@ -249,4 +245,5 @@
                     });
         }
     });
+    $('#rol').trigger('change');
 </script>    

@@ -5,6 +5,7 @@
 </style>
 <div class="row">
     <div class="col-md-6">
+        <br>
         <?php if (!empty($empleado[0]->Emp_Id)) { ?>
             <div class="circuloIcon" id="actualizar" title="Actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
             <div class="circuloIcon eliminar_usuario" title="Eliminar" emp_id="<?php echo $empleado[0]->Emp_Id ?>" planes="<?php echo $empleado[0]->planes_emp ?>" tareas="<?php echo $empleado[0]->tareas_emp ?>"><i class="fa fa-trash-o fa-3x"></i></div>
@@ -14,632 +15,639 @@
         <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
             <div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div>
         </a>
-    </div>
-    <div class="col-md-6">
-        <div id="posicionFlecha">
-            <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
-            <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
-            </a>
-        </div>
+
+        <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
+            <div class="circuloIcon"><i class="fa fa-sticky-note fa-2x"></i></div>
+        </a>
+        <br>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">CREACIÓN EMPLEADO</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <div class="portlet box blue">
-        <div class="portlet-body">
-            <div class="tabbable tabbable-tabdrop">
-                <ul class="nav nav-tabs">
-                    <li class='active'>
-                        <a data-toggle="tab" href="#tab1">Informacion General</a>
-                    </li>
-                    <?php if (!empty($empleado[0]->Emp_Id)) { ?>
-                        <li>
-                            <a data-toggle="tab" href="#tab2">Contratos</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab3">Incapacidades</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab4">Vacaciones</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab5">Ausentismo</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab7">Horas extras</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab8">Capacitaciones</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab6">Registro</a>
-                        </li>
-                    <?php } ?>
-                </ul>
-                <div class="tab-content">
-                    <div id="tab1" class="tab-pane active">
-                        <form method="post" id="f1">
-                            <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
-                            <div class="row">
-                                <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cédula</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
-                                </div>    
-                            </div>
-                            <div class="row">
-                                <label for="nombre" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Nombres</label> 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="nombre" name="nombre" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Nombre)) ? $empleado[0]->Emp_Nombre : ""; ?>" />
-                                </div>
-                                <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="horario">Jornada</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select name="horario" id="horario" class="form-control">
-                                        <option>::Seleccionar::</option>
-                                        <?php foreach ($horario as $h): ?>
-                                            <option <?php echo (!empty($empleado[0]->hor_id) && $empleado[0]->hor_id == $h->hor_id) ? "selected" : ""; ?> value="<?php echo $h->hor_id ?>"><?php echo $h->hor_horario . " (" . $h->hor_cantidadHoras . ")" ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Apellidos</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
-                                </div>
-                                <label for="fechainiciocontrato" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Inicio Contrato</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" name="fechainiciocontrato" id="fechainiciocontrato" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaInicioContrato)) ? $empleado[0]->Emp_FechaInicioContrato : ""; ?>"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="salario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Salario</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
-                                </div>
-                                <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="fechafincontrato">Fecha Fin Contrato</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" name="fechafincontrato" id="fechafincontrato" class="form-control fecha"  value="<?php echo (!empty($empleado[0]->Emp_FechaFinContrato)) ? $empleado[0]->Emp_FechaFinContrato : ""; ?>"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="sexo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Género</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select name="sexo" id="sexo" class="form-control obligatorio">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($sexo as $s) { ?>
-                                            <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="planobligatoriodesalud"><span class="campoobligatorio">*</span>Plan Obligatorio de Salud</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" name="planobligatoriodesalud" id="planobligatoriodesalud" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_PlanObligatorioSalud)) ? $empleado[0]->Emp_PlanObligatorioSalud : ""; ?>" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="fechadenacimiento" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
-                                </div>    
-                                <label for="fechaafiliacionarl" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Afiliacion ARL</label> 
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="fechaafiliacionarl" name="fechaafiliacionarl" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaAfiliacionArl)) ? $empleado[0]->Emp_FechaAfiliacionArl : ""; ?>" />
-                                </div>    
-                            </div>
-                            <div class="row">
-                                <label for="estatura" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estatura</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
-                                </div>
-                                <label for="fondo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Fondo de Pensiones</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="peso" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Peso</label>  
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
-                                </div> 
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
-                                </div>  
-                            </div>
-                            <div class="row">
-                                <label for="telefono" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono</label>   
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
-                                </div>     
-                            </div>
-                            <div class="row">
-                                <label for="direcion" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Dirección</label>   
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
-                                </div>  
-                            </div>
-                            <div class="row">
-                                <label for="contacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Contacto</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
-                                </div>  
-                            </div>
-                            <div class="row">
-                                <label for="telefonocontacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono Contacto</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
-                                </div>    
-                                <label for="dimension1" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dim_id ?></label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($dimension as $d) { ?>
-                                            <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>    
-                            </div>
-                            <div class="row">
-                                <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Email</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
-                                </div>    
-                                <label for="dimension2" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($dimension2 as $d2) { ?>
-                                            <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>    
-                            </div>
-                            <div class="row">
-                                <label for="estadocivil" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estado Civil</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                    <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($estadocivil as $ec) { ?>
-                                            <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cargo</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select id="cargo" name="cargo" class="form-control obligatorio">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($cargo as $c) { ?>
-                                            <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>    
-                            </div>
-                        </form>
-                    </div>
-                    <div id="tab2" class="tab-pane">
-                        <form id="frmContrato" class="form-horizontal">
-                            <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
-                            <div class="form-group">
-                                <label for="fInicioContrato" class="control-label col-sm-2">*Fecha Inicio</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="obligatorioContrato form-control obliContrato fecha" name="fInicioContrato" id="fInicioContrato"  />
-                                </div>
-                                <label for="fFinalContrato" class="control-label col-sm-2">Fecha Final</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control fecha" name="fFinalContrato" id="fFinalContrato"  />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="fInicioContrato" class="control-label col-sm-2">*Tipo Contrato</label>
-                                <div class="col-sm-4">
-                                    <select name="tipContrato" id="tipContrato" class="obligatorioContrato form-control obliContrato">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($tipocontrato as $tp) { ?>
-                                            <option value="<?php echo $tp->TipCon_Id ?>"><?php echo $tp->TipCon_Descripcion; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <label for="obsContrato" class="control-label col-sm-2">Observaciones</label>
-                                <div class="col-sm-4">
-                                    <textarea name="obsContrato" id="obsContrato" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <button type="button" id="btnContrato" class="btn btn-sst">Agregar</button>
-                                </div>
-                            </div>
-                        </form>
-                        <table class="table table-striped table-bordered table-hover tabla-sst">
-                            <thead>
-                                <tr>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Final</th>
-                                    <th>Tipo Contrato</th>
-                                    <th>Observaciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabContrato">
-                                <?php foreach ($tiposContrato as $tc): ?>
-                                    <tr>
-                                        <td><?php echo $tc->empCon_fechaDesde ?></td>
-                                        <td><?php echo $tc->empCon_fechaHasta ?></td>
-                                        <td><?php echo $tc->TipCon_Descripcion ?></td>
-                                        <td><?php echo $tc->empCon_observacion ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="tab3" class="tab-pane">
-                        <div class="portlet-title">
-                            <div class="caption" style="padding:0;">
-                                <span style="color: #0A7194;font-size: 20px" >Registro incapacidad</span>
-                            </div>
-                            <div class="tools">
-                                <div class="circuloIcon">
-                                    <i class="fa fa-folder-open fa-3x agregarIncapacidad" title="Registro incapacidad"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover tabla-sst">
-                                <thead>
-                                    <tr>
-                                        <th>RESPONSABLE</th>
-                                        <th>FECHA INICIO</th>
-                                        <th>FECHA FINAL</th>
-                                        <th>TIEMPO EN DIAS</th>
-                                        <th>MOTIVO DE LA CAPACIDAD</th>
-                                        <th>OBSERVACIONES</th>
-                                        <th>USUARIO</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaIncapacidad">
-                                    <?php foreach ($incapacidades as $in): ?>
-                                        <tr>
-                                            <td><?php echo $in->responsable ?></td>
-                                            <td><?php echo $in->fechaInicio ?></td>
-                                            <td><?php echo $in->fechaFinal ?></td>
-                                            <td><?php echo $in->dias ?></td>
-                                            <td><?php echo $in->motivo ?></td>
-                                            <td><?php echo $in->observacion ?></td>
-                                            <td><?php echo $in->usuario ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="tab4" class="tab-pane">
-                        <div class="portlet-title">
-                            <div class="caption" style="padding:0;">
-                                <span style="color: #0A7194;font-size: 20px" >Vacaciones</span>
-                            </div>
-                            <div class="tools">
-                                <div class="circuloIcon">
-                                    <i class="fa fa-folder-open fa-3x agregarvacaciones" title="Registro vacaciones"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover tabla-sst">
-                                <thead>
-                                <th>Fecha inicio</th>
-                                <th>Fecha fin</th>
-                                <th>Días</th>
-                                <th>Observaciones</th>
-                                <th>Eliminar</th>
-                                <th>Editar</th>
-                                </thead>
-                                <tbody id="bodyVacation">
-                                    <?php foreach ($vacaciones as $v): ?>
-                                        <tr>
-                                            <td><?php echo $v->vac_fechaInicio ?></td>
-                                            <td><?php echo $v->vac_fechaFin ?></td>
-                                            <td><?php echo $v->diferencia ?></td>
-                                            <td><?php echo $v->vac_observaciones ?></td>
-                                            <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modifyHolidays' title='Modificar' vac_id='<?php echo $v->vac_id ?>' ></i></td>
-                                            <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' vac_id='" + val.emp_id + "' ></i></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="tab5" class="tab-pane">
-                        <div class="portlet-title">
-                            <div class="caption" style="padding:0;">
-                                <span style="color: #0A7194;font-size: 20px" >Ausentismo</span>
-                            </div>
-                            <div class="tools">
-                                <div class="circuloIcon">
-                                    <i class="fa fa-folder-open fa-3x agregarAusentismo" title="Registro vacaciones"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover tabla-sst">
-                                <thead>
-                                <th>Fecha inicio</th>
-                                <th>Fecha fin</th>
-                                <th>Días</th>
-                                <th>Observaciones</th>
-                                <th>Eliminar</th>
-                                <th>Editar</th>
-                                </thead>
-                                <tbody id="bodyAusentismo">
-                                    <?php foreach ($ausentismo as $au): ?>
-                                        <tr>
-                                            <td><?php echo $au->empAus_fechaInicial ?></td>
-                                            <td><?php echo $au->empAus_fechaFinal ?></td>
-                                            <td><?php echo $au->diferencia ?></td>
-                                            <td><?php echo $au->empAus_observaciones ?></td>
-                                            <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modificarAusentismo' title='Modificar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
-                                            <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="tab6" class="tab-pane">
-                        <div class="portlet-title">
-                            <div class="caption" style="padding:0;">
-                                <span style="color: #0A7194;font-size: 20px" >Registro</span>
-                            </div>
-                            <div class="tools">
-                                &nbsp;&nbsp;
-                                <div class="circuloIcon">
-                                    <i class="fa fa-folder-open fa-3x agregarcarpeta"  data-toggle="modal" data-target="#myModal" title="Carpeta"></i>
-                                </div>
-                                <div class="circuloIcon">
-                                    <i class="fa fa-pencil-square-o fa-3x" data-toggle="modal" data-target="#myModal2" title="Registro" id="agregarregistro"></i>    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="tabbable tabbable-tabdrop">
-                                <div class="tab-content">
-                                    <br>
-                                    <div class="panel-group accordion" id="accordion1">
-                                        <?php
-                                        $i = 1;
-                                        foreach ($registro as $id => $nombre):
-                                            foreach ($nombre as $nom => $num):
-                                                ?>
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id; ?>" aria-expanded="false"> 
-                                                                &nbsp;<i class="fa fa-folder-o carpeta"></i>     <?php echo $nom ?>
-                                                            </a>
-                                                            <div class="posicionIconoAcordeon">
-                                                                <i class="fa fa-edit editarcarpeta" car_id="<?php echo $id ?>"></i>
-                                                                <i class="fa fa-times eliminarcarpeta" car_id="<?php echo $id ?>"></i>
-                                                            </div>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapse_<?php echo $id; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                        <div class="panel-body">
-                                                            <table class="table table-hover table-bordered">
-                                                                <thead>
-                                                                <th>Nombre archivo</th>
-                                                                <th>Descripción</th>
-                                                                <th>Versión</th>
-                                                                <th>Responsable</th>
-                                                                <th>Tamaño</th>
-                                                                <th>Fecha</th>
-                                                                <th>Acción</th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    foreach ($num as $numero => $campos):
-
-                                                                        if (!empty($campos[1])):
-                                                                            ?>
-                                                                            <tr>
-                                                                                <td> <a target="_blank" href="<?php echo base_url("/uploads/empleado/" . $empleado[0]->Emp_Id . "/" . $campos[4] . "/" . $campos[1]) ?>" title="descargar" ><?php echo $campos[1] ?> </a></td>
-                                                                                <td><?php echo $campos[2] ?></td>
-                                                                                <td><?php echo $campos[3] ?></td>
-                                                                                <td><?php echo $campos[0] ?></td>
-                                                                                <td><?php echo $campos[5] ?></td>
-                                                                                <td><?php echo $campos[6] ?></td>
-                                                                                <td>
-                                                                                    <i class="fa fa-times eliminar btn-danger" title="Eliminar" empReg_id="<?php echo $campos[4] ?>"></i>
-                                                                                    <i class="fa fa-pencil-square-o modificar  btn-info" title="Modificar" data-target='#myModal2' data-toggle='modal'  emp_id="<?php echo $campos[4] ?>" ></i>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <?php
-                                                                        else:
-                                                                            ?>
-                                                                            <tr>
-                                                                                <td colspan="7"><center><b>No hay registros</b></center></td>
-                                                                        </tr>    
-                                                                    <?php
-                                                                    endif;
-                                                                endforeach;
-                                                                ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php
-                                                $i++;
-                                            endforeach;
-                                        endforeach;
-                                        ?>
-                                    </div>
-                                </div>
-                                <p>   </p>
-                                <p>   </p>
-                                <div class="tabbable tabbable-tabdrop">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab7" class="tab-pane">
-                        <div class="row">
-                            <div class="circuloIcon guardarHorasExtra"><i class="fa fa-floppy-o fa-3x"></i></div>
-                        </div>
-                        <form method="post" id="FrmHorasExtras">
-                            <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
-                            <div class="row">
-                                <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    Fecha
-                                </label>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <input type="text" name="fecha" id="fecha" class="form-control fecha obligatorioHoraExtra"/>
-                                </div>
-                                <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    Cantidad Horas
-                                </label>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <input type="number" name="horas" id="horas" class="form-control obligatorioHoraExtra"/>
-                                </div>
-                                <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    Tipo
-                                </label>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <select name="tipo" class="form-control obligatorioHoraExtra" id="tipoHoraExtra">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($tipoHora as $t): ?>
-                                            <option value="<?php echo $t->horExtTip_id ?>"><?php echo $t->horExtTip_tipo ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="row">
-                            <table class="table table-striped table-bordered table-hover tabla-sst">
-                                <thead>
-                                <th>Fecha</th>
-                                <th>Cantidad de horas</th>
-                                <th>Tipo</th>
-                                </thead>
-                                <tbody id="bodyHorasExtras">
-                                    <?php foreach ($horasExtras as $he): ?>
-                                        <tr>
-                                            <td><?php echo $he->empHorExt_fecha ?></td>
-                                            <td style="text-align:center"><?php echo $he->empHorExt_horas ?></td>
-                                            <td><?php echo $he->horExtTip_tipo ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="tab8" class="tab-pane">
-                        <div class="portlet-title">
-                        </div>   
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover tabla-sst" >
-                                <thead>
-                                <td>Capacitación</td>
-                                <td>Fecha</td>
-                                <td>Observacion</td>
-                                <td>Editar</td>
-                                <td>Eliminar</td>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($capacitaciones as $ca): ?>
-                                        <tr>
-                                            <td><?php echo $ca->cap_nombreCapacitacion ?></td>
-                                            <td><?php echo $ca->cap_fechaCapacitacion ?></td>
-                                            <td><?php echo $ca->cap_observacion ?></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>    
-                    </div>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Creaci&oacute;n Empleado
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">ASEGURADORAS</h4>
-                </div>
-                <div class="modal-body" id="incluiraseguradoras">
-                    <div class="row" style="text-align:center">
-                        <button type="button" id="agregaraseguradora" class="btn btn-success">Agregar</button>
-                    </div>
-                    <div id="agregarClones">
-                        <?php
-                        if (empty($aserguradorasxempleado)) {
-                            ?>
-                            <div class="row">
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Tipo Aseguradora:</label>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <select  name="tipoaseguradora[]" class="form-control tipoaseguradora">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php
-                                        $option = "";
-                                        foreach ($tipoaseguradora as $ta):
-                                            $option .= "<option value='" . $ta->TipAse_Id . "'>" . $ta->TipAse_Nombre . "</option>";
-                                        endforeach;
-                                        echo $option;
-                                        ?>
-                                    </select>
+            <div class="portlet-body form">
+                <div class="portlet box blue">
+                    <div class="portlet-body">
+                        <div class="tabbable tabbable-tabdrop">
+                            <ul class="nav nav-tabs">
+                                <li class='active'>
+                                    <a data-toggle="tab" href="#tab1">Informacion General</a>
+                                </li>
+                                <?php if (!empty($empleado[0]->Emp_Id)) { ?>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab2">Contratos</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab3">Incapacidades</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab4">Vacaciones</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab5">Ausentismo</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab7">Horas extras</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab8">Capacitaciones</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab6">Registro</a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab1" class="tab-pane active">
+                                    <form method="post" id="f1">
+                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                        <div class="row">
+                                            <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cédula</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <label for="nombre" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Nombres</label> 
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="nombre" name="nombre" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Nombre)) ? $empleado[0]->Emp_Nombre : ""; ?>" />
+                                            </div>
+                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="horario">Jornada</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select name="horario" id="horario" class="form-control">
+                                                    <option>::Seleccionar::</option>
+                                                    <?php foreach ($horario as $h): ?>
+                                                        <option <?php echo (!empty($empleado[0]->hor_id) && $empleado[0]->hor_id == $h->hor_id) ? "selected" : ""; ?> value="<?php echo $h->hor_id ?>"><?php echo $h->hor_horario . " (" . $h->hor_cantidadHoras . ")" ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Apellidos</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
+                                            </div>
+                                            <label for="fechainiciocontrato" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Inicio Contrato</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" name="fechainiciocontrato" id="fechainiciocontrato" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaInicioContrato)) ? $empleado[0]->Emp_FechaInicioContrato : ""; ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="salario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Salario</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                            </div>
+                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="fechafincontrato">Fecha Fin Contrato</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" name="fechafincontrato" id="fechafincontrato" class="form-control fecha"  value="<?php echo (!empty($empleado[0]->Emp_FechaFinContrato)) ? $empleado[0]->Emp_FechaFinContrato : ""; ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="sexo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Género</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select name="sexo" id="sexo" class="form-control obligatorio">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($sexo as $s) { ?>
+                                                        <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="planobligatoriodesalud"><span class="campoobligatorio">*</span>Plan Obligatorio de Salud</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" name="planobligatoriodesalud" id="planobligatoriodesalud" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_PlanObligatorioSalud)) ? $empleado[0]->Emp_PlanObligatorioSalud : ""; ?>" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="fechadenacimiento" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
+                                            </div>    
+                                            <label for="fechaafiliacionarl" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Afiliacion ARL</label> 
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="fechaafiliacionarl" name="fechaafiliacionarl" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaAfiliacionArl)) ? $empleado[0]->Emp_FechaAfiliacionArl : ""; ?>" />
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <label for="estatura" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estatura</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
+                                            </div>
+                                            <label for="fondo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Fondo de Pensiones</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="peso" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Peso</label>  
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
+                                            </div> 
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
+                                            </div>  
+                                        </div>
+                                        <div class="row">
+                                            <label for="telefono" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono</label>   
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
+                                            </div>     
+                                        </div>
+                                        <div class="row">
+                                            <label for="direcion" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Dirección</label>   
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
+                                            </div>  
+                                        </div>
+                                        <div class="row">
+                                            <label for="contacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Contacto</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
+                                            </div>  
+                                        </div>
+                                        <div class="row">
+                                            <label for="telefonocontacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono Contacto</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
+                                            </div>    
+                                            <label for="dimension1" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dim_id ?></label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($dimension as $d) { ?>
+                                                        <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Email</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
+                                            </div>    
+                                            <label for="dimension2" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($dimension2 as $d2) { ?>
+                                                        <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <label for="estadocivil" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estado Civil</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                                                <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($estadocivil as $ec) { ?>
+                                                        <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cargo</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select id="cargo" name="cargo" class="form-control obligatorio">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($cargo as $c) { ?>
+                                                        <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>    
+                                        </div>
+                                    </form>
                                 </div>
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre Aseguradora:</label>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <input type="text" name="nombreaseguradora[]" class="form-control nombreaseguradora">
+                                <div id="tab2" class="tab-pane">
+                                    <form id="frmContrato" class="form-horizontal">
+                                        <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                        <div class="form-group">
+                                            <label for="fInicioContrato" class="control-label col-sm-2">*Fecha Inicio</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="obligatorioContrato form-control obliContrato fecha" name="fInicioContrato" id="fInicioContrato"  />
+                                            </div>
+                                            <label for="fFinalContrato" class="control-label col-sm-2">Fecha Final</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control fecha" name="fFinalContrato" id="fFinalContrato"  />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fInicioContrato" class="control-label col-sm-2">*Tipo Contrato</label>
+                                            <div class="col-sm-4">
+                                                <select name="tipContrato" id="tipContrato" class="obligatorioContrato form-control obliContrato">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($tipocontrato as $tp) { ?>
+                                                        <option value="<?php echo $tp->TipCon_Id ?>"><?php echo $tp->TipCon_Descripcion; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <label for="obsContrato" class="control-label col-sm-2">Observaciones</label>
+                                            <div class="col-sm-4">
+                                                <textarea name="obsContrato" id="obsContrato" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="button" id="btnContrato" class="btn btn-sst">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <table class="table table-striped table-bordered table-hover tabla-sst">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha Inicio</th>
+                                                <th>Fecha Final</th>
+                                                <th>Tipo Contrato</th>
+                                                <th>Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabContrato">
+                                            <?php foreach ($tiposContrato as $tc): ?>
+                                                <tr>
+                                                    <td><?php echo $tc->empCon_fechaDesde ?></td>
+                                                    <td><?php echo $tc->empCon_fechaHasta ?></td>
+                                                    <td><?php echo $tc->TipCon_Descripcion ?></td>
+                                                    <td><?php echo $tc->empCon_observacion ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                    <button type="button" class="btn btn-danger eliminaraseguradora" >X</button>
+                                <div id="tab3" class="tab-pane">
+                                    <div class="portlet-title">
+                                        <div class="caption" style="padding:0;">
+                                            <span style="color: #0A7194;font-size: 20px" >Registro incapacidad</span>
+                                        </div>
+                                        <div class="tools">
+                                            <div class="circuloIcon">
+                                                <i class="fa fa-folder-open fa-3x agregarIncapacidad" title="Registro incapacidad"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst">
+                                            <thead>
+                                                <tr>
+                                                    <th>RESPONSABLE</th>
+                                                    <th>FECHA INICIO</th>
+                                                    <th>FECHA FINAL</th>
+                                                    <th>TIEMPO EN DIAS</th>
+                                                    <th>MOTIVO DE LA CAPACIDAD</th>
+                                                    <th>OBSERVACIONES</th>
+                                                    <th>USUARIO</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tablaIncapacidad">
+                                                <?php foreach ($incapacidades as $in): ?>
+                                                    <tr>
+                                                        <td><?php echo $in->responsable ?></td>
+                                                        <td><?php echo $in->fechaInicio ?></td>
+                                                        <td><?php echo $in->fechaFinal ?></td>
+                                                        <td><?php echo $in->dias ?></td>
+                                                        <td><?php echo $in->motivo ?></td>
+                                                        <td><?php echo $in->observacion ?></td>
+                                                        <td><?php echo $in->usuario ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab4" class="tab-pane">
+                                    <div class="portlet-title">
+                                        <div class="caption" style="padding:0;">
+                                            <span style="color: #0A7194;font-size: 20px" >Vacaciones</span>
+                                        </div>
+                                        <div class="tools">
+                                            <div class="circuloIcon">
+                                                <i class="fa fa-folder-open fa-3x agregarvacaciones" title="Registro vacaciones"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst">
+                                            <thead>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha fin</th>
+                                            <th>Días</th>
+                                            <th>Observaciones</th>
+                                            <th>Editar</th>
+                                            <th>Eliminar</th>
+                                            </thead>
+                                            <tbody id="bodyVacation">
+                                                <?php foreach ($vacaciones as $v): ?>
+                                                    <tr>
+                                                        <td><?php echo $v->vac_fechaInicio ?></td>
+                                                        <td><?php echo $v->vac_fechaFin ?></td>
+                                                        <td><?php echo $v->diferencia ?></td>
+                                                        <td><?php echo $v->vac_observaciones ?></td>
+                                                        <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modifyHolidays' title='Modificar' vac_id='<?php echo $v->vac_id ?>' ></i></td>
+                                                        <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' vac_id='" + val.emp_id + "' ></i></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab5" class="tab-pane">
+                                    <div class="portlet-title">
+                                        <div class="caption" style="padding:0;">
+                                            <span style="color: #0A7194;font-size: 20px" >Ausentismo</span>
+                                        </div>
+                                        <div class="tools">
+                                            <div class="circuloIcon">
+                                                <i class="fa fa-folder-open fa-3x agregarAusentismo" title="Registro vacaciones"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst">
+                                            <thead>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha fin</th>
+                                            <th>Días</th>
+                                            <th>Observaciones</th>
+                                            <th>Eliminar</th>
+                                            <th>Editar</th>
+                                            </thead>
+                                            <tbody id="bodyAusentismo">
+                                                <?php foreach ($ausentismo as $au): ?>
+                                                    <tr>
+                                                        <td><?php echo $au->empAus_fechaInicial ?></td>
+                                                        <td><?php echo $au->empAus_fechaFinal ?></td>
+                                                        <td><?php echo $au->diferencia ?></td>
+                                                        <td><?php echo $au->empAus_observaciones ?></td>
+                                                        <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modificarAusentismo' title='Modificar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
+                                                        <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab6" class="tab-pane">
+                                    <div class="portlet-title">
+                                        <div class="caption" style="padding:0;">
+                                            <span style="color: #0A7194;font-size: 20px" >Registro</span>
+                                        </div>
+                                        <div class="tools">
+                                            &nbsp;&nbsp;
+                                            <div class="circuloIcon">
+                                                <i class="fa fa-folder-open fa-3x agregarcarpeta"  data-toggle="modal" data-target="#myModal" title="Carpeta"></i>
+                                            </div>
+                                            <div class="circuloIcon">
+                                                <i class="fa fa-pencil-square-o fa-3x" data-toggle="modal" data-target="#myModal2" title="Registro" id="agregarregistro"></i>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="tabbable tabbable-tabdrop">
+                                            <div class="tab-content">
+                                                <br>
+                                                <div class="panel-group accordion" id="accordion1">
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($registro as $id => $nombre):
+                                                        foreach ($nombre as $nom => $num):
+                                                            ?>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id; ?>" aria-expanded="false"> 
+                                                                            &nbsp;<i class="fa fa-folder-o carpeta"></i>     <?php echo $nom ?>
+                                                                        </a>
+                                                                        <div class="posicionIconoAcordeon">
+                                                                            <i class="fa fa-edit editarcarpeta" car_id="<?php echo $id ?>"></i>
+                                                                            <i class="fa fa-times eliminarcarpeta" car_id="<?php echo $id ?>"></i>
+                                                                        </div>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapse_<?php echo $id; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                    <div class="panel-body">
+                                                                        <table class="table table-hover table-bordered">
+                                                                            <thead>
+                                                                            <th>Nombre archivo</th>
+                                                                            <th>Descripción</th>
+                                                                            <th>Versión</th>
+                                                                            <th>Responsable</th>
+                                                                            <th>Tamaño</th>
+                                                                            <th>Fecha</th>
+                                                                            <th>Acción</th>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                foreach ($num as $numero => $campos):
+
+                                                                                    if (!empty($campos[1])):
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                            <td> <a target="_blank" href="<?php echo base_url("/uploads/empleado/" . $empleado[0]->Emp_Id . "/" . $campos[4] . "/" . $campos[1]) ?>" title="descargar" ><?php echo $campos[1] ?> </a></td>
+                                                                                            <td><?php echo $campos[2] ?></td>
+                                                                                            <td><?php echo $campos[3] ?></td>
+                                                                                            <td><?php echo $campos[0] ?></td>
+                                                                                            <td><?php echo $campos[5] ?></td>
+                                                                                            <td><?php echo $campos[6] ?></td>
+                                                                                            <td>
+                                                                                                <i class="fa fa-times eliminar btn-danger" title="Eliminar" empReg_id="<?php echo $campos[4] ?>"></i>
+                                                                                                <i class="fa fa-pencil-square-o modificar  btn-info" title="Modificar" data-target='#myModal2' data-toggle='modal'  emp_id="<?php echo $campos[4] ?>" ></i>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php
+                                                                                    else:
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                            <td colspan="7"><center><b>No hay registros</b></center></td>
+                                                                                    </tr>    
+                                                                                <?php
+                                                                                endif;
+                                                                            endforeach;
+                                                                            ?>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <?php
+                                                            $i++;
+                                                        endforeach;
+                                                    endforeach;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <p>   </p>
+                                            <p>   </p>
+                                            <div class="tabbable tabbable-tabdrop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab7" class="tab-pane">
+                                    <div class="row">
+                                        <div class="circuloIcon guardarHorasExtra"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                    </div>
+                                    <form method="post" id="FrmHorasExtras">
+                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                        <div class="row">
+                                            <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                Fecha
+                                            </label>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <input type="text" name="fecha" id="fecha" class="form-control fecha obligatorioHoraExtra"/>
+                                            </div>
+                                            <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                Cantidad Horas
+                                            </label>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <input type="number" name="horas" id="horas" class="form-control obligatorioHoraExtra"/>
+                                            </div>
+                                            <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                Tipo
+                                            </label>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <select name="tipo" class="form-control obligatorioHoraExtra" id="tipoHoraExtra">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($tipoHora as $t): ?>
+                                                        <option value="<?php echo $t->horExtTip_id ?>"><?php echo $t->horExtTip_tipo ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst">
+                                            <thead>
+                                            <th>Fecha</th>
+                                            <th>Cantidad de horas</th>
+                                            <th>Tipo</th>
+                                            </thead>
+                                            <tbody id="bodyHorasExtras">
+                                                <?php foreach ($horasExtras as $he): ?>
+                                                    <tr>
+                                                        <td><?php echo $he->empHorExt_fecha ?></td>
+                                                        <td style="text-align:center"><?php echo $he->empHorExt_horas ?></td>
+                                                        <td><?php echo $he->horExtTip_tipo ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="tab8" class="tab-pane">
+                                    <div class="portlet-title">
+                                    </div>   
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst" >
+                                            <thead>
+                                            <td>Capacitación</td>
+                                            <td>Fecha</td>
+                                            <td>Observacion</td>
+                                            <td>Editar</td>
+                                            <td>Eliminar</td>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($capacitaciones as $ca): ?>
+                                                    <tr>
+                                                        <td><?php echo $ca->cap_nombreCapacitacion ?></td>
+                                                        <td><?php echo $ca->cap_fechaCapacitacion ?></td>
+                                                        <td><?php echo $ca->cap_observacion ?></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>    
                                 </div>
                             </div>
-                            <?php
-                        }
-                        else {
-                            foreach ($aserguradorasxempleado as $as):
-                                ?>
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <label>Tipo Aseguradora:</label>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <select  name="tipoaseguradora[]" class="form-control tipoaseguradora">
-                                            <option value="">::Seleccionar::</option>
-                                            <?php
-                                            $option = "";
-                                            foreach ($tipoaseguradora as $ta):
-                                                $selected = (($as->tipAse_id == $ta->TipAse_Id) ? "selected" : "");
-                                                $option .= "<option value='" . $ta->TipAse_Id . "' " . $selected . " >" . $ta->TipAse_Nombre . "</option>";
-                                            endforeach;
-                                            echo $option;
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre Aseguradora:</label>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <input type="text" name="nombreaseguradora[]" class="form-control nombreaseguradora" value="<?php echo $as->ase_id ?>">
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                        <button type="button" class="btn btn-danger eliminaraseguradora" >X</button>
-                                    </div>
-                                </div>
-                                <?php
-                            endforeach;
-                        }
-                        ?>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">ASEGURADORAS</h4>
+                            </div>
+                            <div class="modal-body" id="incluiraseguradoras">
+                                <div class="row" style="text-align:center">
+                                    <button type="button" id="agregaraseguradora" class="btn btn-success">Agregar</button>
+                                </div>
+                                <div id="agregarClones">
+                                    <?php
+                                    if (empty($aserguradorasxempleado)) {
+                                        ?>
+                                        <div class="row">
+                                            <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Tipo Aseguradora:</label>
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                <select  name="tipoaseguradora[]" class="form-control tipoaseguradora">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php
+                                                    $option = "";
+                                                    foreach ($tipoaseguradora as $ta):
+                                                        $option .= "<option value='" . $ta->TipAse_Id . "'>" . $ta->TipAse_Nombre . "</option>";
+                                                    endforeach;
+                                                    echo $option;
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre Aseguradora:</label>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <input type="text" name="nombreaseguradora[]" class="form-control nombreaseguradora">
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                <button type="button" class="btn btn-danger eliminaraseguradora" >X</button>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                    else {
+                                        foreach ($aserguradorasxempleado as $as):
+                                            ?>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                    <label>Tipo Aseguradora:</label>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                    <select  name="tipoaseguradora[]" class="form-control tipoaseguradora">
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php
+                                                        $option = "";
+                                                        foreach ($tipoaseguradora as $ta):
+                                                            $selected = (($as->tipAse_id == $ta->TipAse_Id) ? "selected" : "");
+                                                            $option .= "<option value='" . $ta->TipAse_Id . "' " . $selected . " >" . $ta->TipAse_Nombre . "</option>";
+                                                        endforeach;
+                                                        echo $option;
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre Aseguradora:</label>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                    <input type="text" name="nombreaseguradora[]" class="form-control nombreaseguradora" value="<?php echo $as->ase_id ?>">
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                    <button type="button" class="btn btn-danger eliminaraseguradora" >X</button>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        endforeach;
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -990,8 +998,7 @@ endforeach;
         if (body == "bodyAusentismo") {
             var clase = "modificarAusentismo";
             var modal = "ausentismo";
-        }
-        else {
+        } else {
             var clase = "modifyHolidays";
             var modal = "vacaciones";
         }

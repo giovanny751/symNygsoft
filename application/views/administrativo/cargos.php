@@ -46,7 +46,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-offset-10 col-md-2">
-                                <input type="button" value="Agregar" class="btn btn-block green guardarcargo" />
+                                <input type="button" value="Agregar" class="btn btn-block  guardarcargo" />
                             </div>
                         </div>
                     </div>

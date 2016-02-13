@@ -25,7 +25,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="col-md-offset-8 col-md-4">
-                                        <input type="button" value="Agregar" class="btn btn-block green guardar" />
+                                        <input type="button" value="Agregar" class="btn btn-block  guardar" />
                                     </div>
                                 </div>
                             </div>

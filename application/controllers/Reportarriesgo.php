@@ -17,7 +17,7 @@ class Reportarriesgo extends CI_Controller {
         parent::__construct();
     }
 
-    function reporteUsuario() {
+    function index() {
         try{
             $this->load->model(array("Dimension2_model"
                                     ,"Dimension_model"

@@ -29,6 +29,15 @@
 
 
     $('.defecto').click(function () {
+        if($('input[type="radio"]:checked').val()){
+            
+        }else{
+            alerta('rojo','Por favor seleccionar un Rol');
+            return false; 
+        }
+            
+        
+        return false;
         $.post(
                 url + "index.php/presentacion/guardarroldefecto"
                 , $('#f20').serialize()
