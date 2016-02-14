@@ -100,6 +100,8 @@ class Administrativo extends My_Controller {
     
     function guardarHorasExtras() {
         try {
+            if(empty($this->input->post("emp_id")))
+                throw new Exception("Primero debe registrar el empleado");
             $this->load->model(array("Empleadohoraextra_model"));
             $dataGuardar = array(
                 "emp_id" => $this->input->post("emp_id"),
@@ -113,7 +115,7 @@ class Administrativo extends My_Controller {
 
             $data['Json'] = $this->Empleadohoraextra_model->detalleHoraXEmpleado($this->input->post("emp_id"));
         } catch (exception $e) {
-            
+            $data["message"] = $e->getMessage();
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
@@ -154,6 +156,8 @@ class Administrativo extends My_Controller {
 
     function guardarVacaciones() {
         try {
+            if(empty($this->input->post("emp_id")))
+                throw new Exception("Primero debe registrar el empleado");
             $this->load->model('Vacaciones_model');
             $data = array(
                 "vac_fechaInicio" => $this->input->post("iniciovacaciones"),
@@ -184,6 +188,8 @@ class Administrativo extends My_Controller {
 
     function guardarAusentismo() {
         try {
+            if(empty($this->input->post("emp_id")))
+                throw new Exception("Primero debe registrar el empleado");
             $this->load->model('Empleadoausentismo_model');
             $data = array(
                 "empAus_fechaInicial" => $this->input->post("iniciovacaciones"),
@@ -342,6 +348,8 @@ class Administrativo extends My_Controller {
 
     function guardarincapacidad() {
         try {
+            if(empty($this->input->post('empleadoInc')))
+                throw new Exception("Primero debe registrar el empleado");
             $this->load->model('Empleadoincapacidad_model');
             $data = array(
                 'empRes_id' => $this->input->post('responsable'),
@@ -357,12 +365,11 @@ class Administrativo extends My_Controller {
             );
             $this->Empleadoincapacidad_model->create($data);
 
-            $this->data["tablaincapacidad"] = $this->Empleadoincapacidad_model->detailxid($this->input->post('empleadoInc'));
-            $this->output->set_content_type('application/json')->set_output(json_encode($this->data["tablaincapacidad"]));
+            $data = $this->Empleadoincapacidad_model->detailxid($this->input->post('empleadoInc'));
         } catch (exception $e) {
-            
+             $data["message"] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -380,6 +387,9 @@ class Administrativo extends My_Controller {
 
     function guardarcarpeta() {
         try {
+            if(empty($this->input->post("emp_id")))
+                throw new Exception("Primero debe registrar el empleado");
+                
             $this->load->model('Empleadocarpeta_model');
             $this->Empleadocarpeta_model->create(
                     $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("emp_id")
@@ -387,11 +397,11 @@ class Administrativo extends My_Controller {
             $carpetas = $this->Empleadocarpeta_model->search(
                     $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("emp_id")
             );
-            $this->output->set_content_type('application/json')->set_output(json_encode($carpetas[0]));
+            $data = $carpetas[0];
         } catch (exception $e) {
-            
+            $data["message"] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -474,13 +484,17 @@ class Administrativo extends My_Controller {
             );
 
             $id = $this->Empleado_model->create($data);
+            
+            if(empty($id))
+                                throw new Exception("Error al momento de insertar un empleado");
+            
             $tipoaseguradora = $this->input->post("tipoaseguradora");
-            $data = array();
+            $dataAseguradora = array();
             if (!empty($tipoaseguradora[0])):
                 $nombreaseguradora = $this->input->post("nombreaseguradora");
                 for ($i = 0; $i < count($tipoaseguradora); $i++) {
                     if ($nombreaseguradora[$i] != ""):
-                        $data[$i] = array(
+                        $dataAseguradora[$i] = array(
                             "emp_id" => $id,
                             "ase_id" => $nombreaseguradora[$i],
                             "tipAse_id" => $tipoaseguradora[$i]
@@ -488,12 +502,13 @@ class Administrativo extends My_Controller {
 
                     endif;
                 }
-                $this->Empleadotipoaseguradora_model->create($data);
+                $this->Empleadotipoaseguradora_model->create($dataAseguradora);
             endif;
+            $data['Json'] = $id;
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -638,6 +653,8 @@ class Administrativo extends My_Controller {
     function guardarContrato() {
         try {
             $this->load->model('Empleadocontrato_model');
+            if(empty($this->input->post("emp_id")))
+                throw new Exception("primero debe registrar el empleado");
             $data = array(
                 "empCon_fechaDesde" => $this->input->post("fInicioContrato"),
                 "empCon_fechaHasta" => $this->input->post("fFinalContrato"),
@@ -651,7 +668,7 @@ class Administrativo extends My_Controller {
 
             $data['Json'] = $this->Empleadocontrato_model->contratosxEmpleado($this->input->post("emp_id"));
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }

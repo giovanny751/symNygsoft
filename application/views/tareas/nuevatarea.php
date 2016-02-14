@@ -4,593 +4,677 @@
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
-            <div class="envio flechaHeader IzquierdaDoble" metodo="flechaIzquierdaDoble" nuevo="<?php echo (isset($todo_izq) ? $todo_izq : '') ?>"><i class="fa fa-step-backward fa-2x"></i></div>
-            <div class="envio flechaHeader Izquierda" metodo="flechaIzquierda" nuevo="<?php echo (isset($izq) ? $izq : '') ?>"><i class="fa fa-arrow-left fa-2x"></i></div>
-            <div class="envio flechaHeader Derecha" metodo="flechaDerecha" nuevo="<?php echo (isset($derecha) ? $derecha : '') ?>"><i class="fa fa-arrow-right fa-2x"></i></div>
-            <div class="envio flechaHeader DerechaDoble" metodo="flechaDerechaDoble" nuevo="<?php echo (isset($max_der) ? $max_der : '') ?>"><i class="fa fa-step-forward fa-2x"></i></div>
             <a href="<?php echo base_url('index.php/Tareas/listadotareas') ?>"><div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div></a>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">NUEVA TAREA</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <form method="post" id="f8">
-        <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="id" id="interno">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <button type="button" id="" class="btn btn-danger">Eliminar</button>
-                <?php if (!empty($pla_id)): ?>
-                    <button type="button" id="cancelar" class="btn btn-default"  plan="<?php echo $pla_id ?>">Cancelar</button>
-                <?php endif; ?>
-            </div>   
-        </div>
-        <div class="row" style="margin-bottom: 30px">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="row">
-                    <label for="nombre" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Nombre</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" name="nombre" id="nombre" class="form-control obligatorio" value="<?php echo (!empty($tarea->tar_nombre)) ? $tarea->tar_nombre : ""; ?>" />
-                    </div>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>NUEVA TAREA
                 </div>
-                <div class="row">
-                    <label for="plan" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Plan</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="plan" id="plan" class="form-control obligatorio" >
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($planes as $p) { ?>
-                                <option  <?php
-                                echo (!empty($tarea->pla_id) && $tarea->pla_id == $p->pla_id || (!empty($pla_id) && $pla_id == $p->pla_id)) ? "selected" : "";
-                                ?> value="<?php echo $p->pla_id ?>"><?php echo $p->pla_nombre ?></option>
-                                <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="actividad" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Actividad padre</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="actividad" id="actividad" class="form-control" >
-                            <option value="">::Seleccionar::</option>
-                            <?php
-                            if (!empty($actividades))
-                                foreach ($actividades as $h):
-                                    ?>
-                                    <option <?php echo ((!empty($tarea->actPad_id)) && ($h->actPad_id == $tarea->actPad_id)) ? "selected" : ""; ?> value='<?php echo $h->actPad_id ?>'><?php echo $h->actPad_nombre . " - " . $h->actPad_codigo ?></option>
-                                    <?php
-                                endforeach;
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="registro" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Actividad</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="registro" id="registro" class="form-control" >
-                            <option value="">::Seleccionar::</option>
-                            <?php
-                            if (!empty($actividadhijo))
-                                foreach ($actividadhijo as $ah) {
-                                    ?>
-                                    <option   <?php echo ((!empty($tarea->actHij_id)) && $tarea->actHij_id == $ah->actHij_id) ? "selected" : ""; ?> value="<?php echo $ah->actHij_id ?>"><?php echo $ah->actHij_nombre ?></option>
-                                <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6 ">
-                        <label for="rutinario">Rutinario</label>
-                    </div>    
-                    <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6 ">
-                        <select name="rutinario" id="rutinario" class="form-control" >
-                            <option value="">::Seleccionar::</option>
-                            <option value="1" <?php echo ((!empty($tarea->tar_rutinario)) && (1 == $tarea->tar_rutinario) ? "selected" : "") ?> >Si</option>
-                            <option value="0" <?php echo ((!empty($tarea->tar_rutinario)) && (0 == $tarea->tar_rutinario) ? "selected" : "") ?> >No</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="dimensionuno" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><?php echo $empresa[0]->Dim_id ?></label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($dimension as $d1) { ?>
-                                <option  <?php echo ((!empty($tarea->dim_id)) && $tarea->dim_id == $d1->dim_id) ? "selected" : ""; ?> value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
-                            <?php } ?>
-                        </select> 
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="dimensiondos" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><?php echo $empresa[0]->Dimdos_id ?></label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select  name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($dimension2 as $d2) { ?>
-                                <option  <?php echo ((!empty($tarea->dim2_id)) && $tarea->dim2_id == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="tipo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Tipo</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="tipo" id="tipo" class="form-control obligatorio" >
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($tipo as $t) { ?>
-                                <option  <?php echo (!empty($tarea->tip_id) && $tarea->tip_id == $t->tip_id) ? "selected" : ""; ?> value="<?php echo $t->tip_id ?>"><?php echo $t->tip_tipo ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="norma" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Norma</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="norma" id="norma" class="form-control" >
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($norma as $value) { ?>
-                                <option <?php echo (!empty($tarea->nor_id) && ($value->nor_id == $tarea->nor_id)) ? "selected" : ""; ?> value="<?= $value->nor_id ?>"><?= $value->nor_norma ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div> 
-                <div class="row">
-                    <label for="articulo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Artículo</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select multiple="multiple" name="articulosnorma[]" id="articulosnorma" class="form-control">
-                            <?php foreach ($normaarticulo as $value) { ?>
-                                <?php
-                                foreach ($tarea_norma as $tn) {
-                                    $select = "";
-                                    if ($tn->norArt_id == $value->norArt_id) {
-                                        $select = "selected";
-                                        break;
-                                    }
-                                }
-                                ?>
-
-                                <option <?php echo $select; ?> value="<?= $value->norArt_id ?>"><?php echo $value->norArt_articulo ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div> 
-                <div class="row">
-                    <label for="fechaIncio" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Fecha Incio</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" name="fechaIncio"  id="fechaIncio" class="form-control fecha obligatorio compararfecha"  value="<?php echo (!empty($tarea->tar_fechaInicio)) ? $tarea->tar_fechaInicio : ""; ?>" />
-                    </div> 
-                </div>
-                <div class="row">
-                    <label for="fechafinalizacion" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><span class="campoobligatorio">*</span>Fecha Finalización</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" name="fechafinalizacion" id="fechafinalizacion" class="form-control fecha obligatorio compararfecha"  value="<?php echo (!empty($tarea->tar_fechaFinalizacion)) ? $tarea->tar_fechaFinalizacion : ""; ?>"/>
-                    </div> 
-                </div>
-                <div class="row">
-                    <label for="costrospresupuestados" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Costos Presupuestados</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
-                    </div> 
-                </div>
-                <div class="row">
-                    <label for="peso" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Peso</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" name="peso" id="peso" class="form-control"  value="<?php echo (!empty($tarea->tar_peso)) ? $tarea->tar_peso : ""; ?>" />
-                    </div> 
-                </div>
-                <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>Responsable</div>
-                <div class="row">
-                    <label for="cargo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Cargo</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="cargo" id="cargo" class="form-control">
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($cargo as $c) { ?>
-                                <option  <?php echo (!empty($tarea->car_id) && $tarea->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option> 
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="nombreempleado" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Nombre</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="nombreempleado" id="nombreempleado" class="form-control">
-                            <option value="">::Seleccionar::</option>
-                            <?php
-                            if (!empty($empleado)) {
-                                foreach ($empleado as $e):
-                                    ?>
-                                    <option <?php echo ($e->Emp_Id == $tarea->emp_id) ? "Selected" : ""; ?> value='<?php echo $e->Emp_Id ?>'><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
-                                    <?php
-                                endforeach;
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="tareapadre" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Tarea Padre</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name="tareapadre" id="tareapadre" class="form-control">
-                            <option value="">::Seleccionar::</option>
-                            <?php foreach ($tareas as $t): ?>
-                                <option <?php echo (!empty($tarea->tar_idpadre) && $t->tar_id == $tarea->tar_idpadre) ? "Selected" : ""; ?> value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <label for="estado" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Estado</label>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <select name="estado" id="estado" class="form-control" >
-                                    <option value="">::Seleccionar::</option>
-                                    <?php foreach ($estados as $e) { ?>
-                                        <option <?php echo ((!empty($tarea->est_id) && $tarea->est_id == $e->est_id) ? "selected" : ((empty($tarea->est_id) && $e->est_id == 1) ? "selected" : "" )); ?>  value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
+            <div class="portlet-body form">
+                <form method="post" id="f8" class="form-horizontal">
+                    <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="id" id="interno">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <button type="button" id="" class="btn btn-danger">Eliminar</button>
+                            <?php if (!empty($pla_id)): ?>
+                                <button type="button" id="cancelar" class="btn btn-default"  plan="<?php echo $pla_id ?>">Cancelar</button>
+                            <?php endif; ?>
+                        </div>   
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <label for="descripcion">Descripción</label>
-                        <textarea name="descripcion" id="descripcion" rows="10" class="form-control"><?php echo (!empty($tarea->tar_descripcion)) ? $tarea->tar_descripcion : ""; ?></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <label for="estado" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Fecha de creación</label>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <input type="text" value="<?php echo (!empty($tarea->tar_fechaCreacion)) ? $tarea->tar_fechaCreacion : date('Y-m-d'); ?>" name="fechacreacion" id="fechacreacion" readonly="readonly" class="form-control" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <label for="fechamodificacion" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Fecha de modificación</label>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <input type="text" value="<?php echo (!empty($tarea->tar_fechaUltimaMod)) ? $tarea->tar_fechaUltimaMod : ""; ?>" name="fechamodificacion" id="fechamodificacion" readonly="readonly" class="form-control" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="alert alert-info"  style='margin-top:10px;font-weight: bold;text-align: center;'>Riesgos</p>
-                <div class="row">
-                    <label for="clasificacionriesgo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Clasificación de riesgo</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name='clasificacionriesgo[]' id='clasificacionriesgo' class="form-control" multiple>
-                            <?php foreach ($categoria as $ca) { ?>
-                                <option <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="tiposriesgos" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Tipos de Riesgos</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name='tiposriesgos[]' id='tiposriesgos' class="form-control" multiple>
-                            <?php foreach ($tipoClasificacion as $tc): ?>
-                                <option <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="tiposriesgos" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Riesgos</label>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <select name='lista_riesgos[]' id='lista_riesgos' class="form-control" multiple>
-                            <?php foreach ($riesgos as $e) { ?>
-                                <?php
-                                $select = "";
-                                if (isset($riesgos_guardada))
-                                    foreach ($riesgos_guardada as $tn) {
-                                        if ($tn->rie_id == $e->rie_id) {
-                                            $select = "selected";
-                                            break;
-                                        }
-                                    }
-                                ?>
-                                <option <?php echo $select; ?>  value="<?php echo $e->rie_id ?>"><?php echo $e->rie_descripcion ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </form>
-    <?php if (!empty($tarea->tar_id)): ?>
-        <div class="portlet box blue">
-            <div class="portlet-body">
-                <div class="tabbable tabbable-tabdrop">
-                    <ul class="nav nav-tabs">
-                        <li <?php echo (empty($avance) && empty($nuevoavance) ) ? "class='active'" : ""; ?>>
-                            <a data-toggle="tab" href="#tab1">Avance</a>
-                        </li>
-                        <li <?php echo (!empty($avance) || !empty($nuevoavance)) ? "class='active'" : ""; ?>>
-                            <a data-toggle="tab" href="#tab2">Agregar Avance</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#tab3">Registros</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab1" class="tab-pane <?php echo (empty($avance) && empty($nuevoavance)) ? "active" : ""; ?>">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="portlet">
-                                        <div class="portlet-body">
-                                            <div class="table-container">
-                                                <table  class="table table-striped table-bordered table-hover" id="datatable_ajax1">
-                                                    <thead>
-                                                    <thead style="background-color: blue;color: white;">
-                                                    <th>Editar</th>
-                                                    <th>Fecha</th>
-                                                    <th>Resumen</th>
-                                                    <th>Usuario</th>
-                                                    <th>Horas</th>
-                                                    <th>Costo</th>
-                                                    <th>Comentarios</th>
-                                                    </thead>
-                                                    <tbody class="datatable_ajax12">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                    <div class="form-group">
+                                        <label for="nombre" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombre</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="nombre" id="nombre" class="form-control obligatorio" value="<?php echo (!empty($tarea->tar_nombre)) ? $tarea->tar_nombre : ""; ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="plan" class="control-label col-md-3"><span class="campoobligatorio">*</span>Plan</label>
+                                        <div class="col-md-9">
+                                            <select name="plan" id="plan" class="form-control obligatorio" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($planes as $p) { ?>
+                                                    <option  <?php
+                                                    echo (!empty($tarea->pla_id) && $tarea->pla_id == $p->pla_id || (!empty($pla_id) && $pla_id == $p->pla_id)) ? "selected" : "";
+                                                    ?> value="<?php echo $p->pla_id ?>"><?php echo $p->pla_nombre ?></option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="actividad" class="control-label col-md-3">Actividad padre</label>
+                                        <div class="col-md-9">
+                                            <select name="actividad" id="actividad" class="form-control" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php
+                                                if (!empty($actividades))
+                                                    foreach ($actividades as $h):
+                                                        ?>
+                                                        <option <?php echo ((!empty($tarea->actPad_id)) && ($h->actPad_id == $tarea->actPad_id)) ? "selected" : ""; ?> value='<?php echo $h->actPad_id ?>'><?php echo $h->actPad_nombre . " - " . $h->actPad_codigo ?></option>
+                                                        <?php
+                                                    endforeach;
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="registro" class="control-label col-md-3">Actividad</label>
+                                        <div class="col-md-9">
+                                            <select name="registro" id="registro" class="form-control" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php
+                                                if (!empty($actividadhijo))
+                                                    foreach ($actividadhijo as $ah) {
+                                                        ?>
+                                                        <option   <?php echo ((!empty($tarea->actHij_id)) && $tarea->actHij_id == $ah->actHij_id) ? "selected" : ""; ?> value="<?php echo $ah->actHij_id ?>"><?php echo $ah->actHij_nombre ?></option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">                    
+                                        <label for="rutinario" class="control-label col-md-3">Rutinario</label>
+                                        <div class="col-md-9">
+                                            <select name="rutinario" id="rutinario" class="form-control" >
+                                                <option value="">::Seleccionar::</option>
+                                                <option value="1" <?php echo ((!empty($tarea->tar_rutinario)) && (1 == $tarea->tar_rutinario) ? "selected" : "") ?> >Si</option>
+                                                <option value="0" <?php echo ((!empty($tarea->tar_rutinario)) && (0 == $tarea->tar_rutinario) ? "selected" : "") ?> >No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group"> 
+                                        <label for="dimensionuno" class="control-label col-md-3"><?php echo $empresa[0]->Dim_id ?></label>
+                                        <div class="col-md-9">
+                                            <select name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($dimension as $d1) { ?>
+                                                    <option  <?php echo ((!empty($tarea->dim_id)) && $tarea->dim_id == $d1->dim_id) ? "selected" : ""; ?> value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
+                                                <?php } ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="dimensiondos" class="control-label col-md-3"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                        <div class="col-md-9">
+                                            <select  name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($dimension2 as $d2) { ?>
+                                                    <option  <?php echo ((!empty($tarea->dim2_id)) && $tarea->dim2_id == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tipo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Tipo</label>
+                                        <div class="col-md-9">
+                                            <select name="tipo" id="tipo" class="form-control obligatorio" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($tipo as $t) { ?>
+                                                    <option  <?php echo (!empty($tarea->tip_id) && $tarea->tip_id == $t->tip_id) ? "selected" : ""; ?> value="<?php echo $t->tip_id ?>"><?php echo $t->tip_tipo ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="norma" class="control-label col-md-3">Norma</label>
+                                        <div class="col-md-9">
+                                            <select name="norma" id="norma" class="form-control" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($norma as $value) { ?>
+                                                    <option <?php echo (!empty($tarea->nor_id) && ($value->nor_id == $tarea->nor_id)) ? "selected" : ""; ?> value="<?= $value->nor_id ?>"><?= $value->nor_norma ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="articulo" class="control-label col-md-3">Artículo</label>
+                                        <div class="col-md-9">
+                                            <select multiple="multiple" name="articulosnorma[]" id="articulosnorma" class="form-control">
+                                                <?php
+                                                foreach ($normaarticulo as $value) :
+                                                    foreach ($tarea_norma as $tn):
+                                                        $select = "";
+                                                        if ($tn->norArt_id == $value->norArt_id) :
+                                                            $select = "selected";
+                                                            break;
+                                                        endif;
+                                                    endforeach;
+                                                    ?>
+                                                    <option <?php echo $select; ?> value="<?= $value->norArt_id ?>"><?php echo $value->norArt_articulo ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fechaIncio" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Incio</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="fechaIncio"  id="fechaIncio" class="form-control fecha obligatorio compararfecha"  value="<?php echo (!empty($tarea->tar_fechaInicio)) ? $tarea->tar_fechaInicio : ""; ?>" />
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fechafinalizacion" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Finalización</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="fechafinalizacion" id="fechafinalizacion" class="form-control fecha obligatorio compararfecha"  value="<?php echo (!empty($tarea->tar_fechaFinalizacion)) ? $tarea->tar_fechaFinalizacion : ""; ?>"/>
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="costrospresupuestados" class="control-label col-md-3">Costos Presupuestados</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="peso" class="control-label col-md-3">Peso</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="peso" id="peso" class="form-control"  value="<?php echo (!empty($tarea->tar_peso)) ? $tarea->tar_peso : ""; ?>" />
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>
+                            <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>Responsable</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cargo" class="control-label col-md-3">Cargo</label>
+                                        <div class="col-md-9">
+                                            <select name="cargo" id="cargo" class="form-control">
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($cargo as $c) { ?>
+                                                    <option  <?php echo (!empty($tarea->car_id) && $tarea->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option> 
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nombreempleado" class="control-label col-md-3">Nombre</label>
+                                        <div class="col-md-9">
+                                            <select name="nombreempleado" id="nombreempleado" class="form-control">
+                                                <option value="">::Seleccionar::</option>
+                                                <?php
+                                                if (!empty($empleado)) :
+                                                    foreach ($empleado as $e):
+                                                        ?>
+                                                        <option <?php echo ($e->Emp_Id == $tarea->emp_id) ? "Selected" : ""; ?> value='<?php echo $e->Emp_Id ?>'><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
+                                                        <?php
+                                                    endforeach;
+                                                endif;
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tareapadre" class="control-label col-md-3">Tarea Padre</label>
+                                        <div class="col-md-9">
+                                            <select name="tareapadre" id="tareapadre" class="form-control">
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($tareas as $t): ?>
+                                                    <option <?php echo (!empty($tarea->tar_idpadre) && $t->tar_id == $tarea->tar_idpadre) ? "Selected" : ""; ?> value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="tab2"  class="tab-pane <?php echo (!empty($avance) || !empty($nuevoavance)) ? "active" : ""; ?>">
-                            <form method="post" id="guardaravance">
-                                <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="idtarea" id="interno">
-                                <input type="hidden" value="<?php echo (!empty($avance[0]->avaTar_id)) ? $avance[0]->avaTar_id : ""; ?>" name="avaTar_id" id="avaTar_id">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="estado" class="control-label col-md-3">Estado</label>
+                                        <div class="col-md-9">
+                                            <select name="estado" id="estado" class="form-control" >
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($estados as $e) : ?>
+                                                    <option <?php echo ((!empty($tarea->est_id) && $tarea->est_id == $e->est_id) ? "selected" : ((empty($tarea->est_id) && $e->est_id == 1) ? "selected" : "" )); ?>  value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descripcion" class="control-label col-md-3">Descripción</label>
+                                        <div class="col-md-9">
+                                            <textarea name="descripcion" id="descripcion" rows="10" class="form-control"><?php echo (!empty($tarea->tar_descripcion)) ? $tarea->tar_descripcion : ""; ?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="estado" class="control-label col-md-3">Fecha de creación</label>
+                                        <div class="col-md-9">
+                                            <input type="text" value="<?php echo (!empty($tarea->tar_fechaCreacion)) ? $tarea->tar_fechaCreacion : date('Y-m-d'); ?>" name="fechacreacion" id="fechacreacion" readonly="readonly" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="fechamodificacion" class="control-label col-md-3">Fecha de modificación</label>
+                                        <div class="col-md-9">
+                                            <input type="text" value="<?php echo (!empty($tarea->tar_fechaUltimaMod)) ? $tarea->tar_fechaUltimaMod : ""; ?>" name="fechamodificacion" id="fechamodificacion" readonly="readonly" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="alert alert-info"  style='margin-top:10px;font-weight: bold;text-align: center;'>Riesgos</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="clasificacionriesgo" class="control-label col-md-3">Clasificación de riesgo</label>
+                                        <div class="col-md-9">
+                                            <select name='clasificacionriesgo[]' id='clasificacionriesgo' class="form-control" multiple>
+                                                <?php foreach ($categoria as $ca) { ?>
+                                                    <option <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tiposriesgos" class="control-label col-md-3">Tipos de Riesgos</label>
+                                        <div class="col-md-9">
+                                            <select name='tiposriesgos[]' id='tiposriesgos' class="form-control" multiple>
+                                                <?php foreach ($tipoClasificacion as $tc): ?>
+                                                    <option <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tiposriesgos" class="control-label col-md-3">Riesgos</label>
+                                        <div class="col-md-9">
+                                            <select name='lista_riesgos[]' id='lista_riesgos' class="form-control" multiple>
+                                                <?php foreach ($riesgos as $e) { ?>
+                                                    <?php
+                                                    $select = "";
+                                                    if (isset($riesgos_guardada))
+                                                        foreach ($riesgos_guardada as $tn) :
+                                                            if ($tn->rie_id == $e->rie_id):
+                                                                $select = "selected";
+                                                                break;
+                                                            endif;
+                                                        endforeach;
+                                                    ?>
+                                                    <option <?php echo $select; ?>  value="<?php echo $e->rie_id ?>"><?php echo $e->rie_descripcion ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <?php if (!empty($tarea->tar_id)): ?>
+                    <div class="portlet box blue">
+                        <div class="portlet-body">
+                            <div class="tabbable tabbable-tabdrop">
+                                <ul class="nav nav-tabs">
+                                    <li <?php echo (empty($avance) && empty($nuevoavance) ) ? "class='active'" : ""; ?>>
+                                        <a data-toggle="tab" href="#tab1">Avance</a>
+                                    </li>
+                                    <li <?php echo (!empty($avance) || !empty($nuevoavance)) ? "class='active'" : ""; ?>>
+                                        <a data-toggle="tab" href="#tab2">Agregar Avance</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#tab3">Registros</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab1" class="tab-pane <?php echo (empty($avance) && empty($nuevoavance)) ? "active" : ""; ?>">
                                         <div class="row">
-                                            <label for="fecha" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Fecha</label>
-                                            <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
-                                                <input value="<?php echo (!empty($avance[0]->avaTar_fecha)) ? $avance[0]->avaTar_fecha : ""; ?>"  type="text" style="text-align:center" name="fecha" id="fecha" class="form-control fecha avance">
+                                            <div class="col-md-12">
+                                                <div class="portlet">
+                                                    <div class="portlet-body">
+                                                        <div class="table-container">
+                                                            <table  class="table table-striped table-bordered table-hover" id="datatable_ajax1">
+                                                                <thead>
+                                                                <thead style="background-color: blue;color: white;">
+                                                                <th>Editar</th>
+                                                                <th>Fecha</th>
+                                                                <th>Resumen</th>
+                                                                <th>Usuario</th>
+                                                                <th>Horas</th>
+                                                                <th>Costo</th>
+                                                                <th>Comentarios</th>
+                                                                </thead>
+                                                                <tbody class="datatable_ajax12">
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab2"  class="tab-pane <?php echo (!empty($avance) || !empty($nuevoavance)) ? "active" : ""; ?>">
+                                        <form method="post" id="guardaravance">
+                                            <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="idtarea" id="interno">
+                                            <input type="hidden" value="<?php echo (!empty($avance[0]->avaTar_id)) ? $avance[0]->avaTar_id : ""; ?>" name="avaTar_id" id="avaTar_id">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
+                                                    <div class="row">
+                                                        <label for="fecha" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Fecha</label>
+                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                            <input value="<?php echo (!empty($avance[0]->avaTar_fecha)) ? $avance[0]->avaTar_fecha : ""; ?>"  type="text" style="text-align:center" name="fecha" id="fecha" class="form-control fecha avance">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="progreso" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Progreso</label>
+                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                            <select name="progreso" id="progreso" class="form-control avance" style="text-align: center">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php for ($i = 1; $i < 101; $i++) { ?>
+                                                                    <option <?php echo ((!empty($avance[0]->avaTar_progreso)) && ($avance[0]->avaTar_progreso == $i)) ? "selected" : ""; ?> value="<?php echo $i; ?>"><?php echo $i . " " . "%"; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="horastrabajadas" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Horas Trabajadas</label>
+                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                            <input value="<?php echo (!empty($avance[0]->avaTar_horasTrabajadas)) ? $avance[0]->avaTar_horasTrabajadas : ""; ?>" style="text-align:center" type="text" name="horastrabajadas" id="horastrabajadas" class="form-control avance number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="costo" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Costo</label>
+                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                            <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sx-12 col-sm-12">
+                                                            <label for="comentarios">Comentarios</label>
+                                                            <textarea  name="comentarios" id="comentarios" class="form-control avance"><?php echo (!empty($avance[0]->avaTar_comentarios)) ? $avance[0]->avaTar_comentarios : ""; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <center><h4>Notificar a:</h4></center>
+                                                    </div>
+                                                    <?php foreach ($notificacion as $n): ?>
+                                                        <div class="row">
+                                                            <label for="creotarea" class="col-lg-9 col-md-9 col-sx-9 col-sm-9"><?php echo $n->not_notificacion ?></label>
+                                                            <div class="col-lg-3 col-md-3 col-sx-3 col-sm-3">
+                                                                <input type="checkbox" name="notificar[]" value="<?php echo $n->not_id ?>" id="creotarea" class="form-control avance">
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                        <div class="row" style="text-align: center">
+                                            <button type="button" class="btn btn-success" id="gavance">Guardar</button>
+                                        </div>
+                                    </div>
+                                    <div id="tab3" class="tab-pane">
+                                        <div class="portlet box blue" style="margin-top: 30px;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                </div>
+                                                <div class="tools">                                        
+                                                    <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#modalCarpeta" ></i>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="tabbable tabbable-tabdrop">
+                                                    <div class="tab-content">
+                                                        <br>
+                                                        <div class="panel-group accordion" id="accordion5">
+                                                            <?php
+                                                            $o = 1;
+                                                            foreach ($carpeta as $idcar => $nomcar):
+                                                                foreach ($nomcar as $nombrecar => $numcar):
+                                                                    ?>
+                                                                    <div class="panel panel-default" id="<?php echo $idcar ?>">
+                                                                        <div class="panel-heading">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
+                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
+                                                                                </a>
+                                                                                <div class="posicionIconoAcordeon">
+                                                                                    <i class="fa fa-file-archive-o nuevoregistro" car_id="<?php echo $idcar ?>" data-toggle="modal" data-target="#myModal"></i>
+                                                                                    <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
+                                                                                    <i class="fa fa-times eliminarregistro" car_id="<?php echo $idcar ?>"></i>
+                                                                                </div>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                            <div class="panel-body">
+                                                                                <table class="table table-hover table-bordered">
+                                                                                    <thead style="background-color: blue">
+                                                                                    <th>Nombre de archivo</th>
+                                                                                    <th>Descripción</th>
+                                                                                    <th>Versión</th>
+                                                                                    <th>Responsable</th>
+                                                                                    <th>Tamaño</th>
+                                                                                    <th>Fecha</th>
+                                                                                    <th>Acción</th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <?php foreach ($numcar as $numerocar => $campocar): ?>
+                                                                                            <tr>
+                                                                                                <td><?php echo $campocar[0] ?></td>
+                                                                                                <td><?php echo $campocar[1] ?></td>
+                                                                                                <td><?php echo $campocar[2] ?></td>
+                                                                                                <td><?php echo $campocar[3] ?></td>
+                                                                                                <td><?php echo $campocar[4] ?></td>
+                                                                                                <td><?php echo $campocar[5] ?></td>
+                                                                                                <td>
+                                                                                                    <i class="fa fa-times fa-2x eliminarregistro2 btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
+                                                                                                    <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal" data-toggle="modal"></i>
+                                                                                                </td>
+                                                                                            </tr>   
+                                                                                        <?php endforeach; ?>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php
+                                                                    $o++;
+                                                                endforeach;
+                                                            endforeach;
+                                                            ?>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>   </p>
+                            <p>   </p>
+                            <div class="tabbable tabbable-tabdrop">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <!-- Carpeta -->
+                    <div class="modal fade" id="modalCarpeta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="frmcarpetaregistro">
+                                        <input type="hidden" value="<?php echo $tarea->tar_id; ?>" name="tar_id" id="tar_id_carRegistro"/>
+                                        <div class="row">
+                                            <label for="nombrecarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="progreso" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Progreso</label>
-                                            <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
-                                                <select name="progreso" id="progreso" class="form-control avance" style="text-align: center">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php for ($i = 1; $i < 101; $i++) { ?>
-                                                        <option <?php echo ((!empty($avance[0]->avaTar_progreso)) && ($avance[0]->avaTar_progreso == $i)) ? "selected" : ""; ?> value="<?php echo $i; ?>"><?php echo $i . " " . "%"; ?></option>
-                                                    <?php } ?>
+                                            <label for="descripcioncarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Descripción:</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" id="opcionescarpeta">
+                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" id="guardarcarpeta">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Registro -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">REGISTROS</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="formactividadpadre">
+                                        <input type="hidden" value="<?php echo $tarea->tar_id; ?>" name="tar_id" id="tar_id_registro"/>
+                                        <input type="hidden" value="" name="reg_id" id="reg_id"/>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <label for="carpeta">Carpeta:</label>
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <select id="carpeta" name="regCar_id" class="form-control tarRegObligatorio">
+                                                    <option value=""></option>
+                                                    <?php foreach ($carpetas as $carp): ?>
+                                                        <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre . ' - ' . $carp->regCar_descripcion ?></option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="horastrabajadas" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Horas Trabajadas</label>
-                                            <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
-                                                <input value="<?php echo (!empty($avance[0]->avaTar_horasTrabajadas)) ? $avance[0]->avaTar_horasTrabajadas : ""; ?>" style="text-align:center" type="text" name="horastrabajadas" id="horastrabajadas" class="form-control avance number">
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <label for="version">Versión:</label>
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <input type="text" id="version" name="reg_version" class="form-control tarRegObligatorio">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="costo" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Costo</label>
-                                            <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
-                                                <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <label for="descripcion">Descripción:</label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sx-12 col-sm-12">
-                                                <label for="comentarios">Comentarios</label>
-                                                <textarea  name="comentarios" id="comentarios" class="form-control avance"><?php echo (!empty($avance[0]->avaTar_comentarios)) ? $avance[0]->avaTar_comentarios : ""; ?></textarea>
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <textarea id="descripcion_tarea" name="reg_descripcion" class="form-control tarRegObligatorio"></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <center><h4>Notificar a:</h4></center>
-                                        </div>
-                                        <?php foreach ($notificacion as $n): ?>
-                                            <div class="row">
-                                                <label for="creotarea" class="col-lg-9 col-md-9 col-sx-9 col-sm-9"><?php echo $n->not_notificacion ?></label>
-                                                <div class="col-lg-3 col-md-3 col-sx-3 col-sm-3">
-                                                    <input type="checkbox" name="notificar[]" value="<?php echo $n->not_id ?>" id="creotarea" class="form-control avance">
-                                                </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                <label for="nombreactividad">Adjuntar Archivo:</label>
                                             </div>
-                                        <?php endforeach; ?>
-                                    </div>
-
+                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                <input type="file" id="nombreactividad" name="archivo" class="form-control tarRegObligatorio">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                            <div class="row" style="text-align: center">
-                                <button type="button" class="btn btn-success" id="gavance">Guardar</button>
-                            </div>
-                        </div>
-                        <div id="tab3" class="tab-pane">
-                            <div class="portlet box blue" style="margin-top: 30px;">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                    </div>
-                                    <div class="tools">                                        
-                                        <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#modalCarpeta" ></i>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="tabbable tabbable-tabdrop">
-                                        <div class="tab-content">
-                                            <br>
-                                            <div class="panel-group accordion" id="accordion5">
-                                                <?php
-                                                $o = 1;
-                                                foreach ($carpeta as $idcar => $nomcar):
-                                                    foreach ($nomcar as $nombrecar => $numcar):
-                                                        ?>
-                                                        <div class="panel panel-default" id="<?php echo $idcar ?>">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title">
-                                                                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
-                                                                        <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
-                                                                    </a>
-                                                                    <div class="posicionIconoAcordeon">
-                                                                        <i class="fa fa-file-archive-o nuevoregistro" car_id="<?php echo $idcar ?>" data-toggle="modal" data-target="#myModal"></i>
-                                                                        <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
-                                                                        <i class="fa fa-times eliminarregistro" car_id="<?php echo $idcar ?>"></i>
-                                                                    </div>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                <div class="panel-body">
-                                                                    <table class="table table-hover table-bordered">
-                                                                        <thead style="background-color: blue">
-                                                                        <th>Nombre de archivo</th>
-                                                                        <th>Descripción</th>
-                                                                        <th>Versión</th>
-                                                                        <th>Responsable</th>
-                                                                        <th>Tamaño</th>
-                                                                        <th>Fecha</th>
-                                                                        <th>Acción</th>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <?php foreach ($numcar as $numerocar => $campocar): ?>
-                                                                                <tr>
-                                                                                    <td><?php echo $campocar[0] ?></td>
-                                                                                    <td><?php echo $campocar[1] ?></td>
-                                                                                    <td><?php echo $campocar[2] ?></td>
-                                                                                    <td><?php echo $campocar[3] ?></td>
-                                                                                    <td><?php echo $campocar[4] ?></td>
-                                                                                    <td><?php echo $campocar[5] ?></td>
-                                                                                    <td>
-                                                                                        <i class="fa fa-times fa-2x eliminarregistro2 btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
-                                                                                        <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal" data-toggle="modal"></i>
-                                                                                    </td>
-                                                                                </tr>   
-                                                                            <?php endforeach; ?>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                        $o++;
-                                                    endforeach;
-                                                endforeach;
-                                                ?>
-                                            </div> 
-                                        </div>
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-success" id="guardarregistro">Guardar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <p>   </p>
-                <p>   </p>
-                <div class="tabbable tabbable-tabdrop">
-                </div>
-            </div>
-        </div>
-        <!-- Modal -->
-        <!-- Carpeta -->
-        <div class="modal fade" id="modalCarpeta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" id="frmcarpetaregistro">
-                            <input type="hidden" value="<?php echo $tarea->tar_id; ?>" name="tar_id" id="tar_id_carRegistro"/>
-                            <div class="row">
-                                <label for="nombrecarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre</label>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="descripcioncarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Descripción:</label>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer" id="opcionescarpeta">
-                        <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="guardarcarpeta">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Registro -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">REGISTROS</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" id="formactividadpadre">
-                            <input type="hidden" value="<?php echo $tarea->tar_id; ?>" name="tar_id" id="tar_id_registro"/>
-                            <input type="hidden" value="" name="reg_id" id="reg_id"/>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <label for="carpeta">Carpeta:</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <select id="carpeta" name="regCar_id" class="form-control tarRegObligatorio">
-                                        <option value=""></option>
-                                        <?php foreach ($carpetas as $carp): ?>
-                                            <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre . ' - ' . $carp->regCar_descripcion ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <label for="version">Versión:</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <input type="text" id="version" name="reg_version" class="form-control tarRegObligatorio">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <label for="descripcion">Descripción:</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <textarea id="descripcion_tarea" name="reg_descripcion" class="form-control tarRegObligatorio"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <label for="nombreactividad">Adjuntar Archivo:</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <input type="file" id="nombreactividad" name="archivo" class="form-control tarRegObligatorio">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-success" id="guardarregistro">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <?php endif; ?>
-    <input type="hidden" id="tareid" name="tareid" />
+                <?php endif; ?>
+                <input type="hidden" id="tareid" name="tareid" />
+            </div> 
+        </div> 
+    </div> 
 </div> 
 <div id='planes'></div>
 <script>
@@ -662,7 +746,7 @@
         var puntero = $(this).attr("reg_id");
         var puntero2 = $(this);
         $.post(
-                "<?php echo base_url("index.php/tareas/eliminarregistro") ?>",
+                url+"index.php/tareas/eliminarregistro",
                 {registro: puntero}
         )
                 .done(function (msg) {
@@ -937,7 +1021,7 @@
     });
 
     $('#cancelar').click(function () {
-        var form = "<form method='post' id='enviotarea' action='"+url+"index.php/planes/nuevoplan"+"'>";
+        var form = "<form method='post' id='enviotarea' action='" + url + "index.php/planes/nuevoplan" + "'>";
         form += "<input type='hidden' value='" + $(this).attr('plan') + "' name='pla_id'>";
         form += "</form>"
         $('#planes').append(form);
@@ -948,12 +1032,12 @@
             $('#fechaIncio').addClass("obligado");
             $('#fechafinalizacion').addClass("obligado");
             if ($(this).attr("title") == 'Actualizar')
-                var ruta = url+"index.php/tareas/listadotareas";
+                var ruta = url + "index.php/tareas/listadotareas";
             else
-                ruta = url+"index.php/planes/nuevoplan";
+                ruta = url + "index.php/planes/nuevoplan";
             if (obligatorio("obligatorio")) {
                 $.post(
-                        url+"index.php/tareas/guardartarea",
+                        url + "index.php/tareas/guardartarea",
                         $('#f8').serialize()
                         ).done(function (msg) {
 
@@ -985,7 +1069,7 @@
     $('body').delegate("#guardarcarpeta", "click", function () {
         if (obligatorio("carbligatorio")) {
             $.post(
-                    url+"index.php/tareas/guardarcarpetatarea",
+                    url + "index.php/tareas/guardarcarpetatarea",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function (msg) {
                 var option = "<option value='" + msg.regCar_id + "'>" + msg.regCar_nombre + " - " + msg.regCar_descripcion + "</option>"
@@ -1030,7 +1114,7 @@
             form_data.append('reg_descripcion', $('#descripcion_tarea').val());
             form_data.append('reg_id', $('#reg_id').val());
             $.ajax({
-                url: url+"index.php/tareas/guardar_registro_tarea",
+                url: url + "index.php/tareas/guardar_registro_tarea",
                 dataType: 'text', // what to expect back from the PHP script, if anything
                 cache: false,
                 contentType: false,
@@ -1124,7 +1208,7 @@
     }
 
     $('#tiposriesgos').change(function () {
-        $.post(url+"index.php/tareas/traer_riesgos", 
+        $.post(url + "index.php/tareas/traer_riesgos",
                 {tiposriesgos: $('#tiposriesgos').val(), clasificacionriesgo: $('#clasificacionriesgo').val()})
                 .done(function (msg) {
                     $('#lista_riesgos').html('');
@@ -1139,7 +1223,7 @@
                     })
                 })
                 .fail(function () {
-                    alerta("rojo","Error por favor comunicarse con el administrador");
+                    alerta("rojo", "Error por favor comunicarse con el administrador");
                 })
     });
     $('#fechaIncio').change(function () {
@@ -1151,8 +1235,6 @@
                 $(this).val('');
             }
 <?php } ?>
-
-
     });
     $('.envio').click(function () {
         $('#tar_id3').val($(this).attr('nuevo'));

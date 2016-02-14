@@ -15,9 +15,8 @@
         <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
             <div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div>
         </a>
-
         <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
-            <div class="circuloIcon"><i class="fa fa-sticky-note fa-2x"></i></div>
+            <div class="circuloIcon" title="Listado empleados"><i class="fa fa-sticky-note fa-2x"></i></div>
         </a>
         <br>
     </div>
@@ -43,192 +42,271 @@
                                 <li class='active'>
                                     <a data-toggle="tab" href="#tab1">Informacion General</a>
                                 </li>
-                                <?php if (!empty($empleado[0]->Emp_Id)) { ?>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab2">Contratos</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab3">Incapacidades</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab4">Vacaciones</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab5">Ausentismo</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab7">Horas extras</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab8">Capacitaciones</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#tab6">Registro</a>
-                                    </li>
-                                <?php } ?>
+                                <li>
+                                    <a data-toggle="tab" href="#tab2">Contratos</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#tab3">Incapacidades</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#tab4">Vacaciones</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab5">Ausentismo</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#tab7">Horas extras</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab8">Capacitaciones</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#tab6">Registro</a>
+                                </li>
+
                             </ul>
                             <div class="tab-content">
                                 <div id="tab1" class="tab-pane active">
-                                    <form method="post" id="f1">
-                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                    <form method="post" id="f1" class="form-horizontal">
+                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="row">
-                                            <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cédula</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cedula" class="control-label col-md-3"><span class="campoobligatorio">*</span>Cédula</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
+                                                    </div>    
+                                                </div>    
                                             </div>    
                                         </div>
                                         <div class="row">
-                                            <label for="nombre" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Nombres</label> 
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="nombre" name="nombre" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Nombre)) ? $empleado[0]->Emp_Nombre : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombre" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombres</label> 
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="nombre" name="nombre" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Nombre)) ? $empleado[0]->Emp_Nombre : ""; ?>" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="horario">Jornada</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <select name="horario" id="horario" class="form-control">
-                                                    <option>::Seleccionar::</option>
-                                                    <?php foreach ($horario as $h): ?>
-                                                        <option <?php echo (!empty($empleado[0]->hor_id) && $empleado[0]->hor_id == $h->hor_id) ? "selected" : ""; ?> value="<?php echo $h->hor_id ?>"><?php echo $h->hor_horario . " (" . $h->hor_cantidadHoras . ")" ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Apellidos</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
-                                            </div>
-                                            <label for="fechainiciocontrato" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Inicio Contrato</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="fechainiciocontrato" id="fechainiciocontrato" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaInicioContrato)) ? $empleado[0]->Emp_FechaInicioContrato : ""; ?>"/>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3" for="horario">Jornada</label>
+                                                    <div class="col-md-9">
+                                                        <select name="horario" id="horario" class="form-control">
+                                                            <option>::Seleccionar::</option>
+                                                            <?php foreach ($horario as $h): ?>
+                                                                <option <?php echo (!empty($empleado[0]->hor_id) && $empleado[0]->hor_id == $h->hor_id) ? "selected" : ""; ?> value="<?php echo $h->hor_id ?>"><?php echo $h->hor_horario . " (" . $h->hor_cantidadHoras . ")" ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="salario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Salario</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
-                                            </div>
-                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="fechafincontrato">Fecha Fin Contrato</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="fechafincontrato" id="fechafincontrato" class="form-control fecha"  value="<?php echo (!empty($empleado[0]->Emp_FechaFinContrato)) ? $empleado[0]->Emp_FechaFinContrato : ""; ?>"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label for="sexo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Género</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <select name="sexo" id="sexo" class="form-control obligatorio">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($sexo as $s) { ?>
-                                                        <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                            <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="planobligatoriodesalud"><span class="campoobligatorio">*</span>Plan Obligatorio de Salud</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="planobligatoriodesalud" id="planobligatoriodesalud" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_PlanObligatorioSalud)) ? $empleado[0]->Emp_PlanObligatorioSalud : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos" class="control-label col-md-3"><span class="campoobligatorio">*</span>Apellidos</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="fechadenacimiento" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="salario" class="control-label col-md-3">Salario</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="sexo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Género</label>
+                                                    <div class="col-md-9">
+                                                        <select name="sexo" id="sexo" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($sexo as $s): ?>
+                                                                <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3" for="planobligatoriodesalud"><span class="campoobligatorio">*</span>Plan Obligatorio de Salud</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" name="planobligatoriodesalud" id="planobligatoriodesalud" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_PlanObligatorioSalud)) ? $empleado[0]->Emp_PlanObligatorioSalud : ""; ?>" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fechadenacimiento" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
+                                                    </div>    
+                                                </div>    
+                                            </div>  
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fechaafiliacionarl" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Afiliacion ARL</label> 
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="fechaafiliacionarl" name="fechaafiliacionarl" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaAfiliacionArl)) ? $empleado[0]->Emp_FechaAfiliacionArl : ""; ?>" />
+                                                    </div>    
+                                                </div>    
                                             </div>    
-                                            <label for="fechaafiliacionarl" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Fecha Afiliacion ARL</label> 
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="fechaafiliacionarl" name="fechaafiliacionarl" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaAfiliacionArl)) ? $empleado[0]->Emp_FechaAfiliacionArl : ""; ?>" />
-                                            </div>    
                                         </div>
                                         <div class="row">
-                                            <label for="estatura" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estatura</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="estatura" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estatura</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <label for="fondo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Fondo de Pensiones</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fondo" class="control-label col-md-3">Fondo de Pensiones</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <label for="peso" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Peso</label>  
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="peso" class="control-label col-md-3">Peso</label>  
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
+                                                    </div> 
+                                                </div> 
                                             </div> 
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                 <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
                                             </div>  
                                         </div>
                                         <div class="row">
-                                            <label for="telefono" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono</label>   
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="telefono" class="control-label col-md-3">Teléfono</label>   
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
+                                                    </div>     
+                                                </div>     
                                             </div>     
                                         </div>
                                         <div class="row">
-                                            <label for="direcion" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Dirección</label>   
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="direcion" class="control-label col-md-3"><span class="campoobligatorio">*</span>Dirección</label>   
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
+                                                    </div>  
+                                                </div>  
                                             </div>  
                                         </div>
                                         <div class="row">
-                                            <label for="contacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Contacto</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="contacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Contacto</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
+                                                    </div>  
+                                                </div>  
                                             </div>  
                                         </div>
                                         <div class="row">
-                                            <label for="telefonocontacto" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Teléfono Contacto</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
-                                            </div>    
-                                            <label for="dimension1" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dim_id ?></label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($dimension as $d) { ?>
-                                                        <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>    
-                                        </div>
-                                        <div class="row">
-                                            <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Email</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
-                                            </div>    
-                                            <label for="dimension2" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($dimension2 as $d2) { ?>
-                                                        <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>    
-                                        </div>
-                                        <div class="row">
-                                            <label for="estadocivil" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Estado Civil</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-                                                <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($estadocivil as $ec) { ?>
-                                                        <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="telefonocontacto" class="control-label col-md-3">Teléfono Contacto</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
+                                                    </div>    
+                                                </div>    
                                             </div>
-                                            <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span class="campoobligatorio">*</span>Cargo</label>
-                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                                <select id="cargo" name="cargo" class="form-control obligatorio">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($cargo as $c) { ?>
-                                                        <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="dimension1" class="control-label col-md-3"><?php echo $empresa[0]->Dim_id ?></label>
+                                                    <div class="col-md-9">
+                                                        <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($dimension as $d) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->Dim_id) && $empleado[0]->Dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>    
+                                                </div>    
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="email" class="control-label col-md-3"><span class="campoobligatorio">*</span>Email</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
+                                                    </div>    
+                                                </div>    
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="dimension2" class="control-label col-md-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
+                                                    <div class="col-md-9">
+                                                        <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($dimension2 as $d2) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->Dim_IdDos) && $empleado[0]->Dim_IdDos == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>    
+                                                </div>    
+                                            </div>    
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="estadocivil" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estado Civil</label>
+                                                    <div class="col-md-9">
+                                                        <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($estadocivil as $ec) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="cargo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Cargo</label>
+                                                    <div class="col-md-9">
+                                                        <select id="cargo" name="cargo" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($cargo as $c) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>    
+                                                </div>    
                                             </div>    
                                         </div>
                                     </form>
                                 </div>
                                 <div id="tab2" class="tab-pane">
                                     <form id="frmContrato" class="form-horizontal">
-                                        <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                        <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="form-group">
                                             <label for="fInicioContrato" class="control-label col-sm-2">*Fecha Inicio</label>
                                             <div class="col-sm-4">
@@ -255,7 +333,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12" style="text-align: right">
                                                 <button type="button" id="btnContrato" class="btn btn-sst">Agregar</button>
                                             </div>
                                         </div>
@@ -283,9 +361,6 @@
                                 </div>
                                 <div id="tab3" class="tab-pane">
                                     <div class="portlet-title">
-                                        <div class="caption" style="padding:0;">
-                                            <span style="color: #0A7194;font-size: 20px" >Registro incapacidad</span>
-                                        </div>
                                         <div class="tools">
                                             <div class="circuloIcon">
                                                 <i class="fa fa-folder-open fa-3x agregarIncapacidad" title="Registro incapacidad"></i>
@@ -323,9 +398,6 @@
                                 </div>
                                 <div id="tab4" class="tab-pane">
                                     <div class="portlet-title">
-                                        <div class="caption" style="padding:0;">
-                                            <span style="color: #0A7194;font-size: 20px" >Vacaciones</span>
-                                        </div>
                                         <div class="tools">
                                             <div class="circuloIcon">
                                                 <i class="fa fa-folder-open fa-3x agregarvacaciones" title="Registro vacaciones"></i>
@@ -359,9 +431,6 @@
                                 </div>
                                 <div id="tab5" class="tab-pane">
                                     <div class="portlet-title">
-                                        <div class="caption" style="padding:0;">
-                                            <span style="color: #0A7194;font-size: 20px" >Ausentismo</span>
-                                        </div>
                                         <div class="tools">
                                             <div class="circuloIcon">
                                                 <i class="fa fa-folder-open fa-3x agregarAusentismo" title="Registro vacaciones"></i>
@@ -494,7 +563,7 @@
                                         <div class="circuloIcon guardarHorasExtra"><i class="fa fa-floppy-o fa-3x"></i></div>
                                     </div>
                                     <form method="post" id="FrmHorasExtras">
-                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                                        <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="row">
                                             <label for="horas" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                                 Fecha
@@ -664,11 +733,11 @@
             </div>
             <div class="modal-body">
                 <form method="post" id="formcarpeta">
-                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                     <div class="row">
                         <label for="nombrecarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre:</label>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <input type="nombre" id="nombrecarpeta" name="nombrecarpeta" class="form-control">
+                            <input type="nombre" id="nombrecarpeta" name="nombrecarpeta" class="form-control ObligatorioCarpeta">
                         </div>
                     </div>
                     <div class="row">
@@ -695,7 +764,7 @@
             </div>
             <div class="modal-body">
                 <form id="crearIncapacidad" class="form-horizontal">
-                    <input type="hidden" name="motivoInc" id="idMotivo" class="incapacidadEmpleado" >
+                    <input type="hidden" name="motivoInc" id="idMotivo" >
                     <div class="form-group">
                         <label for="responsable" class="col-sm-3 control-label"><span class="campoobligatorio">*</span>Responsable</label>
                         <div class="col-sm-3">
@@ -711,7 +780,7 @@
                             Motivo de la incapacidad
                         </label>
                         <div class="col-sm-3">
-                            <input type="text" name="motivoInc" id="motivoIncapacidad" class="form-control incapacidadEmpleado"/>
+                            <input type="text" name="motivoInc" id="motivoIncapacidad" class="form-control obligatorioInc incapacidadEmpleado"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -730,7 +799,7 @@
                             <input type="text" class="form-control fecha obligatorioInc incapacidadEmpleado" id="fechaFinalInc" name="fechaFinalInc">
                         </div>
                     </div>
-                    <input type="hidden" id="empleadoInc" name="empleadoInc" class="obligatorioInc"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                    <input type="hidden" id="empleadoInc" name="empleadoInc"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                 </form>
             </div>
             <div class="modal-footer" id="opcionescarpeta">
@@ -750,7 +819,7 @@
             <div class="modal-body">
                 <form method="post" id="FrmVacaciones">
                     <input type="hidden" id="vac_id" name="vac_id" />
-                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                     <div class="row">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="iniciovacaciones">*Fecha Inicio</label>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="iniciovacaciones" id="iniciovacaciones" class="form form-control fecha obligacionVaciones"/></div>
@@ -781,7 +850,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" id="FrmAusentismo">
-                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" />
+                    <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                     <div class="row">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="iniciovacaciones">Fecha Inicio</label>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><input type="text" name="iniciovacaciones" id="iniciovacaciones" class="form form-control fecha"/></div>
@@ -843,7 +912,7 @@
                             <input type="file" id="archivocarpeta" name="archivo" class="form-control">
                         </div>
                     </div>
-                    <input type="hidden" value="<?php echo $empleado[0]->Emp_Id ?>" name="Emp_Id" />
+                    <input type="hidden" value="<?php echo $empleado[0]->Emp_Id ?>" name="Emp_Id" class="empleadoId" />
                 </form>
             </div>
             <div class="modal-footer">
@@ -853,7 +922,6 @@
         </div>
     </div>
 </div>
-</div>
 <?php
 $option = "";
 foreach ($tipoaseguradora as $ta):
@@ -862,31 +930,28 @@ endforeach;
 ?>
 <script>
     $("body").delegate("#guardarInc", "click", function () {
-        if (obligatorio('obligatorioInc') == true) {
-            if (difFechaIncapacidad("#fechaInicioInc", "#fechaFinalInc") > 0) {
-                $.post(url + "index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
-                        .done(function (msg) {
-                            if (!jQuery.isEmptyObject(msg.message))
-                                alerta("amarillo", msg['message'])
-                            else {
-                                $("#crearIncapacidad").find("input[type='text']").val("");
-                                $("#crearIncapacidad").find("select").val("");
-                                $("#crearIncapacidad").find("textarea").val("");
-                                tabla(msg);
-                                $('#modalIncapacidad').modal('hide');
-                                alerta("verde", "Incapacidad Guardada");
-                            }
-                        })
-                        .fail(function (msg) {
-                            alerta("rojo", "Error guardar incapacidad")
-                        })
-            }
+        if (obligatorio('obligatorioInc') == true && difFechaIncapacidad("#fechaInicioInc", "#fechaFinalInc") > 0) {
+            $.post(url + "index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("amarillo", msg['message'])
+                        else {
+                            $("#crearIncapacidad").find("input[type='text']").val("");
+                            $("#crearIncapacidad").find("select").val("");
+                            $("#crearIncapacidad").find("textarea").val("");
+                            tabla(msg);
+                            $('#modalIncapacidad').modal('hide');
+                            alerta("verde", "Incapacidad Guardada");
+                        }
+                    })
+                    .fail(function (msg) {
+                        alerta("rojo", "Error, comunicarse con el administrador")
+                    })
         }
     });
     // -------------------------------------------------------------------------
     //                                  TAB CONTRATOS
     // -------------------------------------------------------------------------
-
     $("#btnContrato").click(function () {
         if (obligatorio('obligatorioContrato') == true) {
             var tableBody = "";
@@ -910,7 +975,7 @@ endforeach;
                         }
                     })
                     .fail(function (msg) {
-
+                        alerta("rojo", "Error, comunicarse con el administrador")
                     });
         }
     });
@@ -954,7 +1019,7 @@ endforeach;
             }, 0);
         },
         select: function (event, ui) {
-            $("#idMotivo").val(ui.item.id);  // ui.item.value contains the id of the selected label
+            $("#idMotivo").val(ui.item.id);
         }
     });
 
@@ -1194,7 +1259,7 @@ endforeach;
             var div = "<div class='row archivo'>\n\
                             <label class='col-lg-2 col-md-2 col-sm-2 col-xs-2' style='color:black'>Archivo:</label>\n\
                             <div class='col-lg-10 col-md-10 col-sm-10 col-xs-10'>\n\
-                            <a target='_blank' href='<?php echo base_url("/uploads/empleado/") ?>/" + msg.emp_id + "/" + msg.empReg_id + "/" + msg.empReg_archivo + "' title='descargar' >" + msg.empReg_archivo + "</a>\n\
+                            <a target='_blank' href='" + url + "uploads/empleado/" + msg.emp_id + "/" + msg.empReg_id + "/" + msg.empReg_archivo + "' title='descargar' >" + msg.empReg_archivo + "</a>\n\
                             </div>\n\
                            </div>";
             $('#formregistro').append(div);
@@ -1249,50 +1314,44 @@ endforeach;
     function agregarClonAseguradora() {
         var cuerpo = "";
         cuerpo += '<div class="row">';
-        //Campo Label
         cuerpo += '<label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Tipo Aseguradora:</label>';
-        //campo select
         cuerpo += '<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">';
         cuerpo += '<select name="tipoaseguradora[]" class="form-control tipoaseguradora">';
         cuerpo += '<option value="">::Seleccionar::</option>' + option;
         cuerpo += '</select>'
         cuerpo += '</div>';
-        //campo Label
         cuerpo += '<label class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre Aseguradora:</label>';
-        //campo select
         cuerpo += '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
         cuerpo += '<input type="text" name="nombreaseguradora[]" class="form-control nombreaseguradora">';
         cuerpo += '</div>';
-        //campo eliminar
         cuerpo += '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
         cuerpo += '<button type="button" class="btn btn-danger eliminaraseguradora">X</button>'
         cuerpo += '</div>';
         cuerpo += '</div>';
         return cuerpo;
     }
-
     $('body').delegate("#agregaraseguradora", "click", function () {
         $('#incluiraseguradoras').find("#agregarClones").append(agregarClonAseguradora());
     });
-
     $(function () {
-        //$("#actualizar").hide();
 <?php if (!empty($empleado[0])) { ?>
             $("#btnRegistro").hide();
             $("#guardar").hide();
             $("#actualizar").show();
 <?php } ?>
     });
-
     $('body').delegate("#guardarcarpeta", "click", function () {
-        $.post(
-                url + "index.php/administrativo/guardarcarpeta",
-                $("#formcarpeta").serialize()
-                ).done(function (msg) {
-
-            var option = "<option value='" + msg.empCar_id + "'>" + msg.empCar_nombre + ' - ' + msg.empCar_descripcion + "</option>";
-            $('#empReg_carpeta').append(option);
-            var acordeon = '<div class="panel panel-default" id="' + msg.empCar_id + '">\n\
+        if (obligatorio('ObligatorioCarpeta') == true) {
+            $.post(
+                    url + "index.php/administrativo/guardarcarpeta",
+                    $("#formcarpeta").serialize()
+                    ).done(function (msg) {
+                if (!jQuery.isEmptyObject(msg.message))
+                    alerta("rojo", msg['message'])
+                else {
+                    var option = "<option value='" + msg.empCar_id + "'>" + msg.empCar_nombre + ' - ' + msg.empCar_descripcion + "</option>";
+                    $('#empReg_carpeta').append(option);
+                    var acordeon = '<div class="panel panel-default" id="' + msg.empCar_id + '">\n\
                                             <div class="panel-heading">\n\
                                                 <h4 class="panel-title">\n\
                                                     <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_' + msg.empCar_id + '" aria-expanded="false">\n\
@@ -1325,18 +1384,16 @@ endforeach;
                                                 </div>\n\
                                             </div>\n\
                                     </div>';
-            $('#accordion1').append(acordeon);
-            $("#myModal").modal("toggle");
-            alerta("verde", "Datos guardados correctamente")
-        })
-                .fail(function (msg) {
-                    alerta("rojo", "Error en el sistema por favor comunicarse con el administrador");
-                });
-
+                    $('#accordion1').append(acordeon);
+                    $("#myModal").modal("toggle");
+                    alerta("verde", "Datos guardados correctamente")
+                }
+            })
+                    .fail(function (msg) {
+                        alerta("rojo", "Error en el sistema por favor comunicarse con el administrador");
+                    });
+        }
     });
-
-
-
     $('#guardar').click(function () {
         if ((obligatorio('obligatorio') == true) && (email("email") == true))
         {
@@ -1345,14 +1402,19 @@ endforeach;
                     $('#f1').serialize()
                     )
                     .done(function (msg) {
-                        alerta("verde", "Guardado Correctamente");
-                        if (confirm("¿Desea Guardar otro Empleado?")) {
-                            $('select,input').val('');
-                            $('input[type="checkbox"]').attr("checked", false)
-                            $('#tipoaseguradora *').remove();
-                            $("#agregarClones").html(agregarClonAseguradora());
-                        } else {
-                            window.location.href = url + "index.php/administrativo/listadoempleados";
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("rojo", msg['message'])
+                        else {
+                            alerta("verde", "Guardado Correctamente");
+                            if (confirm("¿Desea Guardar otro Empleado?")) {
+                                $('select,input').val('');
+                                $('input[type="checkbox"]').attr("checked", false)
+                                $('#tipoaseguradora *').remove();
+                                $("#agregarClones").html(agregarClonAseguradora());
+                            } else {
+                                $('.empleadoId').val(msg.Json);
+                                $('.eliminar_usuario'), attr("emp_id", msg.Json)
+                            }
                         }
                     }).fail(function (msg) {
                 alerta("rojo", "Error en el sistema por favor comunicarse con el administrador");

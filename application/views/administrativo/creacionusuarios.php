@@ -22,164 +22,169 @@
                         <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
                         <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
                     </div>
-                    
+
                 </div>
                 <form id="f3" method="post" class="form-horizontal">
                     <div class="form-body">
 
-                           
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Cédula
-                                        </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 ">
-                                            <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($usuario[0]->usu_cedula)) ? $usuario[0]->usu_cedula : ""; ?>" />
-                                        </div>    
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Cédula
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 ">
+                                        <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($usuario[0]->usu_cedula)) ? $usuario[0]->usu_cedula : ""; ?>" />
                                     </div>    
                                 </div>    
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nombres" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Nombres
-                                        </label>   
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" id="nombres" name="nombres" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_nombre)) ? $usuario[0]->usu_nombre : ""; ?>" />
-                                        </div> 
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Nombres
+                                    </label>   
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="text" id="nombres" name="nombres" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_nombre)) ? $usuario[0]->usu_nombre : ""; ?>" />
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        Apellidos
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?php echo (!empty($usuario[0]->usu_apellido)) ? $usuario[0]->usu_apellido : ""; ?>" />
                                     </div> 
                                 </div> 
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            Apellidos
-                                        </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?php echo (!empty($usuario[0]->usu_apellido)) ? $usuario[0]->usu_apellido : ""; ?>" />
-                                        </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="rol" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Rol
+                                    </label>   
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <select name="rol" id="rol" class="form-control obligatorio select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($roles as $ro) { ?>
+                                                <option <?php echo (!empty($usuario[0]->rol_id) && $usuario[0]->rol_id == $ro['rol_id']) ? "selected" : ""; ?> value="<?php echo $ro['rol_id'] ?>"><?php echo $ro['rol_nombre'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div> 
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="rol" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Rol
-                                        </label>   
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <select name="rol" id="rol" class="form-control obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($roles as $ro) { ?>
-                                                    <option <?php echo (!empty($usuario[0]->rol_id) && $usuario[0]->rol_id == $ro['rol_id']) ? "selected" : ""; ?> value="<?php echo $ro['rol_id'] ?>"><?php echo $ro['rol_nombre'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div> 
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="usuario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Usuario
+                                    </label>  
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="text" id="usuarioIngreso" name="usuario" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_usuario)) ? $usuario[0]->usu_usuario : ""; ?>" />
                                     </div> 
                                 </div> 
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="usuario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Usuario
-                                        </label>  
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="text" id="usuario" name="usuario" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_usuario)) ? $usuario[0]->usu_usuario : ""; ?>" />
-                                        </div> 
-                                    </div> 
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cambiocontrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante">
-                                            Cambio contraseña inicial
-                                        </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
-                                            <input type="checkbox" id="cambiocontrasena" name="cambiocontrasena" <?php echo (!empty($usuario[0]->usu_cambiocontrasena) && $usuario[0]->usu_cambiocontrasena == 1) ? "checked" : ""; ?> />
-                                        </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cambiocontrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante">
+                                        Cambio contraseña inicial
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                        <input type="checkbox" id="cambiocontrasena" name="cambiocontrasena" <?php echo (!empty($usuario[0]->usu_cambiocontrasena) && $usuario[0]->usu_cambiocontrasena == 1) ? "checked" : ""; ?> />
                                     </div> 
                                 </div> 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="contrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Contraseña
-                                        </label>   
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="password" id="contrasena" name="contrasena" class="form-control obligatorio"  />
-                                        </div>    
-                                    </div>    
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="estado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3  aspirante">Estado</label> 
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
-                                            <select id="estado" name="estado" class="form-control">
-                                                <?php foreach ($estado as $e) { ?>
-                                                    <option <?php echo (!empty($usuario[0]->est_id) && $usuario[0]->est_id == $e->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>    
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="contrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Contraseña
+                                    </label>   
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="password" id="contrasenaIngreso" name="contrasena" class="form-control obligatorio"  />
                                     </div>    
                                 </div>    
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Email</label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <input type="email" id="email" name="email" class="form-control email" value="<?php echo (!empty($usuario[0]->usu_email)) ? $usuario[0]->usu_email : ""; ?>" />
-                                        </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="estado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3  aspirante">Estado</label> 
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                        <select id="estado" name="estado" class="form-control select2me">
+                                            <?php foreach ($estado as $e) { ?>
+                                                <option <?php echo (!empty($usuario[0]->est_id) && $usuario[0]->est_id == $e->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>    
+                                </div>    
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Email</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="email" id="email" name="email" class="form-control email" value="<?php echo (!empty($usuario[0]->usu_email)) ? $usuario[0]->usu_email : ""; ?>" />
                                     </div> 
                                 </div> 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Cargo</label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
-                                            <select id="cargo" name="cargo" class="form-control obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($cargo as $c) { ?>
-                                                    <option <?php echo (!empty($usuario[0]->car_id) && $usuario[0]->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>    
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Cargo</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                        <select id="cargo" name="cargo" class="form-control obligatorio select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($cargo as $c) { ?>
+                                                <option <?php echo (!empty($usuario[0]->car_id) && $usuario[0]->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>    
                                 </div>    
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="genero" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <span class="campoobligatorio">*</span>Genero
-                                        </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                            <select id="genero" name="genero" class="form-control obligatorio">
-                                                <option value="">::Seleccionar::</option> 
-                                                <?php foreach ($sexo as $s) { ?>
-                                                    <option <?php echo (!empty($usuario[0]->sex_id) && $usuario[0]->sex_id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>    
-                                    </div>    
-                                </div>  
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="empleado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Empleado</label>
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
-                                            <select id="empleado" name="empleado" class="form-control obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($empleado as $mp): ?>
-                                                    <option <?php echo (!empty($usuario[0]->emp_id) && $usuario[0]->emp_id == $mp->Emp_Id) ? "selected" : ""; ?> value="<?php echo $mp->Emp_Id ?>"><?php echo $mp->Emp_Nombre . " " . $mp->Emp_Apellidos ?></option> 
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>    
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="genero" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Genero
+                                    </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <select id="genero" name="genero" class="form-control obligatorio select2me">
+                                            <option value="">::Seleccionar::</option> 
+                                            <?php foreach ($sexo as $s) { ?>
+                                                <option <?php echo (!empty($usuario[0]->sex_id) && $usuario[0]->sex_id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>    
                                 </div>    
-                            </div>
-                            <input type="hidden" name="usuid" id="usuid" value="<?php echo (!empty($usuario[0]->usu_id)) ? $usuario[0]->usu_id : ""; ?>">
-                        
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="empleado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Empleado</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                        <select id="empleado" name="empleado" class="form-control obligatorio select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php
+                                            if(!empty($usuario[0]->emp_id)) {
+                                                foreach ($empleado as $mp):
+                                                    ?>
+                                                    <option <?php echo (!empty($usuario[0]->emp_id) && $usuario[0]->emp_id == $mp->Emp_id) ? "selected" : ""; ?> value="<?php echo $mp->Emp_id ?>"><?php echo $mp->Emp_Nombre . " " . $mp->Emp_Apellidos ?></option> 
+                                                    <?php
+                                                endforeach;
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>    
+                                </div>    
+                            </div>    
+                        </div>
+                        <input type="hidden" name="usuid" id="usuid" value="<?php echo (!empty($usuario[0]->usu_id)) ? $usuario[0]->usu_id : ""; ?>">
                     </div>    
                 </form>
             </div>    

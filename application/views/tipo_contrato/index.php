@@ -70,7 +70,7 @@
                         $('#TipCon_Descripcion').focus();
                         alerta("amarillo", "Tipo de contrato ya existe en el sistema")
                     } else {
-                        $('#frmcontrato').submit();
+//                        $('#frmcontrato').submit();
                     }
                 })
                 .fail(function (msg) {

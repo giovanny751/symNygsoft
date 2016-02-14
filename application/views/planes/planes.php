@@ -60,7 +60,6 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                             <?php if (!empty($plan[0]->pla_id)) { ?>
-
                                                 <form method="post" id="frmdireccionar">
                                                     <input type="hidden" value="<?php echo $plan[0]->pla_id ?>" name="pla_id">
                                                     <input type="hidden" name="fecha_inicio_plan" value="<?php echo (!empty($plan[0]->pla_fechaInicio) ) ? $plan[0]->pla_fechaInicio : ""; ?>"/>
@@ -76,7 +75,7 @@
                                     </div>
                                     <form method="post" id="f7">
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="nombre">
                                                         <span class="campoobligatorio">*</span>Nombre</label>
@@ -127,7 +126,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="estado"><span class="campoobligatorio">*</span>Estado</label>
                                                     <select name="estado" id="estado" class="form-control obligatorio">
