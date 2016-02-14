@@ -13,6 +13,7 @@ class Vacaciones_model extends CI_Model {
             $this->db->select("vac_fechaFin");
             $this->db->select("vac_id");
             $this->db->select("vac_observaciones");
+            $this->db->where("emp_id",$emp_id);
             $vacaciones = $this->db->get("vacaciones");
             return $vacaciones->result();
         }catch(excete $e){

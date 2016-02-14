@@ -13,6 +13,7 @@ class Empleadoausentismo_model extends CI_Model {
             $this->db->select("empAus_fechaFinal");
             $this->db->select("empAus_id");
             $this->db->select("empAus_observaciones");
+            $this->db->where("emp_id",$emp_id);
             $vacaciones = $this->db->get("empleado_ausentismo");
             return $vacaciones->result();
         }catch(excete $e){
