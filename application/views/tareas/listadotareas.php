@@ -5,54 +5,72 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">LISTADO TAREAS</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <div class="row">
-        <form method="post" id="f9">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <label for="Plan">Plan</label>
-                <select name="Plan" id="Plan" class="form-control">
-                    <option value="">::Seleccionar::</option>
-                    <?php foreach ($planes as $p) { ?>
-                        <option value="<?php echo $p->pla_id ?>"><?php echo $p->pla_nombre ?></option>
-                    <?php } ?>
-                </select>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Listado Tareas
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <label for="filtrotarea">Filtro Tareas</label>
-                <select name="filtrotarea" id="filtrotarea" class="form-control">
-                    <option value="">::Seleccionar::</option>
-                    <?php foreach ($tareas as $t) { ?>
-                        <option value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <label for="responsable">Responsable</label>
-                <select name="responsable" id="responsable" class="form-control">
-                    <option value="">::Seleccionar::</option>
-                    <?php foreach ($responsables as $r) { ?>
-                        <option value="<?php echo $r->emp_id ?>"><?php echo $r->Emp_Nombre . " " . $r->Emp_Apellidos ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <label for="responsable">Tipo Riesgo</label>
-                <select name="responsable" id="responsable" class="form-control">
-                    <option value="">::Seleccionar::</option>
-                </select>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <div style="margin-top: 28px"><button type="button" class="btn-sst" id="consultar">Consultar</button></div>
-            </div>
-        </form>
-    </div>
-    <div class="row" id='filtroconsulta'>
+            <div class="portlet-body form">
+                <form method="post" id="f9">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label for="Plan">Plan</label>
+                                <select name="Plan" id="Plan" class="form-control">
+                                    <option value="">::Seleccionar::</option>
+                                    <?php foreach ($planes as $p) { ?>
+                                        <option value="<?php echo $p->pla_id ?>"><?php echo $p->pla_nombre ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label for="filtrotarea">Filtro Tareas</label>
+                                <select name="filtrotarea" id="filtrotarea" class="form-control">
+                                    <option value="">::Seleccionar::</option>
+                                    <?php foreach ($tareas as $t) { ?>
+                                        <option value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label for="responsable">Responsable</label>
+                                <select name="responsable" id="responsable" class="form-control">
+                                    <option value="">::Seleccionar::</option>
+                                    <?php foreach ($responsables as $r) { ?>
+                                        <option value="<?php echo $r->emp_id ?>"><?php echo $r->Emp_Nombre . " " . $r->Emp_Apellidos ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label for="responsable">Tipo Riesgo</label>
+                                <select name="responsable" id="responsable" class="form-control">
+                                    <option value="">::Seleccionar::</option>
+                                </select>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <button type="button" class="btn btn-block" id="consultar">Consultar</button>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <div class="form-body">
+                                <div class="row" id='filtroconsulta'>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <form method="post" id="f13" action="<?php echo base_url("index.php/tareas/nuevatarea") ?>">
@@ -86,7 +104,7 @@
     });
 
     $('body').delegate(".nuevoavance", "click", function () {
-        var form = "<form method='post' id='frmFormAvance' action='"+url+"index.php/tareas/nuevatarea"+"'>";
+        var form = "<form method='post' id='frmFormAvance' action='" + url + "index.php/tareas/nuevatarea" + "'>";
         form += "<input type='hidden' name='tar_id' value='" + $(this).attr("tar_id") + "'>"
         form += "<input type='hidden' name='nuevoavance' value='" + $(this).attr("tar_id") + "'>"
         form += "</form>";
@@ -96,7 +114,7 @@
 
     $('#consultar').click(function () {
         $.post(
-                url+"index.php/tareas/consultatareas",
+                url + "index.php/tareas/consultatareas",
                 $('#f9').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -119,7 +137,7 @@
                 encabezado += "<th>ELIMINAR</th>"
                 encabezado += "</tr>";
                 $.each(msg.Json, function (idplan, nombreplan) {
-                    table += "<table class='tablesst'>";
+                    table += "<table class='table table-striped table-bordered table-hover'>";
                     $.each(nombreplan, function (nombre, tareaid) {
                         table += "<thead><tr><th colspan='12'>" + nombre + "</th></tr>";
                         table += encabezado;
@@ -174,7 +192,7 @@
     $('body').delegate(".riesgos", "click", function () {
         var seleccion = $(this)
         $.post(
-                url+"index.php/tareas/obtener_riesgos",
+                url + "index.php/tareas/obtener_riesgos",
                 {tar_id: $(this).attr("tar_id")}
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -197,7 +215,7 @@
     $('body').delegate(".eliminar", "click", function () {
         var seleccion = $(this)
         $.post(
-                url+"index.php/tareas/eliminartarea",
+                url + "index.php/tareas/eliminartarea",
                 {tarea: $(this).attr("tar_id")}
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))

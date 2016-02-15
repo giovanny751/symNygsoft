@@ -163,14 +163,7 @@
 
                     var table = $('#tablesst').DataTable();
                     table.clear();
-//                console.log(msg.Json)
-
-
-//                console.log(msg['Json']);
-                    i = 0;
                     $.each(msg['Json'], function (key, val) {
-
-                        i++;
                         table.row.add([
                             val.Emp_Cedula,
                             val.Emp_Nombre,

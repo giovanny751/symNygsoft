@@ -3,7 +3,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i><?= $empresa[0]->Dimdos_id ?> (<?= $title ?>)
+                    <i class="fa fa-cog"></i> <?= $empresa[0]->Dimdos_id ?> (<?= $title ?>)
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

@@ -51,13 +51,15 @@
                                 </label> 
                                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                                     <textarea name="observacion" id="observacion" class="form-control"></textarea>
+                                    <br>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-9 col-xs-offset-9 col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <button type="button" id="guardar" class="btn btn-block green">Guardar</button>
+                                <div class="col-md-4 "></div>
+                                <div class="col-md-3 ">
+                                    <button type="button" id="guardar" class="btn btn-block ">Guardar</button>
                                 </div>
                             </div>
                         </div> 
@@ -71,9 +73,6 @@
         <div class="col-md-12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption">
-                        <button type="button" class="btn btn-info " id="agregar">Agregar Empleados</button>
-                    </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse">
                         </a>
@@ -81,7 +80,9 @@
                 </div>
                 <div class="portlet-body form">
                     <div class="form-body">
-                        <button type="button"></button>
+                        <div class="col-lg-2">
+                        <button type="button" class="btn btn-block" id="agregar" >Agregar Empleados</button>
+                        </div>
                         <table class="tabla-sst" id="tablaCapacitacion">
                             <thead style="text-align: Center">
                             <th>EMPLEADO</th>
