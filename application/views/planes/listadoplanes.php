@@ -22,80 +22,90 @@
             <form method="post" id="f13" action="<?php echo base_url("index.php/planes/nuevoplan") ?>">
                 <input type="hidden" name="pla_id" id="pla_id">
             </form>
-
             <div class="portlet-body form">
-                <form method="post" id="f9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <br>
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="nombre">Nombre</label>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><input type="text" id="nombre" name="nombre" class="form-control"></div>
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="estado">Estado</label>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <select id="estado" name="estado" class="form-control select2me">
-                                        <option value="">::Seleccionar::</option>
-                                        <option value="1">Activos</option>
-                                        <option value="2">Inactivos</option>
-                                        <option value="3">Finalizados</option>
-                                    </select> 
+                <div class="form-body">
+                    <form method="post" id="f9" class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="nombre" name="nombre" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="estado">Estado</label>
+                                    <div class="col-md-8">
+                                        <select id="estado" name="estado" class="form-control select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <option value="1">Activos</option>
+                                            <option value="2">Inactivos</option>
+                                            <option value="3">Finalizados</option>
+                                        </select> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="responsable">Responsable</label>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <select id="responsable" name="responsable" class="form-control select2me">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($responsable as $re) { ?>
-                                            <option value="<?php echo $re->Emp_Id ?>"><?php echo $re->Emp_Nombre . " " . $re->Emp_Apellidos ?></option>
-                                        <?php } ?>
-                                    </select> 
-                                </div>
-                                <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="responsable">Tareas propias</label>
-                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                    <input type="checkbox" name="tareapropia" id="tareapropia">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="responsable">Responsable</label>
+                                    <div class="col-md-8">
+                                        <select id="responsable" name="responsable" class="form-control select2me">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($responsable as $re) { ?>
+                                                <option value="<?php echo $re->Emp_Id ?>"><?php echo $re->Emp_Nombre . " " . $re->Emp_Apellidos ?></option>
+                                            <?php } ?>
+                                        </select> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center">
-                            <div class="col-md-4"></div>
                             <div class="col-md-3">
-                                <br>
-                            <button id="consultar" class="btn btn-block" type="button">Consultar</button>
+                                <div class="form-group">
+                                    <label class="col-md-8 control-label" for="responsable">Tareas propias</label>
+                                    <div class="col-md-4">
+                                        <input type="checkbox" name="tareapropia" id="tareapropia">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>   
-                </form>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <table class="table table-striped table-bordered table-hover tabla-sst" id="sample_2">
-                            <thead>
-                            <th style="width: 20%">Nombre</th>
-                            <th style="width: 10%">Fecha inicio</th>
-                            <th style="width: 10%">Fecha fin</th>
-                            <th style="width: 10%">Fecha real</th>
-                            <th style="width: 20%">Responsable</th>
-                            <th style="width: 5%">Presupuesto</th>
-                            <th style="width: 10%">Descripción</th>
-                            <th style="width: 5%">Tareas propias</th>
-                            <th style="width: 10%">Editar</th>
-                            <th style="width: 10%">Eliminar</th>
-                            </thead>
-                            <tbody id="cargaplanes">
-                            </tbody>
-                        </table> 
-                    </div>    
+                            <div class="col-md-3" style="text-align:center">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-3">
+                                    <button id="consultar" class="btn btn-block" type="button">Consultar</button>
+                                </div>
+                            </div>
+                        </div>   
+
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover tabla-sst" id="sample_2">
+                                <thead>
+                                <th style="width: 20%">Nombre</th>
+                                <th style="width: 10%">Fecha inicio</th>
+                                <th style="width: 10%">Fecha fin</th>
+                                <th style="width: 10%">Fecha real</th>
+                                <th style="width: 20%">Responsable</th>
+                                <th style="width: 5%">Presupuesto</th>
+                                <th style="width: 10%">Descripción</th>
+                                <th style="width: 5%">Tareas propias</th>
+                                <th style="width: 10%">Editar</th>
+                                <th style="width: 10%">Eliminar</th>
+                                </thead>
+                                <tbody id="cargaplanes">
+                                </tbody>
+                            </table> 
+                        </div>    
+                    </div>
                 </div>
             </div>
-            <!--</div>-->
         </div>
     </div>
+    <!--</div>-->
+</div>
+</div>
 </div>
 <script>
 
