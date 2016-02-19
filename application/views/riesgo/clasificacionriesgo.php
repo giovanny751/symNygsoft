@@ -29,45 +29,49 @@
                         </div>
                     </div>
                     <div class="row informacion">
-                        <table class="tablesst">
-                            <?php
-                            foreach ($categoria as $id => $cat):
-                                foreach ($cat as $categoria => $num):
-                                    ?>
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align:center"><b><?= $categoria ?></b></th>  
-                                            <th></th>
-                                            <th><i class="fa fa-pencil-square-o fa-2x modificar2" nombre='<?= $categoria ?>' rieCla_id="<?php echo $id ?>" title="Modificar" data-target="#myModal2" data-toggle="modal"></i></th>
-                                            <th><i class="fa fa-trash-o fa-2x eliminarcategoria"  title="Eliminar" rieCla_id="<?php echo $id ?>"></i></th>
-                                        </tr>
-                                        <tr>
-                                            <th style='width:70%'>Tipo</th>
-                                            <th style='width:15%'>Inspección</th>
-                                            <th style='width:15%'>Editar</th>
-                                            <th style='width:15%'>Eliminar</th>
-                                        </tr>
-                                    </thead>
-                                    <?php
-                                    foreach ($num as $numero => $tipo):
-                                        if (!empty($tipo[1])):
-                                            ?>
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-hover">
+                                <?php
+                                foreach ($categoria as $id => $cat):
+                                    foreach ($cat as $categoria => $num):
+                                        ?>
+                                        <thead>
                                             <tr>
-                                                <td><?php echo $tipo[1] ?></td>
-                                                <td class="transparent"><i class="fa fa-building  fa-2x inspeccion" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Inspección"></i></td>
-                                                <td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" rieCla_id="<?= $id ?>" rieClaTip_tipo="<?php echo $tipo[1] ?>" rieCla_categoria="<?= $id ?>" rieClaTip_id="<?php echo $tipo[0] ?>" title="Modificar" data-target="#myModal" data-toggle="modal"></i></td>
-                                                <td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Eliminar"></i></td>
+                                                <th style="text-align:center"><b><?= $categoria ?></b></th>  
+                                                <th></th>
+                                                <th><i class="fa fa-pencil-square-o fa-2x modificar2" nombre='<?= $categoria ?>' rieCla_id="<?php echo $id ?>" title="Modificar" data-target="#myModal2" data-toggle="modal"></i></th>
+                                                <th><i class="fa fa-trash-o fa-2x eliminarcategoria"  title="Eliminar" rieCla_id="<?php echo $id ?>"></i></th>
                                             </tr>
-                                            <?php
-                                        endif;
+                                            <tr>
+                                                <th style='width:70%'>Tipo</th>
+                                                <th style='width:15%'>Inspección</th>
+                                                <th style='width:15%'>Editar</th>
+                                                <th style='width:15%'>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        foreach ($num as $numero => $tipo):
+                                            if (!empty($tipo[1])):
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $tipo[1] ?></td>
+                                                    <td class="transparent"><i class="fa fa-building  fa-2x inspeccion" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Inspección"></i></td>
+                                                    <td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" rieCla_id="<?= $id ?>" rieClaTip_tipo="<?php echo $tipo[1] ?>" rieCla_categoria="<?= $id ?>" rieClaTip_id="<?php echo $tipo[0] ?>" title="Modificar" data-target="#myModal" data-toggle="modal"></i></td>
+                                                    <td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Eliminar"></i></td>
+                                                </tr>
+                                                <?php
+                                            endif;
+                                        endforeach;
                                     endforeach;
                                 endforeach;
-                            endforeach;
-                            ?>
-                        </table>
+                                ?>
+                            </table>
+                        </div>
                     </div>
-                    <div class="row">
-                        <button type="button" class="btn-sst modal_nuevo" data-toggle="modal" data-target="#myModal" >Nuevo</button>
+                    <div class="row">   
+                        <div class="col-md-12">
+                            <button type="button" class="btn-sst modal_nuevo" data-toggle="modal" data-target="#myModal" >Nuevo</button>
+                        </div>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

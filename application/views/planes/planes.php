@@ -90,8 +90,10 @@
                                                     <input type="text" readonly="readonly" name="fechafin" id="fechafin" class="form-control"  value="<?php echo (!empty($tareafechafinal[0]->fechafinalizacion) ) ? $tareafechafinal[0]->fechafinalizacion : ""; ?>"/>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="alert alert-info">
-                                                        <center>Responsable</center>
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-info">
+                                                            <center>Responsable</center>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

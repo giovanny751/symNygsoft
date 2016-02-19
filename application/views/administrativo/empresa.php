@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label for="ciudad" class="control-label col-md-3">Ciudad</label>
                                     <div class="col-md-9">
-                                        <select id="ciudad" name="ciudad" class="form-control select2me" >
+                                        <select id="ciudad" name="ciudad" class="form-control" >
                                             <option value=""></option>
                                             <?php foreach ($ciudad as $c) { ?>
                                                 <option <?php echo ($c->ciu_id == $informacion[0]->ciu_id) ? "selected" : ""; ?> value="<?php echo $c->ciu_id ?>"><?php echo $c->ciu_nombre ?></option>
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <label for="tamano" class="control-label col-md-3">* Tamaño</label>
                                     <div class="col-md-9">
-                                        <select id="tamano" name="tamano" class="form-control obligatorio select2me" >
+                                        <select id="tamano" name="tamano" class="form-control obligatorio" >
                                             <option value=""></option>
                                             <?php foreach ($tamano as $t) { ?>
                                                 <option <?php echo ($t->TamEmp_tamano == $informacion[0]->tam_id ) ? "selected" : ""; ?>  value="<?php echo $t->TamEmp_tamano ?>"><?php echo $t->TamEmp_descripcion ?></option>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label for="sector" class="control-label col-md-3">Sector económico</label>
                                     <div class="col-md-9">
-                                        <select id="sector" name="sector" class="form-control select2me" >
+                                        <select id="sector" name="sector" class="form-control" >
                                             <option value=""></option>
                                             <?php foreach ($sector as $s):
                                                 $selected = ($informacion[0]->secEco_id == $s->secEco_id) ? "selected" : ""; ?>
@@ -120,7 +120,7 @@
                                 <div class="form-group">
                                     <label for="actividadeconomica" class="control-label col-md-3">* Actividad económica</label>
                                     <div class="col-md-9">
-                                        <select id="actividadeconomica" name="actividadeconomica" class="form-control obligatorio select2me" >
+                                        <select id="actividadeconomica" name="actividadeconomica" class="form-control obligatorio " >
                                             <option value=""></option>
                                             <?php foreach ($actividadeconomica as $ae) {
                                                 $selected = ($informacion[0]->actEco_id == $ae->actEco_id) ? "selected" : ""; ?>

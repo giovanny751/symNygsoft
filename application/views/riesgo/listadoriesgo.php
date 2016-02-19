@@ -3,68 +3,97 @@
         <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">LISTADO RIESGO</span>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>LISTADO RIESGO
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <form method="post" id="busquedariesgo" class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="categoria" class="col-md-4 control-label">Categoría</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="categoria" id="categoria">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($categoria as $ca): ?>
+                                                <option value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="tipo" class="col-md-4 control-label">Tipo</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="tipo" id="tipo" >
+                                            <option value="">::Seleccionar::</option>
+                                        </select>
+                                    </div>    
+                                </div>    
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dimensionuno" class="col-md-4 control-label"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="dimensionuno" id="dimensionuno" >
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($dimension as $d1) { ?>
+                                                <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dimensiondos" class="col-md-4 control-label"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="dimensiondos" id="dimensiondos" >
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($dimension2 as $d2) { ?>
+                                                <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cargo" class="col-md-4 control-label">Cargo</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="cargo" id="cargo">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($cargo as $c) { ?>
+                                                <option value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option> 
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-4 col-md-4" style="text-align: center">
+                                <button type="button" class="btn-sst limpiar" style="margin-top: 28px">Limpiar</button>
+                                <button type="button" class="btn-sst buscar" style="margin-top: 28px">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class='cuerpoContenido'>
-    <div class="row">
-        <form method="post" id="busquedariesgo">
-            <div class="row">
-                <label for="categoria" class="col-lg-1 col-sm-1 col-md-1">Categoría</label>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="categoria" id="categoria">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($categoria as $ca): ?>
-                            <option value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <label for="tipo" class="col-lg-1 col-sm-1 col-md-1">Tipo</label>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="tipo" id="tipo" >
-                        <option value="">::Seleccionar::</option>
-                    </select>
-                </div>    
-                <label for="dimensionuno" class="col-lg-1 col-sm-1 col-md-1"><?php echo $empresa[0]->Dim_id ?></label>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="dimensionuno" id="dimensionuno" >
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($dimension as $d1) { ?>
-                            <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
-                        <?php } ?>
-                    </select>  
-                </div>
-            </div>
-            <div class="row">
-                <label for="dimensiondos" class="col-lg-1 col-sm-1 col-md-1"><?php echo $empresa[0]->Dimdos_id ?></label>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="dimensiondos" id="dimensiondos" >
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($dimension2 as $d2) { ?>
-                            <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <label for="cargo" class="col-lg-1 col-sm-1 col-md-1">Cargo</label>
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="cargo" id="cargo">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($cargo as $c) { ?>
-                            <option value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option> 
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-sm-4 col-md-4" style="text-align: center">
-                    <button type="button" class="btn-sst limpiar" style="margin-top: 28px">Limpiar</button>
-                    <button type="button" class="btn-sst buscar" style="margin-top: 28px">Buscar</button>
-                </div>
-            </div>
-    </div>
-</form>
 </div>
 <div class="row" id="bodyRiesgo"></div>
 <form method="post" id="f13" action="<?php echo base_url("index.php/riesgo/nuevoriesgo") ?>">
