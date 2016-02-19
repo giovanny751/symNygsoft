@@ -6,89 +6,103 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">CLASIFICACIÓN DE RIESGO</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <div class="row">
-        <div class="form-group">
-            <label>Categoria</label>
-            <input type="text" name="categoria" id="cat">
-        </div>
-    </div>
-    <div class="row informacion">
-        <table class="tablesst">
-            <?php
-            foreach ($categoria as $id => $cat):
-                foreach ($cat as $categoria => $num):
-                    ?>
-                    <thead>
-                        <tr>
-                            <th style="text-align:center"><b><?= $categoria ?></b></th>  
-                            <th></th>
-                            <th><i class="fa fa-pencil-square-o fa-2x modificar2" nombre='<?= $categoria ?>' rieCla_id="<?php echo $id ?>" title="Modificar" data-target="#myModal2" data-toggle="modal"></i></th>
-                            <th><i class="fa fa-trash-o fa-2x eliminarcategoria"  title="Eliminar" rieCla_id="<?php echo $id ?>"></i></th>
-                        </tr>
-                        <tr>
-                            <th style='width:70%'>Tipo</th>
-                            <th style='width:15%'>Inspección</th>
-                            <th style='width:15%'>Editar</th>
-                            <th style='width:15%'>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <?php
-                    foreach ($num as $numero => $tipo):
-                        if (!empty($tipo[1])):
-                            ?>
-                            <tr>
-                                <td><?php echo $tipo[1] ?></td>
-                                <td class="transparent"><i class="fa fa-building  fa-2x inspeccion" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Inspección"></i></td>
-                                <td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" rieCla_id="<?= $id ?>" rieClaTip_tipo="<?php echo $tipo[1] ?>" rieCla_categoria="<?= $id ?>" rieClaTip_id="<?php echo $tipo[0] ?>" title="Modificar" data-target="#myModal" data-toggle="modal"></i></td>
-                                <td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Eliminar"></i></td>
-                            </tr>
-                            <?php
-                        endif;
-                    endforeach;
-                endforeach;
-            endforeach;
-            ?>
-        </table>
-    </div>
-    <div class="row">
-        <button type="button" class="btn-sst modal_nuevo" data-toggle="modal" data-target="#myModal" >Nuevo</button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align: center;"> <div class="circuloIcon" id="guardartipo" ><i class="fa fa-floppy-o fa-3x"></i></div> NUEVO TIPO DE RIESGO</h4>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>CLASIFICACIÓN DE RIESGO
                 </div>
-                <div class="modal-body">
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
                     <div class="row">
-                        <form method="post" id="frmtipocategoria">
-                            <input type="hidden" name="accion" id="accion" value="1">
-                            <input type="hidden" name="tip_id" id="tip_id">
-                            <input type="hidden" name="rieCla_id" id="rieCla_id">
-                            <div class="col-sm-offset-2 col-sm-8">
-                                <div class="form-group">
-                                    <label for="ct">Categoría</label>
-                                    <select name="categoria" id="ct" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($categoria2 as $cc): ?>
-                                            <option value="<?php echo $cc->rieCla_id ?>"><?php echo $cc->rieCla_categoria ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tipo">Tipo</label>
-                                    <input type="text" name="tipo" id="tipo" class="form-control">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="cat" class="col-md-4 control-label">Categoria</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="categoria" id="cat" class="form-control">
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                    <div class="row informacion">
+                        <table class="tablesst">
+                            <?php
+                            foreach ($categoria as $id => $cat):
+                                foreach ($cat as $categoria => $num):
+                                    ?>
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center"><b><?= $categoria ?></b></th>  
+                                            <th></th>
+                                            <th><i class="fa fa-pencil-square-o fa-2x modificar2" nombre='<?= $categoria ?>' rieCla_id="<?php echo $id ?>" title="Modificar" data-target="#myModal2" data-toggle="modal"></i></th>
+                                            <th><i class="fa fa-trash-o fa-2x eliminarcategoria"  title="Eliminar" rieCla_id="<?php echo $id ?>"></i></th>
+                                        </tr>
+                                        <tr>
+                                            <th style='width:70%'>Tipo</th>
+                                            <th style='width:15%'>Inspección</th>
+                                            <th style='width:15%'>Editar</th>
+                                            <th style='width:15%'>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <?php
+                                    foreach ($num as $numero => $tipo):
+                                        if (!empty($tipo[1])):
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $tipo[1] ?></td>
+                                                <td class="transparent"><i class="fa fa-building  fa-2x inspeccion" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Inspección"></i></td>
+                                                <td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" rieCla_id="<?= $id ?>" rieClaTip_tipo="<?php echo $tipo[1] ?>" rieCla_categoria="<?= $id ?>" rieClaTip_id="<?php echo $tipo[0] ?>" title="Modificar" data-target="#myModal" data-toggle="modal"></i></td>
+                                                <td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" rieClaTip_id="<?php echo $tipo[0] ?>" rieCla_id="<?= $id ?>" rieClaTip_id="<?php echo $tipo[1] ?>" title="Eliminar"></i></td>
+                                            </tr>
+                                            <?php
+                                        endif;
+                                    endforeach;
+                                endforeach;
+                            endforeach;
+                            ?>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn-sst modal_nuevo" data-toggle="modal" data-target="#myModal" >Nuevo</button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel" style="text-align: center;"> <div class="circuloIcon" id="guardartipo" ><i class="fa fa-floppy-o fa-3x"></i></div> NUEVO TIPO DE RIESGO</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <form method="post" id="frmtipocategoria">
+                                            <input type="hidden" name="accion" id="accion" value="1">
+                                            <input type="hidden" name="tip_id" id="tip_id">
+                                            <input type="hidden" name="rieCla_id" id="rieCla_id">
+                                            <div class="col-sm-offset-2 col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="ct">Categoría</label>
+                                                    <select name="categoria" id="ct" class="form-control">
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($categoria2 as $cc): ?>
+                                                            <option value="<?php echo $cc->rieCla_id ?>"><?php echo $cc->rieCla_categoria ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tipo">Tipo</label>
+                                                    <input type="text" name="tipo" id="tipo" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

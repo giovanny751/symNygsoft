@@ -5,80 +5,114 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">INSPECCIÓN GENERAL</span>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>INSPECCIÓN GENERAL
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <form id="FrmInspeccion" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fecha">Fecha Inspección</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="fecha" id="fecha" class="form-control fecha" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label" for="empleado">Nombre de quien realiza la inspección:</label>
+                                    <div class="col-md-6">
+                                        <select name="empleado" id="empleado" class="form-control">
+                                            <option>::Seleccionar::</option>
+                                            <?php foreach ($empleado as $emp): ?>
+                                                <option value="<?php echo $emp->Emp_Id ?>"><?php echo $emp->Emp_Nombre . " " . $emp->Emp_Apellidos ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
+                                    Verificación del cumplimiento de aspectos en Seguridad Industrial
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
+                                    Marque con una X la casilla correspondiente de acuerdo con lo observado en la inspección. Realice las observaciones correspondientes.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class='table table-bordered table-hover'>
+                                    <?php foreach ($factores as $factor => $t): ?>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="5"><?php echo explode("/", $factor)[1] ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align:center">ITEM</td>
+                                                <td style="text-align:center">SI</td>
+                                                <td style="text-align:center">NO</td>
+                                                <td style="text-align:center">NA</td>
+                                            </tr>
+                                            <?php foreach ($t as $tipo => $num): ?>
+                                                <tr>
+                                                    <td colspan="5"><b><?php echo explode("/", $tipo)[1] ?></b></td>
+                                                </tr>
+                                                <?php foreach ($num as $elemento): ?>
+                                                    <tr>
+                                                        <td style="padding-left: 50px"><?php echo $elemento[1] ?></td>
+                                                        <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="1" at="si"></td>
+                                                        <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="2" at="no"></td>
+                                                        <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="3" at="na"></td>
+                                                    </tr>
+                                                    <?php
+                                                endforeach;
+                                            endforeach;
+                                            ?>
+                                        </tbody>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="observaciones" class="col-md-2">Observaciones</label>
+                                    <div class="col-md-10">
+                                        <textarea id="observaciones" name="observacionGeneral" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class='cuerpoContenido'>
-    <form id="FrmInspeccion" method="post">
-        <div class="row">
-            <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Fecha Inspección</label>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <input type="text" name="fecha" id="fecha" class="form-control fecha" >
-            </div>
-            <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Nombre de quien realiza la inspección:</label>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <select name="empleado" class="form-control">
-                    <option>::Seleccionar::</option>
-                    <?php foreach ($empleado as $emp): ?>
-                        <option value="<?php echo $emp->Emp_Id ?>"><?php echo $emp->Emp_Nombre . " " . $emp->Emp_Apellidos ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-        </div>
-        <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
-            Verificación del cumplimiento de aspectos en Seguridad Industrial
-        </div>
-        <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
-            Marque con una X la casilla correspondiente de acuerdo con lo observado en la inspección. Realice las observaciones correspondientes.
-        </div>
-
-        <div class="row">
-            <table class='tablesst'>
-                <?php foreach ($factores as $factor => $t): ?>
-                    <thead>
-                        <tr>
-                            <th colspan="5"><?php echo explode("/", $factor)[1] ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="text-align:center">ITEM</td>
-                            <td style="text-align:center">SI</td>
-                            <td style="text-align:center">NO</td>
-                            <td style="text-align:center">NA</td>
-                        </tr>
-                        <?php foreach ($t as $tipo => $num): ?>
-                            <tr>
-                                <td colspan="5"><b><?php echo explode("/", $tipo)[1] ?></b></td>
-                            </tr>
-                            <?php foreach ($num as $elemento): ?>
-                                <tr>
-                                    <td style="padding-left: 50px"><?php echo $elemento[1] ?></td>
-                                    <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="1" at="si"></td>
-                                    <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="2" at="no"></td>
-                                    <td><input type="radio" name="<?php echo $elemento[0] . "/elemento" ?>" class="form-control" value="3" at="na"></td>
-                                </tr>
-                            <?php
-                            endforeach;
-                        endforeach;
-                        ?>
-                    </tbody>
-<?php endforeach; ?>
-            </table>
-        </div>
-        <div class="row">
-            <label>Observación general</label>
-            <textarea name="observacionGeneral" class="form-control"></textarea>
-        </div>
-    </form>
 </div>
 <script>
 
     $('#guardarInspeccion').click(function () {
         $.post(
-                url+"index.php/documento/guardarInspeccion",
+                url + "index.php/documento/guardarInspeccion",
                 $('#FrmInspeccion').serialize()
                 )
                 .done(function (msg) {
@@ -87,11 +121,11 @@
                     else {
                         $('input[type="text"],select,textarea').val();
                         $('input').prop('checked', false);
-                        alerta("verde","Datos guardados correctamente");
+                        alerta("verde", "Datos guardados correctamente");
                     }
                 })
                 .fail(function (msg) {
-                    alerta("rojo","Error por favor comunicarse con el administrador");
+                    alerta("rojo", "Error por favor comunicarse con el administrador");
                 });
     });
 </script>
