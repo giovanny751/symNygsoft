@@ -1,71 +1,88 @@
-<div class='cuerpoContenido'>
-    <form method="post" id="f4">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="cedula">Cédula</label><input type="text" name="cedula" id="cedula" class="form-control">
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Listado Asperantes
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label><input type="text" name="nombre" id="nombre" class="form-control">
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="apellido">Apellido</label><input type="text" name="apellido" id="apellido" class="form-control">
+            <div class="portlet-body form">
+                <form method="post" id="f4">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="cedula">Cédula</label><input type="text" name="cedula" id="cedula" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label><input type="text" name="nombre" id="nombre" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="apellido">Apellido</label><input type="text" name="apellido" id="apellido" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <select name="estado" id="estado" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($estado as $e) { ?>
+                                            <option value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+                                <div class="form-group">
+                                    <label>&nbsp;</label><button type="button" class="btn-sst limpiar">Limpiar</button>
+                                    <label>&nbsp;</label><button type="button" class="btn-sst consultar">Consultar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <hr>
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="tablesst" class="table table-striped table-bordered table-hover tabla-sst">
+                                <thead>
+                                <th>Cédula</th>
+                                <th>Usuario</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Estado</th>
+                                <th>Fecha actualización</th>
+                                <th>Fecha creación</th>
+                                <th>Último Ingreso</th>
+                                <th>Evaluacione</th>
+                                <th>Asignar Evaluación</th>
+                                <th>Evaluaciones Realizadas</th>
+                                </thead>
+                                <tbody id="bodyuser">
+                                </tbody>
+                            </table>
+                        </div>    
+                    </div>    
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="estado">Estado</label>
-                    <select name="estado" id="estado" class="form-control">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($estado as $e) { ?>
-                            <option value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-                <div class="form-group">
-                    <label>&nbsp;</label><button type="button" class="btn-sst limpiar">Limpiar</button>
-                    <label>&nbsp;</label><button type="button" class="btn-sst consultar">Consultar</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <hr>
-    <div class="row">
-        <table class="tablesst">
-            <thead>
-            <th>Cédula</th>
-            <th>Usuario</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Estado</th>
-            <th>Fecha actualización</th>
-            <th>Fecha creación</th>
-            <th>Último Ingreso</th>
-            <th>Evaluacione</th>
-            <th>Asignar Evaluación</th>
-            <th>Evaluaciones Realizadas</th>
-            </thead>
-            <tbody id="bodyuser">
-                <tr>
-                    <td colspan="10">
-            <center><b>Ingresar Filtros para realizar la consulta</b></center>
-            </td>
-            </tr>
-            <?php // } ?>
-            </tbody>
-        </table>
-    </div>    
+    </div>
 </div>
+
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-lg" >
         <div class="modal-content">
@@ -107,7 +124,7 @@
     $('.insertarrol').click(function () {
         $("#idusuario").val($(this).attr('usuarioid'));
         $.post(
-                url+'index.php/Evaluacion/guardarpermisos',
+                url + 'index.php/Evaluacion/guardarpermisos',
                 $('#f15').serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -121,15 +138,15 @@
     });
 
     $('body').delegate(".asignar", "click", function () {
-        var info='';
-        $('input[type="checkbox"]:checked').each(function(){
-            info+=$(this).val()+'||';
+        var info = '';
+        $('input[type="checkbox"]:checked').each(function () {
+            info += $(this).val() + '||';
         })
-        
+
         $.post(
-                url+'index.php/Evaluacion/arignar_evaluacion',
-                {info:info,usuarioid:$('#usuarioid').val()})
-                .done(function(msg){
+                url + 'index.php/Evaluacion/arignar_evaluacion',
+                {info: info, usuarioid: $('#usuarioid').val()})
+                .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
                         $('#myModal3').modal('hide');
@@ -138,18 +155,18 @@
                         $('.consultar').trigger('click')
                     }
                 })
-                .fail(function(){
+                .fail(function () {
                     alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
                     $('#myModal3').modal('hide');
                 })
     })
     $('body').delegate(".evaluaciones", "click", function () {
         $('.asignar').show();
-        var usuarioid=$(this).attr('usuarioid')
+        var usuarioid = $(this).attr('usuarioid')
         $('#usuarioid').val(usuarioid);
         $.post(
-                url+'index.php/Evaluacion/ver_evaluaciones',
-                {usuarioid:usuarioid})
+                url + 'index.php/Evaluacion/ver_evaluaciones',
+                {usuarioid: usuarioid})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
@@ -157,7 +174,7 @@
                     } else {
                         $('#resultados').html('');
                         $.each(msg.Json, function (key, val) {
-                            $('#resultados').append('<tr><td><center><input type="checkbox" value="' + val.eva_id + '" '+( (val.use_id)?'checked': '' )+' ></center></td><td>' + val.eva_nombre + '</td></tr>')
+                            $('#resultados').append('<tr><td><center><input type="checkbox" value="' + val.eva_id + '" ' + ((val.use_id) ? 'checked' : '') + ' ></center></td><td>' + val.eva_nombre + '</td></tr>')
                         })
                     }
                 })
@@ -167,12 +184,12 @@
                 })
     })
     $('body').delegate(".evaluaciones_resueltas", "click", function () {
-    $('.asignar').hide();
-        var usuarioid=$(this).attr('usuarioid')
+        $('.asignar').hide();
+        var usuarioid = $(this).attr('usuarioid')
         $('#usuarioid').val(usuarioid);
         $.post(
-                url+"index.php/Evaluacion/ver_evaluaciones_resueltas",
-                {usuarioid:usuarioid})
+                url + "index.php/Evaluacion/ver_evaluaciones_resueltas",
+                {usuarioid: usuarioid})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message)) {
                         alerta("rojo", msg['message'])
@@ -180,9 +197,9 @@
                     } else {
                         $('#resultados').html('');
                         $.each(msg.Json, function (key, val) {
-                            var x=Math.floor((Math.random() * 1000) + 2000);
-                            var y=Math.floor((Math.random() * 1000) + 2000);
-                            $('#resultados').append('<tr><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/'+x+val.eva_id+y+'/'+x+val.use_id+y+'" target="_black">' + val.eva_nombre + '</a></td></tr>')
+                            var x = Math.floor((Math.random() * 1000) + 2000);
+                            var y = Math.floor((Math.random() * 1000) + 2000);
+                            $('#resultados').append('<tr><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
                         })
                     }
                 })
@@ -203,7 +220,7 @@
         $('input[type="checkbox"]').parent("span").removeClass('checked');
         $('input[type="checkbox"]').attr('checked', false);
         $.post(
-                url+'index.php/Evaluacion/consultarolxrolidusuario',
+                url + 'index.php/Evaluacion/consultarolxrolidusuario',
                 {id: id})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
@@ -225,15 +242,15 @@
     });
 //    -----------------------------------------------------------------------------
     $('#cedula').autocomplete({
-        source: url+"index.php/administrativo/autocompletaruacedula",
+        source: url + "index.php/administrativo/autocompletaruacedula",
         minLength: 1
     });
     $('#nombre').autocomplete({
-        source: url+"index.php/administrativo/autocompletar",
+        source: url + "index.php/administrativo/autocompletar",
         minLength: 1
     });
     $('#apellido').autocomplete({
-        source: url+"index.php/administrativo/autocompletaruapellido",
+        source: url + "index.php/administrativo/autocompletaruapellido",
         minLength: 1
     });
 
@@ -242,7 +259,7 @@
     });
     $('.consultar').click(function () {
         $.post(
-                url+"index.php/Evaluacion/consultarusuario",
+                url + "index.php/Evaluacion/consultarusuario",
                 $("#f4").serialize()
                 ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
@@ -250,24 +267,31 @@
             else {
                 $('#bodyuser *').remove();
                 var body = "";
+                var table = $('#tablesst').DataTable();
+                    table.clear();
                 $.each(msg.Json, function (key, val) {
                     if (val.est_id == 1)
                         var activo = "Activo";
                     if (val.est_id != 1)
                         var activo = "Inactivo";
-                    body += "<tr>";
-                    body += "<td>" + val.usu_cedula + "</td>";
-                    body += "<td>" + val.usu_usuario + "</td>";
-                    body += "<td>" + val.usu_nombre + "</td>";
-                    body += "<td>" + val.usu_apellido + "</td>";
-                    body += "<td>" + activo + "</td>";
-                    body += "<td>" + (val.usu_fechaActualizacion ? val.usu_fechaActualizacion : '') + "</td>";
-                    body += "<td>" + (val.usu_fechaCreacion ? val.usu_fechaCreacion : '') + "</td>";
-                    body += "<td>" + (val.ing_fechaIngreso ? val.ing_fechaIngreso : '') + "</td>";
-                    body += "<td>" + (val.conca ? val.conca : '') + "</td>";
-                    body += '<td><button type="button" data-toggle="modal" data-target="#myModal3"  class="btn btn-info evaluaciones" usuarioid="' + val.usu_id + '">Asignar</button></td>';
-                    body += '<td><button type="button" data-toggle="modal" data-target="#myModal3"  class="btn btn-info evaluaciones_resueltas" usuarioid="' + val.usu_id + '">Ver</button></td>';
-                    body += "</tr>";
+                    
+                    table.row.add([
+                        val.usu_cedula,
+                        val.usu_usuario,
+                        val.usu_nombre,
+                        val.usu_apellido,
+                        activo,
+                        (val.usu_fechaActualizacion ? val.usu_fechaActualizacion : ''),
+                        (val.usu_fechaCreacion ? val.usu_fechaCreacion : ''),
+                        (val.ing_fechaIngreso ? val.ing_fechaIngreso : ''),
+                        (val.conca ? val.conca : ''),
+                        '<button type="button" data-toggle="modal" data-target="#myModal3"  class="btn btn-info evaluaciones" usuarioid="' + val.usu_id + '">Asignar</button>',
+                        '<button type="button" data-toggle="modal" data-target="#myModal3"  class="btn btn-info evaluaciones_resueltas" usuarioid="' + val.usu_id + '">Ver</button>',
+                    ]).draw()
+
+
+
+
                 });
                 $('#bodyuser').append(body);
             }
@@ -282,7 +306,7 @@
         var usu_id = $(this).attr('usu_id');
         if (confirm("Esta seguro que desea eliminar el usuario?")) {
             $.post(
-                    url+"index.php/administrativo/eliminarusuario", 
+                    url + "index.php/administrativo/eliminarusuario",
                     {usu_id: usu_id})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))

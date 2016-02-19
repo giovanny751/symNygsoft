@@ -47,6 +47,9 @@ class Evaluacion__model extends CI_Model {
                 $this->db->like('eva_nombre', $post['eva_nombre']);
         $this->db->select('eva_id');
         $this->db->select('eva_nombre');
+        $this->db->select('eva_tiempo');
+        $this->db->select('eva_num_preguntas');
+        $this->db->select('(select count(*) from preguntas where eva_id=evaluacion.eva_id) cantidad');
         $this->db->where('ACTIVO', 'S');
         $datos = $this->db->get('evaluacion');
         $datos = $datos->result();

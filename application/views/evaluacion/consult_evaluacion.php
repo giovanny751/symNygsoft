@@ -1,68 +1,92 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <a href="<?php echo base_url() . "/index.php/Evaluacion/index" ?>"><div title="Nueva Evaluación" class="circuloIcon"><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">EVALUACIÓN</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <form action="<?php echo base_url('index.php/') . '/Evaluacion/consult_evaluacion'; ?>" method="post" >
-        <div class="row">
-            <div class="col-md-3">
-                <label for="eva_nombre">
-                    Nombre                        </label>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Evaluación
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
             </div>
-            <div class="col-md-3">
-                <input type="text" value="<?php echo (isset($post['eva_nombre']) ? $post['eva_nombre'] : '' ) ?>" class="form-control obligatorio  " id="eva_nombre" name="eva_nombre">
-                <br>
+            <div class="portlet-body form">
+                <form action="<?php echo base_url('index.php/') . '/Evaluacion/consult_evaluacion'; ?>" method="post" >
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label for="eva_nombre">
+                                    Nombre                        </label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="<?php echo (isset($post['eva_nombre']) ? $post['eva_nombre'] : '' ) ?>" class="form-control obligatorio  " id="eva_nombre" name="eva_nombre">
+                                <br>
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block" >Consultar</button>
+                            </div>
+                        </div>
+                        <br>
+                        </form>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th style="display: none"></th>
+                                    <th>Nombre</th>
+                                    <th>Tiempo (Min)</th>
+                                    <th>N° preguntas a evaluar</th>
+                                    <th>N° preguntas en el banco</th>
+                                    <th>Acción</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($datos as $key => $value) {
+                                            echo "<tr>";
+                                            $i = 0;
+
+                                            foreach ($value as $key2 => $value2) {
+
+                                                if ($i == 0) {
+                                                    $campo = $key2;
+                                                    $valor = "'" . $value->$key2 . "'";
+                                                    echo "<td style='display:none'>" . $value->$key2 . "</td>";
+                                                } else {
+                                                    if ($key2 == 'eva_tiempo') {
+                                                        echo "<td>" . ($value->$key2 == 0 ? 'Sin tiempo' : $value->$key2) . "</td>";
+                                                    } else if ($key2 == 'eva_num_preguntas') {
+                                                        echo "<td>" . ($value->$key2 == 0 ? 'Todas' : $value->$key2) . "</td>";
+                                                    } else {
+                                                        echo "<td>" . $value->$key2 . "</td>";
+                                                    }
+                                                }
+                                                $i++;
+                                            }
+                                            echo "<td>"
+                                            . '<a href="javascript:" class="" onclick="preguntas(' . $valor . ')" title="Preguntas"><i class="fa fa-book fa-2x"></i></a>'
+                                            . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" class="" onclick="editar(' . $valor . ')" title="Modificar"><i class="fa fa-pencil fa-2x"></i></a>'
+                                            . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" class="" onclick="delete_(' . $valor . ')" title="Eliminar"><i class="fa fa-trash-o fa-2x"></i></a>'
+                                            . "</td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
             </div>
-
-        </div>
-        <button class="btn btn-sst" >Consultar</button>
-        <br>
-    </form>
-
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered">
-                <thead>
-                <th style="display: none"></th>
-                <th>Nombre</th>
-                <th>Acción</th>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($datos as $key => $value) {
-                        echo "<tr>";
-                        $i = 0;
-
-                        foreach ($value as $key2 => $value2) {
-                            
-                            if ($i == 0) {
-                                $campo = $key2;
-                                $valor = "'" . $value->$key2 . "'";
-                                echo "<td style='display:none'>" . $value->$key2 . "</td>";
-                            }else{
-                                echo "<td>" . $value->$key2 . "</td>";
-                            }
-                            $i++;
-                        }
-                        echo "<td>"
-                        . '<a href="javascript:" class="" onclick="preguntas(' . $valor . ')" title="Preguntas"><i class="fa fa-book fa-2x"></i></a>'
-                        . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" class="" onclick="editar(' . $valor . ')" title="Modificar"><i class="fa fa-pencil fa-2x"></i></a>'
-                        . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" class="" onclick="delete_(' . $valor . ')" title="Eliminar"><i class="fa fa-trash-o fa-2x"></i></a>'
-                        . "</td>";
-                        echo "</tr>";
-                    }
-                    ?>
-
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
@@ -83,7 +107,7 @@
         $('#editar').submit();
     }
     function preguntas(num) {
-        $('#editar').attr('action',url+"index.php/Preguntas/consult_preguntas");
+        $('#editar').attr('action', url + "index.php/Preguntas/consult_preguntas");
         $('#<?php echo $campo ?>2').val(num);
         $('#editar').submit();
     }
