@@ -97,7 +97,7 @@
                                                     <label class="control-label col-md-3" for="horario">Jornada</label>
                                                     <div class="col-md-9">
                                                         <select name="horario" id="horario" class="form-control">
-                                                            <option>::Seleccionar::</option>
+                                                            <option value="">::Seleccionar::</option>
                                                             <?php foreach ($horario as $h): ?>
                                                                 <option <?php echo (!empty($empleado[0]->hor_id) && $empleado[0]->hor_id == $h->hor_id) ? "selected" : ""; ?> value="<?php echo $h->hor_id ?>"><?php echo $h->hor_horario . " (" . $h->hor_cantidadHoras . ")" ?></option>
                                                             <?php endforeach; ?>
@@ -119,7 +119,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="salario" class="control-label col-md-3">Salario</label>
+                                                    <label for="salario" class="control-label col-md-3">* Salario</label>
                                                     <div class="col-md-9">
                                                         <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
                                                     </div>
@@ -1412,8 +1412,9 @@ endforeach;
                                 $('#tipoaseguradora *').remove();
                                 $("#agregarClones").html(agregarClonAseguradora());
                             } else {
-                                $('.empleadoId').val(msg.Json);
-                                $('.eliminar_usuario'), attr("emp_id", msg.Json)
+                                location.href='<?php echo base_url('index.php/Administrativo/listadoempleados') ?>';
+                                //$('.empleadoId').val(msg.Json);
+                                //$('.eliminar_usuario'), attr("emp_id", msg.Json)
                             }
                         }
                     }).fail(function (msg) {

@@ -69,7 +69,7 @@
                                         <span class="campoobligatorio">*</span>Rol
                                     </label>   
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <select name="rol" id="rol" class="form-control obligatorio select2me">
+                                        <select name="rol" id="rol" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($roles as $ro) { ?>
                                                 <option <?php echo (!empty($usuario[0]->rol_id) && $usuario[0]->rol_id == $ro['rol_id']) ? "selected" : ""; ?> value="<?php echo $ro['rol_id'] ?>"><?php echo $ro['rol_nombre'] ?></option>
@@ -86,7 +86,7 @@
                                         <span class="campoobligatorio">*</span>Usuario
                                     </label>  
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <input type="text" id="usuarioIngreso" name="usuario" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_usuario)) ? $usuario[0]->usu_usuario : ""; ?>" />
+                                        <input type="text" id="usuarioIngreso" autocomplete="false" name="usuario" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_usuario)) ? $usuario[0]->usu_usuario : ""; ?>" />
                                     </div> 
                                 </div> 
                             </div>
@@ -96,7 +96,7 @@
                                         Cambio contraseña inicial
                                     </label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
-                                        <input type="checkbox" id="cambiocontrasena" name="cambiocontrasena" <?php echo (!empty($usuario[0]->usu_cambiocontrasena) && $usuario[0]->usu_cambiocontrasena == 1) ? "checked" : ""; ?> />
+                                        <input type="checkbox" id="cambiocontrasena" autocomplete="false" name="cambiocontrasena" <?php echo (!empty($usuario[0]->usu_cambiocontrasena) && $usuario[0]->usu_cambiocontrasena == 1) ? "checked" : ""; ?> />
                                     </div> 
                                 </div> 
                             </div> 
@@ -155,7 +155,7 @@
                                         <span class="campoobligatorio">*</span>Genero
                                     </label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <select id="genero" name="genero" class="form-control obligatorio select2me">
+                                        <select id="genero" name="genero" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option> 
                                             <?php foreach ($sexo as $s) { ?>
                                                 <option <?php echo (!empty($usuario[0]->sex_id) && $usuario[0]->sex_id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
@@ -195,12 +195,12 @@
     $('#rol').change(function () {
         if ($(this).val() == 60) {
             $('.aspirante select').removeClass("form-control");
-            $('.aspirante select').removeClass("form-control obligado");
+            $('.aspirante select').removeClass("form-control ");
             $('.aspirante select').removeClass("form-control obligatorio");
             $('.aspirante select').attr('class', 'form-control ');
             $('.aspirante').hide();
         } else {
-            $('.aspirante select').attr('class', 'form-control obligatorio obligado');
+            $('.aspirante select').attr('class', 'form-control obligatorio ');
             $('.aspirante').show();
         }
     });
@@ -251,4 +251,5 @@
         }
     });
     $('#rol').trigger('change');
+  
 </script>    

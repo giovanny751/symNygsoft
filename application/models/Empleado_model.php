@@ -44,9 +44,61 @@ class Empleado_model extends CI_Model {
         }
     }
 
-    function create($data) {
+    function create() {
         try {
-            $this->db->insert("empleado", $data);
+            $post=$this->input->post();
+            if(!empty($post['codigo']))
+                $this->db->set('Emp_codigo',$post['codigo']);
+            if(!empty($post['cedula']))
+                $this->db->set('Emp_Cedula',$post['cedula']);
+            if(!empty($post['tipodocumento']))
+                $this->db->set('TipDoc_id',$post['tipodocumento']);
+            if(!empty($post['nombre']))
+                $this->db->set('Emp_Nombre',$post['nombre']);
+            if(!empty($post['apellidos']))
+                $this->db->set('Emp_Apellidos',$post['apellidos']);
+            if(!empty($post['horario']))
+                $this->db->set('hor_id',$post['horario']);
+            if(!empty($post['sexo']))
+                $this->db->set('sex_Id',$post['sexo']);
+            if(!empty($post['fechadenacimiento']))
+                $this->db->set('Emp_FechaNacimiento',$post['fechadenacimiento']);
+            if(!empty($post['estatura']))
+                $this->db->set('Emp_Estatura',$post['estatura']);
+            if(!empty($post['peso']))
+                $this->db->set('Emp_Peso',$post['peso']);
+            if(!empty($post['telefono']))
+                $this->db->set('Emp_Telefono',$post['telefono']);
+            if(!empty($post['direccion']))
+                $this->db->set('Emp_Direccion',$post['direccion']);
+            if(!empty($post['contacto']))
+                $this->db->set('Emp_Contacto',$post['contacto']);
+            if(!empty($post['telefonocontacto']))
+                $this->db->set('Emp_TelefonoContacto',$post['telefonocontacto']);
+            if(!empty($post['email']))
+                $this->db->set('Emp_Email',$post['email']);
+            if(!empty($post['estadocivil']))
+                $this->db->set('EstCiv_id',$post['estadocivil']);
+            if(!empty($post['fechainiciocontrato']))
+                $this->db->set('Emp_FechaInicioContrato',$post['fechainiciocontrato']);
+            if(!empty($post['fechafincontrato']))
+                $this->db->set('Emp_FechaFinContrato',$post['fechafincontrato']);
+            if(!empty($post['planobligatoriodesalud']))
+                $this->db->set('Emp_PlanObligatorioSalud',$post['planobligatoriodesalud']);
+            if(!empty($post['fechaafiliacionarl']))
+                $this->db->set('Emp_FechaAfiliacionArl',$post['fechaafiliacionarl']);
+            if(!empty($post['dimension1']))
+                $this->db->set('Dim_id',$post['dimension1']);
+            if(!empty($post['dimension2']))
+                $this->db->set('Dim_IdDos',$post['dimension2']);                
+            if(!empty($post['cargo']))
+                $this->db->set('Car_id',$post['cargo']);
+            if(!empty($post['salario']))
+                $this->db->set('emp_salario',$post['salario']);
+            if(!empty($post['fondo']))
+                $this->db->set('emp_fondo',$post['fondo']);
+            $this->db->set('Est_id' , 1);
+            $this->db->insert("empleado");
             return $this->db->insert_id();
         } catch (exception $e) {
             
@@ -110,11 +162,12 @@ class Empleado_model extends CI_Model {
                 $this->db->where('cargo.car_id', $cargo);
             if (!empty($estado))
                 $this->db->where('estados.Est_id', $estado);
-            if (!empty($contratosvencidos)):
-                $this->db->where("empleado_contratos.empCon_fechaHasta <",date("Y-m-d"));
-            else:
-                $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
-            endif;
+            
+            //if (!empty($contratosvencidos)):
+            //    $this->db->where("empleado_contratos.empCon_fechaHasta <",date("Y-m-d"));
+            //else:
+            //    $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+            //endif; 
             
             $this->db->select("(
             select count(tarea.tar_id)  
@@ -132,10 +185,11 @@ class Empleado_model extends CI_Model {
             $this->db->select("cargo.*");
             $this->db->where("empleado.est_id ",1);
             
-            $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
+            $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id",'left');
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
             $empleado = $this->db->get("empleado");
+            //echo $this->db->last_query();
             return $empleado->result();
         } catch (exception $e) {
             

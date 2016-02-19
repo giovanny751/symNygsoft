@@ -314,16 +314,17 @@ class Presentacion extends My_Controller {
             $this->load->model("User_model");
             $data = array();
             if (!empty($this->User_model->buscar_rol_usuario($this->input->post()))) {
-                $data["message"] = "Usuarios asociados al rol";
+                throw new Exception("Usuarios asociados al rol");
             } else {
                 $id = $this->input->post('id');
-                $this->Roles_model->eliminarrol($id);
                 $this->Roles_model->eliminpermisosrol($id);
+                $this->Roles_model->eliminarrol($id);
+                $data['Json'] = true;
             }
         } catch (exception $e) {
-            
+            $data["message"] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

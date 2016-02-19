@@ -111,6 +111,8 @@
                     </a>
                 </div>
             </div>
+<div class="portlet-body form">
+                <div class="form-body">
             <div class="row">
                 <div class="col-md-12">
                     <table id="tablesst" class="table table-striped table-bordered table-hover tabla-sst">
@@ -137,12 +139,6 @@
 </div> 
 </div> 
 </div> 
-</div> 
-</div> 
-</div> 
-</div> 
-</div> 
-
 
 
 <form id="f10" method="post" action="<?php echo base_url("index.php/administrativo/creacionempleados") ?>">

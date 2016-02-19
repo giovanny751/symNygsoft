@@ -454,36 +454,7 @@ class Administrativo extends My_Controller {
         try {
             $this->load->model(array('Empleado_model', 'Empleadotipoaseguradora_model'));
 
-            $data = array(
-                'Emp_codigo' => $this->input->post('codigo'),
-                'Emp_Cedula' => $this->input->post('cedula'),
-                'TipDoc_id' => $this->input->post('tipodocumento'),
-                'Emp_Nombre' => $this->input->post('nombre'),
-                'Emp_Apellidos' => $this->input->post('apellidos'),
-                'hor_id' => $this->input->post('horario'),
-                'sex_Id' => $this->input->post('sexo'),
-                'Emp_FechaNacimiento' => $this->input->post('fechadenacimiento'),
-                'Emp_Estatura' => $this->input->post('estatura'),
-                'Emp_Peso' => $this->input->post('peso'),
-                'Emp_Telefono' => $this->input->post('telefono'),
-                'Emp_Direccion' => $this->input->post('direccion'),
-                'Emp_Contacto' => $this->input->post('contacto'),
-                'Emp_TelefonoContacto' => $this->input->post('telefonocontacto'),
-                'Emp_Email' => $this->input->post('email'),
-                'EstCiv_id' => $this->input->post('estadocivil'),
-                'Emp_FechaInicioContrato' => $this->input->post('fechainiciocontrato'),
-                'Emp_FechaFinContrato' => $this->input->post('fechafincontrato'),
-                'Emp_PlanObligatorioSalud' => $this->input->post('planobligatoriodesalud'),
-                'Emp_FechaAfiliacionArl' => $this->input->post('fechaafiliacionarl'),
-                'Dim_id' => $this->input->post('dimension1'),
-                'Dim_IdDos' => $this->input->post('dimension2'),
-                'Est_id' => 1,
-                'Car_id' => $this->input->post('cargo'),
-                'emp_salario' => $this->input->post('salario'),
-                'emp_fondo' => $this->input->post('fondo')
-            );
-
-            $id = $this->Empleado_model->create($data);
+            $id = $this->Empleado_model->create();
             
             if(empty($id))
                                 throw new Exception("Error al momento de insertar un empleado");

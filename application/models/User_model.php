@@ -269,7 +269,7 @@ class User_model extends CI_Model {
         try {
             $this->db->select('count(usu_id) as usu_id ');
             $this->db->where('rol_id', $post['id']);
-            $datos = $this->db->get('user');
+            $datos = $this->db->get('permisos');
             $datos = $datos->result();
             return $datos[0]->usu_id;
         } catch (exception $e) {
