@@ -26,6 +26,10 @@ class Evaluacion extends My_Controller {
             $post = $this->input->post();
             $this->data['nombre_evaluacion'] = $this->Evaluacion__model->nombre_evaluacion($post);
             $this->data['preguntas_evaluacion'] = $this->Evaluacion__model->preguntas_evaluacion($post);
+            if(count($this->data['preguntas_evaluacion'])==0){
+                $this->session->set_flashdata(array('message' => 'Error en la evaluación', 'message_type' => 'warning'));
+                redirect('index.php/Presentacion/principal', 'location');
+            }
             $this->layout->view('evaluacion/prueba', $this->data);
         } catch (exception $e) {
             

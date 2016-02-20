@@ -8,7 +8,7 @@
         </script>
         <!--------------------------------------------------------------------------
         Fondos <!-- Gerson -->
-        ------------------------------------------------------------------------ -->
+        <!-------------------------------------------------------------------------- -->
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" />
 
         <!--------------------------------------------------------------------------
@@ -332,6 +332,7 @@
                             if (!jQuery.isEmptyObject(msg.message))
                                 alerta("rojo", msg['message'])
                             else {
+                                $('.dimencion_dos_se').append('<option value="">::Seleccionar::</option>');
                                 $.each(msg['Json'], function (key, val) {
                                     $('.dimencion_dos_se').append('<option value="' + val.dim_id + '">' + val.dim_descripcion + '</option>')
                                 });

@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                                    <label class="col-md-4 " for="nombre">Nombre</label>
                                     <div class="col-md-8">
                                         <input type="text" id="nombre" name="nombre" class="form-control">
                                     </div>
@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="estado">Estado</label>
+                                    <label class="col-md-4 " for="estado">Estado</label>
                                     <div class="col-md-8">
                                         <select id="estado" name="estado" class="form-control select2me">
                                             <option value="">::Seleccionar::</option>
@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="responsable">Responsable</label>
+                                    <label class="col-md-4 " for="responsable">Responsable</label>
                                     <div class="col-md-8">
                                         <select id="responsable" name="responsable" class="form-control select2me">
                                             <option value="">::Seleccionar::</option>
@@ -64,18 +64,20 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="col-md-8 control-label" for="responsable">Tareas propias</label>
+                                    <label class="col-md-8 " for="responsable">Tareas propias</label>
                                     <div class="col-md-4">
                                         <input type="checkbox" name="tareapropia" id="tareapropia">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3" style="text-align:center">
+                        </div>
+                        <div class="row">
+                            
                                 <div class="col-md-4"></div>
                                 <div class="col-md-3">
                                     <button id="consultar" class="btn btn-block" type="button">Consultar</button>
                                 </div>
-                            </div>
+                            
                         </div>   
 
                     </form>

@@ -234,7 +234,7 @@
                     alerta("rojo", msg['message'])
                 else {
 
-                    table.clear();
+                    table.clear().draw();
                     $.each(msg['Json'], function (key, val) {
                         var activo = "";
                         if (val.est_id == 1)

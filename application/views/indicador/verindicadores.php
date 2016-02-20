@@ -1,68 +1,80 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <a href="<?php echo base_url() . "/index.php/indicador/nuevoindicador" ?>"><div class="circuloIcon" title="Nuevo Indicador" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">VER INDICADORES</span>
-        </div>
-    </div>
-</div>
-<div class='cuerpoContenido'>
-    <form method="post" id="f4">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="tipo">Tipo</label>
-                    <select name="tipo" id="tipo" class="form-control">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($tipo as $ti) { ?>
-                            <option value="<?php echo $ti->indTip_id ?>"><?php echo $ti->indTip_tipo ?></option>
-                        <?php } ?>
-                    </select>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Ver Indicador
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="dimensionUno"><?php echo $empresa[0]->Dim_id ?></label>
-                    <select name="dimensionUno" id="dimensionUno" class="form-control dimencion_uno_se">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($dimension as $d1) { ?>
-                            <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="form-group">
-                    <label for="dimesionDos"><?php echo $empresa[0]->Dimdos_id ?></label>
-                    <select name="dimesionDos" id="dimesionDos" class="form-control dimencion_dos_se">
-                        <option value="">::Seleccionar::</option>
-                        <?php foreach ($dimension2 as $d2) { ?>
-                            <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-                <div class="form-group">
-                    <label>&nbsp;</label><button type="button" class="btn-sst" id="limpiar">Limpiar</button>
-                    <label>&nbsp;</label><button type="button" class="btn-sst" id="consultar">Consultar</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <hr>
-    <div class="row" id="bodyIndicador">
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <form method="post" id="f4">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="tipo">Tipo</label>
+                                    <select name="tipo" id="tipo" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($tipo as $ti) { ?>
+                                            <option value="<?php echo $ti->indTip_id ?>"><?php echo $ti->indTip_tipo ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="dimensionUno"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <select name="dimensionUno" id="dimensionUno" class="form-control dimencion_uno_se">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($dimension as $d1) { ?>
+                                            <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="dimesionDos"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <select name="dimesionDos" id="dimesionDos" class="form-control dimencion_dos_se">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($dimension2 as $d2) { ?>
+                                            <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+                                <div class="form-group">
+                                    <label>&nbsp;</label><button type="button" class="btn-sst" id="limpiar">Limpiar</button>
+                                    <label>&nbsp;</label><button type="button" class="btn-sst" id="consultar">Consultar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="row" id="bodyIndicador">
 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <form method="post" id="fEnvio" action="<?php echo base_url("index.php/indicador/nuevoindicador") ?>">
@@ -78,7 +90,7 @@
     });
     $("body").on("click", "#consultar", function () {
         $.post(
-                url+"index.php/indicador/consultarindicador", $("#f4").serialize()
+                url + "index.php/indicador/consultarindicador", $("#f4").serialize()
                 )
                 .done(function (msg) {
                     $('#bodyIndicador *').remove();
@@ -123,7 +135,7 @@
                         });
                     }
                     $('#bodyIndicador').append(tbody);
-//                    
+                    //                    
                     alerta("verde", "Exito al consultar");
                 })
                 .fail(function () {
@@ -132,7 +144,7 @@
 
     });
     $('body').delegate('.eliminar', 'click', function () {
-        $.post(url+"index.php/Indicador/eliminar_Indicador", {ind_id: $(this).attr('ind_id')})
+        $.post(url + "index.php/Indicador/eliminar_Indicador", {ind_id: $(this).attr('ind_id')})
                 .done(function () {
                     $('#consultar').trigger('click');
                 })

@@ -6,65 +6,68 @@
 </style>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">ADMINISTRACIÓN DE MODULOS</span>
-        </div>
-    </div>
-</div>
-<div class="cuerpoContenido">
-    <div class="page-bar" style="background-color: transparent !important;">
-        <ul class="page-breadcrumb">
-            <?php if (!empty($nombrepadre)) { ?>
-                <?php echo $nombrepadre ?>
-            <?php } else { ?>
-                <li class="devolver">
-                    <i class="fa fa-home"></i>
-                    <a href="<?= base_url("index.php/presentacion/creacionmenu") ?>">Principal</a>
-                    <i class="fa fa-angle-right"></i>
-                </li>
-            <?php } ?>
-        </ul>
-    </div>
-    <div class="row">
-        <button type="button" data-toggle="modal" data-target="#myModal2"  class="btn btn-info opciones">Nuevo Modulo</button>
-    </div>
-    <div class="row">
-        <form method="post" id="formulario">
-            <table class="tablesst" >
-                <thead>
-                <th>Nombre</th>
-                <th>Opción</th>
-                <th>Seguridad</th>
-                <th>Sub Modulo</th>
-                <th>Eliminar</th>
-                </thead>
-                <tbody id="cuerpomodulo">
-                    <?php if (empty($menu)) { ?>
-                        <tr>
-                            <td colspan="3" align="center">No Existen Datos</td>
-                        </tr>
-                        <?php
-                    }
-                    foreach ($menu as $modulo) {
-                        ?>
-                        <tr id="<?= $modulo['menu_id'] ?>">
-                            <td><?= $modulo['menu_nombrepadre'] ?></td>
-                            <td align="center"><button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-info opciones"  idgeneral="<?= $modulo['menu_id'] ?>" nombre="<?= $modulo['menu_nombrepadre'] ?>" idpadre="<?= $modulo['menu_id'] ?>" >Opción</button>
-                            </td>
-                            <td style="text-align: center"><button type="button"  class="btn btn-success metodos" idgeneral="<?php echo $modulo['menu_id'] ?>" idpadre="<?php echo $modulo['menu_idpadre'] ?>" menu="<?php echo $modulo['menu_idhijo'] ?>">Metodos</button></td>
-                            <td align="center"><input type="radio" class="submodulo" idgeneral="<?= $modulo['menu_id'] ?>" idpadre="<?php echo $modulo['menu_idpadre'] ?>" nombrepadre="<?php echo $modulo['menu_nombrepadre'] ?>" name="submodulo" menu="<?php echo $modulo['menu_idhijo'] ?>"></td>
-                            <td style="text-align:center"><button type="button" class="btn btn-danger eliminarSubModulo" generalid='<?php echo $modulo['menu_id'] ?>'>Eliminar</button></td>
-                        </tr>    
-                    <?php } ?>
-                </tbody>    
-            </table>
-            <input type="hidden" id="menu" name="menu">
-            <input type="hidden" id="nombrepadre" name="nombrepadre">
-            <input type="hidden" id="idgeneral" name="idgeneral">
-        </form> 
-    </div>    
-    <div id="desicion">
-        <input type="hidden" id="papa">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Administración de Modulos 
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-body">
+                                <div class="row">
+                                    <button type="button" data-toggle="modal" data-target="#myModal2"  class="btn btn-info opciones">Nuevo Modulo</button>
+                                </div>
+                                <div class="row">
+                                    <form method="post" id="formulario">
+                                        <table class="table table-striped table-bordered table-hover tabla-sst" >
+                                            <thead>
+                                            <th>Nombre</th>
+                                            <th>Opción</th>
+                                            <th>Seguridad</th>
+                                            <th>Sub Modulo</th>
+                                            <th>Eliminar</th>
+                                            </thead>
+                                            <tbody id="cuerpomodulo">
+                                                <?php if (empty($menu)) { ?>
+                                                    <tr>
+                                                        <td colspan="3" align="center">No Existen Datos</td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                                foreach ($menu as $modulo) {
+                                                    ?>
+                                                    <tr id="<?= $modulo['menu_id'] ?>">
+                                                        <td><?= $modulo['menu_nombrepadre'] ?></td>
+                                                        <td align="center"><button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-info opciones"  idgeneral="<?= $modulo['menu_id'] ?>" nombre="<?= $modulo['menu_nombrepadre'] ?>" idpadre="<?= $modulo['menu_id'] ?>" >Opción</button>
+                                                        </td>
+                                                        <td style="text-align: center"><button type="button"  class="btn btn-success metodos" idgeneral="<?php echo $modulo['menu_id'] ?>" idpadre="<?php echo $modulo['menu_idpadre'] ?>" menu="<?php echo $modulo['menu_idhijo'] ?>">Metodos</button></td>
+                                                        <td align="center"><input type="radio" class="submodulo" idgeneral="<?= $modulo['menu_id'] ?>" idpadre="<?php echo $modulo['menu_idpadre'] ?>" nombrepadre="<?php echo $modulo['menu_nombrepadre'] ?>" name="submodulo" menu="<?php echo $modulo['menu_idhijo'] ?>"></td>
+                                                        <td style="text-align:center"><button type="button" class="btn btn-danger eliminarSubModulo" generalid='<?php echo $modulo['menu_id'] ?>'>Eliminar</button></td>
+                                                    </tr>    
+                                                <?php } ?>
+                                            </tbody>    
+                                        </table>
+                                        <input type="hidden" id="menu" name="menu">
+                                        <input type="hidden" id="nombrepadre" name="nombrepadre">
+                                        <input type="hidden" id="idgeneral" name="idgeneral">
+                                    </form> 
+                                </div>    
+                                <div id="desicion">
+                                    <input type="hidden" id="papa">
+                                </div>    
+                            </div>    
+                        </div>    
+                    </div>    
+                </div>    
+            </div>    
+        </div>    
     </div>    
 </div>    
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -328,7 +331,7 @@
         var apuntador = $(this);
         if (confirm("Esta seguro de eliminar el modulo") == true) {
             $.post(
-                    url+'index.php/presentacion/eliminarmodulo',
+                    url + 'index.php/presentacion/eliminarmodulo',
                     {idgeneral: $(this).attr('generalid')})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
@@ -350,12 +353,12 @@
         });
         $('#idgeneral2').val(papa);
         $('#nombrepadre2').val($('.page-breadcrumb').html());
-        $('#redireccion').attr('href', url+'index.php/presentacion/menu');
+        $('#redireccion').attr('href', url + 'index.php/presentacion/menu');
         $('#redireccion').submit();
     });
     $('#guardar').click(function () {
         $.post(
-                url+'index.php/presentacion/guardarmodulo', {modulo: $('#modulo').val(), padre: $(this).attr('padre'), general: $(this).attr('general')}, function (data) {
+                url + 'index.php/presentacion/guardarmodulo', {modulo: $('#modulo').val(), padre: $(this).attr('padre'), general: $(this).attr('general')}, function (data) {
             $('#cuerpomodulo *').remove();
             var tabla = "";
             $.each(data.Json, function (key, val) {
@@ -382,7 +385,7 @@
     $('body').delegate('.guardar', 'click', function () {
 
         $.post(
-                url+'index.php/presentacion/guardaratributosmenu'
+                url + 'index.php/presentacion/guardaratributosmenu'
                 , {id: $(this).attr('generalid')
                     , nombre: $('#nombre').val()
                     , controlador: $('#controlador').val()
@@ -396,7 +399,7 @@
         $('#menu').val($(this).attr('menu'));
         $('#idgeneral').val($(this).attr('idgeneral'));
         $("#nombrepadre").val($(".page-breadcrumb").html() + "<li><a padre='" + $(this).attr('menu') + "'>" + $(this).attr('nombrepadre') + "</a><i class='fa fa-angle-right'></i></li>")
-        $('#formulario').attr('href', url+'index.php/presentacion/menu');
+        $('#formulario').attr('href', url + 'index.php/presentacion/menu');
         $('#formulario').submit();
     });
     /*---------------- ICONOS ---------------*/

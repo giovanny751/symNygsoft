@@ -268,7 +268,7 @@
                 $('#bodyuser *').remove();
                 var body = "";
                 var table = $('#tablesst').DataTable();
-                    table.clear();
+                    table.clear().draw();
                 $.each(msg.Json, function (key, val) {
                     if (val.est_id == 1)
                         var activo = "Activo";

@@ -100,20 +100,21 @@ class User_model extends CI_Model {
             
         }
     }
+
     function filteruser_evaluacion($apellido = null, $cedula = null, $estado = null, $nombre = null) {
         try {
-            $where="where 1 ";
+            $where = "where 1 ";
             if (!empty($apellido))
-                $where.=" and usu_apellido= ".$apellido;
+                $where.=" and usu_apellido= " . $apellido;
             if (!empty($cedula))
-                $where.=" and usu_cedula= ".$cedula;
+                $where.=" and usu_cedula= " . $cedula;
             if (!empty($estado))
-                $where.=" and est_id= ".$estado;
+                $where.=" and est_id= " . $estado;
             if (!empty($nombre))
-                $where.=" and usu_nombre= ".$nombre;
+                $where.=" and usu_nombre= " . $nombre;
 
-            
-            $user = $this->db->query("SELECT GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM (SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario FROM user LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso ) LEFT JOIN user_evaluacion ON user_evaluacion.use_id=user.usu_id and user_evaluacion.useEva_activo='S' LEFT JOIN evaluacion ON evaluacion.eva_id=user_evaluacion.eva_id JOIN permisos ON permisos.rol_id=user.rol_id WHERE user.est_id != 3 AND permisos.rol_id = 60 GROUP BY user.usu_id, evaluacion.eva_nombre) as ww ".$where." GROUP BY usu_id");
+
+            $user = $this->db->query("SELECT GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM (SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario FROM user LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso ) LEFT JOIN user_evaluacion ON user_evaluacion.use_id=user.usu_id and user_evaluacion.useEva_activo='S' LEFT JOIN evaluacion ON evaluacion.eva_id=user_evaluacion.eva_id JOIN permisos ON permisos.rol_id=user.rol_id WHERE user.est_id != 3 AND permisos.rol_id = 60 GROUP BY user.usu_id, evaluacion.eva_nombre) as ww " . $where . " GROUP BY usu_id");
 
             //echo $this->db->last_query();
             return $user->result();
@@ -133,6 +134,7 @@ class User_model extends CI_Model {
             
         }
     }
+
     function consultageneral_evaluacion() {
         try {
             $this->db->select("user.usu_id as id,user.*,ingreso.Ing_fechaIngreso as ingreso");
@@ -144,22 +146,23 @@ class User_model extends CI_Model {
             
         }
     }
+
     function evaluacion_usuario($id) {
         try {
-            
-            $datos=$this->db->query('select eva_id from respuesta_evaluacion where usu_id='.$id.' group by eva_id');
-            $datos=$datos->result();
-            $d=array();
+
+            $datos = $this->db->query('select eva_id from respuesta_evaluacion where usu_id=' . $id . ' group by eva_id');
+            $datos = $datos->result();
+            $d = array();
             foreach ($datos as $value) {
-                $d[]=$value->eva_id;
+                $d[] = $value->eva_id;
             }
-            
+
             $this->db->select("evaluacion.*");
             $this->db->where("ue.use_id", $id);
             $this->db->where("ue.useEva_activo", 'S');
-            if(count($d))
-            $this->db->where_not_in("evaluacion.eva_id", $d);
-            $this->db->join("user_evaluacion ue ", "ue.eva_id=evaluacion.eva_id", "inner",false);
+            if (count($d))
+                $this->db->where_not_in("evaluacion.eva_id", $d);
+            $this->db->join("user_evaluacion ue ", "ue.eva_id=evaluacion.eva_id", "inner", false);
             $user = $this->db->get('evaluacion');
             return $user->result();
         } catch (exception $e) {
@@ -203,7 +206,8 @@ class User_model extends CI_Model {
             $this->db->where("usu_id", $usu_id);
             $this->db->set("rol_id", $rol);
             $this->db->update("user");
-            echo $this->db->last_query();die;
+            echo $this->db->last_query();
+            die;
         } catch (exception $e) {
             
         }
@@ -247,14 +251,14 @@ class User_model extends CI_Model {
             $this->db->where("usu_id", $id);
             $this->db->set("est_id", "3");
             $this->db->update("user");
-            if($this->db->trans_status() === FALSE){
+            if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
-            }else{
+            } else {
                 $this->db->trans_commit();
             }
         } catch (exception $e) {
             
-        }finally{
+        } finally {
             return $this->db->trans_status();
         }
     }

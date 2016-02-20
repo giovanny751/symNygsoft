@@ -145,7 +145,7 @@
                         if (typeof (msg.message) != "undefined") {
                             alerta("rojo", "Error al momento de ingresar datos");
                         } else {
-                            table.clear();
+                            table.clear().draw();
                             $.each(msg['Json'], function (key, valor) {
                                 table.row.add([
                                     valor.accidente,

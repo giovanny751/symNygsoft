@@ -166,7 +166,9 @@
                             $('#nombre_pre').html('<b>Pregunta: </b><br>' + val.pre_nombre);
                             if (val.res_nombre != '<p></p>' && val.res_nombre != '' && val.res_nombre != null)
                                 $('#body_pre').append(i + ") " + val.res_nombre + '<br>')
-                            $('#respuesta_pre').html("<b>Respuesta: </b>" + (val.pre_res_num-1));
+                                if(val.id_respuesta==val.res_id){
+                                    $('#respuesta_pre').html("<b>Respuesta: </b>" + (i));
+                                }
                             i++;
                         });
                     }

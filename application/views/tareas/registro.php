@@ -1,65 +1,68 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" title="Nuevo Registro" data-toggle="modal" data-target="#myModal2" ><i class="fa fa-folder-open fa-3x"></i></div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">
-                REGISTRO
-            </span>
-        </div>
-    </div>
-</div>
-<div class="cuerpoContenido">
-    <div class="row">
-        <form method="post" id="frmregistro">
-            <label for="plan" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Plan</label>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <input type="text" class="form-control" name="plan" id="plan"/>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Registro
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
             </div>
-            <!--            <label for="actividad" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Actividad</label>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <form method="post" id="frmregistro">
 
-            <input type="hidden" class="form-control" name="actividad" id="actividad"/>
-            <!--</div>-->
-            <label for="tarea" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Tarea</label>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <input type="text" class="form-control" name="tarea" id="tarea"/>
+                            <label for="plan" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Plan</label>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <input type="text" class="form-control" name="plan" id="plan"/>
+                            </div>
+                            <!--            <label for="actividad" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Actividad</label>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
+
+                            <input type="hidden" class="form-control" name="actividad" id="actividad"/>
+                            <!--</div>-->
+                            <label for="tarea" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Tarea</label>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <input type="text" class="form-control" name="tarea" id="tarea"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right">
+                    <button type="button" class="btn-sst limpiar">Limpiar</button>
+                    <button type="button" class="btn-sst" id="consultar">Consultar</button>
+                </div>
             </div>
-        </form>
-    </div>    
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right">
-            <button type="button" class="btn-sst limpiar">Limpiar</button>
-            <button type="button" class="btn-sst" id="consultar">Consultar</button>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <table class="tablesst" id="datatable_ajax">
-                <thead>
-                <th>Plan</th>
-                <th>Nombre archivo</th>
-                <th>Descripciòn</th>
-                <th>Versiòn</th>
-                <th>Categorìa</th>
-                <th>Tarea</th>
-                <th>Responsable</th>
-                <th>Tamaño</th>
-                <th>Fecha</th>
-                <th>Ver Versiones</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-                </thead>
-                <tbody id="cuerpodatos">
-                    <tr>
-                        <td colspan="10"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <table class="table table-striped table-bordered table-hover tabla-sst" id="datatable_ajax">
+                        <thead>
+                        <th>Plan</th>
+                        <th>Nombre archivo</th>
+                        <th>Descripciòn</th>
+                        <th>Versiòn</th>
+                        <th>Categorìa</th>
+                        <th>Tarea</th>
+                        <th>Responsable</th>
+                        <th>Tamaño</th>
+                        <th>Fecha</th>
+                        <th>Ver Versiones</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                        </thead>
+                        <tbody id="cuerpodatos">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 </div>
@@ -223,7 +226,7 @@
             $('#frmagregarregistro').append(fila);
 
 
-//            alert(msg.tar_id);
+            //            alert(msg.tar_id);
             $.post(
                     url + "index.php/tareas/busqueda_carpeta",
                     {tar_id: msg.tar_id}
@@ -262,7 +265,7 @@
             type: 'post',
             success: function (result) {
                 $('#consultar').trigger('click')
-//                $('#datatable_ajax tbody').append(filas);
+                //                $('#datatable_ajax tbody').append(filas);
                 $('#carpeta').val('');
                 $('#version').val('');
                 $('#reg_descripcion').val('');
@@ -362,7 +365,7 @@
         var registro = $(this);
         if (confirm("esta seguro de eliminar el registro")) {
             $.post(
-                    url+"index.php/tareas/eliminarregistro",
+                    url + "index.php/tareas/eliminarregistro",
                     {registro: registro.attr("reg_id")}
             ).done(function (msg) {
                 registro.parents('tr').remove();
@@ -373,15 +376,15 @@
     });
 
     $('#tarea').autocomplete({
-        source: url+"index.php/tareas/autocompletetareas",
+        source: url + "index.php/tareas/autocompletetareas",
         minLength: 3
     });
     $('#actividad').autocomplete({
-        source: url+"index.php/tareas/autocompleteactividadhijo",
+        source: url + "index.php/tareas/autocompleteactividadhijo",
         minLength: 3
     });
     $('#plan').autocomplete({
-        source: url+"index.php/tareas/autocompletar",
+        source: url + "index.php/tareas/autocompletar",
         minLength: 3
     });
     function validar() {

@@ -160,7 +160,7 @@ class Preguntas__model extends CI_Model {
     function buscar_pregunta($post) {
         try {
             $this->db->where('preguntas.pre_id', $post['id']);
-            $this->db->select('preguntas.*,tp.*,re.* ');
+            $this->db->select('preguntas.res_id id_respuesta,preguntas.*,tp.*,re.* ');
             $this->db->join('tipo_pregunta tp', 'tp.tipPre_id=preguntas.tipPre_id');
             $this->db->join('respuestas re', "re.pre_id=preguntas.pre_id and re.activo='S'",'left',false);
             $datos = $this->db->get('preguntas');

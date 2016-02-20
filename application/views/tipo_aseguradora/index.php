@@ -1,3 +1,4 @@
+<br>
 <div class="row">
     <span id="boton_guardar">
         <div class="col-md-6">
@@ -13,52 +14,65 @@
         </div>
     </span>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
-        <div class="tituloCuerpo">
-            <span class="txtTitulo">
-                <a href="<?php echo base_url("index.php/presentacion/principal") ?>">HOME</a>/
-                <a href="<?php echo base_url("index.php/administrativo/empresa") ?>">EMPRESA</a>/
-                CREAR TIPO DE ASEGURADORA
-            </span>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cog"></i> Crear Tipo Aseguradora
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form action="<?php echo base_url('index.php/') . "/Tipo_aseguradora/save_tipo_aseguradora"; ?>" method="post" onsubmit="return campos()" id="form1"  enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="row">
+                            <label for="TipAse_Nombre" class="col-md-2">
+                                * Tipo aseguradora 
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" value="<?php echo (isset($datos[0]->TipAse_Nombre) ? $datos[0]->TipAse_Nombre : '' ) ?>" class=" form-control obligatorio  " id="TipAse_Nombre" name="TipAse_Nombre">
+                            </div>
+                        </div>
+                        <?php if (isset($post['campo'])) { ?>
+                            <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
+                            <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
+                        <?php } ?>
+                        <div class="row">
+                            <span id="boton_guardar"></span>
+                            <span id="boton_cargar" style="display: none">
+                                <h2>Cargando ...</h2>
+                            </span>
+                        </div>
+                        <div class="row"><div style="float: right"><b>Los campos en * son obligatorios</b></div></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-<div class='cuerpoContenido'>
-    <form action="<?php echo base_url('index.php/') . "/Tipo_aseguradora/save_tipo_aseguradora"; ?>" method="post" onsubmit="return campos()" id="form1"  enctype="multipart/form-data">
-        <div class="row">
-            <label for="TipAse_Nombre" class="col-md-6">
-                * Tipo aseguradora 
-            </label>
-            <div class="col-md-6">
-                <input type="text" value="<?php echo (isset($datos[0]->TipAse_Nombre) ? $datos[0]->TipAse_Nombre : '' ) ?>" class=" form-control obligatorio  " id="TipAse_Nombre" name="TipAse_Nombre">
-            </div>
-        </div>
-        <?php if (isset($post['campo'])) { ?>
-            <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
-            <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
-        <?php } ?>
-        <div class="row">
-            <span id="boton_guardar"></span>
-            <span id="boton_cargar" style="display: none">
-                <h2>Cargando ...</h2>
-            </span>
-        </div>
-        <div class="row"><div style="float: right"><b>Los campos en * son obligatorios</b></div></div>
-    </form>
-</div>
 <script>
-
     $('#TipAse_Nombre').change(function () {
-        var data = $(this);
+        var data = $('#TipAse_Nombre').val();
         $.post(
-                url+"index.php/Tipo_aseguradora/validatipoaseguradora",
-                {TipAse_Nombre: $(this).val()}
+                url + "index.php/Tipo_aseguradora/validatipoaseguradora",
+                {TipAse_Nombre: $('#TipAse_Nombre').val()}
         ).done(function (msg) {
-            if (msg == 1) {
-                data.val("");
-                data.focus();
-                alerta("amarillo", "Tipo de aseguradora ya existe en el sistema")
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("rojo", msg['message']);
+            else {
+                if (msg == 1) {
+                    $('#TipAse_Nombre').val("");
+                    $('#TipAse_Nombre').focus();
+                    alerta("amarillo", "Tipo de aseguradora ya existe en el sistema");
+                    $('#contador').val(0)
+                } else {
+                    $('#contador').val(1)
+                }
             }
         })
                 .fail(function (msg) {
@@ -88,9 +102,13 @@
         if (obligatorio('obligatorio') == false) {
             return false
         } else {
+            if($('#contador').val()==0){
+                return false;
+            }
             $('#boton_guardar').hide();
             $('#boton_cargar').show();
             return true;
         }
     }
 </script>
+<input id="contador" value="0" type="hidden">
