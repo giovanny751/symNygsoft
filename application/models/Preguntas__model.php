@@ -143,6 +143,7 @@ class Preguntas__model extends CI_Model {
             $this->db->select('pre_res_num');
             $this->db->select('pre_visible');
             $this->db->where('preguntas.ACTIVO', 'S');
+            $this->db->where('e.ACTIVO', 'S');
             $this->db->join('evaluacion e', 'e.eva_id=preguntas.eva_id');
 //            $this->db->join('tema t', 't.tem_id=preguntas.tem_id');
 //            $this->db->join('area a', 'a.are_id=preguntas.are_id');

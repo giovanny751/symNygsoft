@@ -54,7 +54,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table table-bordered">
+                        <table class="table table-striped table-bordered table-hover tabla-sst" >
                             <thead>
                             <th style='display:none'></th>
                             <th>Evaluación</th>
@@ -141,6 +141,7 @@
 </div>
 
 <script>
+
     $('.modal_eva').click(function () {
         $('#nomb_pre').html('');
         $('#tipo_pre').html('');
@@ -165,7 +166,7 @@
                             $('#nombre_pre').html('<b>Pregunta: </b><br>' + val.pre_nombre);
                             if (val.res_nombre != '<p></p>' && val.res_nombre != '' && val.res_nombre != null)
                                 $('#body_pre').append(i + ") " + val.res_nombre + '<br>')
-                            $('#respuesta_pre').html("<b>Respuesta: </b>" + val.pre_res_num);
+                            $('#respuesta_pre').html("<b>Respuesta: </b>" + (val.pre_res_num-1));
                             i++;
                         });
                     }

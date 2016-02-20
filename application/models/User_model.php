@@ -102,26 +102,20 @@ class User_model extends CI_Model {
     }
     function filteruser_evaluacion($apellido = null, $cedula = null, $estado = null, $nombre = null) {
         try {
+            $where="where 1 ";
             if (!empty($apellido))
-                $this->db->where('usu_apellido', $apellido);
+                $where.=" and usu_apellido= ".$apellido;
             if (!empty($cedula))
-                $this->db->where('usu_cedula', $cedula);
+                $where.=" and usu_cedula= ".$cedula;
             if (!empty($estado))
-                $this->db->where('est_id', $estado);
+                $where.=" and est_id= ".$estado;
             if (!empty($nombre))
-                $this->db->where('usu_nombre', $nombre);
+                $where.=" and usu_nombre= ".$nombre;
 
-            $this->db->select('user.*,GROUP_CONCAT(evaluacion.eva_nombre SEPARATOR ",") conca',false);
-            $this->db->select("ingreso.ing_fechaIngreso",false);
-            $this->db->where("user.est_id != ", 3);
-            $this->db->where("roles.rol_id", 60);
-            $this->db->join("ingreso", "ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso )", "LEFT");
-            $this->db->join("user_evaluacion", "user_evaluacion.use_id=user.usu_id and user_evaluacion.useEva_activo='S'",'left',false);
-            $this->db->join("evaluacion", "evaluacion.eva_id=user_evaluacion.eva_id",'left');
-            $this->db->join("roles", "roles.rol_id=user.rol_id");
-            $this->db->group_by("user.usu_id");
-            $user = $this->db->get('user');
-//            echo $this->db->last_query();
+            
+            $user = $this->db->query("SELECT GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM (SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario FROM user LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso ) LEFT JOIN user_evaluacion ON user_evaluacion.use_id=user.usu_id and user_evaluacion.useEva_activo='S' LEFT JOIN evaluacion ON evaluacion.eva_id=user_evaluacion.eva_id JOIN permisos ON permisos.rol_id=user.rol_id WHERE user.est_id != 3 AND permisos.rol_id = 60 GROUP BY user.usu_id, evaluacion.eva_nombre) as ww ".$where." GROUP BY usu_id");
+
+            //echo $this->db->last_query();
             return $user->result();
         } catch (exception $e) {
             
