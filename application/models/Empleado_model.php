@@ -14,6 +14,7 @@ class Empleado_model extends CI_Model {
     }
     
     function empleados(){
+        try{
         $this->db->distinct("empleado.Emp_id");
         $this->db->select("empleado.Emp_id");
         $this->db->select("empleado.Emp_cedula");
@@ -21,10 +22,16 @@ class Empleado_model extends CI_Model {
         $this->db->select("empleado.Emp_Apellidos");
         $this->db->where("est_id",1);
         $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+        $this->db->or_where("empleado_contratos.empCon_fechaHasta","0000-00-00 00:00:00");
         $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
         $empleado = $this->db->get("empleado");
 //        echo $this->db->last_query();die;
         return $empleado->result();
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
     }
     
     function detail() {
@@ -146,6 +153,13 @@ class Empleado_model extends CI_Model {
 
     function filtroempleados($cedula, $nombre, $apellido, $codigo, $cargo, $estado, $contratosvencidos, $tipocontrato, $dim1, $dim2) {
         try {
+            
+            if(!empty($contratosvencidos)){
+                $this->db->where("empleado_contratos.empCon_fechaHasta <=",date("Y-m-d"));
+            }else{
+                $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+                $this->db->or_where("empleado_contratos.empCon_fechaHasta","0000-00-00 00:00:00");
+            }            
             if (!empty($dim1))
                 $this->db->where('empleado.Dim_id', $dim1);
             if (!empty($dim2))
@@ -183,13 +197,14 @@ class Empleado_model extends CI_Model {
             $this->db->select("empleado.*");
             $this->db->select("estados.*");
             $this->db->select("cargo.*");
+            $this->db->select("empleado_contratos.empCon_fechaDesde");
+            $this->db->select("empleado_contratos.empCon_fechaHasta");
             $this->db->where("empleado.est_id ",1);
-            
             $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id",'left');
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
             $empleado = $this->db->get("empleado");
-            //echo $this->db->last_query();
+//            echo $this->db->last_query();
             return $empleado->result();
         } catch (exception $e) {
             

@@ -167,8 +167,8 @@
                             val.Emp_Telefono,
                             val.est_nombre,
                             val.car_nombre,
-                            val.Emp_FechaInicioContrato,
-                            val.Emp_FechaFinContrato,
+                            val.empCon_fechaDesde,
+                            val.empCon_fechaHasta,
                             '<i class="fa fa-pencil-square-o fa-2x  modificar" aria-hidden="true" title="Modificar"  emp_id="' + val.Emp_Id + '"  data-toggle="modal" data-target="#myModal"></i>',
                             '<i class="fa fa-trash-o fa-2x   eliminar" aria-hidden="true" title="Eliminar" tareas="' + val.tareas_emp + '" planes="' + val.planes_emp + '" emp_id="' + val.Emp_Id + '"></i>'
                         ]).draw();

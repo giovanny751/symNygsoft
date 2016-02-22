@@ -44,14 +44,16 @@ class Tipo_aseguradora extends My_Controller {
 
     function validatipoaseguradora() {
         try {
-            $data = $this->Tipo_aseguradora__model->validatipoaseguradora($this->input->post("TipAse_Nombre"));
-            if (!empty($data)) {
-                echo 1;
+            $validacion = $this->Tipo_aseguradora__model->validatipoaseguradora($this->input->post("TipAse_Nombre"));
+            if(!empty($validacion)){
+                throw new Exception("Aseguradora ya exite en el sitema"); 
+            }else{
+                $data['Json'] = $validacion;
             }
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

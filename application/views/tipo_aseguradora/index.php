@@ -28,7 +28,6 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form action="<?php echo base_url('index.php/') . "/Tipo_aseguradora/save_tipo_aseguradora"; ?>" method="post" onsubmit="return campos()" id="form1"  enctype="multipart/form-data">
                     <div class="form-body">
                         <div class="row">
                             <label for="TipAse_Nombre" class="col-md-2">
@@ -50,39 +49,59 @@
                         </div>
                         <div class="row"><div style="float: right"><b>Los campos en * son obligatorios</b></div></div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-    $('#TipAse_Nombre').change(function () {
-        var data = $('#TipAse_Nombre').val();
-        $.post(
-                url + "index.php/Tipo_aseguradora/validatipoaseguradora",
-                {TipAse_Nombre: $('#TipAse_Nombre').val()}
-        ).done(function (msg) {
-            if (!jQuery.isEmptyObject(msg.message))
-                alerta("rojo", msg['message']);
-            else {
-                if (msg == 1) {
-                    $('#TipAse_Nombre').val("");
-                    $('#TipAse_Nombre').focus();
-                    alerta("amarillo", "Tipo de aseguradora ya existe en el sistema");
-                    $('#contador').val(0)
-                } else {
-                    $('#contador').val(1)
-                }
-            }
-        })
-                .fail(function (msg) {
-                    alerta("rojo", "Error favor comunicarse con el administrador");
-                });
-
-    });
+//    $('#TipAse_Nombre').change(function () {
+//        var data = $('#TipAse_Nombre').val();
+//        $.post(
+//                url + "index.php/Tipo_aseguradora/validatipoaseguradora",
+//                {TipAse_Nombre: $('#TipAse_Nombre').val()}
+//        ).done(function (msg) {
+//            if (!jQuery.isEmptyObject(msg.message))
+//                alerta("rojo", msg['message']);
+//            else {
+//                if (msg == 1) {
+//                    $('#TipAse_Nombre').val("");
+//                    $('#TipAse_Nombre').focus();
+//                    alerta("amarillo", "Tipo de aseguradora ya existe en el sistema");
+//                    $('#contador').val(0)
+//                } else {
+//                    $('#contador').val(1)
+//                }
+//            }
+//        })
+//                .fail(function (msg) {
+//                    alerta("rojo", "Error favor comunicarse con el administrador");
+//                });
+//
+//    });
 
     $("#btnguardar").click(function () {
-        $("#form1").submit();
+
+        $.post(
+                url + "index.php/Tipo_aseguradora/validatipoaseguradora",
+        {
+            TipAse_Nombre : $('#TipAse_Nombre').val()
+        }
+                )
+                .done(function (msg) {
+                    
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        if(confirm("Desea guardar otra aseguradora")){
+                            $("#TipAse_Nombre").val('');
+                        }else{
+                            window.location.href = url+"index.php/Tipo_aseguradora/consult_tipo_aseguradora"; 
+                        };
+                    }
+                })
+                .fail(function (msg) {
+                        alerta("rojo","Error, comunicarse con el administrador");
+                });
     });
     $('.limpiar').click(function () {
         $('#TipAse_Nombre').val('')
@@ -102,7 +121,7 @@
         if (obligatorio('obligatorio') == false) {
             return false
         } else {
-            if($('#contador').val()==0){
+            if ($('#contador').val() == 0) {
                 return false;
             }
             $('#boton_guardar').hide();
