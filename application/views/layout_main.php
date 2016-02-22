@@ -322,6 +322,7 @@
                 <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
 
                 <script type="text/javascript">
+                    base_url_js='<?php echo base_url()?>'
             $('.dimencion_uno_se').change(function () {
                 $('.dimencion_dos_se').html('');
                 if ($(this).val() == '')

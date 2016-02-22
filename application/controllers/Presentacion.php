@@ -26,7 +26,7 @@ class Presentacion extends My_Controller {
         
         if ($this->data['user']['rol_id'] != 60) {
             $id = $this->data['user']['emp_id'];
-            
+            $this->data['inicio']= $this->Ingreso_model->admin_inicio();
             $this->layout->view('presentacion/principal', $this->data);
         } else {
             $this->load->model("User_model");
