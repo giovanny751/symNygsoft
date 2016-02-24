@@ -157,6 +157,8 @@ class Accidentes_model extends CI_Model {
                 }
             }
             
+            
+            $this->db->where('accidentes.est_id', 1);
             $this->db->select("accidentes.acc_id as accidente");
             $this->db->select("concat(empleado.Emp_Nombre,' ',empleado.Emp_Apellidos) as empleado",false);
             $this->db->select("accidentes.acc_zona as zona");
@@ -179,6 +181,12 @@ class Accidentes_model extends CI_Model {
         } catch (exception $e) {
             
         }
+    }
+public function eliminarAccidente() {
+    $post=$this->input->post();
+    $this->db->set('est_id','3');
+    $this->db->where('acc_id',$post['accidente']);
+    $this->db->update('accidentes');
     }
 
 }

@@ -1860,6 +1860,16 @@ class Administrativo extends My_Controller {
             
         }
     }
+    function eliminarAccidente() {
+        try {
+            $this->load->model(array("Accidentes_model"));
+            $this->Accidentes_model->eliminarAccidente();
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
 
 }
 

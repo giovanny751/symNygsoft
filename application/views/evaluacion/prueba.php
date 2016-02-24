@@ -15,7 +15,9 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12 tiempo_div" >
-                                Tiempo de la prueba: <span class="tiempo"><?php echo ($nombre_evaluacion[0]->eva_tiempo * 60)*3 ?></span>
+                                <?php if(!empty($nombre_evaluacion[0]->eva_tiempo)){ ?>
+                                Tiempo de la prueba: <span class="tiempo"><?php echo ($nombre_evaluacion[0]->eva_tiempo * 60) ?> Segundos </span>
+                                <?php } ?>
                             </div>
                             <div class="col-md-12">
                                 <table width="100%">
@@ -70,6 +72,7 @@
 </div>
 
 <script>
+    <?php if(!empty($nombre_evaluacion[0]->eva_tiempo)){ ?>
     fin_tiempo = 0;
     mi_tiempo = 0;
 //    setTimeout(time, 1000);
@@ -89,6 +92,7 @@
         }
 //        time();
     }
+    <?php } ?>
 
     function enviar() {
         if (mi_tiempo > 1) {

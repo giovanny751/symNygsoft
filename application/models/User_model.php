@@ -9,6 +9,7 @@ class User_model extends CI_Model {
         try {
             $this->db->where('usu_usuario', $username);
             $this->db->where('usu_contrasena', $pass);
+            $this->db->where('est_id',1);
             $query = $this->db->get('user');
             return $query->result_array();
         } catch (exception $e) {
@@ -82,13 +83,13 @@ class User_model extends CI_Model {
     function filteruser($apellido = null, $cedula = null, $estado = null, $nombre = null) {
         try {
             if (!empty($apellido))
-                $this->db->where('usu_apellido', $apellido);
+                $this->db->like('usu_apellido', $apellido);
             if (!empty($cedula))
-                $this->db->where('usu_cedula', $cedula);
+                $this->db->like('usu_cedula', $cedula);
             if (!empty($estado))
-                $this->db->where('est_id', $estado);
+                $this->db->like('est_id', $estado);
             if (!empty($nombre))
-                $this->db->where('usu_nombre', $nombre);
+                $this->db->like('usu_nombre', $nombre);
 
             $this->db->select("user.*");
             $this->db->select("ingreso.ing_fechaIngreso");
@@ -183,8 +184,80 @@ class User_model extends CI_Model {
 
     function update($data, $id) {
         try {
+            
+            // se confirma primero el rol que tenia el usuario para quitarcelo
+            $this->db->select('rol_id');
             $this->db->where("usu_id", $id);
-            $this->db->update("user", $data);
+            $datos=$this->db->get('user');
+            $datos=$datos->result();
+            
+            
+            $post = $this->input->post();
+            if (!empty($post['contrasena']))
+                $this->db->set('usu_contrasena', sha1($this->input->post('contrasena')));
+            else
+                $this->db->set('usu_contrasena', null);
+            if (!empty($post['estado']))
+                $this->db->set('est_id', $this->input->post('estado'));
+            else
+                $this->db->set('est_id', null);
+            if (!empty($post['cedula']))
+                $this->db->set('usu_cedula', $this->input->post('cedula'));
+            else
+                $this->db->set('usu_cedula', null);
+            if (!empty($post['nombres']))
+                $this->db->set('usu_nombre', $this->input->post('nombres'));
+            else
+                $this->db->set('usu_nombre', null);
+            if (!empty($post['apellidos']))
+                $this->db->set('usu_apellido', $this->input->post('apellidos'));
+            else
+                $this->db->set('usu_apellido', null);
+            if (!empty($post['usuario']))
+                $this->db->set('usu_usuario', $this->input->post('usuario'));
+            else
+                $this->db->set('usu_usuario', null);
+            if (!empty($post['email']))
+                $this->db->set('usu_email', $this->input->post('email'));
+            else
+                $this->db->set('usu_email', null);
+            if (!empty($post['genero']))
+                $this->db->set('sex_id', $this->input->post('genero'));
+            else
+                $this->db->set('sex_id', null);
+            if (!empty($post['cargo']))
+                $this->db->set('car_id', $this->input->post('cargo'));
+            else
+                $this->db->set('car_id', null);
+            if (!empty($post['empleado']))
+                $this->db->set('emp_id', $this->input->post('empleado'));
+            else
+                $this->db->set('emp_id', null);
+            
+            if (!empty($post['cambiocontrasena']))
+                $this->db->set('usu_cambiocontrasena', $this->input->post('cambiocontrasena'));
+            else
+                $this->db->set('usu_cambiocontrasena', null);
+            
+            if (!empty($post['rol']))
+                $this->db->set('rol_id', $this->input->post('rol'));
+            else
+                $this->db->set('rol_id', null);
+
+            $this->db->where("usu_id", $id);
+            $this->db->update("user");
+            
+            
+            
+            $this->db->where("usu_id", $id);
+            $this->db->where("rol_id", $datos[0]->rol_id);
+            $this->db->delete('permisos');
+            
+            
+            $this->db->set("usu_id", $id);
+            $this->db->set("rol_id", $this->input->post('rol'));
+            $this->db->insert('permisos');
+            
         } catch (exception $e) {
             
         }

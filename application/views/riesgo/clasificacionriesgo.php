@@ -288,7 +288,7 @@
         $.each(msg, function (key, val) {
             $.each(val, function (indice, campo) {
                 option += "<option value='" + key + "'>" + indice + "</option>";
-                cuerpo += "<table class='tablesst'>";
+                cuerpo += "<table class='table table-bordered table-hover'>";
                 cuerpo += "<thead>";
                 cuerpo += "<tr>";
                 cuerpo += "<th   style='text-align:center'><b>" + indice + "</b></th>";

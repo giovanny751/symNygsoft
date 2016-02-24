@@ -158,9 +158,9 @@
                                     valor.fechaAccidente,
                                     valor.reportado,
                                     valor.fCreacion,
-                                    ((valor.incapacidad == 1) ? "<i class='fa fa-check fa-2x' style='color:#32B512'></i>" : "<i class='fa fa-times fa-2x' style='color:#C23F44'></i>"),
-                                    "<i class='fa fa-pencil-square-o fa-2x  modificar' accidente='" + valor.accidente + "'></i>",
-                                    "<i class='fa fa-trash-o fa-2x eliminarAccidente'></i>"
+                                    ((valor.incapacidad == 1) ? "<a href='javascript:'><i class='fa fa-check fa-2x' style='color:#32B512'></i>" : "<i class='fa fa-times fa-2x' style='color:#C23F44'></i></a>"),
+                                    "<a href='javascript:'><i class='fa fa-pencil-square-o fa-2x  modificar' accidente='" + valor.accidente + "'></i></a>",
+                                    "<a href='javascript:'><i class='fa fa-trash-o fa-2x eliminarAccidente' accidente='" + valor.accidente + "'></i></a>"
                                 ]).draw();
                             });
 
@@ -180,6 +180,24 @@
             formulario.method = "post";
             formulario.action = url + "index.php/administrativo/accidente";
             formulario.submit();
+        } else {
+            return false
+        }
+    });
+    $("body").on("click", ".eliminarAccidente", function () {
+        var accidente = $(this).attr("accidente");
+        if (accidente != "") {
+            $.post(url + "index.php/administrativo/eliminarAccidente", {accidente: accidente})
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("rojo", msg['message']);
+                        else {
+                            $('#consultar').trigger('click')
+                        }
+                    })
+                    .fail(function () {
+
+                    })
         } else {
             return false
         }

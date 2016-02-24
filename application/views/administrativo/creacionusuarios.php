@@ -219,6 +219,12 @@
                 data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre + " " + val.Emp_Apellidos + "</option>"
             });
             $('#empleado').append(data);
+            
+            <?php if(isset($usuario[0]->emp_id)){?>
+                    var emp_id="<?php echo $usuario[0]->emp_id?>";
+                    $('#empleado').val(emp_id)
+            <?php } ?>
+                
         }).fail(function (msg) {
 
         })
@@ -251,5 +257,5 @@
         }
     });
     $('#rol').trigger('change');
-  
+  $('#cargo').trigger('change');
 </script>    
