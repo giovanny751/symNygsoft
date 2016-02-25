@@ -682,6 +682,9 @@
     </div>
 </div>
 <script>
+    
+    $( ".fecha" ).datepicker( "option", "maxDate", "+0m +0d" );
+    
     $('document').ready(function () {
         costo = $('#costo').text();
         costoreal = $('#costorealplan').val();

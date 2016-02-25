@@ -158,7 +158,22 @@ class Indicador_model extends CI_Model {
             
         }
     }
-
+    
+    function indicadorAccidentes($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        
+        $this->db->group_by("date_format(ac1.acc_fechaAccidente,'%m-%Y')");
+        $this->db->order_by("CAST(ac1.acc_fechaAccidente as DATE)");
+        $this->db->select("date_format(ac1.acc_fechaAccidente, '%m-%Y') as Mes, SUM(if(ac3.tipEve_id = 2,1,0)) as incidente ,SUM(if(ac2.tipEve_id = 1,1,0))  as accidente",FALSE);
+        $this->db->where("CAST(ac1.acc_fechaAccidente as DATE) >=",$fechaInicial);
+        $this->db->where("CAST(ac1.acc_fechaAccidente as DATE) <=",$fechaFinal);
+        $this->db->join("accidentes ac2","ac2.acc_id = ac1.acc_id and ac2.tipEve_id = 1","LEFT");
+        $this->db->join("accidentes ac3","ac3.acc_id = ac1.acc_id and ac1.tipEve_id = 2","LEFT");
+        $accidente = $this->db->get("accidentes ac1");
+        
+//        echo $this->db->last_query();die;
+        
+        return $accidente->result();
+    }
 }
 
 ?>

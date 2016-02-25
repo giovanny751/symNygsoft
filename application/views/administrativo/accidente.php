@@ -38,10 +38,6 @@
                     </a>
                 </div>
             </div>
-
-
-
-
             <div class="portlet-body form">
                 <form id="formAccidente" method="post" class="form-horizontal">
                     <div class="form-body">
@@ -146,11 +142,11 @@
                                             </div>
                                             <label for="fechaInicioIncapacidad" class="col-md-1 ">Fecha Inicio</label>
                                             <div class="col-md-2">
-                                                <input type="date" class="fecha form-control campoIncapacidad" id="fechaInicioIncapacidad" name="fechaInicioIncapacidad" value="<?php echo ((isset($accidente)) ? $accidente["incapacidad"]["fInicial"] : ""); ?>" />
+                                                <input type="date" class="fecha form-control campoIncapacidad fechaIncapacidad" id="fechaInicioIncapacidad" name="fechaInicioIncapacidad" value="<?php echo ((isset($accidente)) ? $accidente["incapacidad"]["fInicial"] : ""); ?>" />
                                             </div>
                                             <label for="fechaFinIncapacidad" class="col-md-1 ">Fecha Final</label>
                                             <div class="col-md-2">
-                                                <input type="date" class="fecha form-control campoIncapacidad" id="fechaFinIncapacidad" name="fechaFinIncapacidad" value="<?php echo ((isset($accidente)) ? $accidente["incapacidad"]["fFinal"] : ""); ?>" />
+                                                <input type="date" class="fecha form-control campoIncapacidad fechaIncapacidad" id="fechaFinIncapacidad" name="fechaFinIncapacidad" value="<?php echo ((isset($accidente)) ? $accidente["incapacidad"]["fFinal"] : ""); ?>" />
                                             </div>
                                             <label for="diasIncapacidad" class="col-md-1 ">Dias Incapacidad</label>
                                             <div class="col-md-2">
@@ -494,6 +490,24 @@
 <br>
 <br>
 <script type="text/javascript">
+    
+    $('.fechaIncapacidad').change(function(){
+        if($('#fechaInicioIncapacidad').val() != '' && $('#fechaFinIncapacidad').val() != '' ){
+            f1 = $('#fechaInicioIncapacidad').val();
+            f2 =  $('#fechaFinIncapacidad').val();
+            
+            var aFecha1 = f1.split('-'); 
+            var aFecha2 = f2.split('-'); 
+            var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
+            var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+            var dif = fFecha2 - fFecha1;
+            var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+//            alert(dias);
+            $('#diasIncapacidad').val(parseInt(dias)+1)
+        }
+    });
+    
+    
     $('#dimension1_bus').change(function () {
         obtener_lugar();
     })

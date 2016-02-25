@@ -154,11 +154,12 @@ class Empleado_model extends CI_Model {
     function filtroempleados($cedula, $nombre, $apellido, $codigo, $cargo, $estado, $contratosvencidos, $tipocontrato, $dim1, $dim2) {
         try {
             
+//            echo $nombre;die;
+            
             if(!empty($contratosvencidos)){
                 $this->db->where("empleado_contratos.empCon_fechaHasta <=",date("Y-m-d"));
             }else{
-                $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
-                $this->db->or_where("empleado_contratos.empCon_fechaHasta","0000-00-00 00:00:00");
+                $this->db->where("(empleado_contratos.empCon_fechaHasta >= ".date('Y-m-d')." OR empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00' )",FALSE,FALSE);
             }            
             if (!empty($dim1))
                 $this->db->where('empleado.Dim_id', $dim1);

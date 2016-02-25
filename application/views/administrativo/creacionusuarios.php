@@ -128,9 +128,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Email</label>
+                                    <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>*</span>Email</label>
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <input type="email" id="email" name="email" class="form-control email" value="<?php echo (!empty($usuario[0]->usu_email)) ? $usuario[0]->usu_email : ""; ?>" />
+                                        <input type="email" id="email" name="email" class="form-control email obligatorio" value="<?php echo (!empty($usuario[0]->usu_email)) ? $usuario[0]->usu_email : ""; ?>" />
                                     </div> 
                                 </div> 
                             </div> 
