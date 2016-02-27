@@ -7,7 +7,7 @@
         <div id="posicionFlecha">
             <a href="<?php echo base_url('index.php/indicador/verindicadores') ?>"><div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div></a>
         </div>
-    </div>
+    </div> 
 </div>
 
 <div class="row">

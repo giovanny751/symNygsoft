@@ -158,9 +158,12 @@ class Empleado_model extends CI_Model {
             
             if(!empty($contratosvencidos)){
                 $this->db->where("empleado_contratos.empCon_fechaHasta <=",date("Y-m-d"));
+                
             }else{
-                $this->db->where("(empleado_contratos.empCon_fechaHasta >= ".date('Y-m-d')." OR empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00' )",FALSE,FALSE);
-            }            
+                $this->db->where("1 = 1 or ((empleado_contratos.empCon_fechaHasta >= ".date('Y-m-d')." OR empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00' ))",FALSE,FALSE);
+                
+            }   
+            
             if (!empty($dim1))
                 $this->db->where('empleado.Dim_id', $dim1);
             if (!empty($dim2))
@@ -205,7 +208,7 @@ class Empleado_model extends CI_Model {
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
             $empleado = $this->db->get("empleado");
-//            echo $this->db->last_query();
+//            echo $this->db->last_query();die;
             return $empleado->result();
         } catch (exception $e) {
             

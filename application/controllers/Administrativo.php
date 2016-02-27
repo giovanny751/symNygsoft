@@ -198,7 +198,8 @@ class Administrativo extends My_Controller {
                 "empAus_fechaInicial" => $this->input->post("iniciovacaciones"),
                 "empAus_fechaFinal" => $this->input->post("finvacaciones"),
                 "empAus_observaciones" => $this->input->post("observacionvacaciones"),
-                "emp_id" => $this->input->post("emp_id")
+                "emp_id" => $this->input->post("emp_id"),
+                "UserCreator"=>$this->session->userdata('usu_id')
             );
             if ($this->Empleadoausentismo_model->saveVacation($data) == true)
                 $data['Json'] = $this->Empleadoausentismo_model->detailxEmpleado($this->input->post("emp_id"));

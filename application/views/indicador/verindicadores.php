@@ -11,7 +11,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-cog"></i> Ver Indicador
-                </div>
+                </div> 
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
                     </a>

@@ -5,7 +5,7 @@
                 <div class="caption">
                     <i class="fa fa-gift"></i>NUEVO INDICADOR
                 </div>
-                <div class="tools">
+                <div class="tools"> 
                     <a href="javascript:;" class="collapse">
                     </a>
                 </div>
@@ -81,7 +81,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4">Clasificacion Indicador</label>
                                     <div class="col-md-8">
-                                        <select name="clasificacion" id="clasificacion" class="form-control" >
+                                        <select name="clasificacion" id="clasificacion" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($clasificacion as $cl) { ?>
                                                 <option value="<?php echo $cl->claInd_id ?>"><?php echo $cl->claInd_clasificacion ?></option>
@@ -94,7 +94,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4">Tipo Clasificacion</label>
                                     <div class="col-md-8">
-                                        <select  name="tipoClasificacion" id="tipoClasificacion" class="form-control" >
+                                        <select  name="tipoClasificacion" id="tipoClasificacion" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                         </select>
                                     </div>
@@ -120,35 +120,66 @@
     </div>
 </div>
 <script>
-    google.charts.load('current', {'packages':['corechart']});
-      
-      function drawChart(array) {
+    google.charts.load('current', {'packages': ['corechart']});
+
+    function drawChart(array,title) {
 //          console.log(array);
         var data = google.visualization.arrayToDataTable(array);
 
         var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
+            title: title,
+            hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
+            vAxis: {minValue: 0}
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-      }
+    }
 
     $('#crearIndicador').click(function () {
         if (obligatorio('obligatorio')) {
-            $.post(url + "index.php/indicador/filtroIndicador",
-                    $("#frmIndicadores").serialize()
-                    ).done(function (msg) {
-                if (!jQuery.isEmptyObject(msg.message))
-                    alerta("amarillo", msg['message'])
-                else {
-                    google.charts.setOnLoadCallback(drawChart(msg.Json));
-                }
-            }).fail(function (msg) {
-                alerta("rojo", "Error, comunicarse con el administrador del sistema");
-            });
+            if ($('#clasificacion').val() == 2 && $('#tipoClasificacion').val() == 7)
+            {
+                $.post(url + "index.php/indicador/filtroIndicador",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"ACCIDENTES E INCIDENTES"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
+            if ($('#clasificacion').val() == 2 && $('#tipoClasificacion').val() == 12)
+            {
+                $.post(url + "index.php/indicador/indicadorAusentismo",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"AUSENTISMO"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
+            if ($('#clasificacion').val() == 2 && $('#tipoClasificacion').val() == 6)
+            {
+                $.post(url + "index.php/indicador/accidentesConIncapacidad",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"ACCIDENTES CON INCAPACIDAD"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
         }
     });
 

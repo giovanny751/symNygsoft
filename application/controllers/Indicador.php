@@ -384,6 +384,62 @@ class Indicador extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function indicadorAusentismo(){
+        try{
+        $cargo = $this->input->post("cargo");
+        $clasificacion = $this->input->post("clasificacion");
+        $dimensiondos = $this->input->post("dimensiondos");
+        $dimensionuno = $this->input->post("dimensionuno");
+        $fechaFinal = $this->input->post("fechaFinal");
+        $fechaInicial = $this->input->post("fechaInicial");
+        $tipoClasificacion = $this->input->post("tipoClasificacion");
+        $this->load->model("Indicador_model");
+        $indicador = $this->Indicador_model->indicadorAusentismo($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion);
+        if(!empty($indicador)){
+            
+            $datos = array();
+            $datos[] = array("Ausentismo","Cantidad Ausentismo");
+            foreach($indicador as $in){
+                $datos[] = array($in->fechaAusentados,$in->cantidadAusentismo+0);
+            }
+            $data['Json'] = $datos;
+        }else{
+            throw new Exception("No se encontro información relacionada");
+        }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function accidentesConIncapacidad(){
+        try{
+        $cargo = $this->input->post("cargo");
+        $clasificacion = $this->input->post("clasificacion");
+        $dimensiondos = $this->input->post("dimensiondos");
+        $dimensionuno = $this->input->post("dimensionuno");
+        $fechaFinal = $this->input->post("fechaFinal");
+        $fechaInicial = $this->input->post("fechaInicial");
+        $tipoClasificacion = $this->input->post("tipoClasificacion");
+        $this->load->model("Indicador_model");
+        $indicador = $this->Indicador_model->indicadorAccidenteConIncapacidad($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion);
+        if(!empty($indicador)){
+            
+            $datos = array();
+            $datos[] = array("Incapacidad","Cantidad Incapacidades");
+            foreach($indicador as $in){
+                $datos[] = array($in->mesAccidente,$in->cantidadAccidentes+0);
+            }
+            $data['Json'] = $datos;
+        }else{
+            throw new Exception("No se encontro información relacionada");
+        }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
     
 }
 

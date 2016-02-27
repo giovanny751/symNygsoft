@@ -174,6 +174,29 @@ class Indicador_model extends CI_Model {
         
         return $accidente->result();
     }
+    function indicadorAusentismo($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        
+        $this->db->select("date_format(empAus_fechaInicial,'%m-%Y') as fechaAusentados, count(*) as cantidadAusentismo");
+        $this->db->group_by("date_format(empAus_fechaInicial,'%m-%Y')");
+        $this->db->where("CAST(empAus_fechaInicial as DATE) >=",$fechaInicial);
+        $this->db->where("CAST(empAus_fechaInicial as DATE) <=",$fechaFinal);
+        $ausentismo = $this->db->get("empleado_ausentismo");
+        
+//        echo $this->db->last_query();die;
+        
+        return $ausentismo->result();
+    }
+    function indicadorAccidenteConIncapacidad($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        
+        $this->db->order_by("acc_fechaAccidente");
+        $this->db->select("date_format(acc_fechaAccidente,'%m-%Y') as mesAccidente,COUNT(*) as cantidadAccidentes");
+        $this->db->where("CAST(acc_fechaAccidente as DATE) >=",$fechaInicial);
+        $this->db->where("CAST(acc_fechaAccidente as DATE) <=",$fechaFinal);
+        $this->db->group_by("date_format(acc_fechaAccidente,'%m-%Y')");
+        $this->db->join("empleado_incapacidad","empleado_incapacidad.acc_id = accidentes.acc_id");
+        $accidentes = $this->db->get("accidentes");
+        return $accidentes->result();
+    }
 }
 
 ?>
