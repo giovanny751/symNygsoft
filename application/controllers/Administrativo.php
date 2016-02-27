@@ -1871,6 +1871,17 @@ class Administrativo extends My_Controller {
             
         }
     }
+       function listadoCapacitacion(){
+        try{
+            $this->load->model(array("Capacitaciones_model"));
+            $this->data["capacitacion"] = $this->Capacitaciones_model->todasCapacitaciones();
+            $this->layout->view("administrativo/listadoCapacitacion",$this->data);
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
+    }
 
 }
 

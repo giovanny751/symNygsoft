@@ -154,16 +154,11 @@ class Empleado_model extends CI_Model {
     function filtroempleados($cedula, $nombre, $apellido, $codigo, $cargo, $estado, $contratosvencidos, $tipocontrato, $dim1, $dim2) {
         try {
             
-//            echo $nombre;die;
-            
             if(!empty($contratosvencidos)){
-                $this->db->where("empleado_contratos.empCon_fechaHasta <=",date("Y-m-d"));
-                
+                $this->db->where("(empleado_contratos.empCon_fechaHasta <=",date("Y-m-d")." or empleado_contratos.empCon_fechaHasta is null)",false,false);
             }else{
-                $this->db->where("1 = 1 or ((empleado_contratos.empCon_fechaHasta >= ".date('Y-m-d')." OR empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00' ))",FALSE,FALSE);
-                
-            }   
-            
+                $this->db->where("(empleado_contratos.empCon_fechaHasta >= '".date("Y-m-d")."' or empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00')" );
+            }            
             if (!empty($dim1))
                 $this->db->where('empleado.Dim_id', $dim1);
             if (!empty($dim2))
@@ -181,23 +176,6 @@ class Empleado_model extends CI_Model {
             if (!empty($estado))
                 $this->db->where('estados.Est_id', $estado);
             
-            //if (!empty($contratosvencidos)):
-            //    $this->db->where("empleado_contratos.empCon_fechaHasta <",date("Y-m-d"));
-            //else:
-            //    $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
-            //endif; 
-            
-            $this->db->select("(
-            select count(tarea.tar_id)  
-            from tarea
-            join avance_tarea on avance_tarea.tar_id=tarea.tar_id
-            where	avance_tarea.avaTar_progreso<100 and tarea.emp_id=empleado.Emp_Id 
-            ) as tareas_emp,", false);
-            $this->db->select("(
-            select count(planes.pla_id)  
-            from planes
-            where	planes.emp_id=empleado.Emp_Id 
-            ) as planes_emp,", false);
             $this->db->select("empleado.*");
             $this->db->select("estados.*");
             $this->db->select("cargo.*");
@@ -208,7 +186,6 @@ class Empleado_model extends CI_Model {
             $this->db->join("estados", "estados.est_id = empleado.est_id");
             $this->db->join("cargo", "cargo.car_id = empleado.car_id","LEFT");
             $empleado = $this->db->get("empleado");
-//            echo $this->db->last_query();die;
             return $empleado->result();
         } catch (exception $e) {
             
