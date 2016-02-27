@@ -949,36 +949,7 @@ endforeach;
                     })
         }
     });
-    // -------------------------------------------------------------------------
-    //                                  TAB CONTRATOS
-    // -------------------------------------------------------------------------
-    $("#btnContrato").click(function () {
-        if (obligatorio('obligatorioContrato') == true) {
-            var tableBody = "";
-            $.post(url + "index.php/administrativo/guardarContrato", $("#frmContrato").serialize())
-                    .done(function (msg) {
-                        if (!jQuery.isEmptyObject(msg.message))
-                            alerta("amarillo", msg['message'])
-                        else {
-                            var body = "";
-                            $('#tabContrato *').remove();
-                            $.each(msg.Json, function (key, val) {
-                                body += "<tr>";
-                                body += "<td>" + val.empCon_fechaDesde + "</td>";
-                                body += "<td>" + val.empCon_fechaHasta + "</td>";
-                                body += "<td>" + val.TipCon_Descripcion + "</td>";
-                                body += "<td>" + val.empCon_observacion + "</td>";
-                                body += "</tr>";
-                            });
-                            $('#tabContrato').append(body);
-                            $('#frmContrato input,select,textarea').val("");
-                        }
-                    })
-                    .fail(function (msg) {
-                        alerta("rojo", "Error, comunicarse con el administrador")
-                    });
-        }
-    });
+    
 
     $('.guardarHorasExtra').click(function () {
         if (obligatorio('obligatorioHoraExtra') == true) {
@@ -1394,9 +1365,41 @@ endforeach;
                     });
         }
     });
+    
+    // -------------------------------------------------------------------------
+    //                                  TAB CONTRATOS
+    // -------------------------------------------------------------------------
+    $("#btnContrato").click(function () {
+        if (obligatorio('obligatorioContrato') == true) {
+            var tableBody = "";
+            $.post(url + "index.php/administrativo/guardarContrato", $("#frmContrato").serialize())
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("amarillo", msg['message'])
+                        else {
+                            var body = "";
+                            $('#tabContrato *').remove();
+                            $.each(msg.Json, function (key, val) {
+                                body += "<tr>";
+                                body += "<td>" + val.empCon_fechaDesde + "</td>";
+                                body += "<td>" + val.empCon_fechaHasta + "</td>";
+                                body += "<td>" + val.TipCon_Descripcion + "</td>";
+                                body += "<td>" + val.empCon_observacion + "</td>";
+                                body += "</tr>";
+                            });
+                            $('#tabContrato').append(body);
+                            $('#frmContrato input,select,textarea').val("");
+                        }
+                    })
+                    .fail(function (msg) {
+                        alerta("rojo", "Error, comunicarse con el administrador")
+                    });
+        }
+    });
+    
     $('#guardar').click(function () {
         if ((obligatorio('obligatorio') == true) && (email("email") == true))
-        {
+        { 
             $.post(
                     url + "index.php/administrativo/guardarempleado",
                     $('#f1').serialize()
@@ -1407,14 +1410,9 @@ endforeach;
                         else {
                             alerta("verde", "Guardado Correctamente");
                             if (confirm("¿Desea Guardar otro Empleado?")) {
-                                $('select,input').val('');
-                                $('input[type="checkbox"]').attr("checked", false)
-                                $('#tipoaseguradora *').remove();
-                                $("#agregarClones").html(agregarClonAseguradora());
+                                location.href='<?php echo base_url('index.php/Administrativo/creacionempleados') ?>';
                             } else {
-                                location.href='<?php echo base_url('index.php/Administrativo/listadoempleados') ?>';
-                                //$('.empleadoId').val(msg.Json);
-                                //$('.eliminar_usuario'), attr("emp_id", msg.Json)
+                                $('.empleadoId').val(msg.Json);                               
                             }
                         }
                     }).fail(function (msg) {

@@ -97,7 +97,6 @@
 </form>
 <script>
     $('#agregar').click(function () {
-
         var select = "<select id='empleado' name='empleado[]' class='form-control'>";
         var table = $('#tablaCapacitacion').DataTable();
         table.row.add([
@@ -110,8 +109,11 @@
         $.post(
                 url+"index.php/administrativo/guardarCapacitaciones",
                 $("#frmCapacitaciones").serialize()
+                        
                 ).done(function(msg){
-                    
+                    $("input,select,textarea").val('');
+                    var table = $('#tablaCapacitacion').DataTable();
+                    table.clear().draw();
                 }).fail(function(msg){
                     
                 });
