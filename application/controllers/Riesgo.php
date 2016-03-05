@@ -79,7 +79,7 @@ class Riesgo extends My_Controller {
 
     function guardarriesgo() {
         try {
-            $this->load->model(array('Riesgo_model','Riesgocargo_model','Riesgoclasificaciontipo_model'));
+            $this->load->model(array('Riesgo_model', 'Riesgocargo_model', 'Riesgoclasificaciontipo_model'));
             $data = array(
                 "rie_descripcion" => $this->input->post("descripcion"),
                 "rieCla_id" => $this->input->post("categoria"),
@@ -111,16 +111,16 @@ class Riesgo extends My_Controller {
             
         }
     }
-    
-    function nivelProbabilidad(){
-        try{
-        $this->load->model("Niveles_model");
-        $data['Json'] = $this->Niveles_model->nivelProbabilidad($this->input->post("deficiencia"),$this->input->post("exposicion"),$this->input->post("consecuencia"));
-        if(count($data['Json']) == 0) throw new Exception("No se encontro nivel de probabilidad");
-        
-        }catch(exception $e){
+
+    function nivelProbabilidad() {
+        try {
+            $this->load->model("Niveles_model");
+            $data['Json'] = $this->Niveles_model->nivelProbabilidad($this->input->post("deficiencia"), $this->input->post("exposicion"), $this->input->post("consecuencia"));
+            if (count($data['Json']) == 0)
+                throw new Exception("No se encontro nivel de probabilidad");
+        } catch (exception $e) {
             $data['message'] = $e->getMessage();
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
@@ -173,14 +173,14 @@ class Riesgo extends My_Controller {
 
     function consultaRiesgoFlechas() {
         try {
-            $this->load->model(array("Riesgo_model","Riesgocargo_model","Riesgoclasificaciontipo_model"));
+            $this->load->model(array("Riesgo_model", "Riesgocargo_model", "Riesgoclasificaciontipo_model"));
             $idRiesgo = $this->input->post("idRiesgo");
             $metodo = $this->input->post("metodo");
             $campos["campos"] = $this->Riesgo_model->consultaRiesgoFlechas($idRiesgo, $metodo)[0];
             die();
             if (!empty($campos)) {
                 $data["tipo"] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($campos["campos"]->cat_id);
-                
+
                 $data["cargoId"] = $this->Riesgocargo_model->detailxid($campos["campos"]->rie_id);
                 $campos = array_merge($campos, $data);
                 $this->output->set_content_type('application/json')->set_output(json_encode($campos));
@@ -298,7 +298,6 @@ class Riesgo extends My_Controller {
         }
     }
 
-
     function update() {
         try {
             $this->load->model("Riesgoclasificacion_model");
@@ -348,7 +347,7 @@ class Riesgo extends My_Controller {
     function guardartipocategoria() {
 
         try {
-            $this->load->model(array("Riesgoclasificacion_model","Riesgoclasificaciontipo_model"));
+            $this->load->model(array("Riesgoclasificacion_model", "Riesgoclasificaciontipo_model"));
             if (empty($this->Riesgoclasificaciontipo_model->exist($this->input->post("categoria"), $this->input->post("tipo")))) {
                 if ($this->input->post("accion") == 1) {
                     $this->Riesgoclasificaciontipo_model->create(
@@ -484,42 +483,41 @@ class Riesgo extends My_Controller {
             
         }
     }
-    function matrizRiesgo(){
+
+    function matrizRiesgo() {
         $this->load->model("Riesgo_model");
         $matriz = $this->Riesgo_model->matrizRiesgo();
         $i = array();
-        foreach($matriz as $m){
+        foreach ($matriz as $m) {
             $i[$m->pla_nombre][$m->actPad_nombre][$m->actHij_nombre][$m->tar_descripcion][$m->rie_descripcion][$m->rieCla_categoria][] = $m->rieClaTip_tipo;
         }
         $this->data['matriz'] = $i;
-        $this->layout->view("riesgo/matrizriesgo",$this->data);
-        
-        
+        $this->layout->view("riesgo/matrizriesgo", $this->data);
     }
-    
-    function solicitudriesgo(){
-        try{
+
+    function solicitudriesgo() {
+        try {
             $this->load->model(array("Empleado_model"
-                                    ,"Empresa_model"
-                                    ,'Dimension2_model'
-                                    ,'Dimension_model'));
-            
+                , "Empresa_model"
+                , 'Dimension2_model'
+                , 'Dimension_model'));
+
             $this->data["empleados"] = $this->Empleado_model->detail_order();
             $this->data['dimension'] = $this->Dimension_model->detail();
             $this->data['dimension2'] = $this->Dimension2_model->detail();
             $this->data['empresa'] = $this->Empresa_model->detail()[0];
-            $this->layout->view("riesgo/solicitudriesgo",$this->data);            
-        }catch(Exception $e){
+            $this->layout->view("riesgo/solicitudriesgo", $this->data);
+        } catch (Exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
-    
-    function filtroSolicitud(){
+
+    function filtroSolicitud() {
         try {
             $this->load->model(array("Solicitudriesgo_model"));
-            
+
             $solicitud = $this->input->post('numSolicitud');
             $empleado = $this->input->post('solicitante');
             $dim1 = $this->input->post('dimension1');
@@ -533,8 +531,8 @@ class Riesgo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
-    function consultaSolicitud(){
+
+    function consultaSolicitud() {
         try {
             $this->load->model(array("Solicitudriesgo_model"));
             $solicitud = $this->input->post('solicitud');
@@ -543,6 +541,80 @@ class Riesgo extends My_Controller {
             $data['message'] = $e->getMessage();
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    function prevencionRiesgo() {
+        $this->load->model(array("Empresa_model","Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model'));
+        $this->data['empresa'] = $this->Empresa_model->detail();
+        $this->data['categoria'] = $this->Riesgoclasificacion_model->detail();
+//        $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($this->data['tarea']->rieCla_id);
+//        $this->data['riesgos'] = $this->Tarea_model->lista_riesgos();
+        $this->data['dimension'] = $this->Dimension_model->detail();
+        $this->data['dimension2'] = $this->Dimension2_model->detail();
+        $this->data['clasificacion'] = $this->Riesgoclasificacion_model->detail();
+        $this->data['cargo'] = $this->Cargo_model->detail();
+        $this->layout->view("riesgo/prevencionRiesgo", $this->data);
+    }
+
+    function guardarPrevencion() {
+        try {
+            $this->load->model("Prevencion_model");
+            $variable = array(
+                "cargo" => $this->input->post("car_id"),
+                "dimDos_id" => $this->input->post("dimDos"),
+                "dimUno_id" => $this->input->post("dimUno"),
+                "emp_id" => $this->input->post("empleado"),
+                "pre_fechaFin" => $this->input->post("fechaFin"),
+                "pre_fechaInicio" => $this->input->post("fechaInicio"),
+                "pre_lugar" => $this->input->post("lugar"),
+                "pre_medidasAdoptadas" => $this->input->post("medidasAdoptadas"),
+                "pre_medidasAAdoptar" => $this->input->post("medidasAdoptar"),
+                "pre_medPreApropiadas" => $this->input->post("medidasPreventivas"),
+                "presupuesto" => $this->input->post("observacion"),
+                "pre_nombre" => $this->input->post("planPrevencion"),
+                "pre_presupuesto" => $this->input->post("presupuesto")
+            );
+            $pre_id = $this->Prevencion_model->guardarPrevencion($variable);
+
+            if (!empty($this->input->post('clasificacion'))):
+                $clasificacion = $this->input->post('clasificacion');
+                for ($i = 0; $i < count($clasificacion); $i++):
+                    $prevencionClasificacion = array(
+                        "pre_id" => $pre_id,
+                        "RieCla_id" => $clasificacion[$i],
+                    );
+                    $preRieCla_id = $this->Prevencionriesgoclasificacion_model->guardarPrevencionClasificacion($prevencionClasificacion);
+                endfor;
+
+            endif;
+            $respuesta['Json'] = $pre_id;
+        } catch (exception $e) {
+            $respuesta['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($respuesta));
+        }
+    }
+
+    function guardarAsignacion() {
+        try {
+            if (empty($this->input->post("pre_id")))
+                throw new Exception("Primero debe guardar la prevención");
+            $this->load->model();
+            $control = array(
+                "preCon_porcentaje" => $this->input->post("porcentaje"),
+                "preCon_costo" => $this->input->post("costoAvance"),
+                "preCon_descripcion" => $this->input->post("descripcionControl"),
+                "pre_id" => $this->input->post("pre_id"),
+                "preCon_fecha" => $this->input->post("fechaControl"),
+                "creatorUser" => $this->data["usu_id"],
+                "creationDate" => date("Y-m-d H:i:s")
+            );
+            $this->Prevencioncontrol_model->guardarControl($control);
+        } catch (exception $e) {
+            $respuesta['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($respuesta));
         }
     }
 
