@@ -6,8 +6,8 @@ class Actividadpadre_model extends CI_Model {
     }
     function create($id,$nombre,$pla_id,$actPad_id){
         try{
-          $this->db->set("actPad_codigo",$nombre);
-          $this->db->set("actPad_nombre",$id);
+          $this->db->set("actPad_nombre",$nombre);
+          $this->db->set("actPad_codigo",$id);
           $this->db->set("pla_id",$pla_id);
           if(empty($actPad_id)){
              $this->db->insert("actividad_padre"); 
@@ -50,8 +50,8 @@ class Actividadpadre_model extends CI_Model {
     function searchregister($idactividad,$descripcion,$pla_id){
         try{
         $this->db->select("actPad_id as uno, actPad_nombre as dos, actPad_codigo as tres");
-        $this->db->where("actPad_nombre",$idactividad);
-        $this->db->where("actPad_codigo",$descripcion);
+        $this->db->where("actPad_codigo",$idactividad);
+        $this->db->where("actPad_nombre",$descripcion);
         $this->db->where("pla_id",$pla_id);
         $data = $this->db->get("actividad_padre");
         return $data->result();

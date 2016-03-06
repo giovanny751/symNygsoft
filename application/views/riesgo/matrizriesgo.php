@@ -6,45 +6,19 @@
     </div>
 </div>
 <div class='cuerpoContenido'>
-    <table border="0">
         <?php
-        echo "<tr><td><table border='0' >";
+        $tabla = "<table>";
         foreach ($matriz as $key => $value) {
-            echo '<tr>';
-            if (!empty($key))
-                echo "<td class='t1' >" . $key . "</td>";
-            echo '<td><table>';
-            foreach ($value as $key2 => $value2) {
-                echo '<tr>';
-                if (!empty($key2))
-                    echo "<td class='t1' >" . $key2 . "</td>";
-                echo '<td><table>';
-                foreach ($value2 as $key3 => $value3) {
-                    echo '<tr>';
-                    if (!empty($key3))
-                        echo "<td class='t1' >" . $key3 . "</td>";
-                    echo '<td><table>';
-                    foreach ($value3 as $key4 => $value4) {
-                        echo '<tr>';
-                        if (!empty($key4))
-                            echo "<td class='t1' >" . $key4 . "</td>";
-                        echo '<td><table>';
-                        foreach ($value4 as $key5 => $value5) {
-                            if (!empty($key5))
-                                echo "<tr><td class='t5'>" . $key5 . "</td></tr>";
-                        }
-                        echo "</table></td>";
-                    }
-                    echo "</table></td>";
-                }
-                echo "</table></td>";
+            $tabla .= "<tr><td rowspan='".count($value)."'>".$key."</td>";
+            for ($i = 0; $i < count($value); $i++) {
+               $tabla .= "<tr>".$value[$i]."</tr>";
             }
-            echo "</table></td>";
+            $tabla .= "</tr>";
         }
-        echo "</table></td></tr>";
+        $tabla .= "</table>";
+        echo $tabla;
         ?>
     </table>              
-    <?php // print_y($matriz); ?>
 </div>
 <style>
     /*    tr td{

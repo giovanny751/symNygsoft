@@ -226,7 +226,7 @@
                                                         <td><?php echo $ti->tar_fechaInicio ?></td>
                                                         <td><?php echo $ti->tar_fechaFinalizacion ?></td>
                                                         <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
-                                                        <td><?php echo $ti->nombre ?></td>
+                                                        <td><?php echo $ti->Emp_Nombre." ".$ti->Emp_Apellidos ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -600,7 +600,7 @@
                                                 <select id="idpadre" name="idpadre" class="form-control idpadre2 actividadobligatoria">
                                                     <option value="">::Seleccionar::</option>
                                                     <?php foreach ($actividadpadre as $ap): ?>
-                                                        <option value="<?php echo $ap->actPad_id ?>"><?php echo $ap->actPad_nombre . " - " . $ap->actPad_codigo ?></option>
+                                                        <option value="<?php echo $ap->actPad_id ?>"><?php echo $ap->actPad_codigo . " - " . $ap->actPad_nombre ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -742,7 +742,7 @@
         ).done(function (msg) {
             var option = "<option value=''>::Seleccionar::</option>";
             $.each(msg, function (key, val) {
-                option += "<option " + ((car_id == val.actPad_id) ? "selected" : "") + " value='" + val.actPad_id + "'>" + val.actPad_nombre + " - " + val.actPad_codigo + "</option>"
+                option += "<option " + ((car_id == val.actPad_id) ? "selected" : "") + " value='" + val.actPad_id + "'>" + val.actPad_codigo + " - " + val.actPad_nombre + "</option>"
             });
 
             $("#idpadre").append(option);
@@ -820,7 +820,7 @@
                 url + "index.php/planes/modificaractividad",
                 $('#formactividadpadre').serialize()
                 ).done(function (msg) {
-            $('a[href="#collapse_' + msg.actPad_id + 'c"]').html("<i class='fa fa-folder-o carpeta'></i>&nbsp; " + msg.actPad_nombre + " - " + msg.actPad_codigo);
+            $('a[href="#collapse_' + msg.actPad_id + 'c"]').html("<i class='fa fa-folder-o carpeta'></i>&nbsp; " + msg.actPad_codigo + " - " + msg.actPad_nombre);
             $('#myModal').modal("toggle");
             alerta("verde", "Se actualizaron los datos correctamente");
         }).fail(function (msg) {

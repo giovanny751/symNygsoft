@@ -487,9 +487,10 @@ class Riesgo extends My_Controller {
         $this->load->model("Riesgo_model");
         $matriz = $this->Riesgo_model->matrizRiesgo();
         $i = array();
-        foreach ($matriz as $m) {
+        foreach ($matriz as $m) :
             $i[$m->pla_nombre][$m->actPad_nombre][$m->actHij_nombre][$m->tar_descripcion][$m->rie_descripcion][$m->rieCla_categoria][] = $m->rieClaTip_tipo;
-        }
+        endforeach;
+        var_dump($i);die;
         $this->data['matriz'] = $i;
         $this->layout->view("riesgo/matrizriesgo", $this->data);
     }
@@ -544,7 +545,7 @@ class Riesgo extends My_Controller {
     }
 
     function prevencionRiesgo() {
-        $this->load->model(array("Empresa_model","Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model'));
+        $this->load->model(array("Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model'));
         $this->data['empresa'] = $this->Empresa_model->detail();
         $this->data['categoria'] = $this->Riesgoclasificacion_model->detail();
 //        $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($this->data['tarea']->rieCla_id);
@@ -616,19 +617,21 @@ class Riesgo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    function listadoPrevencion(){
-        
-        $this->layout->view("riesgo/listadoPrevencion",$this->data);
+
+    function listadoPrevencion() {
+
+        $this->layout->view("riesgo/listadoPrevencion", $this->data);
     }
-    function consultaListadoPrevencion(){
-        try{
+
+    function consultaListadoPrevencion() {
+        try {
             $this->load->model("Prevencioncontrol_model");
             $fechaInicial = $this->input->post("fechaDesde");
             $fechaFinal = $this->input->post("fechaHasta");
-            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($fechaInicial,$fechaFinal);
-        }catch(exception $e){
+            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($fechaInicial, $fechaFinal);
+        } catch (exception $e) {
             $data['message'] = $e->getMessage();
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }

@@ -288,6 +288,18 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function modificarAusentismo() {
+        try {
+            $this->load->model('Empleadoausentismo_model');
+            $data['Json'] = $this->Empleadoausentismo_model->modificaXId($this->input->post("empaus_id"));
+            if (count($data['Json']) == 0)
+                throw new Exception("No se encontro información para el Id");
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
     function cargarempleadocarpeta() {
         try {

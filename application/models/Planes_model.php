@@ -9,6 +9,7 @@ class Planes_model extends CI_Model {
     function detail() {
         try {
             $this->db->where("est_id", 1);
+            $this->db->order_by("pla_nombre");
             $planes = $this->db->get("planes");
             return $planes->result();
         } catch (exception $e) {
@@ -200,7 +201,7 @@ class Planes_model extends CI_Model {
             $this->db->select("tarea.tar_fechaInicio as fechainicio");
             $this->db->select("tarea.tar_fechaFinalizacion as fechafin");
             $this->db->select("actividad_padre.actPad_id");
-            $this->db->select("CONCAT(actividad_padre.actPad_nombre,' - ',actividad_padre.actPad_codigo) as nombre", false);
+            $this->db->select("CONCAT(actividad_padre.actPad_codigo,' - ',actividad_padre.actPad_nombre) as nombre", false);
             $this->db->select("actividad_hijo.actHij_nombre");
             $this->db->select("actividad_hijo.actHij_padreid");
             $this->db->select("actividad_hijo.actHij_fechaInicio");
@@ -317,7 +318,7 @@ class Planes_model extends CI_Model {
 
     function tareaxplaninactivas($id) {
         try {
-            $planes = $this->db->query("select avaTar_id,tar_fechaInicio,Emp_Nombre,tip_tipo,tar_nombre,diferencia,tar_fechaFinalizacion,MAX(avaTar_fechaCreacion) as ultimafechacreacion,tar_id,progreso from (
+            $planes = $this->db->query("select avaTar_id,tar_fechaInicio,Emp_Nombre,Emp_Apellidos,tip_tipo,tar_nombre,diferencia,tar_fechaFinalizacion,MAX(avaTar_fechaCreacion) as ultimafechacreacion,tar_id,progreso from (
                     SELECT 
                     avance_tarea.avaTar_fechaCreacion as avaTar_fechaCreacion,
                     tarea.tar_id,
@@ -326,7 +327,8 @@ class Planes_model extends CI_Model {
                     `tipo`.`tip_tipo`, `tar_nombre`, `tarea`.`tar_fechaInicio`, 
                     `tarea`.`tar_fechaFinalizacion`, 
                     timestampdiff(HOUR, (tar_fechaInicio),(tar_fechaFinalizacion)) as diferencia, 
-                    `empleado`.`Emp_Nombre` 
+                    `empleado`.`Emp_Nombre`,
+                    `empleado`.`Emp_Apellidos` 
                     FROM `planes` 
                     JOIN `tarea` ON `tarea`.`pla_id` = `planes`.`pla_id` 
                     LEFT JOIN `avance_tarea` ON `avance_tarea`.`tar_id` = `tarea`.`tar_id` 

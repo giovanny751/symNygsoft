@@ -444,8 +444,8 @@
                                             <th>Fecha fin</th>
                                             <th>Días</th>
                                             <th>Observaciones</th>
-                                            <th>Eliminar</th>
                                             <th>Editar</th>
+                                            <th>Eliminar</th>
                                             </thead>
                                             <tbody id="bodyAusentismo">
                                                 <?php foreach ($ausentismo as $au): ?>
@@ -949,7 +949,7 @@ endforeach;
                     })
         }
     });
-    
+
 
     $('.guardarHorasExtra').click(function () {
         if (obligatorio('obligatorioHoraExtra') == true) {
@@ -1046,13 +1046,14 @@ endforeach;
                 cuerpo += "<td>" + val.vac_fechaFin + "</td>";
                 cuerpo += "<td>" + val.diferencia + "</td>";
                 cuerpo += "<td>" + val.vac_observaciones + "</td>";
-            } else {
+                cuerpo += "<td class='transparent'><i class='fa fa-pencil-square-o fa-2x " + clase + "' title='Modificar' vac_id='" + val.vac_id + "' ></i></td>";
+            } else if (clase == "modificarAusentismo") {
                 cuerpo += "<td>" + val.empAus_fechaInicial + "</td>";
                 cuerpo += "<td>" + val.empAus_fechaFinal + "</td>";
                 cuerpo += "<td>" + val.diferencia + "</td>";
                 cuerpo += "<td>" + val.empAus_observaciones + "</td>";
+                cuerpo += "<td class='transparent'><i class='fa fa-pencil-square-o fa-2x " + clase + "' title='Modificar' empaus_id='" + val.empAus_id + "' ></i></td>";
             }
-            cuerpo += "<td class='transparent'><i class='fa fa-pencil-square-o fa-2x " + clase + "' title='Modificar' vac_id='" + val.vac_id + "' ></i></td>";
             cuerpo += "<td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' vac_id='" + val.emp_id + "' ></i></td>";
             cuerpo += "</tr>";
         });
@@ -1085,19 +1086,19 @@ endforeach;
     });
     $('body').delegate(".modificarAusentismo", "click", function () {
         $.post(
-                url + 'index.php/administrativo/dataHolidaysxId',
-                {vac_id: $(this).attr('vac_id')}
+                url + 'index.php/administrativo/modificarAusentismo',
+                {empaus_id: $(this).attr('empaus_id')}
         )
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message'])
                     else {
-                        $("#iniciovacaciones").val(msg.Json[0].vac_fechaInicio);
-                        $("#finvacaciones").val(msg.Json[0].vac_fechaFin);
-                        $("#observacionvacaciones").val(msg.Json[0].vac_observaciones);
+                        $("#iniciovacaciones").val(msg.Json[0].empAus_fechaInicial);
+                        $("#finvacaciones").val(msg.Json[0].empAus_fechaFinal);
+                        $("#observacionvacaciones").val(msg.Json[0].empAus_observaciones);
                         $('#vacaciones').modal("show");
-                        $('#FrmVacaciones').append("<input type='hidden' name='vac_id' id='vac_id' value='" + msg.Json[0].vac_id + "'>");
-                        $("#empAus_id").val(msg.Json[0].vac_id);
+                        $('#FrmVacaciones').append("<input type='hidden' name='vac_id' id='vac_id' value='" + msg.Json[0].empAus_id + "'>");
+                        $("#empAus_id").val(msg.Json[0].empAus_id);
                         $('#guardarVacaciones').attr("tipo", "2");
                     }
                 })
@@ -1365,7 +1366,7 @@ endforeach;
                     });
         }
     });
-    
+
     // -------------------------------------------------------------------------
     //                                  TAB CONTRATOS
     // -------------------------------------------------------------------------
@@ -1396,10 +1397,10 @@ endforeach;
                     });
         }
     });
-    
+
     $('#guardar').click(function () {
         if ((obligatorio('obligatorio') == true) && (email("email") == true))
-        { 
+        {
             $.post(
                     url + "index.php/administrativo/guardarempleado",
                     $('#f1').serialize()
@@ -1410,9 +1411,9 @@ endforeach;
                         else {
                             alerta("verde", "Guardado Correctamente");
                             if (confirm("¿Desea Guardar otro Empleado?")) {
-                                location.href='<?php echo base_url('index.php/Administrativo/creacionempleados') ?>';
+                                location.href = '<?php echo base_url('index.php/Administrativo/creacionempleados') ?>';
                             } else {
-                                $('.empleadoId').val(msg.Json);                               
+                                $('.empleadoId').val(msg.Json);
                             }
                         }
                     }).fail(function (msg) {

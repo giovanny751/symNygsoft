@@ -76,7 +76,16 @@ class Empleadoausentismo_model extends CI_Model {
             return $this->db->trans_status();
         }
     }
-
+    
+    function modificaXId($aus){
+        try{
+            $this->db->where("empAus_id",$aus);
+            $vacaciones = $this->db->get("empleado_ausentismo");
+            return $vacaciones->result();
+        }catch(excete $e){
+            
+        }
+    }
 }
 
 ?>
