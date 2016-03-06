@@ -69,7 +69,7 @@ class Tarea_model extends CI_Model {
 
     function lista_norma() {
         try {
-            $this->db->select("norma.*,(select count(*) from norma_articulo where norma_articulo.nor_id=norma.nor_id and norma_articulo.est_id=1) cantidad_articulos",false);
+            $this->db->select("norma.*,(select count(*) from norma_articulo where norma_articulo.nor_id=norma.nor_id and norma_articulo.est_id=1) cantidad_articulos", false);
 //            $this->db->join("norma_articulo", "norma_articulo.nor_id=norma.nor_id");
             $this->db->where("est_id", 1);
             $datos = $this->db->get("norma");
@@ -204,6 +204,7 @@ class Tarea_model extends CI_Model {
                 $this->db->where("emp_id", $responsable);
 
             $this->db->where("planes.est_id", 1);
+            $this->db->where("tarea.est_id", 1);
             $this->db->select("tarea.tar_fechaInicio");
             $this->db->select("DATEDIFF((tar_fechaFinalizacion),(tar_fechaInicio)) diferencia");
             $this->db->select("tarea.tar_nombre");
@@ -292,17 +293,31 @@ class Tarea_model extends CI_Model {
         $this->db->delete('tarea_riegos_clasificacion');
         $this->db->where('tar_id', $id);
         $this->db->delete('tarea_riesgo_clasificacion_tipo');
-
+        if(count($clasificacionriesgo))
         foreach ($clasificacionriesgo as $key => $value) {
             $this->db->set('rieCla_id', $value);
             $this->db->set('tar_id', $id);
             $this->db->insert('tarea_riegos_clasificacion');
         }
+        if(count($tiposriesgos))
         foreach ($tiposriesgos as $key => $value) {
             $this->db->set('rieClaTip_id', $value);
             $this->db->set('tar_id', $id);
             $this->db->insert('tarea_riesgo_clasificacion_tipo');
         }
+    }
+    function tarea_riegos_clasificacion2($id) {
+        
+            $this->db->where('tar_id', $id);
+            $dotos=$this->db->get('tarea_riegos_clasificacion');
+            $dotos=$dotos->result();
+        return $dotos;
+    }
+    function tarea_riesgo_clasificacion_tipo2($id) {
+            $this->db->where('tar_id', $id);
+            $dotos=$this->db->get('tarea_riesgo_clasificacion_tipo');
+            $dotos=$dotos->result();
+            return $dotos;
     }
 
     function lista_riesgos_guardados($id_tarea) {
@@ -393,6 +408,16 @@ class Tarea_model extends CI_Model {
         $datos = $this->db->query($query);
 
         return $datos->result();
+    }
+
+    function tareasAsociadasPlan($pla_id) {
+        try {
+            $this->db->where("pla_id", $pla_id);
+            $tarea = $this->db->get("tarea");
+            return $tarea->result();
+        } catch (exception $e) {
+            
+        }
     }
 
 }

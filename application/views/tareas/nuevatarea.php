@@ -180,13 +180,15 @@
                                             <select multiple="multiple" name="articulosnorma[]" id="articulosnorma" class="form-control">
                                                 <?php
                                                 foreach ($normaarticulo as $value) :
-                                                    foreach ($tarea_norma as $tn):
-                                                        $select = "";
-                                                        if ($tn->norArt_id == $value->norArt_id) :
-                                                            $select = "selected";
-                                                            break;
-                                                        endif;
-                                                    endforeach;
+                                                    $select = "";
+                                                    if (count($tarea_norma))
+                                                        foreach ($tarea_norma as $tn):
+                                                            $select = "";
+                                                            if ($tn->norArt_id == $value->norArt_id) :
+                                                                $select = "selected";
+                                                                break;
+                                                            endif;
+                                                        endforeach;
                                                     ?>
                                                     <option <?php echo $select; ?> value="<?= $value->norArt_id ?>"><?php echo $value->norArt_articulo ?></option>
                                                 <?php endforeach; ?>
@@ -279,9 +281,6 @@
                                         <div class="col-md-9">
                                             <select name="tareapadre" id="tareapadre" class="form-control">
                                                 <option value="">::Seleccionar::</option>
-                                                <?php foreach ($tareas as $t): ?>
-                                                    <option <?php echo (!empty($tarea->tar_idpadre) && $t->tar_id == $tarea->tar_idpadre) ? "Selected" : ""; ?> value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
-                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -341,8 +340,16 @@
                                         <label for="clasificacionriesgo" class="control-label col-md-3">Clasificación de riesgo</label>
                                         <div class="col-md-9">
                                             <select name='clasificacionriesgo[]' id='clasificacionriesgo' class="form-control" multiple>
-                                                <?php foreach ($categoria as $ca) { ?>
-                                                    <option <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
+                                                <?php foreach ($categoria as $ca) { 
+                                                    $select="";
+                                                    foreach ($tarea_riegos_clasificacion2 as $tn) :
+                                                            if ($tn->rieCla_id == $ca->rieCla_id):
+                                                                $select = "selected";
+                                                                break;
+                                                            endif;
+                                                        endforeach;
+                                                    ?>
+                                                <option <?php echo $select; ?> <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -355,8 +362,16 @@
                                         <label for="tiposriesgos" class="control-label col-md-3">Tipos de Riesgos</label>
                                         <div class="col-md-9">
                                             <select name='tiposriesgos[]' id='tiposriesgos' class="form-control" multiple>
-                                                <?php foreach ($tipoClasificacion as $tc): ?>
-                                                    <option <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
+                                                <?php foreach ($tipoClasificacion as $tc): 
+                                                    $select="";
+                                                    foreach ($tarea_riesgo_clasificacion_tipo2 as $tn) :
+                                                            if ($tn->rieClaTip_id == $tc->rieClaTip_id):
+                                                                $select = "selected";
+                                                                break;
+                                                            endif;
+                                                        endforeach;
+                                                    ?>
+                                                    <option <?php echo $select; ?> <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -746,7 +761,7 @@
         var puntero = $(this).attr("reg_id");
         var puntero2 = $(this);
         $.post(
-                url+"index.php/tareas/eliminarregistro",
+                url + "index.php/tareas/eliminarregistro",
                 {registro: puntero}
         )
                 .done(function (msg) {
@@ -920,7 +935,7 @@
             ).done(function (msg) {
                 $('#actividad *').remove();
                 var option = "<option value=''>::Seleccionar::</option>";
-                $.each(msg, function (key, val) {
+                $.each(msg.actividades, function (key, val) {
                     option += "<option value='" + val.actPad_id + "'>" + val.actPad_nombre + " - " + val.actPad_codigo + "</option>";
                 })
                 $('#actividad').append(option);
@@ -928,14 +943,20 @@
                 $('#dimensionuno').val('<?php echo (isset($tarea->dim2_id) ? $tarea->dim2_id : '') ?>');
                 $('#dimensiondos').val('<?php echo (isset($tarea->dim_id) ? $tarea->dim_id : '') ?>');
 
-                //alerta("verde", "Actividades padres cargadas correctamente");
+                $('#tareapadre *').remove();
+                var optionTarea = "<option value=''>::Seleccionar::</option>";
+                $.each(msg.tareaPadre, function (key, val) {
+                    optionTarea += "<option value='" + val.tar_id + "'>" + val.tar_nombre + "</option>";
+                });
+                $('#tareapadre').append(optionTarea);
             }).fail(function () {
                 alerta("rojo", "Error por favor comunicarse con el administrador");
             });
+
         });
         $('#cargo').change(function () {
             $.post(
-                    "<?php echo base_url("index.php/administrativo/consultausuarioscargo") ?>",
+                    url + "index.php/administrativo/consultausuarioscargo",
                     {
                         cargo: $(this).val()
                     }
@@ -1040,8 +1061,6 @@
                         url + "index.php/tareas/guardartarea",
                         $('#f8').serialize()
                         ).done(function (msg) {
-
-
                     var form = "<form method='post' id='enviotarea' action='" + ruta + "'>";
                     form += "<input type='hidden' value='" + msg.pla_id + "' name='pla_id'>";
                     form += "</form>"

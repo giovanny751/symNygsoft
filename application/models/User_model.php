@@ -115,7 +115,20 @@ class User_model extends CI_Model {
                 $where.=" and usu_nombre= " . $nombre;
 
 
-            $user = $this->db->query("SELECT GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM (SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario FROM user LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso ) LEFT JOIN user_evaluacion ON user_evaluacion.use_id=user.usu_id and user_evaluacion.useEva_activo='S' LEFT JOIN evaluacion ON evaluacion.eva_id=user_evaluacion.eva_id JOIN permisos ON permisos.rol_id=user.rol_id WHERE user.est_id != 3 AND permisos.rol_id = 60 GROUP BY user.usu_id, evaluacion.eva_nombre) as ww " . $where . " GROUP BY usu_id");
+            $user = $this->db->query(""
+                    . "SELECT "
+                    . "GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM "
+                    . "(SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, "
+                    . "est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario "
+                    . "FROM user "
+                    . "LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = "
+                    . "(select max(ing_fechaIngreso) from ingreso ) "
+                    . "LEFT JOIN user_evaluacion ON user_evaluacion.use_id=user.usu_id and "
+                    . "user_evaluacion.useEva_activo='S' "
+                    . "LEFT JOIN evaluacion ON evaluacion.eva_id=user_evaluacion.eva_id "
+                    . "JOIN permisos ON permisos.rol_id=user.rol_id "
+                    . "WHERE user.est_id != 3  "
+                    . "GROUP BY user.usu_id, evaluacion.eva_nombre) as ww " . $where . " GROUP BY usu_id");
 
             //echo $this->db->last_query();
             return $user->result();

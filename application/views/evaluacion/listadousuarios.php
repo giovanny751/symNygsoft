@@ -3,7 +3,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cog"></i> Listado Asperantes
+                    <i class="fa fa-cog"></i> LISTADO ASIGNACIÓN EVALUACIONES
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

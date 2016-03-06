@@ -87,7 +87,6 @@ class Riesgo extends My_Controller {
                 "dim1_id" => $this->input->post("dimensionuno"),
                 "dim2_id" => $this->input->post("dimensiondos"),
                 "rie_zona" => $this->input->post("zona"),
-                "rie_rutinario" => $this->input->post("rutinario"),
                 "rie_requisito" => $this->input->post("requisito"),
                 "rie_observaciones" => $this->input->post("observaciones"),
                 "estAce_id" => $this->input->post("estado"),
@@ -571,7 +570,7 @@ class Riesgo extends My_Controller {
                 "pre_medidasAdoptadas" => $this->input->post("medidasAdoptadas"),
                 "pre_medidasAAdoptar" => $this->input->post("medidasAdoptar"),
                 "pre_medPreApropiadas" => $this->input->post("medidasPreventivas"),
-                "presupuesto" => $this->input->post("observacion"),
+                "pre_observacion" => $this->input->post("observacion"),
                 "pre_nombre" => $this->input->post("planPrevencion"),
                 "pre_presupuesto" => $this->input->post("presupuesto")
             );
@@ -588,11 +587,11 @@ class Riesgo extends My_Controller {
                 endfor;
 
             endif;
-            $respuesta['Json'] = $pre_id;
+            $data['Json'] = $pre_id;
         } catch (exception $e) {
-            $respuesta['message'] = $e->getMessage();
+            $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($respuesta));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -600,7 +599,7 @@ class Riesgo extends My_Controller {
         try {
             if (empty($this->input->post("pre_id")))
                 throw new Exception("Primero debe guardar la prevención");
-            $this->load->model();
+            $this->load->model("Prevencioncontrol_model");
             $control = array(
                 "preCon_porcentaje" => $this->input->post("porcentaje"),
                 "preCon_costo" => $this->input->post("costoAvance"),
@@ -612,9 +611,25 @@ class Riesgo extends My_Controller {
             );
             $this->Prevencioncontrol_model->guardarControl($control);
         } catch (exception $e) {
-            $respuesta['message'] = $e->getMessage();
+            $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($respuesta));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function listadoPrevencion(){
+        
+        $this->layout->view("riesgo/listadoPrevencion",$this->data);
+    }
+    function consultaListadoPrevencion(){
+        try{
+            $this->load->model("Prevencioncontrol_model");
+            $fechaInicial = $this->input->post("fechaDesde");
+            $fechaFinal = $this->input->post("fechaHasta");
+            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($fechaInicial,$fechaFinal);
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

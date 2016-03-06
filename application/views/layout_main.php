@@ -610,6 +610,9 @@
                     .obligado{
                         background-color: rgb(250, 255, 189);
                     }
+                    .mayuscula{
+                        text-transform: uppercase;
+                    }
                 </style>
 
                 </body>

@@ -433,7 +433,7 @@
                                     <div class="portlet-title">
                                         <div class="tools">
                                             <div class="circuloIcon">
-                                                <i class="fa fa-folder-open fa-3x agregarAusentismo" title="Registro vacaciones"></i>
+                                                <i class="fa fa-folder-open fa-3x agregarAusentismo" title="Registro ausentismo"></i>
                                             </div>
                                         </div>
                                     </div>

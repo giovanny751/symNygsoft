@@ -44,7 +44,6 @@ class Tareas extends My_Controller {
                     'Actividadpadre_model'
                 )
         );
-        $this->data['tareas'] = $this->Tarea_model->detail();
         $this->data['empresa'] = $this->Empresa_model->detail();
         $this->data['norma'] = $this->Norma_model->detail();
         if (!empty($this->input->post('rie_id')))
@@ -90,7 +89,12 @@ class Tareas extends My_Controller {
                 $this->data['tarea'] = $this->Tarea_model->detailxid($this->input->post("tar_id"))[0];
                 $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($this->data['tarea']->rieCla_id);
                 $this->data['tarea_norma'] = $this->Tarea_model->tarea_norma($this->input->post("tar_id"));
+                $this->data['tarea_riegos_clasificacion2'] = $this->Tarea_model->tarea_riegos_clasificacion2($this->input->post("tar_id"));
+                $this->data['tarea_riesgo_clasificacion_tipo2'] = $this->Tarea_model->tarea_riesgo_clasificacion_tipo2($this->input->post("tar_id"));
                 $this->data['normaarticulo'] = $this->Normaarticulo_model->detailxId($this->data['tarea']->nor_id);
+//                echo "<pre>";
+//                print_r($this->data['tarea_riesgo_clasificacion_tipo2']);
+//                echo "</pre>";
                 $this->data["hijo"] = $this->Actividad_model->actividadxPlan($this->data['tarea']->pla_id);
                 $this->data['empleado'] = $this->Empleado_model->empleadoxcargo($this->data['tarea']->car_id);
             endif;
@@ -115,6 +119,9 @@ class Tareas extends My_Controller {
             $this->data['dimension2'] = $this->Dimension2_model->detail();
             $this->data['post'] = $this->input->post();
             $this->data['riesgos'] = $this->Tarea_model->lista_riesgos();
+//            echo "<pre>";
+//                print_r($this->data['riesgos']);
+//                echo "</pre>";
             $this->layout->view("tareas/nuevatarea", $this->data);
         } else {
             redirect('index.php/administrativo/empresa', 'location');
@@ -586,7 +593,6 @@ class Tareas extends My_Controller {
             $this->load->model('Planes_model');
             $this->load->model('Tarea_model');
             $this->data["planes"] = $this->Planes_model->detail();
-            $this->data["tareas"] = $this->Tarea_model->detail();
             $this->data["responsables"] = $this->Tarea_model->responsables();
             $this->layout->view("tareas/listadotareas", $this->data);
         } catch (exception $e) {
@@ -816,8 +822,20 @@ class Tareas extends My_Controller {
 
     function consultaractividadpadre() {
         try {
-            $this->load->model("Actividadpadre_model");
-            $data = $this->Actividadpadre_model->detailxid($this->input->post('plan'));
+            $this->load->model(array("Actividadpadre_model","Tarea_model"));
+            $data['actividades'] = $this->Actividadpadre_model->detailxid($this->input->post('plan'));
+            $data['tareaPadre'] = $this->Tarea_model->tareasAsociadasPlan($this->input->post('plan'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function consultaTareaAsociadaPlan() {
+        try {
+            $this->load->model(array("Tarea_model"));
+            $data['tareaPadre'] = $this->Tarea_model->tareasAsociadasPlan($this->input->post('plan'));
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         } catch (exception $e) {
             

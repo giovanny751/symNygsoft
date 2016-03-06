@@ -1,8 +1,4 @@
-<div class="row">
-    <div class="col-md-6">
-        <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -19,12 +15,17 @@
                 <form method="post" id="f9">
                     <div class="form-body">
                         <div class="row">
+                            <div class="col-md-6">
+                                <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                 <label for="Plan">Plan</label>
                                 <select name="Plan" id="Plan" class="form-control">
                                     <option value="">::Seleccionar::</option>
                                     <?php foreach ($planes as $p) { ?>
-                                        <option value="<?php echo $p->pla_id ?>"><?php echo $p->pla_nombre ?></option>
+                                        <option value="<?php echo $p->pla_id ?>"><?php echo strtoupper($p->pla_nombre) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -32,9 +33,6 @@
                                 <label for="filtrotarea">Filtro Tareas</label>
                                 <select name="filtrotarea" id="filtrotarea" class="form-control">
                                     <option value="">::Seleccionar::</option>
-                                    <?php foreach ($tareas as $t) { ?>
-                                        <option value="<?php echo $t->tar_id ?>"><?php echo $t->tar_nombre ?></option>
-                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -42,7 +40,7 @@
                                 <select name="responsable" id="responsable" class="form-control">
                                     <option value="">::Seleccionar::</option>
                                     <?php foreach ($responsables as $r) { ?>
-                                        <option value="<?php echo $r->emp_id ?>"><?php echo $r->Emp_Nombre . " " . $r->Emp_Apellidos ?></option>
+                                        <option value="<?php echo $r->emp_id ?>"><?php echo strtoupper($r->Emp_Nombre . " " . $r->Emp_Apellidos) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -61,7 +59,7 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <div class="form-body">
+                            <div class="form-body   ">
                                 <div class="row" id='filtroconsulta'>
 
                                 </div>
@@ -92,12 +90,28 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
-
     </div>
 </div>
 
 
 <script type="text/javascript">
+
+    $('#Plan').change(function () {
+        $.post(
+                url + "index.php/tareas/consultaractividadpadre",
+                {plan: $(this).val()}
+        ).done(function (msg) {
+            $('#filtrotarea *').remove();
+            var optionTarea = "<option value=''>::Seleccionar::</option>";
+            $.each(msg.tareaPadre, function (key, val) {
+                optionTarea += "<option value='" + val.tar_id + "'>" + val.tar_nombre.toUpperCase()  + "</option>";
+            });
+            $('#filtrotarea').append(optionTarea);
+        }).fail(function () {
+            alerta("rojo", "Error por favor comunicarse con el administrador");
+        });
+    });
+
     $('body').delegate('.modificar', "click", function () {
         $('#tar_id').val($(this).attr('tar_id'));
         $('#f13').submit();
@@ -137,7 +151,7 @@
                 encabezado += "<th>ELIMINAR</th>"
                 encabezado += "</tr>";
                 $.each(msg.Json, function (idplan, nombreplan) {
-                    table += "<table class='table table-striped table-bordered table-hover'>";
+                    table += " <div class='table-responsive'><table class='table table-striped table-bordered table-hover'>";
                     $.each(nombreplan, function (nombre, tareaid) {
                         table += "<thead><tr><th colspan='12'>" + nombre + "</th></tr>";
                         table += encabezado;
@@ -179,7 +193,7 @@
                         });
                     });
                     table += "</tbody>";
-                    table += "</table>";
+                    table += "</table></div>";
                 });
             }
             $('#filtroconsulta').append(table);

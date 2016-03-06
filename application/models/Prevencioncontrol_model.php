@@ -8,4 +8,10 @@ class Prevencioncontrol_model extends CI_Model {
     function guardarControl($control){
         $this->db->insert("prevencion_control",$control);
     }
+    function filtroMatrizPrevencion($fechaInicial,$fechaFinal){
+        if(!empty($fechaInicial))$this->db->where("pre_fechaInicio >= ",$fechaInicial);
+        if(!empty($fechaFinal))$this->db->where("pre_fechaFin <=",$fechaFinal);
+        $prevencion = $this->db->get("prevencion_control");
+        return $prevencion->result();
+    }
 }

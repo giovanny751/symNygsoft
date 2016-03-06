@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label for="cargo" class="control-label col-md-3">* Cargo</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control obligatorio texto" name="cargo" id="cargo" />
+                                        <input type="text" class="form-control obligatorio texto mayuscula" name="cargo" id="cargo" />
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                         <select name="cargojefe" id="cargojefe" class="form-control select2me" >
                                             <option value=""></option>
                                             <?php foreach ($cargo as $d) { ?>
-                                                <option value="<?php echo $d->car_id ?>"><?php echo $d->car_nombre ?></option>
+                                            <option value="<?php echo $d->car_id ?>"><?php echo strtoupper($d->car_nombre) ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
