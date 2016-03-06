@@ -1,4 +1,5 @@
 <br>
+<script src="<?php echo base_url("js/tinymce/js/tinymce/tinymce.min.js") ?>"></script>
 <div class="row">
     <div class="col-md-6">
         <div title="Guardar" id="guardarEvaluacion" class="circuloIcon"><i class="fa fa-floppy-o fa-3x"></i></div>
@@ -63,6 +64,18 @@
                                 </select><br>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="eva_nombre">
+                                    Mensaje de inicio:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea name="eva_texto" id="eva_texto" class="textarea"><?php echo (isset($datos[0]->eva_texto) ? $datos[0]->eva_texto : '' ) ?></textarea>
+                            </div>
+                        </div>
                         <?php if (isset($post['campo'])) { ?>
                             <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
                             <input type="hidden" name="campo" value="<?php echo $post['campo'] ?>">
@@ -84,6 +97,8 @@
 </div>
 </div>
 <script>
+    tinymce.init({selector: '.textarea'});
+    
     $('#guardarEvaluacion').click(function () {
         $('#form1').submit();
     })

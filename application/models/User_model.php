@@ -106,13 +106,13 @@ class User_model extends CI_Model {
         try {
             $where = "where 1 ";
             if (!empty($apellido))
-                $where.=" and usu_apellido= " . $apellido;
+                $where.=" and usu_apellido like '%" . $apellido."%'";
             if (!empty($cedula))
-                $where.=" and usu_cedula= " . $cedula;
+                $where.=" and usu_cedula like '%" . $cedula."%'";
             if (!empty($estado))
-                $where.=" and est_id= " . $estado;
+                $where.=" and est_id like '%" . $estado."%'";
             if (!empty($nombre))
-                $where.=" and usu_nombre= " . $nombre;
+                $where.=" and usu_nombre like '%" . $nombre."%'";
 
 
             $user = $this->db->query(""

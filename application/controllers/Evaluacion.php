@@ -25,8 +25,9 @@ class Evaluacion extends My_Controller {
         try {
             $post = $this->input->post();
             $this->data['nombre_evaluacion'] = $this->Evaluacion__model->nombre_evaluacion($post);
-            $this->data['preguntas_evaluacion'] = $this->Evaluacion__model->preguntas_evaluacion($post);
-            if(count($this->data['preguntas_evaluacion'])==0){
+            $this->data['tiempo_incio'] = $this->Evaluacion__model->tiempo_incio($post, $this->data['nombre_evaluacion']);
+            $this->data['preguntas_evaluacion'] = $this->Evaluacion__model->preguntas_evaluacion($post, $this->data['nombre_evaluacion']);
+            if (count($this->data['preguntas_evaluacion']) == 0) {
                 $this->session->set_flashdata(array('message' => 'Error en la evaluación', 'message_type' => 'warning'));
                 redirect('index.php/Presentacion/principal', 'location');
             }
@@ -163,7 +164,8 @@ class Evaluacion extends My_Controller {
         try {
             $post = $this->input->post();
             $this->Evaluacion__model->calificar($post);
-            redirect('index.php', 'location');
+            $this->session->set_flashdata(array('message' => 'Evaluación Guardada con Exíto.', 'message_type' => 'success'));
+            redirect('index.php/Presentacion/principal', 'location');
         } catch (exception $e) {
             $e->getMessage();
         }
@@ -172,10 +174,10 @@ class Evaluacion extends My_Controller {
     function evaluando($eva_id = null, $user = null) {
         try {
             if (!empty($eva_id) || !empty($user)) {
-                $eva_id=substr($eva_id,4);
-                $post['eva_id']=substr($eva_id,0,-4);
-                $user=substr($user,4);
-                $post['user']=substr($user,0,-4);
+                $eva_id = substr($eva_id, 4);
+                $post['eva_id'] = substr($eva_id, 0, -4);
+                $user = substr($user, 4);
+                $post['user'] = substr($user, 0, -4);
                 $this->data['nombre_evaluacion'] = $this->Evaluacion__model->nombre_evaluacion($post);
                 $this->data['preguntas_evaluacion'] = $this->Evaluacion__model->preguntas_evaluacion2($post);
                 $this->data['respondio'] = $this->Evaluacion__model->respondio($post);

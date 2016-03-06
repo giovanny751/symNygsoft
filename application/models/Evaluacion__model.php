@@ -11,8 +11,16 @@ class Evaluacion__model extends CI_Model {
             $this->db->where($post["campo"], $post[$post["campo"]]);
             $id = $post[$post["campo"]];
             unset($post['campo']);
+//            creatorUser
+//            creatorDate
+//            modificationUser
+//            modificationDate
+            $this->db->set('modificationUser',$this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('evaluacion', $post);
         } else {
+            $this->db->set('creatorUser',$this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('evaluacion', $post);
             $id = $this->db->insert_id();
         }
@@ -72,7 +80,7 @@ class Evaluacion__model extends CI_Model {
         return $datos;
     }
 
-    function preguntas_evaluacion($post) {
+    function preguntas_evaluacion($post, $evaluacion) {
 
         $this->db->select('preguntas.pre_id,preguntas.pre_contexto, preguntas.pre_nombre,'
                 . '  tipo_pregunta.tipPre_nombre,tipo_pregunta.tipPre_id');
@@ -82,10 +90,28 @@ class Evaluacion__model extends CI_Model {
 //        $this->db->join('tema', 'tema.tem_id=preguntas.tem_id');
 //        $this->db->join('area', 'area.are_id=preguntas.are_id');
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
-        $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
-        $datos = $this->db->get('preguntas');
+//        $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
+        $this->db->order_by('rand()');
+        $datos = $this->db->get('preguntas', $evaluacion[0]->eva_tiempo);
         $datos = $datos->result();
         return $datos;
+    }
+
+    function tiempo_incio($post, $evaluacion) {
+        $this->db->where('eva_id', $post['eva_id']);
+        $this->db->where('use_id', $this->session->userdata('usu_id'));
+        $datos = $this->db->get('user_evaluacion');
+        $datos = $datos->result();
+        if (!empty($datos[0]->useEva_fecha))
+            return $datos[0]->useEva_fecha;
+        else {
+            $fecha = date("Y-m-d H:i:s");
+            $this->db->set('useEva_fecha', $fecha);
+            $this->db->where('eva_id', $post['eva_id']);
+            $this->db->where('use_id', $this->session->userdata('usu_id'));
+            $datos = $this->db->update('user_evaluacion');
+            return $fecha;
+        }
     }
 
     function preguntas_evaluacion2($post) {

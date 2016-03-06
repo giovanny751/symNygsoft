@@ -14,9 +14,16 @@
                 <form action="<?php echo base_url('index.php/Evaluacion/calificar') ?>" method="post" id="form_evaluacion" onsubmit="return enviar();">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12 tiempo_div" >
-                                <?php if(!empty($nombre_evaluacion[0]->eva_tiempo)){ ?>
-                                Tiempo de la prueba: <span class="tiempo"><?php echo ($nombre_evaluacion[0]->eva_tiempo * 60) ?> Segundos </span>
+                            <div class="col-md-12 " >
+                                <?php if (!empty($nombre_evaluacion[0]->eva_tiempo)) { ?>
+                                    <div class="tiempo_div">
+                                        <div class="tiempo_div2">
+                                            <?php 
+                                            $segundos=strtotime($tiempo_incio) - strtotime(date("Y-m-d H:i:s"));
+                                            ?>
+                                            Tiempo de la prueba: <span class="tiempo"><?php echo (($nombre_evaluacion[0]->eva_tiempo * 60)+$segundos) ?>  </span> Segundos
+                                        </div>
+                                    </div>
                                 <?php } ?>
                             </div>
                             <div class="col-md-12">
@@ -72,27 +79,27 @@
 </div>
 
 <script>
-    <?php if(!empty($nombre_evaluacion[0]->eva_tiempo)){ ?>
-    fin_tiempo = 0;
-    mi_tiempo = 0;
-//    setTimeout(time, 1000);
-    setInterval(time, 1000);
-    function time() {
-        var time = $('.tiempo').html();
-        time = time - 1;
+<?php if (!empty($nombre_evaluacion[0]->eva_tiempo)) { ?>
+        fin_tiempo = 0;
+        mi_tiempo = 0;
+        //    setTimeout(time, 1000);
+        setInterval(time, 1000);
+        function time() {
+            var time = $('.tiempo').html();
+            time = time - 1;
 
-        if (time < 1) {
-            if (fin_tiempo == 0) {
-                $('#form_evaluacion').submit();
-                fin_tiempo++;
+            if (time < 1) {
+                if (fin_tiempo == 0) {
+                    $('#form_evaluacion').submit();
+                    fin_tiempo++;
+                }
+            } else {
+                mi_tiempo = time;
+                $('.tiempo').html(time);
             }
-        } else {
-            mi_tiempo = time;
-            $('.tiempo').html(time);
+            //        time();
         }
-//        time();
-    }
-    <?php } ?>
+<?php } ?>
 
     function enviar() {
         if (mi_tiempo > 1) {
@@ -122,8 +129,17 @@
         border-bottom: 3px solid #fff;
     }
     .tiempo_div{
+        /*position: fixed;*/
+        float: right;
+        width: 20%
+    }
+    .tiempo_div2{
+        background:#26a69a;
+        border:1px solid #ccc;
+        color:#fff;
+        margin-top:-50px;
+        padding:10px;
         position: fixed;
-        padding: 10px;
-        margin: 10px;
+        z-index:50;
     }
 </style>

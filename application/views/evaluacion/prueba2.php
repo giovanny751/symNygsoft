@@ -72,7 +72,7 @@
                     $i = 1;
                     $corecctas = 0;
                     foreach ($respondio as $key => $value) {
-                        $respuesta[$value->pre_id] = (is_numeric($value->res_id)?$value->res_id:$value->res_texto);
+                        $respuesta[$value->pre_id] = (is_numeric($value->res_id) ? $value->res_id : $value->res_texto);
                     }
                     foreach ($preguntas_evaluacion as $key => $value) {
                         echo '<tr><td><span><b>Pregunta # ' . $i . '</b></span><span style="float:right">Tipo pregunta: ' . utf8_encode($value->tipPre_nombre) . '</span></td></tr><tr><td>';
@@ -92,28 +92,29 @@
                         if (count($datos)) {
                             $pregu[] = $value->pre_id;
                             foreach ($datos as $value2) {
-                                if ($respuesta[$value->pre_id] == $value2->res_id) {
-                                    $s = 'checked';
-                                    $st = 'style="background-color:#ed6b75;opacity: 0.65;"';
-                                } else {
-                                    $s = '';
-                                    $st = '';
-                                }
+                                $s = '';
+                                $st = '';
+                                if (isset($respuesta[$value->pre_id]))
+                                    if ($respuesta[$value->pre_id] == $value2->res_id) {
+                                        $s = 'checked';
+                                        $st = 'style="background-color:#ed6b75;opacity: 0.65;"';
+                                    }
                                 if ($value2->res_id == $value->res_id) {
                                     $st = 'style="background-color:#32c5d2;opacity: 0.65;"';
                                 }
-                                if (($respuesta[$value->pre_id] == $value2->res_id) && ($value2->res_id == $value->res_id)) {
-                                    $corecctas++;
-                                }
+                                if (isset($respuesta[$value->pre_id]))
+                                    if (($respuesta[$value->pre_id] == $value2->res_id) && ($value2->res_id == $value->res_id)) {
+                                        $corecctas++;
+                                    }
                                 ?>
                                 <div class="col-md-12" <?php echo $st; ?>>
                                     <div class="col-md-1">
                                         <?php
+                                        $s = '';
+                                        if(isset($respuesta[$value->pre_id]))
                                         if ($respuesta[$value->pre_id] == $value2->res_id) {
                                             $s = 'checked';
-                                        } else {
-                                            $s = '';
-                                        }
+                                        } 
                                         ?>
                                         <input type="radio" <?php echo $s; ?> name="<?php echo $value2->pre_id ?>" class="obligado" value="<?php echo $value2->res_id ?>" >
                                     </div>
@@ -137,7 +138,8 @@
                 <div class="col-md-12">
                     <center>
                         <h2>Calificación:  <?php echo $corecctas . '/' . count($preguntas_evaluacion);
-                    echo '<br>' . number_format(($corecctas * 5) / count($preguntas_evaluacion), 2) ?></h2><p><br></p>
+                    echo '<br>' . number_format(($corecctas * 5) / count($preguntas_evaluacion), 2)
+                    ?></h2><p><br></p>
                     </center>
                 </div>
             </div>

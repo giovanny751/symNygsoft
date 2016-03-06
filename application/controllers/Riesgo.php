@@ -407,7 +407,7 @@ class Riesgo extends My_Controller {
                         "rie_descripcion" => $t->rie_descripcion,
                         "rie_fecha" => $t->rie_fecha,
                         "rieClaTip_tipo" => $t->rieClaTip_tipo,
-                        "rieCol_colorhtml" => $t->rieCol_colorhtml,
+//                        "rieCol_colorhtml" => $t->rieCol_colorhtml,
                         "rie_actividad" => $t->rie_actividad,
                         "cantidadTareas" => $t->cantidadTareas
                     );
