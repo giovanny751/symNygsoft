@@ -51,6 +51,7 @@ class Cargo_model extends CI_Model {
             $this->db->select("cargo.car_porcentajearl");
             $this->db->select("(select count(rieCar_id) from riesgo_cargo where riesgo_cargo.car_id = cargo.car_id) as cantidadRiesgos");
             $this->db->where("cargo.est_id ", 1);
+            $this->db->order_by("cargo.car_nombre");
             $this->db->join("cargo as c", "cargo.car_jefe = c.car_id", "left");
             $cargo = $this->db->get("cargo");
             return $cargo->result();

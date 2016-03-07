@@ -13,55 +13,57 @@
             <div class="portlet-body form">
                 <div class="form-body">
                     <div class="row">
-                        <form method="post" id="frmregistro">
-
-                            <label for="plan" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Plan</label>
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                <input type="text" class="form-control" name="plan" id="plan"/>
+                        <form method="post" id="frmregistro" class="form-horizontal">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="plan" class="col-md-4">Plan</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="plan" id="plan"/>
+                                    </div>
+                                </div>
                             </div>
-                            <!--            <label for="actividad" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Actividad</label>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">-->
-
-                            <input type="hidden" class="form-control" name="actividad" id="actividad"/>
-                            <!--</div>-->
-                            <label for="tarea" class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Tarea</label>
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                <input type="text" class="form-control" name="tarea" id="tarea"/>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" name="actividad" id="actividad"/>
+                                    <label for="tarea" class="col-md-4">Tarea</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="tarea" id="tarea"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="button" class="btn-sst limpiar">Limpiar</button>
+                                    <button type="button" class="btn-sst" id="consultar">Consultar</button>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
-              
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: right">
-                    <button type="button" class="btn-sst limpiar">Limpiar</button>
-                    <button type="button" class="btn-sst" id="consultar">Consultar</button>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover tabla-sst" id="datatable_ajax">
+                            <thead>
+                            <th>Plan</th>
+                            <th>Nombre archivo</th>
+                            <th>Descripciòn</th>
+                            <th>Versiòn</th>
+                            <th>Categorìa</th>
+                            <th>Tarea</th>
+                            <th>Responsable</th>
+                            <th>Tamaño</th>
+                            <th>Fecha</th>
+                            <th>Ver Versiones</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                            </thead>
+                            <tbody id="cuerpodatos">
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <table class="table table-striped table-bordered table-hover tabla-sst" id="datatable_ajax">
-                        <thead>
-                        <th>Plan</th>
-                        <th>Nombre archivo</th>
-                        <th>Descripciòn</th>
-                        <th>Versiòn</th>
-                        <th>Categorìa</th>
-                        <th>Tarea</th>
-                        <th>Responsable</th>
-                        <th>Tamaño</th>
-                        <th>Fecha</th>
-                        <th>Ver Versiones</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                        </thead>
-                        <tbody id="cuerpodatos">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             </div>
         </div>
     </div>

@@ -37,6 +37,7 @@ class Dimension2_model extends CI_Model {
             $this->db->select("dimension2.dim_codigo");
             $this->db->select("dimension2.dim_descripcion");
             $this->db->select("dimension2.est_id");
+            $this->db->order_by("dim_descripcion");
             $this->db->select("(select count(dim1_id) from riesgo where dimension2.dim_id = riesgo.dim2_id) as cantidadRiesgo",false);
             $this->db->join("dimension",'dimension2.dim_id1=dimension.dim_id','left');
             $cargo = $this->db->get("dimension2");
@@ -51,6 +52,7 @@ class Dimension2_model extends CI_Model {
         try {
             $this->db->where("dim_descripcion", $name);
             $this->db->where("est_id", 1);
+            $this->db->order_by("dim_descripcion");
             $this->db->where("dim_id1", $dim);
             $cargo = $this->db->get("dimension2");
             return $cargo->result();
@@ -123,6 +125,7 @@ class Dimension2_model extends CI_Model {
         $post=$this->input->post();
         $this->db->where('dim_id1',$post['dimencion1']);
         $this->db->where('est_id',1);
+        $this->db->order_by("dim_descripcion");
         $datos=$this->db->get('dimension2');
         $datos=$datos->result();
         return $datos;

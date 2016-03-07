@@ -427,6 +427,7 @@ class Ingreso_model extends CI_Model {
 
     function ciudades() {
         try {
+            $this->db->order_by("ciu_nombre");
             $data = $this->db->get("ciudad");
             return $data->result();
         } catch (exception $e) {

@@ -21,6 +21,7 @@ class Roles_model extends CI_Model {
 
     function roles() {
         try {
+            $this->db->order_by("rol_nombre");
             $consulta = $this->db->get('roles');
             return $consulta->result_array();
         } catch (exception $e) {

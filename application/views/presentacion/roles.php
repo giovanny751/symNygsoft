@@ -50,6 +50,7 @@
                                 <th>Fecha de creación</th>
                                 <th>Fecha de modificación</th>
                                 <th>Opciones</th>
+                                <th>Notificación</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -60,6 +61,7 @@
                                     <td><?php echo $datos['rol_fechaCreacion']; ?></td>
                                     <td><?php echo $datos['rol_fechaModificacion']; ?></td>
                                     <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="btn btn-info modificar">Opciones</button></td>
+                                    <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-warning notificacion">Notificación</button></td>
                                     <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-danger eliminar">Eliminar</button></td>
                                 </tr>
                             <?php } ?>
@@ -71,6 +73,52 @@
     </div>
 </div>
 
+<div class="modal fade" id="Notificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modificación</h4>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                <div class=" marginV20">
+                    <div class="widgetTitle">
+                        <h5><i class="glyphicon glyphicon-pencil"></i> Nuevo</h5>
+                    </div>
+                    <div class="well" >
+                        <form method="post" id="frmNotificacion">
+                            <input type="hidden" id="rolNotificacion" name="rol">
+                            <table class="table table-hover table-bordered ">
+                                <thead>
+                                <th>Notificación</th>
+                                <th>Selección</th>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($notificacion as $not): ?>
+                                        <tr>
+                                            <td><?php echo $not->not_notificacion ?></td>
+                                            <td><input type="checkbox" name="notificacion[]" value="<?php echo $not->not_id ?>" ></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>		
+            <div class="modal-footer">
+                <div class="row marginV10">
+                    <div class='col-md-2 col-lg-2 col-sm-2 col-sx-2 col-md-offset-8 col-lg-offset-8 col-sm-offset-8 col-sx-offset-8 margenlogo' align='center' >
+                        <button type="button" class="btn btn-primary guardarRolNotificacion">Guardar</button>
+                    </div>
+                    <div class='col-md-2 col-lg-2 col-sm-2 col-sx-2 margenlogo' align='center' >
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -119,7 +167,20 @@
     </div>
 </div>    
 <script>
+    $('.guardarRolNotificacion').click(function () {
+        $.post(url+"index.php/Presentacion/guardarNotificacionRol",$('#frmNotificacion').serialize())
+                .done(function(msg){
+                    
+                })
+                .fail(function(msg){
+                    
+                });
+    });
 
+    $('body').delegate(".notificacion", "click", function () {
+        $('#rolNotificacion').val($(this).attr('rol'));
+        $("#Notificacion").modal("show");
+    });
 
     $('.seleccionados').click(function () {
         var atr = $(this).attr('atr')
@@ -205,6 +266,7 @@
                     filas += "<td>" + val.rol_fechaCreacion + "</td>";
                     filas += "<td>" + val.rol_fechaModificacion + "</td>";
                     filas += "<td><button type='button' rol='" + val.rol_id + "' class='btn btn-info modificar' data-toggle='modal' data-target='#myModal'>Opciones</button></td>";
+                    filas += "<td><button type='button' rol='" + val.rol_id + "' class='btn btn-danger notificacion'>Notificación</button></td>";
                     filas += "<td><button type='button' rol='" + val.rol_id + "' class='btn btn-danger eliminar'>Eliminar</button></td>";
                     filas += "</tr>";
                 });

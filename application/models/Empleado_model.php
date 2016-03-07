@@ -41,10 +41,12 @@ class Empleado_model extends CI_Model {
             $this->db->select("empleado.Emp_cedula");
             $this->db->select("empleado.Emp_Nombre");
             $this->db->select("empleado.Emp_Apellidos");
+            $this->db->order_by("empleado.Emp_Nombre");
             $this->db->where("est_id",1);
             $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
             $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
             $empleado = $this->db->get("empleado");
+//            echo $this->db->last_query();die;
             return $empleado->result();
         } catch (exception $e) {
             
@@ -249,6 +251,7 @@ class Empleado_model extends CI_Model {
         try {
             $this->db->select('Emp_Apellidos,Emp_Nombre,Emp_Id');
             $this->db->where("car_id", $id);
+            $this->db->order_by('Emp_Nombre');
             $empleado = $this->db->get("empleado");
             return $empleado->result();
         } catch (exception $e) {

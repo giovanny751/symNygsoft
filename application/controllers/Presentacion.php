@@ -23,14 +23,14 @@ class Presentacion extends My_Controller {
     }
 
     function principal() {
-        
+
         if ($this->data['user']['rol_id'] != 60) {
             $id = $this->data['user']['emp_id'];
-            $this->data['inicio']= $this->Ingreso_model->admin_inicio();
+            $this->data['inicio'] = $this->Ingreso_model->admin_inicio();
             $this->layout->view('presentacion/principal', $this->data);
         } else {
             $this->load->model("User_model");
-            $this->data['evaluacion']=$this->User_model->evaluacion_usuario($this->data['user']['usu_id']);
+            $this->data['evaluacion'] = $this->User_model->evaluacion_usuario($this->data['user']['usu_id']);
             $this->layout->view('evaluacion/quiz', $this->data);
         }
     }
@@ -231,7 +231,8 @@ class Presentacion extends My_Controller {
     function roles() {
         try {
             $this->data['title'] = "Administración de Roles";
-            $this->load->model("Roles_model");
+            $this->load->model(array("Roles_model", "Notificacion_model"));
+            $this->data['notificacion'] = $this->Notificacion_model->detail();
             $this->data['content'] = "<table border='0' width='100%'>" . $this->permisoroles('prueba', null) . "</table>";
             $this->data['roles'] = $this->Roles_model->roles();
             $this->layout->view('presentacion/roles', $this->data);
@@ -240,6 +241,19 @@ class Presentacion extends My_Controller {
         } finally {
             
         }
+    }
+    function guardarNotificacionRol(){
+        $this->load->model("Rolnotificacion_model");
+        $notificacion = $this->input->post('notificacion');
+        $rol = $this->input->post('rol');
+        $info = array();
+        for($i = 0; $i < count($notificacion); $i++):
+            $info[] = array(
+                "rol_id"=>$rol,
+                "not_id"=>$notificacion[$i]
+            ); 
+        endfor;
+        $this->Rolnotificacion_model->guardarNotificacion($info);
     }
 
     function guardarroles() {

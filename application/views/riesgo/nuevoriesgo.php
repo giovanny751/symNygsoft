@@ -49,7 +49,7 @@
                                             <select name="categoria" id="categoria" class="form-control obligatorio">
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($categoria as $ca) { ?>
-                                                    <option <?php echo (!empty($riesgo->rieCla_id) && $riesgo->rieCla_id == $ca->rieCla_id) ? "selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
+                                                <option <?php echo (!empty($riesgo->rieCla_id) && $riesgo->rieCla_id == $ca->rieCla_id) ? "selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo strtoupper($ca->rieCla_categoria) ?></option>
                                                 <?php } ?>
                                             </select>
                                             <br>
@@ -82,7 +82,7 @@
                                             <select type="text" name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($dimension as $d1) { ?>
-                                                    <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo $d1->dim_descripcion; ?></option>
+                                                    <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
                                                 <?php } ?>
                                             </select> <br>
                                         </div>
@@ -95,7 +95,7 @@
                                             <select type="text" name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($dimension2 as $d2) { ?>
-                                                    <option <?php echo ((!empty($riesgo->dim2_id)) && ($d2->dim_id == $riesgo->dim2_id) ? "selected" : "") ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                                    <option <?php echo ((!empty($riesgo->dim2_id)) && ($d2->dim_id == $riesgo->dim2_id) ? "selected" : "") ?> value="<?php echo $d2->dim_id ?>"><?php echo strtoupper($d2->dim_descripcion) ?></option>
                                                 <?php } ?>
                                             </select><br>
                                         </div>
@@ -120,7 +120,7 @@
                                             <select name="nivelDeficiencia" id="nivelDeficiencia" class="form-control calculoNivelProbabilidad" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($deficiencia as $d): ?>
-                                                    <option value="<?php echo $d->nivDef_valor ?>"><?php echo $d->nivDef_nivel . " (" . $d->nivDef_valor . ")" ?></option>
+                                                <option value="<?php echo $d->nivDef_valor ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
                                                 <?php endforeach; ?>
                                             </select><br>
                                         </div>
@@ -131,7 +131,7 @@
                                             <select name="nivelExposicion" id="nivelExposicion" class="form-control calculoNivelProbabilidad" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($exposicion as $e): ?>
-                                                    <option value="<?php echo $e->nivExp_valor ?>"><?php echo $e->nivExp_nivel . " (" . $e->nivExp_valor . ")" ?></option>
+                                                    <option value="<?php echo $e->nivExp_valor ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
                                                 <?php endforeach; ?>
                                             </select><br>
                                         </div>
@@ -149,7 +149,7 @@
                                             <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($consecuencia as $c): ?>
-                                                    <option value="<?php echo $c->nivCon_nc ?>"><?php echo $c->nivCon_nivel . " (" . $c->nivCon_nc . ")" ?></option>
+                                                    <option value="<?php echo $c->nivCon_nc ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <br>

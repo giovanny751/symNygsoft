@@ -1,9 +1,4 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -17,6 +12,11 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                        </div>
+                    </div>
                     <form method="post" id="FrmExtintores" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-6">
@@ -34,7 +34,7 @@
                                         <select name="empleado" id="empleado" class="form-control">
                                             <option>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
-                                                <option value="<?php echo $emp->Emp_Id ?>"><?php echo $emp->Emp_Nombre . " " . $emp->Emp_Apellidos ?></option>
+                                                <option value="<?php echo $emp->Emp_id ?>"><?php echo strtoupper($emp->Emp_Nombre . " " . $emp->Emp_Apellidos) ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
