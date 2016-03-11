@@ -38,7 +38,7 @@ class Riesgo extends My_Controller {
             $this->data['consecuencia'] = $this->Niveles_model->nivelConsecuencia();
             $this->data['categoria'] = $this->Riesgoclasificacion_model->detail();
             $this->data['empresa'] = $this->Empresa_model->detail();
-            $this->data['cargo'] = $this->Cargo_model->detail();
+            $this->data['cargo'] = $this->Cargo_model->allcargos();
             if (!empty($this->data['empresa'][0]->Dim_id) && !empty($this->data['empresa'][0]->Dimdos_id)) {
                 if (!empty($this->input->post("rie_id"))) {
                     $this->data['carpetas'] = $this->Registrocarpeta_model->detailxriesgocarpetas($this->input->post('rie_id'));

@@ -414,6 +414,8 @@ class Tarea_model extends CI_Model {
     function tareasAsociadasPlan($pla_id) {
         try {
             $this->db->where("pla_id", $pla_id);
+            $this->db->where("est_id",1);
+            $this->db->order_by("tar_nombre");
             $tarea = $this->db->get("tarea");
             return $tarea->result();
         } catch (exception $e) {

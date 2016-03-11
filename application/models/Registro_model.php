@@ -158,6 +158,7 @@ class Registro_model extends CI_Model {
     function consultaxcarpeta($car_id) {
         try {
             $this->db->where("actHij_padreid", $car_id);
+            $this->db->order_by("actHij_nombre");
             $registro = $this->db->get("actividad_hijo");
             return $registro->result();
         } catch (exception $e) {

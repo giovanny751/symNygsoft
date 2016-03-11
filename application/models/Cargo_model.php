@@ -63,6 +63,7 @@ class Cargo_model extends CI_Model {
     function allcargos() {
         try {
             $this->db->where("est_id", 1);
+            $this->db->order_by("cargo.car_nombre");
             $cargo = $this->db->get("cargo");
             return $cargo->result();
         } catch (exception $e) {

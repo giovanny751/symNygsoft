@@ -7,10 +7,6 @@
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
-            <div class="flechaHeader IzquierdaDoble" metodo="flechaIzquierdaDoble"><i class="fa fa-step-backward fa-2x"></i></div>
-            <div class="flechaHeader Izquierda" metodo="flechaIzquierda"><i class="fa fa-arrow-left fa-2x"></i></div>
-            <div class="flechaHeader Derecha" metodo="flechaDerecha"><i class="fa fa-arrow-right fa-2x"></i></div>
-            <div class="flechaHeader DerechaDoble" metodo="flechaDerechaDoble"><i class="fa fa-step-forward fa-2x"></i></div>
             <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
         </div>
     </div>
@@ -929,51 +925,6 @@
     });
 
 
-
-
-
-    $(".flechaHeader").click(function () {
-        var idRiesgo = $("#rie_id").val();
-        var metodo = $(this).attr("metodo");
-        if (metodo != "documento") {
-            $.post(url + "index.php/riesgo/consultaRiesgoFlechas",
-                    {idRiesgo: idRiesgo, metodo: metodo})
-                    .done(function (msg) {
-                        $("#riesgos").find("#tipo,#color").html("<option value=''>::Seleccionar::</option>");
-                        $("#riesgos").find("input[type='text']").val("");
-                        $("#riesgos").find("select").val("");
-                        $("#rie_id").val(msg.campos.rie_id);
-                        $("#descripcion").val(msg.campos.rie_descripcion);
-                        $("#categoria").val(msg.campos.cat_id);
-                        $("#dimensionuno").val(msg.campos.dim1_id);
-                        $("#dimensiondos").val(msg.campos.dim2_id);
-                        $("#zona").val(msg.campos.rie_zona);
-                        $("#requisito").val(msg.campos.rie_requisito);
-                        $("#observaciones").val(msg.campos.rie_observaciones);
-                        $("#fecha").val(msg.campos.rie_fecha);
-                        $("#estado").val(msg.campos.estAce_id);
-                        var selectTipo = "";
-                        $.each(msg.tipo, function (indice, val) {
-                            selectTipo += "<option " + ((val.rieClaTip_id == msg.campos.rieClaTip_id) ? "selected" : "") + " value='" + val.rieClaTip_id + "'>" + val.rieClaTip_tipo + "</option>";
-                        });
-                        $("#tipo").append(selectTipo);
-                        var selectColor = "";
-                        $.each(msg.color, function (indice, val) {
-                            selectColor += "<option " + ((val.col_id == msg.campos.col_id) ? "selected" : "") + " value='" + val.col_id + "'>" + val.col_color + "</option>";
-                        });
-                        $("#color").append(selectColor);
-                        $.each(msg.cargoId, function (indice, val) {
-                            $('#cargo option[value=' + val.car_id + ']').attr('selected', true);
-                        });
-                    })
-                    .fail(function (msg) {
-                        alerta("rojo", "Error en el sistema por favor comunicarse con el administrador del sistema");
-                        $("input[type='text'], select").val();
-                    })
-        } else {
-            window.location = url + "index.php/riesgo/listadoriesgo";
-        }
-    });
     $("body").on("click", "#guardar", function () {
         if (obligatorio("obligatorio")) {
             $.post(

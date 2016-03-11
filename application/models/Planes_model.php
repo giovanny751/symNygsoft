@@ -644,7 +644,14 @@ class Planes_model extends CI_Model {
         $datos = $this->db->query($query);
         return $datos->result();
     }
-
+    function cargarDescripcion($pla_id){
+        
+        $this->db->select("pla_descripcion");
+        $this->db->where("pla_id",$pla_id);
+        $this->db->where("est_id",1);
+        $descripcion = $this->db->get("planes");
+        return $descripcion->result();
+    }
 }
 
 ?>

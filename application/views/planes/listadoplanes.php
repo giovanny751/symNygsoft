@@ -72,14 +72,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            
-                                <div class="col-md-4"></div>
-                                <div class="col-md-3">
-                                    <button id="consultar" class="btn btn-block" type="button">Consultar</button>
-                                </div>
-                            
+                            <div class="col-md-4"></div>
+                            <div class="col-md-3">
+                                <button id="consultar" class="btn btn-block" type="button">Consultar</button>
+                            </div>
                         </div>   
-
                     </form>
                     <div class="row">
                         <div class="col-md-12">
@@ -107,7 +104,23 @@
     </div>
     <!--</div>-->
 </div>
-</div>
+<div class="modal fade" id="myModalDescripcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Descripción</h4>
+            </div>
+            <div class="modal-body" id="incluiraseguradoras">
+                <div id="agregarClones">
+                    <textarea id="descripcion" class="form-control" readonly="readonly"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 
@@ -150,7 +163,7 @@
                         '',
                         val.Emp_Nombre + " " + val.Emp_Apellidos,
                         num_miles(costopresupuesto),
-                        val.pla_descripcion,
+                        '<center><i class="fa fa-pencil-square-o fa-2x descripcion" title="Modificar"  pla_id="' + val.pla_id + '"  data-toggle="modal" data-target="#myModalDescripcion"></i></center>',
                         val.num_tareas,
                         '<center><i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar"  pla_id="' + val.pla_id + '"  data-toggle="modal" data-target="#myModal"></i></center>',
                         '<center><i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" coun="' + val.count_progreso + '" sum="' + val.sum_progreso + '" pla_id="' + val.pla_id + '"></i></center>'
@@ -165,6 +178,22 @@
                 .fail(function (msg) {
                     alerta("rojo", "Error por favor comunicarse con el administrador");
                 })
+    });
+    $('body').delegate(".descripcion", "click", function () {
+        $('#descripcion').val('');
+        $.post(
+                url + "index.php/planes/consultaDescripcion",
+                {pla_id: $(this).attr("pla_id")}
+        ).done(function (msg) {
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("amarillo", msg['message'])
+            else {
+                $('#descripcion').val(msg.Json);
+                $("#myModalDescripcion").modal("show");
+            }
+        }).fail(function (msg) {
+
+        });
     });
     $('body').delegate('.eliminar', 'click', function () {
         var sum = $(this).attr('sum');

@@ -523,7 +523,20 @@ class Planes extends My_Controller {
             
         }
     }
-
+    function consultaDescripcion(){
+        try{
+            if(empty($this->input->post("pla_id")))
+                throw new Exception("No existe plan para consultar descripción");
+            $this->load->model("Planes_model");
+            $respuesta = $this->Planes_model->cargarDescripcion($this->input->post("pla_id"));
+            $data['Json'] = $respuesta[0]->pla_descripcion;
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
     function consultaplanes() {
         try {
             $this->load->model("Planes_model");
