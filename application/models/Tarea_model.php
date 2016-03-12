@@ -6,9 +6,64 @@ class Tarea_model extends CI_Model {
         parent::__construct();
     }
 
-    function create($data) {
+    function create() {
         try {
-            $this->db->insert("tarea", $data);
+            $post = $this->input->post();
+            if (isset($post['actividad']))
+                if (!empty($post['actividad']))
+                    $this->db->set("actPad_id", $this->input->post("actividad"));
+            if (isset($post['cargo']))
+                if (!empty($post['cargo']))
+                    $this->db->set("car_id", $this->input->post("cargo"));
+            if (isset($post['costrospresupuestados']))
+                if (!empty($post['costrospresupuestados']))
+                    $this->db->set("tar_costopresupuestado", $this->input->post("costrospresupuestados"));
+            if (isset($post['descripcion']))
+                if (!empty($post['descripcion']))
+                    $this->db->set("tar_descripcion", $this->input->post("descripcion"));
+            if (isset($post['dimensionuno']))
+                if (!empty($post['dimensionuno']))
+                    $this->db->set("dim_id", $this->input->post("dimensionuno"));
+            if (isset($post['dimensiondos']))
+                if (!empty($post['dimensiondos']))
+                    $this->db->set("dim2_id", $this->input->post("dimensiondos"));
+            if (isset($post['estado']))
+                if (!empty($post['estado']))
+                    $this->db->set("est_id", $this->input->post("estado"));
+            if (isset($post['fechaIncio']))
+                if (!empty($post['fechaIncio']))
+                    $this->db->set("tar_fechaInicio", $this->input->post("fechaIncio"));
+
+            $this->db->set("tar_fechaCreacion", date("Y-m-d H:i:s"));
+            if (isset($post['fechafinalizacion']))
+                if (!empty($post['fechafinalizacion']))
+                    $this->db->set("tar_fechaFinalizacion", $this->input->post("fechafinalizacion"));
+            if (isset($post['nombre']))
+                if (!empty($post['nombre']))
+                    $this->db->set("tar_nombre", $this->input->post("nombre"));
+            if (isset($post['nombreempleado']))
+                if (!empty($post['nombreempleado']))
+                    $this->db->set("emp_id", $this->input->post("nombreempleado"));
+            if (isset($post['peso']))
+                if (!empty($post['peso']))
+                    $this->db->set("tar_peso", $this->input->post("peso"));
+            if (isset($post['plan']))
+                if (!empty($post['plan']))
+                    $this->db->set("pla_id", $this->input->post("plan"));
+            if (isset($post['tipo']))
+                if (!empty($post['tipo']))
+                    $this->db->set("tip_id", $this->input->post("tipo"));
+            if (isset($post['tareapadre']))
+                if (!empty($post['tareapadre']))
+                    $this->db->set("tar_idpadre", $this->input->post("tareapadre"));
+            if (isset($post['norma']))
+                if (!empty($post['norma']))
+                    $this->db->set("nor_id", $this->input->post("norma"));
+            if (isset($post['rutinario']))
+                if (!empty($post['rutinario']))
+                    $this->db->set("tar_rutinario", $this->input->post("rutinario"));
+
+            $this->db->insert("tarea");
             return $this->db->insert_id();
         } catch (exception $e) {
             
@@ -113,10 +168,65 @@ class Tarea_model extends CI_Model {
         }
     }
 
-    function update($data, $idtarea) {
+    function update($idtarea) {
         try {
+            $post = $this->input->post();
+
+            if (isset($post['actividad']))
+                if (!empty($post['actividad']))
+                    $this->db->set("actPad_id", $this->input->post("actividad"));
+            if (isset($post['cargo']))
+                if (!empty($post['cargo']))
+                    $this->db->set("car_id", $this->input->post("cargo"));
+            if (isset($post['costrospresupuestados']))
+                if (!empty($post['costrospresupuestados']))
+                    $this->db->set("tar_costopresupuestado", $this->input->post("costrospresupuestados"));
+            if (isset($post['descripcion']))
+                if (!empty($post['descripcion']))
+                    $this->db->set("tar_descripcion", $this->input->post("descripcion"));
+            if (isset($post['dimensionuno']))
+                if (!empty($post['dimensionuno']))
+                    $this->db->set("dim_id", (!empty($this->input->post("dimensionuno")) ? $this->input->post("dimensionuno") : null));
+            if (isset($post['dimensiondos']))
+                if (!empty($post['dimensiondos']))
+                    $this->db->set("dim2_id", (!empty($this->input->post("dimensiondos")) ? $this->input->post("dimensiondos") : null));
+            if (isset($post['estado']))
+                if (!empty($post['estado']))
+                    $this->db->set("est_id", $this->input->post("estado"));
+            if (isset($post['fechaIncio']))
+                if (!empty($post['fechaIncio']))
+                    $this->db->set("tar_fechaInicio", $this->input->post("fechaIncio"));
+            $this->db->set("tar_fechaUltimaMod", date("Y-m-d H:i:s"));
+            if (isset($post['fechafinalizacion']))
+                if (!empty($post['fechafinalizacion']))
+                    $this->db->set("tar_fechaFinalizacion", $this->input->post("fechafinalizacion"));
+            if (isset($post['nombre']))
+                if (!empty($post['nombre']))
+                    $this->db->set("tar_nombre", $this->input->post("nombre"));
+            if (isset($post['nombreempleado']))
+                if (!empty($post['nombreempleado']))
+                    $this->db->set("emp_id", $this->input->post("nombreempleado"));
+            if (isset($post['peso']))
+                if (!empty($post['peso']))
+                    $this->db->set("tar_peso", $this->input->post("peso"));
+            if (isset($post['plan']))
+                if (!empty($post['plan']))
+                    $this->db->set("pla_id", $this->input->post("plan"));
+            if (isset($post['tipo']))
+                if (!empty($post['tipo']))
+                    $this->db->set("tip_id", $this->input->post("tipo"));
+            if (isset($post['tareapadre']))
+                if (!empty($post['tareapadre']))
+                    $this->db->set("tar_idpadre", $this->input->post("tareapadre"));
+            if (isset($post['norma']))
+                if (!empty($post['norma']))
+                    $this->db->set("nor_id", $this->input->post("norma"));
+            if (isset($post['rutinario']))
+                if (!empty($post['rutinario']))
+                    $this->db->set("tar_rutinario", $this->input->post("rutinario"));
+
             $this->db->where("tar_id", $idtarea);
-            $this->db->update("tarea", $data);
+            $this->db->update("tarea");
         } catch (exception $e) {
             
         }
@@ -294,31 +404,33 @@ class Tarea_model extends CI_Model {
         $this->db->delete('tarea_riegos_clasificacion');
         $this->db->where('tar_id', $id);
         $this->db->delete('tarea_riesgo_clasificacion_tipo');
-        if(count($clasificacionriesgo))
-        foreach ($clasificacionriesgo as $key => $value) {
-            $this->db->set('rieCla_id', $value);
-            $this->db->set('tar_id', $id);
-            $this->db->insert('tarea_riegos_clasificacion');
-        }
-        if(count($tiposriesgos))
-        foreach ($tiposriesgos as $key => $value) {
-            $this->db->set('rieClaTip_id', $value);
-            $this->db->set('tar_id', $id);
-            $this->db->insert('tarea_riesgo_clasificacion_tipo');
-        }
+        if (count($clasificacionriesgo))
+            foreach ($clasificacionriesgo as $key => $value) {
+                $this->db->set('rieCla_id', $value);
+                $this->db->set('tar_id', $id);
+                $this->db->insert('tarea_riegos_clasificacion');
+            }
+        if (count($tiposriesgos))
+            foreach ($tiposriesgos as $key => $value) {
+                $this->db->set('rieClaTip_id', $value);
+                $this->db->set('tar_id', $id);
+                $this->db->insert('tarea_riesgo_clasificacion_tipo');
+            }
     }
+
     function tarea_riegos_clasificacion2($id) {
-        
-            $this->db->where('tar_id', $id);
-            $dotos=$this->db->get('tarea_riegos_clasificacion');
-            $dotos=$dotos->result();
+
+        $this->db->where('tar_id', $id);
+        $dotos = $this->db->get('tarea_riegos_clasificacion');
+        $dotos = $dotos->result();
         return $dotos;
     }
+
     function tarea_riesgo_clasificacion_tipo2($id) {
-            $this->db->where('tar_id', $id);
-            $dotos=$this->db->get('tarea_riesgo_clasificacion_tipo');
-            $dotos=$dotos->result();
-            return $dotos;
+        $this->db->where('tar_id', $id);
+        $dotos = $this->db->get('tarea_riesgo_clasificacion_tipo');
+        $dotos = $dotos->result();
+        return $dotos;
     }
 
     function lista_riesgos_guardados($id_tarea) {
@@ -414,7 +526,7 @@ class Tarea_model extends CI_Model {
     function tareasAsociadasPlan($pla_id) {
         try {
             $this->db->where("pla_id", $pla_id);
-            $this->db->where("est_id",1);
+            $this->db->where("est_id", 1);
             $this->db->order_by("tar_nombre");
             $tarea = $this->db->get("tarea");
             return $tarea->result();

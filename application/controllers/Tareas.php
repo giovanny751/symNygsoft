@@ -501,58 +501,16 @@ class Tareas extends My_Controller {
                 if (!empty($this->input->post("registro"))) {
                     $this->db->set('actHij_id', $this->input->post("registro"));
                 }
-                $data = array(
-                    "actPad_id" => $this->input->post("actividad"),
-                    "car_id" => $this->input->post("cargo"),
-//                    "rieCla_id" => $this->input->post("clasificacionriesgo"),
-//                    "tipRie_id" => $this->input->post("tiposriesgos"),
-                    "tar_costopresupuestado" => $this->input->post("costrospresupuestados"),
-                    "tar_descripcion" => $this->input->post("descripcion"),
-                    "dim_id" => (!empty($this->input->post("dimensionuno")) ? $this->input->post("dimensionuno") : null),
-                    "dim2_id" => (!empty($this->input->post("dimensiondos")) ? $this->input->post("dimensiondos") : null),
-                    "est_id" => $this->input->post("estado"),
-                    "tar_fechaInicio" => $this->input->post("fechaIncio"),
-                    "tar_fechaUltimaMod" => date("Y-m-d H:i:s"),
-                    "tar_fechaFinalizacion" => $this->input->post("fechafinalizacion"),
-                    "tar_nombre" => $this->input->post("nombre"),
-                    "emp_id" => $this->input->post("nombreempleado"),
-                    "tar_peso" => $this->input->post("peso"),
-                    "pla_id" => $this->input->post("plan"),
-                    "tip_id" => $this->input->post("tipo"),
-                    "tar_idpadre" => $this->input->post("tareapadre"),
-                    "nor_id" => $this->input->post("norma"),
-                    "tar_rutinario" => $this->input->post("rutinario")
-                );
+                
                 $idtarea = $this->input->post('id');
-                $actualizar = $this->Tarea_model->update($data, $idtarea);
+                $actualizar = $this->Tarea_model->update($idtarea);
                 $consultaxid = $this->Tarea_model->detailxid($this->input->post('id'));
             else:
                 if (!empty($this->input->post("registro"))) {
                     $this->db->set('actHij_id', $this->input->post("registro"));
                 }
-                $data = array(
-                    "actPad_id" => $this->input->post("actividad"),
-                    "car_id" => $this->input->post("cargo"),
-//                    "rieCla_id" => $this->input->post("clasificacionriesgo"),
-//                    "tipRie_id" => $this->input->post("tiposriesgos"),
-                    "tar_costopresupuestado" => $this->input->post("costrospresupuestados"),
-                    "tar_descripcion" => $this->input->post("descripcion"),
-                    "dim_id" => $this->input->post("dimensionuno"),
-                    "dim2_id" => $this->input->post("dimensiondos"),
-                    "est_id" => $this->input->post("estado"),
-                    "tar_fechaInicio" => $this->input->post("fechaIncio"),
-                    "tar_fechaCreacion" => date("Y-m-d H:i:s"),
-                    "tar_fechaFinalizacion" => $this->input->post("fechafinalizacion"),
-                    "tar_nombre" => $this->input->post("nombre"),
-                    "emp_id" => $this->input->post("nombreempleado"),
-                    "tar_peso" => $this->input->post("peso"),
-                    "pla_id" => $this->input->post("plan"),
-                    "tip_id" => $this->input->post("tipo"),
-                    "tar_idpadre" => $this->input->post("tareapadre"),
-                    "nor_id" => $this->input->post("norma"),
-                    "tar_rutinario" => $this->input->post("rutinario"),
-                );
-                $idtarea = $this->Tarea_model->create($data);
+                
+                $idtarea = $this->Tarea_model->create();
                 $consultaxid = $this->Tarea_model->detailxid($idtarea);
             endif;
             $this->Tarea_model->tarea_riegos_clasificacion($idtarea, $this->input->post("clasificacionriesgo"), $this->input->post("tiposriesgos"));

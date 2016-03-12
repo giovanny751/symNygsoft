@@ -199,7 +199,7 @@ class Administrativo extends My_Controller {
                 "empAus_fechaFinal" => $this->input->post("finvacaciones"),
                 "empAus_observaciones" => $this->input->post("observacionvacaciones"),
                 "emp_id" => $this->input->post("emp_id"),
-                "UserCreator"=>$this->session->userdata('usu_id')
+                "UserCreator" => $this->session->userdata('usu_id')
             );
             if ($this->Empleadoausentismo_model->saveVacation($data) == true)
                 $data['Json'] = $this->Empleadoausentismo_model->detailxEmpleado($this->input->post("emp_id"));
@@ -288,6 +288,7 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+
     function modificarAusentismo() {
         try {
             $this->load->model('Empleadoausentismo_model');
@@ -691,14 +692,14 @@ class Administrativo extends My_Controller {
     function creacionusuarios() {
         try {
             $this->load->model(array(
-                'Sexo_model', 
-                'Cargo_model', 
-                'Empleado_model', 
-                'Estados_model', 
-                'User_model', 
+                'Sexo_model',
+                'Cargo_model',
+                'Empleado_model',
+                'Estados_model',
+                'User_model',
                 'Roles_model',
                 "Tipousuarioevaluacion_model"
-                ));
+            ));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['empleado'] = $this->Empleado_model->detail();
             $this->data['estado'] = $this->Estados_model->detail();
@@ -721,7 +722,7 @@ class Administrativo extends My_Controller {
 
     function listadousuarios() {
         try {
-            $this->load->model(array("Tipousuarioevaluacion_model",'Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
+            $this->load->model(array("Tipousuarioevaluacion_model", 'Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['estado'] = $this->Estados_model->detail();
             $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
@@ -1369,7 +1370,6 @@ class Administrativo extends My_Controller {
         $creados = 0;
         $actulizados = 0;
         $registros = 0;
-        $incosistencias = "";
         for ($row = 10; $row <= $lastRow; $row++) {
             $registros++;
             $info = array();
@@ -1379,7 +1379,10 @@ class Administrativo extends My_Controller {
             $info['sex_Id'] = $excel->getCell('D' . $row)->getValue();
             $info['Emp_FechaNacimiento'] = $excel->getCell('E' . $row)->getValue();
             if (!empty($info['Emp_FechaNacimiento'])) {
-                $info['Emp_FechaNacimiento'] = date('Y-m-d H:i:s', ($excel->getCell('E' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                $info['Emp_FechaNacimiento'] = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($excel->getCell('E' . $row)->getValue()));
+//                $info['Emp_FechaNacimiento'] = date('Y-m-d H:i:s', ($excel->getCell('E' . $row)->getValue() - 25569 - 0.08333) * 86400);
+//                $info['Emp_FechaNacimiento'] = strtotime('+1 day', strtotime($info['Emp_FechaNacimiento']));
+//                $info['Emp_FechaNacimiento'] = date('Y-m-j', $info['Emp_FechaNacimiento']);
             }
             $info['Emp_Estatura'] = $excel->getCell('F' . $row)->getValue();
             $info['Emp_Peso'] = $excel->getCell('G' . $row)->getValue();
@@ -1392,16 +1395,16 @@ class Administrativo extends My_Controller {
                 $info['TipCon_Id'] = $this->Empleado_model->buscar_tipo_contrato($excel->getCell('M' . $row)->getValue());
             $info['Emp_FechaInicioContrato'] = $excel->getCell('N' . $row)->getValue();
             if (!empty($info['Emp_FechaInicioContrato'])) {
-                $info['Emp_FechaInicioContrato'] = date('Y-m-d H:i:s', ($excel->getCell('N' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                $info['Emp_FechaInicioContrato'] = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($excel->getCell('N' . $row)->getValue()));
             }
             $info['Emp_FechaFinContrato'] = $excel->getCell('O' . $row)->getValue();
             if (!empty($info['Emp_FechaFinContrato'])) {
-                $info['Emp_FechaFinContrato'] = date('Y-m-d H:i:s', ($excel->getCell('O' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                $info['Emp_FechaFinContrato'] = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($excel->getCell('O' . $row)->getValue()));
             }
             $info['Emp_PlanObligatorioSalud'] = $excel->getCell('P' . $row)->getValue();
             $info['Emp_FechaAfiliacionArl'] = $excel->getCell('Q' . $row)->getValue();
             if (!empty($info['Emp_FechaAfiliacionArl'])) {
-                $info['Emp_FechaAfiliacionArl'] = date('Y-m-d H:i:s', ($excel->getCell('Q' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                $info['Emp_FechaAfiliacionArl'] = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($excel->getCell('Q' . $row)->getValue()));
             }
             if (($excel->getCell('R' . $row)->getValue()) != '')
                 $info['TipAse_Id'] = $this->Empleado_model->buscar_tipo_aseguradora($excel->getCell('R' . $row)->getValue());
@@ -1413,35 +1416,28 @@ class Administrativo extends My_Controller {
                 $info['Dim_IdDos'] = $this->Empleado_model->buscar_dimencion2($excel->getCell('U' . $row)->getValue());
             if (($excel->getCell('V' . $row)->getValue()) != '')
                 $info['Car_id'] = $this->Empleado_model->cargo($excel->getCell('V' . $row)->getValue());
-            if (!empty($info['Car_id'])) {
-                if (($excel->getCell('W' . $row)->getValue()) != '')
-                    $info['TipDoc_id'] = $this->Empleado_model->tipo_documento($excel->getCell('W' . $row)->getValue());
-                $info['Est_id'] = $excel->getCell('X' . $row)->getValue();
-                $info['emp_fondo'] = $excel->getCell('Y' . $row)->getValue();
-                $info['Emp_contacto'] = $excel->getCell('Z' . $row)->getValue();
+            if (($excel->getCell('W' . $row)->getValue()) != '')
+                $info['TipDoc_id'] = $this->Empleado_model->tipo_documento($excel->getCell('W' . $row)->getValue());
+            $info['Est_id'] = $excel->getCell('X' . $row)->getValue();
+            $info['emp_fondo'] = $excel->getCell('Y' . $row)->getValue();
+            $info['Emp_contacto'] = $excel->getCell('Z' . $row)->getValue();
 
-                $this->db->select('Emp_Id');
+            $this->db->select('Emp_Id');
+            $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
+            $datos = $this->db->get('empleado');
+            $datos = $datos->result();
+            if (count($datos)) {
                 $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
-                $datos = $this->db->get('empleado');
-                $datos = $datos->result();
-                if (count($datos)) {
-                    $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
-                    $this->db->update('empleado', $info);
-                    $actulizados++;
-                } else {
-                    $this->db->insert('empleado', $info);
-                    $creados++;
-                }
+                $this->db->update('empleado', $info);
+                $actulizados++;
             } else {
-                $incosistencias.='<br> Cargo no encontrado para la cedula: ' . $info['Emp_Cedula'];
+                $this->db->insert('empleado', $info);
+                $creados++;
             }
         }
         echo "<p><br>Numero de registros: " . $registros;
         echo "<br>Registros actualizados : " . $actulizados;
         echo "<br>Registros Creados : " . $creados;
-        if (!empty($incosistencias)) {
-            echo "<br>Datos con errores : " . $incosistencias;
-        }
     }
 
     function accidente() {
@@ -1875,7 +1871,7 @@ class Administrativo extends My_Controller {
         }
     }
 
-    function administracion() {
+    function index() {
         try {
             $this->load->model(array("administracion_model", "Empleadocapacitacion_model"));
             $this->data['inicio'] = $this->administracion_model->admin_inicio();
@@ -1886,6 +1882,7 @@ class Administrativo extends My_Controller {
             
         }
     }
+
     function eliminarAccidente() {
         try {
             $this->load->model(array("Accidentes_model"));
@@ -1896,14 +1893,15 @@ class Administrativo extends My_Controller {
             
         }
     }
-       function listadoCapacitacion(){
-        try{
+
+    function listadoCapacitacion() {
+        try {
             $this->load->model(array("Capacitaciones_model"));
             $this->data["capacitacion"] = $this->Capacitaciones_model->todasCapacitaciones();
-            $this->layout->view("administrativo/listadoCapacitacion",$this->data);
-        }catch(exception $e){
+            $this->layout->view("administrativo/listadoCapacitacion", $this->data);
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
