@@ -1,5 +1,15 @@
+<br><div class="row">
+    <div class="col-md-6">
+        <br>
+        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "none" : "" ?> guardar" title="Guardar Usuario" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "" : "none" ?> guardar" title="Guardar Usuario"  metodo="actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
+        <a href="<?php echo base_url() . "/index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+        <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
+        <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
+    </div>
 
-
+</div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -13,17 +23,7 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <div class="row">
-                    <div class="col-md-6">
-                        <br>
-                        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "none" : "" ?> guardar" title="Guardar Usuario" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-                        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "" : "none" ?> guardar" title="Guardar Usuario"  metodo="actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
-                        <a href="<?php echo base_url() . "/index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-                        <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
-                        <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
-                    </div>
 
-                </div>
                 <form id="f3" method="post" class="form-horizontal">
                     <div class="form-body">
 
@@ -48,6 +48,21 @@
                                     </label>   
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                                         <input type="text" id="nombres" name="nombres" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_nombre)) ? $usuario[0]->usu_nombre : ""; ?>" />
+                                    </div> 
+                                </div> 
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <span class="campoobligatorio">*</span>Tipo Usuario
+                                    </label>   
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <select id="TipoUsuario" name="TipoUsuario" class="form-control obligatorio" >
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach($tipoUsuario as $tu): ?>
+                                            <option <?php echo (!empty($usuario[0]->tipUsuEva_id) && $usuario[0]->tipUsuEva_id == $tu->tipUsuEva_id) ? "selected" : ""; ?> value="<?php echo $tu->tipUsuEva_id ?>"><?php echo $tu->tipUsuEva_tipo ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div> 
                                 </div> 
                             </div> 
@@ -171,7 +186,7 @@
                                         <select id="empleado" name="empleado" class="form-control obligatorio select2me">
                                             <option value="">::Seleccionar::</option>
                                             <?php
-                                            if(!empty($usuario[0]->emp_id)) {
+                                            if (!empty($usuario[0]->emp_id)) {
                                                 foreach ($empleado as $mp):
                                                     ?>
                                                     <option <?php echo (!empty($usuario[0]->emp_id) && $usuario[0]->emp_id == $mp->Emp_id) ? "selected" : ""; ?> value="<?php echo $mp->Emp_id ?>"><?php echo $mp->Emp_Nombre . " " . $mp->Emp_Apellidos ?></option> 
@@ -219,12 +234,12 @@
                 data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre + " " + val.Emp_Apellidos + "</option>"
             });
             $('#empleado').append(data);
-            
-            <?php if(isset($usuario[0]->emp_id)){?>
-                    var emp_id="<?php echo $usuario[0]->emp_id?>";
-                    $('#empleado').val(emp_id)
-            <?php } ?>
-                
+
+<?php if (isset($usuario[0]->emp_id)) { ?>
+                var emp_id = "<?php echo $usuario[0]->emp_id ?>";
+                $('#empleado').val(emp_id)
+<?php } ?>
+
         }).fail(function (msg) {
 
         })
@@ -257,5 +272,5 @@
         }
     });
     $('#rol').trigger('change');
-  $('#cargo').trigger('change');
+    $('#cargo').trigger('change');
 </script>    

@@ -80,16 +80,18 @@ class User_model extends CI_Model {
         }
     }
 
-    function filteruser($apellido = null, $cedula = null, $estado = null, $nombre = null) {
+    function filteruser($apellido = null, $cedula = null, $estado = null, $nombre = null,$tipoUsuario = null) {
         try {
             if (!empty($apellido))
                 $this->db->like('usu_apellido', $apellido);
             if (!empty($cedula))
                 $this->db->like('usu_cedula', $cedula);
             if (!empty($estado))
-                $this->db->like('est_id', $estado);
+                $this->db->where('est_id', $estado);
             if (!empty($nombre))
                 $this->db->like('usu_nombre', $nombre);
+            if (!empty($tipoUsuario))
+                $this->db->where('tipUsuEva_id', $tipoUsuario);
 
             $this->db->select("user.*");
             $this->db->select("ingreso.ing_fechaIngreso");
