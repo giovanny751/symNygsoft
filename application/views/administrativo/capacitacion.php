@@ -1,3 +1,10 @@
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="circuloIcon" title="Guardar capacitación" id="guardar" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+    </div>
+</div>
+<br>
 <form method="post" id="frmCapacitaciones">
     <div class="row">
         <div class="col-md-12">
@@ -55,14 +62,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="col-md-4 "></div>
-                                <div class="col-md-3 ">
-                                    <button type="button" id="guardar" class="btn btn-block ">Guardar</button>
-                                </div>
-                            </div>
-                        </div> 
                     </div>
                 </div>
             </div>
@@ -81,7 +80,7 @@
                 <div class="portlet-body form">
                     <div class="form-body">
                         <div class="col-lg-2">
-                        <button type="button" class="btn btn-block" id="agregar" >Agregar Empleados</button>
+                            <button type="button" class="btn btn-info btn-block" id="agregar" >Agregar Empleados</button>
                         </div>
                         <table class="tabla-sst" id="tablaCapacitacion">
                             <thead style="text-align: Center">
@@ -104,20 +103,20 @@
             "<button type='button' class='btn btn-danger' title='Eliminar'>-</button>"
         ]).draw();
     });
-    $('#guardar').click(function(){
-        if(obligatorio('obligatorio') == true){
-        $.post(
-                url+"index.php/administrativo/guardarCapacitaciones",
-                $("#frmCapacitaciones").serialize()
-                        
-                ).done(function(msg){
-                    $("input,select,textarea").val('');
-                    var table = $('#tablaCapacitacion').DataTable();
-                    table.clear().draw();
-                }).fail(function(msg){
-                    
-                });
+    $('#guardar').click(function () {
+        if (obligatorio('obligatorio') == true) {
+            $.post(
+                    url + "index.php/administrativo/guardarCapacitaciones",
+                    $("#frmCapacitaciones").serialize()
+
+                    ).done(function (msg) {
+                $("input,select,textarea").val('');
+                var table = $('#tablaCapacitacion').DataTable();
+                table.clear().draw();
+            }).fail(function (msg) {
+
+            });
         }
-    
+
     });
 </script>    

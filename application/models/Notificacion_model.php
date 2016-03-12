@@ -15,7 +15,7 @@ class Notificacion_model extends CI_Model {
             
         }
     }
-
+    
 }
 
 ?>

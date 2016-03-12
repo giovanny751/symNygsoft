@@ -690,12 +690,21 @@ class Administrativo extends My_Controller {
 
     function creacionusuarios() {
         try {
-            $this->load->model(array('Sexo_model', 'Cargo_model', 'Empleado_model', 'Estados_model', 'User_model', 'Roles_model'));
+            $this->load->model(array(
+                'Sexo_model', 
+                'Cargo_model', 
+                'Empleado_model', 
+                'Estados_model', 
+                'User_model', 
+                'Roles_model',
+                "Tipousuarioevaluacion_model"
+                ));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['empleado'] = $this->Empleado_model->detail();
             $this->data['estado'] = $this->Estados_model->detail();
             $this->data['sexo'] = $this->Sexo_model->detail();
             $this->data['cargo'] = $this->Cargo_model->detail();
+            $this->data['tipoUsuario'] = $this->Tipousuarioevaluacion_model->detail();
             $this->data['usuario'] = "";
             $user = $this->input->post('usu_id');
             if (!empty($user)) {
@@ -712,11 +721,12 @@ class Administrativo extends My_Controller {
 
     function listadousuarios() {
         try {
-            $this->load->model(array('Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
+            $this->load->model(array("Tipousuarioevaluacion_model",'Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['estado'] = $this->Estados_model->detail();
             $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
             $this->data["usuarios"] = $this->User_model->consultageneral();
+            $this->data['tipoUsuario'] = $this->Tipousuarioevaluacion_model->detail();
             $this->layout->view("administrativo/listadousuarios", $this->data);
         } catch (exception $e) {
             
@@ -733,6 +743,7 @@ class Administrativo extends My_Controller {
                     , $this->input->post('cedula')
                     , $this->input->post('estado')
                     , $this->input->post('nombre')
+                    , $this->input->post('tipoUsuario')
             );
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
@@ -757,6 +768,7 @@ class Administrativo extends My_Controller {
                     'usu_email' => $this->input->post('email'),
                     'sex_id' => $this->input->post('genero'),
                     'usu_cambiocontrasena' => $this->input->post('cambiocontrasena'),
+                    'tipUsuEva_id' => $this->input->post('TipoUsuario'),
                     'usu_fechaCreacion' => date('Y-m-d H:i:s'),
                     'car_id' => (!empty($this->input->post('cargo')) ? $this->input->post('cargo') : NULL),
                     'emp_id' => (!empty($this->input->post('empleado')) ? $this->input->post('empleado') : NULL),
@@ -799,6 +811,7 @@ class Administrativo extends My_Controller {
                 'usu_email' => $this->input->post('email'),
                 'sex_id' => $this->input->post('genero'),
                 'car_id' => $this->input->post('cargo'),
+                'tipUsuEva_id' => $this->input->post('TipoUsuario'),
                 'emp_id' => $this->input->post('empleado'),
                 'usu_cambiocontrasena' => $this->input->post('cambiocontrasena'),
                 'usu_fechaCreacion' => date('Y-m-d H:i:s')

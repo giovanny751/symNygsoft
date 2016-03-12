@@ -161,6 +161,15 @@ class Cargo_model extends CI_Model {
             
         }
     }
+    function notificacionesXCargo($idNotificacion){
+        $this->db->select("cargo.car_id");
+        $this->db->select("cargo.car_nombre");
+        $this->db->select("cargo_notificacion.not_id");
+        $this->db->order_by("car_nombre");
+        $this->db->join("cargo_notificacion","cargo_notificacion.car_id = cargo.car_id and cargo_notificacion.not_id = $idNotificacion","left");
+        $cargo = $this->db->get("cargo");
+        return $cargo->result();
+    }
 
 }
 

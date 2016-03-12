@@ -1,9 +1,10 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
-
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -84,9 +85,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-4 col-md-4" style="text-align: center">
-                                <button type="button" class="btn-sst limpiar" style="margin-top: 28px">Limpiar</button>
-                                <button type="button" class="btn-sst buscar" style="margin-top: 28px">Buscar</button>
+                            <div class="col-md-4" style="text-align: center">
+                                <div class="form-group">
+                                    <button type="button" class="btn-sst limpiar" >Limpiar</button>
+                                    <button type="button" class="btn-sst buscar" >Buscar</button>
+                                </div>
                             </div>
                         </div>
                     </form>

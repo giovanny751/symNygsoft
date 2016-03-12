@@ -117,13 +117,20 @@
                         <!-- Empezar RESPONSIVE menu despegable -->
                         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
                         <!-- Empezar navegacion menu superior -->
+                        <?php
+                                    $ci = &get_instance();
+                                    $ci->load->model("Notificacionusuario_model");
+                                    $notificaciones = $ci->Notificacionusuario_model->detail();
+                                    $conadorNotificacion = count($notificaciones);
+                                    ?>
                         <div class="top-menu">
                             <ul class="nav navbar-nav pull-right">
                                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <i class="icon-bell"></i>
-                                        <span class="badge badge-default">8</span>
+                                        <span class="badge badge-default"><?php echo $conadorNotificacion; ?></span>
                                     </a>
+                                    
                                     <ul class="dropdown-menu">
                                         <li class="external">
                                             <h3><span class="bold">12 pendiente</span> notificaciones</h3>
@@ -131,7 +138,20 @@
                                         </li>
                                         <li>
                                             <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                                <li>
+                                                <?php foreach ($notificaciones as $not): ?>
+                                                    <li>
+                                                        <a href="javascript:;">
+                                                            <span class="time">Ahora</span>
+                                                            <span class="details">
+                                                                <span class="label label-sm label-icon label-success">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </span>
+                                                                <?php echo $not->not_notificacion ?>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                <?php endforeach; ?>
+ <!--                                               <li>
                                                     <a href="javascript:;">
                                                         <span class="time">Ahora</span>
                                                         <span class="details">
@@ -240,7 +260,7 @@
                                                             Extintor por vencer
                                                         </span>
                                                     </a>
-                                                </li>   
+                                                </li>   -->
                                             </ul>
                                         </li>
                                     </ul>
@@ -322,7 +342,7 @@
                 <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
 
                 <script type="text/javascript">
-                    base_url_js='<?php echo base_url()?>'
+            base_url_js = '<?php echo base_url() ?>'
             $('.dimencion_uno_se').change(function () {
                 $('.dimencion_dos_se').html('');
                 if ($(this).val() == '')

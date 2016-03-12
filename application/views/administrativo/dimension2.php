@@ -1,3 +1,10 @@
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="circuloIcon guardar" title="Guardar dimension" id="guardar" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+    </div>
+</div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -25,13 +32,6 @@
                                     <label for="descripcion" class="control-label col-md-3">*Descripción</label>
                                     <div class="col-md-9">
                                         <input type="text" name="descripcion" id="descripcion" class="form-control obligatorio"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="col-md-offset-8 col-md-4">
-                                        <input type="button" value="Agregar" class="btn btn-block  guardar" />
                                     </div>
                                 </div>
                             </div>

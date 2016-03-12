@@ -1,4 +1,10 @@
-
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+    </div>
+</div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -14,44 +20,48 @@
             <div class="portlet-body form">
                 <form method="post" id="f9">
                     <div class="form-body">
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                            <div class="col-md-3">
+                                <label for="Plan" class="col-md-4">Plan</label>
+                                <div class="col-md-8">
+                                    <select name="Plan" id="Plan" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($planes as $p) { ?>
+                                            <option value="<?php echo $p->pla_id ?>"><?php echo strtoupper($p->pla_nombre) ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filtrotarea" class="col-md-4">Filtro Tareas</label>
+                                <div class="col-md-8">
+                                    <select name="filtrotarea" id="filtrotarea" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="responsable" class="col-md-4">Responsable</label>
+                                <div class="col-md-8">
+                                    <select name="responsable" id="responsable" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($responsables as $r) { ?>
+                                            <option value="<?php echo $r->emp_id ?>"><?php echo strtoupper($r->Emp_Nombre . " " . $r->Emp_Apellidos) ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <label for="responsable" class="col-md-4">Tipo Riesgo</label>
+                                <div class="col-md-8">
+                                    <select name="responsable" id="responsable" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label for="Plan">Plan</label>
-                                <select name="Plan" id="Plan" class="form-control">
-                                    <option value="">::Seleccionar::</option>
-                                    <?php foreach ($planes as $p) { ?>
-                                        <option value="<?php echo $p->pla_id ?>"><?php echo strtoupper($p->pla_nombre) ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label for="filtrotarea">Filtro Tareas</label>
-                                <select name="filtrotarea" id="filtrotarea" class="form-control">
-                                    <option value="">::Seleccionar::</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label for="responsable">Responsable</label>
-                                <select name="responsable" id="responsable" class="form-control">
-                                    <option value="">::Seleccionar::</option>
-                                    <?php foreach ($responsables as $r) { ?>
-                                        <option value="<?php echo $r->emp_id ?>"><?php echo strtoupper($r->Emp_Nombre . " " . $r->Emp_Apellidos) ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label for="responsable">Tipo Riesgo</label>
-                                <select name="responsable" id="responsable" class="form-control">
-                                    <option value="">::Seleccionar::</option>
-                                </select>
-                                <br>
-                            </div>
-                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -104,7 +114,7 @@
             $('#filtrotarea *').remove();
             var optionTarea = "<option value=''>::Seleccionar::</option>";
             $.each(msg.tareaPadre, function (key, val) {
-                optionTarea += "<option value='" + val.tar_id + "'>" + val.tar_nombre.toUpperCase()  + "</option>";
+                optionTarea += "<option value='" + val.tar_id + "'>" + val.tar_nombre.toUpperCase() + "</option>";
             });
             $('#filtrotarea').append(optionTarea);
         }).fail(function () {
