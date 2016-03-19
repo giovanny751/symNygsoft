@@ -31,9 +31,9 @@
         </div>
         <div class="menu-toggler sidebar-toggler">
         </div>
-        <div class="content">
+        <div class="content" >
             <?php echo form_open('index.php/login/verify', 'class="form-signin login-form" role="form" autocomplete="off"'); ?>
-            <h3 class="form-title">Ingreso al Sistema</h3>
+            <h3 class="form-title" style="color:black">Ingreso al Sistema</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
                 <span>
@@ -41,14 +41,14 @@
                 </span>
             </div>
             <div class="form-group">
-                <label class="control-label visible-ie8 visible-ie9">Username</label>
+                <label class="control-label visible-ie8 visible-ie9"  style="color:black">Username</label>
                 <div class="input-icon">
                     <i class="fa fa-user"></i>
                     <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Usuario" name="username"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <label class="control-label visible-ie8 visible-ie9"  style="color:black">Password</label>
                 <div class="input-icon">
                     <i class="fa fa-lock"></i>
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password"/>
@@ -60,8 +60,8 @@
                 </button>
             </div>
             <div class="forget-password">
-                <h4>Olvidaste tu contraseña?</h4>
-                <p>
+                <h4  style="color:black">Olvidaste tu contraseña?</h4>
+                <p  style="color:black">
                     no se preocupe, haga clic <a href="javascript:;" id="forget-password">
                         aquí </a>  para restablecer la contraseña.
                 </p>
@@ -74,8 +74,8 @@
 
             <?php echo form_close(); ?> 
             <form class="forget-form" action="<?php echo base_url('index.php/login/reset'); ?>" method="post">
-                <h3>Olvido la contraseña?</h3>
-                <p>
+                <h3  style="color:black">Olvido la contraseña?</h3>
+                <p  style="color:black">
                     Dirección de correo electrónico para restablecer la contraseña.
                 </p>
                 <div class="form-group">
@@ -129,9 +129,10 @@
                 // init background slide images
                 $.backstretch([
 //                    base_url_js + "/assets/admin/pages/media/bg/NyG.png"
-                    base_url_js + "/assets/admin/pages/media/bg/1.jpg",
-                    base_url_js + "/assets/admin/pages/media/bg/2.jpg",
-                    base_url_js + "/assets/admin/pages/media/bg/3.jpg",
+                    base_url_js + "/assets/admin/pages/media/bg/principal.png"
+//                    base_url_js + "/assets/admin/pages/media/bg/1.jpg",
+//                    base_url_js + "/assets/admin/pages/media/bg/2.jpg",
+//                    base_url_js + "/assets/admin/pages/media/bg/3.jpg",
                 ], {
                     fade: 1000,
                     duration: 8000

@@ -67,13 +67,14 @@
         <canvas id="canvas" height="450" width="450"></canvas>
     </div>    
 </center>
+<?php echo $avacenprogreso; ?>
 <script>
 
     var radarChartData = {
         labels: [<?php echo $tipo_t; ?>],
         datasets: [
             {
-                label: "Numero de tareas",
+                label: "My First dataset",
                 fillColor: "rgba(220,220,220,0.2)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -83,7 +84,7 @@
                 data: [<?php echo $valores_t; ?>]
             },
             {
-                label: "Porcentaje tareas",
+                label: "My Second dataset",
                 fillColor: "rgba(151,187,205,0.2)",
                 strokeColor: "rgba(151,187,205,1)",
                 pointColor: "rgba(151,187,205,1)",

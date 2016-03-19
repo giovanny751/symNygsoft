@@ -10,7 +10,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i><?= $empresa[0]->Dim_id ?> (<?= $title ?>)
+                    <i class="glyphicon glyphicon-ok"></i><?= $empresa[0]->Dim_id ?> (<?= $title ?>)
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

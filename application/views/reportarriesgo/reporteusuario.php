@@ -47,6 +47,7 @@
         </style>
     </head>
     <body>
+        <div class="container">
         <header>
             <div class="logo">SST</div>
         </header>
@@ -56,7 +57,7 @@
                     <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i>Datos de solicitud de registro de peligro
+                                <i class="glyphicon glyphicon-ok"></i>Datos de solicitud de registro de peligro
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -125,6 +126,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <script type="text/javascript" src="<?php echo base_url() ?>/js/jquery_1.11.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>/js/jquery_ui_1.11.4.min.js"></script>
