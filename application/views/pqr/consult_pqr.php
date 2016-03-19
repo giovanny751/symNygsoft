@@ -96,46 +96,48 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                <th style='display:none'></th>
-                                <th>Tipo De Solicitud:</th>
-                                <th>Tema:</th>
-                                <th>Detalles:</th>
-                                <th>Solicitante:</th>
-                                <th>Nombre:</th>
-                                <th>E-mail:</th>
-                                <th>Teléfono:</th>
-                                <th>Departamento:</th>
-                                <th>Estado de Solicitud</th>
-                                <th>Acción</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($datos as $key => $value) {
-                                        echo "<tr>";
-                                        $i = 0;
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <th style='display:none'></th>
+                                    <th>Tipo De Solicitud:</th>
+                                    <th>Tema:</th>
+                                    <th>Detalles:</th>
+                                    <th>Solicitante:</th>
+                                    <th>Nombre:</th>
+                                    <th>E-mail:</th>
+                                    <th>Teléfono:</th>
+                                    <th>Departamento:</th>
+                                    <th>Estado de Solicitud</th>
+                                    <th>Acción</th>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($datos as $key => $value) {
+                                            echo "<tr>";
+                                            $i = 0;
 
-                                        foreach ($value as $key2 => $value2) {
-                                            if ($i == 0) {
-                                                echo "<td style='display:none'>" . $value->$key2 . "</td>";
-                                                $campo = $key2;
-                                                $valor = "'" . $value->$key2 . "'";
-                                            }else{
-                                                echo "<td>" . $value->$key2 . "</td>";
+                                            foreach ($value as $key2 => $value2) {
+                                                if ($i == 0) {
+                                                    echo "<td style='display:none'>" . $value->$key2 . "</td>";
+                                                    $campo = $key2;
+                                                    $valor = "'" . $value->$key2 . "'";
+                                                } else {
+                                                    echo "<td>" . $value->$key2 . "</td>";
+                                                }
+                                                $i++;
                                             }
-                                            $i++;
+                                            echo "<td>"
+                                            . '<a href="javascript:" class="btn btn-dcs" onclick="editar(' . $valor . ')"><i class="fa fa-pencil"></i></a>'
+                                            . '<a href="javascript:" class="btn btn-danger" onclick="delete_(' . $valor . ')"><i class="fa fa-trash-o"></i></a>'
+                                            . "</td>";
+                                            echo "</tr>";
                                         }
-                                        echo "<td>"
-                                        . '<a href="javascript:" class="btn btn-dcs" onclick="editar(' . $valor . ')"><i class="fa fa-pencil"></i></a>'
-                                        . '<a href="javascript:" class="btn btn-danger" onclick="delete_(' . $valor . ')"><i class="fa fa-trash-o"></i></a>'
-                                        . "</td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
+                                        ?>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,24 +161,24 @@
     </form>
 <?php } ?>
 <script>
-        function editar(num) {
+    function editar(num) {
         $('#<?php echo $campo ?>2').val(num);
-                $('#editar').submit();
+        $('#editar').submit();
     }
     function delete_(num) {
-                    var r = confirm('Confirma que desea eliminar el registro');
-                if (r == false) {
+        var r = confirm('Confirma que desea eliminar el registro');
+        if (r == false) {
             return false;
-                }
+        }
         $('#<?php echo $campo ?>3').val(num);
         $('#delete').submit();
-    } 
-                $('body').delegate('.number', 'keypress', function (tecla) {
-            if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-                return false;
+    }
+    $('body').delegate('.number', 'keypress', function (tecla) {
+        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
+            return false;
     });
-                $('.fecha').datepicker({
-            rtl: Metronic.isRTL(),
+    $('.fecha').datepicker({
+        rtl: Metronic.isRTL(),
         autoclose: true
     });
 </script>

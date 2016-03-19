@@ -21,7 +21,7 @@
                                             <?php 
                                             $segundos=strtotime($tiempo_incio) - strtotime(date("Y-m-d H:i:s"));
                                             ?>
-                                            Tiempo de la prueba: <span class="tiempo"><?php echo (($nombre_evaluacion[0]->eva_tiempo * 60)+$segundos) ?>  </span> Segundos
+                                            Tiempo de la prueba: <span class="tiempo"><?php $time=(($nombre_evaluacion[0]->eva_tiempo * 60)+$segundos); echo ($time>0)?$time:0; ?>  </span> Segundos
                                         </div>
                                     </div>
                                 <?php } ?>

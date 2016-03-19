@@ -127,20 +127,37 @@
                 Login.init();
                 UIConfirmations.init(); // init page demo
                 // init background slide images
-                $.backstretch([
-//                    base_url_js + "/assets/admin/pages/media/bg/NyG.png"
-                    base_url_js + "/assets/admin/pages/media/bg/principal.png"
-//                    base_url_js + "/assets/admin/pages/media/bg/1.jpg",
-//                    base_url_js + "/assets/admin/pages/media/bg/2.jpg",
-//                    base_url_js + "/assets/admin/pages/media/bg/3.jpg",
-                ], {
-                    fade: 1000,
-                    duration: 8000
-                }
-                );
+//                $.backstretch([
+////                    base_url_js + "/assets/admin/pages/media/bg/NyG.png"
+//                    base_url_js + "/assets/admin/pages/media/bg/nygsoft_principal.png"
+////                    base_url_js + "/assets/admin/pages/media/bg/1.jpg",
+////                    base_url_js + "/assets/admin/pages/media/bg/2.jpg",
+////                    base_url_js + "/assets/admin/pages/media/bg/3.jpg",
+//                ], {
+//                    fade: 1000,
+//                    duration: 8000,
+//                }
+//                );
+                $(function () {
+                    $('.backstretch img').css('width', '100%');
+                    $('.backstretch img').css('height', '100%');
+                })
             });
+
+
         </script>
         <!-- END JAVASCRIPTS -->
+        <style type="text/css">
+            html{
+                width: 100%;
+                height: 100%;
+            }
+            body{
+                background-image: url("<?php echo base_url("/assets/admin/pages/media/bg/nygsoft_principal.png") ?>");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+        </style>
     </body>
     <!-- END BODY -->
 </html>

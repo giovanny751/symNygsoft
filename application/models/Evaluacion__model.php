@@ -74,6 +74,7 @@ class Evaluacion__model extends CI_Model {
         $this->db->select('eva_id');
         $this->db->select('eva_nombre');
         $this->db->select('eva_tiempo');
+        $this->db->select('eva_num_preguntas');
         $this->db->where('ACTIVO', 'S');
         $datos = $this->db->get('evaluacion');
         $datos = $datos->result();
@@ -92,7 +93,7 @@ class Evaluacion__model extends CI_Model {
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
 //        $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
         $this->db->order_by('rand()');
-        $datos = $this->db->get('preguntas', $evaluacion[0]->eva_tiempo);
+        $datos = $this->db->get('preguntas', ($evaluacion[0]->eva_num_preguntas==0)?10000:$evaluacion[0]->eva_num_preguntas);
         $datos = $datos->result();
         return $datos;
     }
