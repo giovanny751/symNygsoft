@@ -33,6 +33,7 @@ class Mis_archivos_model extends CI_Model {
             $this->db->where('carDoc_id_padre', $post['id_carpeta']);
         else
             $this->db->where('carDoc_id_padre', null);
+        $this->db->order_by('carDoc_nombre');
         $date = $this->db->get('carpeta_documento');
         return $date->result();
     }
@@ -43,6 +44,7 @@ class Mis_archivos_model extends CI_Model {
             $this->db->where('carDoc_id_padre', $post['id_carpeta']);
         else
             $this->db->where('carDoc_id_padre', null);
+        $this->db->order_by('carDoc_nombre');
         $date = $this->db->get('carpeta_documento');
 //        echo $this->db->last_query();
         return $date->result();
@@ -51,13 +53,15 @@ class Mis_archivos_model extends CI_Model {
     function traer_atras() {
         $post = $this->input->post();
         if (!empty($post['id_carpeta']))
-            $this->db->where('carDoc_id_padre', $post['id_carpeta']);
+            $this->db->where('carDoc_id', $post['id_carpeta']);
         else
             $this->db->where('carDoc_id_padre', null);
         $date = $this->db->get('carpeta_documento');
         $date = $date->result();
-        if (empty($date[0]->carDoc_id_padre)) {
-            $this->db->where('carDoc_id_padre', null);
+
+        if (!empty($date[0]->carDoc_id)) {
+            $this->db->where('carDoc_id_padre', $date[0]->carDoc_id_padre);
+            $this->db->order_by('carDoc_nombre');
             $date = $this->db->get('carpeta_documento');
             $date = $date->result();
         }
