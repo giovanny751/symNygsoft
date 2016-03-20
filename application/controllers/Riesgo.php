@@ -84,8 +84,8 @@ class Riesgo extends My_Controller {
                 "rie_descripcion" => $this->input->post("descripcion"),
                 "rieCla_id" => $this->input->post("categoria"),
                 "rieClaTip_id" => $this->input->post("tipo"),
-                "dim1_id" => $this->input->post("dimensionuno"),
-                "dim2_id" => $this->input->post("dimensiondos"),
+                "dim1_id" => (!empty($this->input->post("dimensionuno")))?$this->input->post("dimensionuno"):null,
+                "dim2_id" => (!empty($this->input->post("dimensiondos")))?$this->input->post("dimensiondos"):null,
                 "rie_zona" => $this->input->post("zona"),
                 "rie_requisito" => $this->input->post("requisito"),
                 "rie_observaciones" => $this->input->post("observaciones"),
@@ -559,7 +559,7 @@ class Riesgo extends My_Controller {
 
     function guardarPrevencion() {
         try {
-            $this->load->model("Prevencion_model");
+            $this->load->model(array("Prevencionriesgoclasificacion_model","Prevencion_model"));
             $variable = array(
                 "cargo" => $this->input->post("car_id"),
                 "dimDos_id" => $this->input->post("dimDos"),
@@ -577,6 +577,7 @@ class Riesgo extends My_Controller {
             );
             $pre_id = $this->Prevencion_model->guardarPrevencion($variable);
 
+            
             if (!empty($this->input->post('clasificacion'))):
                 $clasificacion = $this->input->post('clasificacion');
                 for ($i = 0; $i < count($clasificacion); $i++):
@@ -586,7 +587,6 @@ class Riesgo extends My_Controller {
                     );
                     $preRieCla_id = $this->Prevencionriesgoclasificacion_model->guardarPrevencionClasificacion($prevencionClasificacion);
                 endfor;
-
             endif;
             $data['Json'] = $pre_id;
         } catch (exception $e) {
@@ -626,9 +626,7 @@ class Riesgo extends My_Controller {
     function consultaListadoPrevencion() {
         try {
             $this->load->model("Prevencioncontrol_model");
-            $fechaInicial = $this->input->post("fechaDesde");
-            $fechaFinal = $this->input->post("fechaHasta");
-            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($fechaInicial, $fechaFinal);
+            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($this->input->post("fechaDesde"), $this->input->post("fechaHasta"));
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {

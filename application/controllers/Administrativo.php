@@ -444,7 +444,6 @@ class Administrativo extends My_Controller {
                 $this->Empleadoregistro_model->empleado_registroactualizar($post, $this->input->post('empReg_id'));
                 $emp_id = $this->input->post('regEmp_id');
             }
-
 //De la carpeta idRegistro, creamos carpeta con el id del empleado
             if (!file_exists($targetPath)) {
                 mkdir($targetPath, 0777, true);
@@ -454,15 +453,12 @@ class Administrativo extends My_Controller {
                 mkdir($targetPath, 0777, true);
             }
             $target_path = $targetPath . '/' . basename($_FILES['archivo']['name']);
-            if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
-                
-            }
+            if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) { }
             $detallecarpeta = $this->Empleadoregistro_model->detallexcarpeta($post['empReg_carpeta']);
-            $this->output->set_content_type('application/json')->set_output(json_encode($detallecarpeta));
         } catch (exception $e) {
             
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($detallecarpeta));
         }
     }
 

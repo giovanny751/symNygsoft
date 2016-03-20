@@ -40,7 +40,7 @@
                         <div class="tabbable tabbable-tabdrop">
                             <ul class="nav nav-tabs">
                                 <li class='active'>
-                                    <a data-toggle="tab" href="#tab1">Informacion General</a>
+                                    <a data-toggle="tab" href="#tab1">Información General</a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#tab2">Contratos</a>
@@ -67,7 +67,6 @@
                                 <li>
                                     <a data-toggle="tab" href="#tab6">Registro</a>
                                 </li>
-
                             </ul>
                             <div class="tab-content">
                                 <div id="tab1" class="tab-pane active">
@@ -618,8 +617,6 @@
                                             <td>Capacitación</td>
                                             <td>Fecha</td>
                                             <td>Observacion</td>
-                                            <td>Editar</td>
-                                            <td>Eliminar</td>
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($capacitaciones as $ca): ?>
@@ -627,8 +624,6 @@
                                                         <td><?php echo $ca->cap_nombreCapacitacion ?></td>
                                                         <td><?php echo $ca->cap_fechaCapacitacion ?></td>
                                                         <td><?php echo $ca->cap_observacion ?></td>
-                                                        <td></td>
-                                                        <td></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -1326,8 +1321,8 @@ endforeach;
                     var acordeon = '<div class="panel panel-default" id="' + msg.empCar_id + '">\n\
                                             <div class="panel-heading">\n\
                                                 <h4 class="panel-title">\n\
-                                                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_' + msg.empCar_id + '" aria-expanded="false">\n\
-                                                        ' + msg.empCar_nombre + " - " + msg.empCar_descripcion + '\n\
+                                                    <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_' + msg.empCar_id + '" aria-expanded="false">&nbsp;\n\
+                                                        <i class="fa fa-folder-o carpeta"></i> ' + msg.empCar_nombre + " - " + msg.empCar_descripcion + '\n\
                                                     </a>\n\
                                                         <div class="posicionIconoAcordeon"><i class="fa fa-edit editarcarpeta" car_id="' + msg.empCar_id + '"></i>\n\
                                                         <i class="fa fa-times eliminarcarpeta" car_id="' + msg.empCar_id + '"></i></div>\n\
@@ -1470,6 +1465,7 @@ endforeach;
             data: form_data,
             type: 'post',
             success: function (result) {
+                
                 $('#archivocarpeta').val('')
                 $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody *').remove();
                 var filas = "";
@@ -1490,7 +1486,7 @@ endforeach;
                 });
                 var numero = $('#empReg_carpeta').val();
                 $('#collapse_' + numero).find('table tbody').append(filas);
-                $('#myModal2').modal("toggle")
+                $('#myModal2').modal("toggle");
             }
         });
     });

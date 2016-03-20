@@ -49,20 +49,20 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="clasificacion" class="col-md-6 control-label">Clasificación del riesgo</label>
-                                                        <div class="col-md-6">
+                                                        <label for="clasificacion" class="col-md-4 control-label">Clasificación del riesgo</label>
+                                                        <div class="col-md-8">
                                                             <select name='clasificacion[]' id='clasificacion' class="form-control" multiple>
-                                                                <?php foreach ($categoria as $ca) { ?>
+                                                                <?php foreach ($categoria as $ca) : ?>
                                                                     <option <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo strtoupper($ca->rieCla_categoria) ?></option>
-                                                                <?php } ?>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div> 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="tiposriesgos" class="col-md-6 control-label">Tipo riesgo</label>
-                                                        <div class="col-md-6">
+                                                        <label for="tiposriesgos" class="col-md-4 control-label">Tipo riesgo</label>
+                                                        <div class="col-md-8">
                                                             <select name='tiposriesgos[]' id='tiposriesgos' class="form-control" multiple>
                                                                 <?php foreach ($tipoClasificacion as $tc): ?>
                                                                     <option <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
@@ -72,8 +72,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="lista_riesgos" class="col-md-6 control-label">Riesgo</label>
-                                                    <div class="col-md-6">
+                                                    <label for="lista_riesgos" class="col-md-4 control-label">Riesgo</label>
+                                                    <div class="col-md-8">
                                                         <select name='lista_riesgos[]' id='lista_riesgos' class="form-control" multiple>
                                                             <?php foreach ($riesgos as $e) { ?>
                                                                 <?php
@@ -154,7 +154,7 @@
                                                     <div class="form-group">
                                                         <label for="presupuesto" class="col-md-6 control-label">Presupuesto</label>
                                                         <div class="col-md-6">
-                                                            <input type="text" name="presupuesto" id="presupuesto" class="form-control number"/>
+                                                            <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number obligatorio"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,8 +173,8 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="dimUno" class="col-md-6 control-label"><span>*</span><?php echo $empresa[0]->Dim_id ?></label>
-                                                        <div class="col-md-6">
+                                                        <label for="dimUno" class="col-md-4 control-label"><span>*</span><?php echo $empresa[0]->Dim_id ?></label>
+                                                        <div class="col-md-8">
                                                             <select name="dimUno" id="dimUno" class="form-control dimencion_uno_se obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($dimension as $d1) { ?>
@@ -186,8 +186,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="dimDos" class="col-md-6 control-label"><span>*</span> <?php echo $empresa[0]->Dimdos_id ?></label>
-                                                        <div class="col-md-6">
+                                                        <label for="dimDos" class="col-md-3 control-label"><span>*</span> <?php echo $empresa[0]->Dimdos_id ?></label>
+                                                        <div class="col-md-9">
                                                             <select name="dimDos" id="dimDos" class="form-control dimencion_dos_se obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                             </select>
@@ -196,8 +196,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="lugar" class="col-md-6 control-label">Lugar</label>
-                                                        <div class="col-md-6">
+                                                        <label for="lugar" class="col-md-3 control-label">Lugar</label>
+                                                        <div class="col-md-9">
                                                             <input type="text" name="lugar" id="lugar" class="form-control"/>
                                                         </div>
                                                     </div>
@@ -206,8 +206,8 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="cargo" class="col-md-6 control-label"><span>*</span>Cargo</label>
-                                                        <div class="col-md-6">
+                                                        <label for="cargo" class="col-md-3 control-label"><span>*</span>Cargo</label>
+                                                        <div class="col-md-9">
                                                             <select name="cargo" id="cargo" class="form-control obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($cargo as $c): ?> 
@@ -219,8 +219,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="empleado" class="col-md-6 control-label"><span>*</span>Empleado</label>
-                                                        <div class="col-md-6">
+                                                        <label for="empleado" class="col-md-3 control-label"><span>*</span>Empleado</label>
+                                                        <div class="col-md-9">
                                                             <select name="empleado" id="empleado" class="form-control obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                             </select>
@@ -232,8 +232,8 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="observacion" class="col-md-2 control-label">Observación</label>
-                                                        <div class="col-md-10">
+                                                        <label for="observacion" class="col-md-1 control-label">Observación</label>
+                                                        <div class="col-md-11">
                                                             <textarea class="form-control" name="observacion" id="observacion"></textarea>
                                                         </div>
                                                     </div>
@@ -248,30 +248,31 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-md-8" for="porcentaje">
-                                                            % cumplimiento de prevención
+                                                            <span class="">*</span>% cumplimiento de prevención
                                                         </label>
                                                         <div class="col-md-4">
-                                                            <input type="text" name="porcentaje" id="porcentaje" class="form-control">
+                                                            <input type="text" name="porcentaje" id="porcentaje" class="form-control number obligatorioControl">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-md-4 control-label" for="costoAvance">
-                                                            Costo del avance
+                                                            <span class="">*</span>Costo del avance
                                                         </label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="costoAvance" id="costoAvance" class="form-control">
+                                                            <input type="text" name="costoAvance" id="costoAvance" class="form-control number miles obligatorioControl">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
+
                                                         <label class="col-md-4 control-label" for="fechaControl">
-                                                            Fecha
+                                                            <span class="">*</span>Fecha
                                                         </label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="fechaControl" id="fechaControl" class="form-control">
+                                                            <input type="text" name="fechaControl" id="fechaControl" class="form-control fecha obligatorioControl">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,11 +280,12 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
+
                                                         <label class="col-md-2" for="descripcionControl">
-                                                            Descripción control
+                                                            <span class="">*</span>Descripción control
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="descripcionControl" id="descripcionControl" class="form-control"></textarea>
+                                                            <textarea name="descripcionControl" id="descripcionControl" class="form-control obligatorioControl"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -336,8 +338,8 @@
                                 else {
                                     $('#pre_id').val(msg.Json);
                                     $('#guardar').attr("pre_id", msg.message);
-                                    $('#guardar').removeAttr("title");
-                                    $('#guardar').attr("title", "Actualizar");
+//                                    $('#guardar').removeAttr("title");
+//                                    $('#guardar').attr("title", "Actualizar");
                                 }
                             })
                             .fail(function (msg) {
@@ -380,7 +382,7 @@
 
         $('#tiposriesgos').change(function () {
             $.post(url + "index.php/tareas/traer_riesgos",
-                    {tiposriesgos: $('#tiposriesgos').val(), clasificacionriesgo: $('#clasificacionriesgo').val()})
+                    {tiposriesgos: $('#tiposriesgos').val(), clasificacionriesgo: $('#clasificacion').val()})
                     .done(function (msg) {
                         $('#lista_riesgos').html('');
                         var titulo = '';
@@ -399,19 +401,20 @@
         });
 
         $('#guardarAsignacion').click(function () {
+            if (obligatorio('obligatorioControl')) {
+                $.post(url + "index.php/riesgo/guardarAsignacion",
+                        $('#frmAsignacionControl').serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
 
-            $.post(url + "index.php/riesgo/guardarAsignacion",
-                    $('#frmAsignacionControl').serialize()
-                    ).done(function (msg) {
-                if (!jQuery.isEmptyObject(msg.message))
-                    alerta("amarillo", msg['message'])
-                else {
-
-                }
-            })
-                    .fail(function (msg) {
-                        alerta("rojo", "Error por favor comunicarse con el administrador");
-                    });
+                    }
+                })
+                        .fail(function (msg) {
+                            alerta("rojo", "Error por favor comunicarse con el administrador");
+                        });
+            }
         });
         $('#cargo').change(function () {
             $.post(

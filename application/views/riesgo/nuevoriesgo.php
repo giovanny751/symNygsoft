@@ -1,13 +1,12 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="<?php echo (empty($rie_id)) ? "guardar" : "actualizar"; ?>" title="<?php echo (empty($rie_id)) ? "Guardar" : "Actualizar"; ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <!-- <div class="circuloIcon" title="Actualizar "><i class="fa fa-pencil-square-o fa-3x"></i></div>-->
-        <!--<div class="circuloIcon" ><i class="fa fa-trash-o fa-3x"></i></div>-->
         <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
     <div class="col-md-6">
         <div id="posicionFlecha">
-            <div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div>
+            <a href="<?php echo base_url("index.php/riesgo/listadoriesgo") ?>"><div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div></a>
         </div>
     </div>
 </div>
@@ -21,178 +20,171 @@
                         <i class="fa fa-cog"></i> Riesgo
                     </div>
                     <div class="tools">
-                        <a href="javascript:;" class="collapse">
-                        </a>
+                        <a href="javascript:;" class="collapse"></a>
                     </div>
                 </div>
                 <div class="portlet-body form">
                     <div class="form-body">
                         <div class="row">
-                            <form method="post" id="riesgos">
+                            <form method="post" id="riesgos" class="form-horizontal">
                                 <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
                                     <div class="row">
-                                        <label for="descripcion" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">
-                                            <span class="campoobligatorio">*</span>Descripción
-                                        </label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 "> 
-                                            <input type="text" name="descripcion" id="descripcion" class="form-control obligatorio" value="<?php echo ((!empty($riesgo->rie_descripcion)) ? $riesgo->rie_descripcion : ""); ?>">
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="categoria" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 "><span class="campoobligatorio">*</span>Clasificación</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select name="categoria" id="categoria" class="form-control obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($categoria as $ca) { ?>
-                                                <option <?php echo (!empty($riesgo->rieCla_id) && $riesgo->rieCla_id == $ca->rieCla_id) ? "selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo strtoupper($ca->rieCla_categoria) ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="tipo" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">
-                                            <span class="campoobligatorio">*</span>Tipo
-                                        </label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select class="form-control obligatorio" id="tipo" name="tipo" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php
-                                                if (!empty($rie_id)):
-                                                    foreach ($tipo as $t):
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="descripcion" class="col-md-4">
+                                                    <span class="campoobligatorio">*</span>Descripción
+                                                </label>
+                                                <div class="col-md-8"> 
+                                                    <input type="text" name="descripcion" id="descripcion" class="form-control obligatorio" value="<?php echo ((!empty($riesgo->rie_descripcion)) ? $riesgo->rie_descripcion : ""); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="categoria" class="col-md-4"><span class="campoobligatorio">*</span>Clasificación</label>
+                                                <div class="col-md-8">
+                                                    <select name="categoria" id="categoria" class="form-control obligatorio">
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($categoria as $ca) { ?>
+                                                            <option <?php echo (!empty($riesgo->rieCla_id) && $riesgo->rieCla_id == $ca->rieCla_id) ? "selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo strtoupper($ca->rieCla_categoria) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tipo" class="col-md-4">
+                                                    <span class="campoobligatorio">*</span>Tipo
+                                                </label>
+                                                <div class="col-md-8 ">
+                                                    <select class="form-control obligatorio" id="tipo" name="tipo" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php
+                                                        if (!empty($rie_id)):
+                                                            foreach ($tipo as $t):
+                                                                ?>
+                                                                <option <?php echo ((!empty($riesgo->rieClaTip_id)) && ($t->rieClaTip_id == $riesgo->rieClaTip_id)) ? "selected" : ""; ?> value="<?php echo $t->rieClaTip_id ?>"><?php echo $t->rieClaTip_tipo ?></option> <?php
+                                                            endforeach;
+                                                        endif;
                                                         ?>
-                                                        <option <?php echo ((!empty($riesgo->rieClaTip_id)) && ($t->rieClaTip_id == $riesgo->rieClaTip_id)) ? "selected" : ""; ?> value="<?php echo $t->rieClaTip_id ?>"><?php echo $t->rieClaTip_tipo ?></option> <?php
-                                                    endforeach;
-                                                endif;
-                                                ?>
-                                            </select>
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">
-                                            <label for="dimensionuno"><?php echo $empresa[0]->Dim_id ?></label>
-                                        </div>    
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select type="text" name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($dimension as $d1) { ?>
-                                                    <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
-                                                <?php } ?>
-                                            </select> <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="dimensiondos" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">
-                                            <?php echo $empresa[0]->Dimdos_id ?>
-                                        </label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select type="text" name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($dimension2 as $d2) { ?>
-                                                    <option <?php echo ((!empty($riesgo->dim2_id)) && ($d2->dim_id == $riesgo->dim2_id) ? "selected" : "") ?> value="<?php echo $d2->dim_id ?>"><?php echo strtoupper($d2->dim_descripcion) ?></option>
-                                                <?php } ?>
-                                            </select><br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="zona" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Lugar/Zona</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <input type="text" name="zona" id="zona" class="form-control" value="<?php echo ((!empty($riesgo->rie_zona)) ? $riesgo->rie_zona : ""); ?>">
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="requisito" class="col-lg-4 col-md-4 col-sx-4 col-sm-4">Requisito legal asociado</label>   
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <input type="text" name="requisito" id="requisito" class="form-control" value="<?php echo ((!empty($riesgo->rie_requisito)) ? $riesgo->rie_requisito : ""); ?>">
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="nivelDeficiencia" class="col-lg-4 col-md-4 col-sx-4 col-sm-4">Nivel de deficiencia</label> 
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select name="nivelDeficiencia" id="nivelDeficiencia" class="form-control calculoNivelProbabilidad" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($deficiencia as $d): ?>
-                                                <option value="<?php echo $d->nivDef_valor ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
-                                                <?php endforeach; ?>
-                                            </select><br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="nivelExposicion" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Nivel de exposición</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select name="nivelExposicion" id="nivelExposicion" class="form-control calculoNivelProbabilidad" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($exposicion as $e): ?>
-                                                    <option value="<?php echo $e->nivExp_valor ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
-                                                <?php endforeach; ?>
-                                            </select><br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="nivelProbabilidad" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Nivel de Probabilidad</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <input type="text" id="nivelProbabilidad" class="form-control" />
-                                            <br>
-                                        </div>
-                                    </div>  
-                                    <div class="row">
-                                        <label for="nivelConsecuencia" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Nivel de consecuencia</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad" >
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($consecuencia as $c): ?>
-                                                    <option value="<?php echo $c->nivCon_nc ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="nivelRiesgo" class="col-lg-4 col-md-4 col-sx-4 col-sm-4">Nivel de riesgo</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <input type="text" id="nivelRiesgo" class="form-control" /><br>
-                                        </div>
-                                    </div> 
-                                    <div class="row">
-                                        <label for="observaciones" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Observaciones</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">
-                                            <textarea name="observaciones" id="observaciones" class="form-control"><?php echo ((!empty($riesgo->rie_observaciones)) ? $riesgo->rie_observaciones : ""); ?></textarea>
-                                            <br>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dimensionuno" class="col-md-4"><?php echo $empresa[0]->Dim_id ?></label>
+                                                <div class="col-md-8">
+                                                    <select type="text" name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($dimension as $d1) : ?>
+                                                            <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dimensiondos" class="col-md-4">
+                                                    <?php echo $empresa[0]->Dimdos_id ?>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <select type="text" name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($dimension2 as $d2) { ?>
+                                                            <option <?php echo ((!empty($riesgo->dim2_id)) && ($d2->dim_id == $riesgo->dim2_id) ? "selected" : "") ?> value="<?php echo $d2->dim_id ?>"><?php echo strtoupper($d2->dim_descripcion) ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="zona" class="col-md-4">Lugar/Zona</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="zona" id="zona" class="form-control" value="<?php echo ((!empty($riesgo->rie_zona)) ? $riesgo->rie_zona : ""); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="requisito" class="col-md-4">Requisito legal asociado</label>   
+                                                <div class="col-md-8">
+                                                    <input type="text" name="requisito" id="requisito" class="form-control" value="<?php echo ((!empty($riesgo->rie_requisito)) ? $riesgo->rie_requisito : ""); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nivelDeficiencia" class="col-md-4"><span>*</span>Nivel de deficiencia</label> 
+                                                <div class="col-md-8">
+                                                    <select name="nivelDeficiencia" id="nivelDeficiencia" class="form-control calculoNivelProbabilidad obligatorio" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($deficiencia as $d): ?>
+                                                            <option value="<?php echo $d->nivDef_valor ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nivelExposicion" class="col-md-4"><span>*</span>Nivel de exposición</label>
+                                                <div class="col-md-8">
+                                                    <select name="nivelExposicion" id="nivelExposicion" class="form-control calculoNivelProbabilidad obligatorio" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($exposicion as $e): ?>
+                                                            <option value="<?php echo $e->nivExp_valor ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nivelProbabilidad" class="col-md-4">Nivel de Probabilidad</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="nivelProbabilidad" class="form-control" readonly=""/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nivelConsecuencia" class="col-md-4"><span>*</span>Nivel de consecuencia</label>
+                                                <div class="col-md-8">
+                                                    <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad obligatorio" >
+                                                        <option value="">::Seleccionar::</option>
+                                                        <?php foreach ($consecuencia as $c): ?>
+                                                            <option value="<?php echo $c->nivCon_nc ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nivelRiesgo" class="col-md-4">Nivel de riesgo</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="nivelRiesgo" class="form-control" readonly=""/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="observaciones" class="col-md-4">Observaciones</label>
+                                                <div class="col-md-8">
+                                                    <textarea name="observaciones" id="observaciones" class="form-control"><?php echo ((!empty($riesgo->rie_observaciones)) ? $riesgo->rie_observaciones : ""); ?></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6 ">
                                     <div class="row">
-                                        <label for="actividades" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 "><span class="campoobligatorio">*</span>Actividades</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 ">   
-                                            <textarea name="actividades" id="actividades" class="form-control obligatorio"><?php echo ((!empty($riesgo->rie_actividad)) ? $riesgo->rie_actividad : ""); ?></textarea>
-                                        <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="cargos" class="col-lg-4 col-md-4 col-sx-4 col-sm-4">Cargos</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 "> 
-                                            <?php
-                                            $select = array();
-                                            if (!empty($rie_id)) {
-                                                foreach ($cargoId as $value) {
-                                                    $select[] = $value->car_id;
-                                                }
-                                            }
-                                            ?>
-                                            <?php echo listaMultiple2("cargo[]", "cargo", "form-control", "cargo", "car_id", "car_nombre", $select, array("cargo.est_id" => 1), null) ?> 
-                                        <br>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="fecha" class="col-lg-4 col-md-4 col-sx-4 col-sm-4 ">Fecha</label>
-                                        <div class="col-lg-8 col-md-8 col-sx-8 col-sm-8 "> 
-                                            <input type="text" name="fecha" id="fecha" class="form-control fecha" value="<?php echo ((!empty($riesgo->rie_fecha)) ? $riesgo->rie_fecha : date("Y-m-d")); ?>">
-                                        <br>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="actividades" class="col-md-3"><span class="campoobligatorio">*</span>Actividades</label>
+                                                <div class="col-md-9">   
+                                                    <textarea name="actividades" id="actividades" class="form-control obligatorio"><?php echo ((!empty($riesgo->rie_actividad)) ? $riesgo->rie_actividad : ""); ?></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cargos" class="col-md-3">Cargos</label>
+                                                <div class="col-md-9 "> 
+                                                    <?php
+                                                    $select = array();
+                                                    if (!empty($rie_id))
+                                                        foreach ($cargoId as $value) :
+                                                            $select[] = $value->car_id;
+                                                        endforeach;
+                                                    echo listaMultiple2("cargo[]", "cargo", "form-control", "cargo", "car_id", "car_nombre", $select, array("cargo.est_id" => 1), null)
+                                                    ?> 
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fecha" class="col-md-3">Fecha</label>
+                                                <div class="col-md-9"> 
+                                                    <input type="text" name="fecha" id="fecha" class="form-control fecha" value="<?php echo ((!empty($riesgo->rie_fecha)) ? $riesgo->rie_fecha : date("Y-m-d")); ?>">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -313,7 +305,6 @@
                                                 </table>
                                             </div>
                                             <div id="tab3" class="tab-pane">
-
                                                 <table class="tablesst">
                                                     <thead>
                                                     <th>Acción</th>
@@ -330,7 +321,6 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>   
-
                                             </div>
                                             <div id="tab4" class="tab-pane">
                                                 <div class="portlet box blue" style="margin-top: 30px;">
@@ -463,22 +453,24 @@
                                             <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="post" id="frmcarpetaregistro">
+                                            <form method="post" id="frmcarpetaregistro" class="form-horizontal">
                                                 <input type="hidden" value="<?php echo (!empty($riesgo->rie_id)) ? $riesgo->rie_id : ""; ?>" name="rie_id" id="rie_id"/>
                                                 <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                        <label for="nombrecarpeta">Nombre</label>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="nombrecarpeta" class="col-md-4">Nombre</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                        <label for="descripcioncarpeta">Descripción:</label>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="descripcioncarpeta" class="col-md-4">Descripción:</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </form>
@@ -623,8 +615,6 @@
         form += "</form>";
         $("body").append(form);
         $('#frmFormAvance').submit();
-
-
     });
     $('body').delegate(".nuevoavance", "click", function () {
         var tarea = $(this).attr("tar_id");
@@ -728,7 +718,7 @@
             $('#myModal4').modal("toggle");
             alerta("verde", "Se actualizaron los datos correctamente");
         }).fail(function (msg) {
-
+            alerta("rojo","Error comunicarse con el administrador");
         });
     });
 
@@ -809,7 +799,7 @@
                                 </div>"
             $('#frmagregarregistro').append(fila);
         }).fail(function (msg) {
-
+            alerta("rojo","Error comunicarse con el administrador"):
         });
     });
     function agregarregistro(tabla, msg, contenido, destino, clase) {
@@ -970,6 +960,6 @@
                 $('#grafica_granf').html(imagen)
             })
             .fail(function () {
-
-            })
+                alerta("rojo","Error comunicarse con el administrador");
+            });
 </script>
