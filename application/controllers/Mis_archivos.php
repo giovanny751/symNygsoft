@@ -33,6 +33,24 @@ class Mis_archivos extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function traer_folder() {
+        try {
+            $data['Json']=$this->Mis_archivos_model->traer_folder();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function traer_atras() {
+        try {
+            $data['Json']=$this->Mis_archivos_model->traer_atras();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
 }
 

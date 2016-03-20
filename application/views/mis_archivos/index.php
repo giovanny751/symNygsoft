@@ -23,7 +23,7 @@
                         <div class="col-md-12">
                             <button class="btn btn-info" title="Subir Documento"><i class="fa fa-arrow-up"></i></button>
                             <button class="btn btn-info" title="Nueva Carpeta" data-toggle="modal" data-target="#myModal"><i class="fa fa-folder-open-o"></i></button>
-                            <div style="display:none ">
+                            <div style="display: ">
                                 <input type="text" name="id_carpeta" id="id_carpeta" value="<?php echo $carpeta[0]->carDoc_id_padre ?>">
                             </div>
                         </div>
@@ -83,40 +83,87 @@
 </div>
 
 <script>
-    $('.carpeta_seccion').click(function(){
-        $('.carpeta_seccion span').each(function(){
-            $(this).css('background-color','');
+    $('body').delegate('.carpeta_seccion, .carpeta_atras', 'click', function () {
+        $('.carpeta_seccion span').each(function () {
+            $(this).css('background-color', '');
         })
-        $(this ' span').css('background-color','#2d5f8b');
+        $('.carpeta_atras span').each(function () {
+            $(this).css('background-color', '');
+        })
+        $(this).children('span').css('background-color', '#2d5f8b');
     })
+    $('body').delegate('.carpeta_seccion', 'dblclick', function () {
+        var url = "<?php echo base_url('index.php/Mis_archivos/traer_folder'); ?>"
+        var toma = $(this).attr('toma');
+        $.post(url, {id_carpeta: $(this).attr('toma')})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message'])
+                    else {
+                        llenar_carpetas(msg, toma);
+                    }
+                })
+                .fail(function () {
+                    alerta('Error al guardar');
+                })
+    });
+    $('body').delegate('.carpeta_atras', 'dblclick', function () {
+        var url = "<?php echo base_url('index.php/Mis_archivos/traer_atras'); ?>"
+        var toma = $(this).attr('toma');
+        $.post(url, {id_carpeta: $(this).attr('toma')})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message'])
+                    else {
+                        llenar_carpetas(msg, toma);
+                    }
+                })
+                .fail(function () {
+                    alerta('Error al guardar');
+                })
+    });
     $('.guardar_carpeta').click(function () {
-        var url = "<?php echo base_url('index.php/Mis_archivos/new_folder'); ?>"
+        var url = "<?php echo base_url('index.php/Mis_archivos/new_folder'); ?>";
+        var toma = $('#id_carpeta').val();
         $.post(url, {id_carpeta: $('#id_carpeta').val(), nueva_carpeta: $('#nueva_carpeta').val()})
                 .done(function (msg) {
-                    llenar_carpetas(msg)
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message'])
+                    else {
+                        llenar_carpetas(msg, toma)
+                    }
                 })
                 .fail(function () {
                     alerta('Error al guardar');
                 })
     })
 
-    function llenar_carpetas(msg) {
+    function llenar_carpetas(msg, toma) {
         var html = "";
-        var i=0;
-        console.log(msg);
+        var i = 0;
+        html += '<div class="col-md-1 carpeta_atras" toma=""><br><i class="fa fa-folder-o fa-5x"></i><br><span>...</span></div>';
+        padre = null;
         $.each(msg.Json, function (key, val) {
-            console.log(val);
-            if(val.carDoc_id_padre!=null && i == 0){
-                i++;
-                html += '<div class="col-md-1 carpeta_atras"><br><i class="fa fa-folder-o fa-5x"></i><br><span>...</span></div>';
-            }
+            i++;
+            console.log(val.carDoc_id_padre)
+            padre = val.carDoc_id_padre;
             html += '<div class="col-md-1 carpeta_seccion" toma="' + val.carDoc_id + '">  '
             html += '<br>'
             html += '<i class="fa fa-folder-o fa-5x"></i>'
-            html += '<br><span>' + val.carDoc_nombre+'</span>'
+            html += '<br><span>' + val.carDoc_nombre + '</span>'
             html += '</div>'
-        })
-        alert(html)
+        });
         $('.genera_carpeta').html(html);
+        if (padre == null && i==0) {
+            $('#id_carpeta').val(toma)
+            $('.carpeta_atras').attr('toma', toma)
+        } else if(padre == null){
+            $('.carpeta_atras').hide();
+            $('#id_carpeta').val('')
+        }else {
+            $('.carpeta_atras').attr('toma', padre)
+            $('#id_carpeta').val(padre)
+        }
+
     }
 </script>
