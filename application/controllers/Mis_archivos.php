@@ -26,6 +26,8 @@ class Mis_archivos extends My_Controller {
 
     function new_folder() {
         try {
+            if(empty($this->input->post('nueva_carpeta')))
+                throw new Exception("No ha ingresado el nombre de la carpeta");
             $data['Json']=$this->Mis_archivos_model->new_folder();
         } catch (exception $e) {
             $data['message'] = $e->getMessage();

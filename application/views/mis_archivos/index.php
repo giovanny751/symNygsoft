@@ -20,11 +20,18 @@
             <div class="portlet-body form">
                 <div class="form-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                             <button class="btn btn-info" title="Subir Documento"><i class="fa fa-arrow-up"></i></button>
-                            <button class="btn btn-info" title="Nueva Carpeta" data-toggle="modal" data-target="#myModal"><i class="fa fa-folder-open-o"></i></button>
-                            <div style="display: ">
-                                <input type="text" name="id_carpeta" id="id_carpeta" value="<?php echo $carpeta[0]->carDoc_id_padre ?>">
+                            <button class="btn btn-info" title="Nueva Carpeta"  id="crearCarpeta"><i class="fa fa-folder-open-o"></i></button>
+
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div style="display: " class="col-md-4">
+                            <div class="form-group">
+                                <div class="input-icon">
+                                    <i class="fa fa-search"></i>
+                                    <input type="text" name="id_carpeta" id="id_carpeta" class="form-control placeholder-no-fix" value="<?php echo $carpeta[0]->carDoc_id_padre ?>">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -32,24 +39,38 @@
                         </div>
                     </div>
                     <div class="row genera_carpeta">
-                        <?php
-                        $i = 0;
-                        foreach ($carpeta as $value) {
-                            if (!empty($value->carDoc_id_padre) && $i == 0) {
-                                $i++;
-                                ?>
-                                <div class="col-md-1 carpeta_atras">  
-                                    <br>
-                                    <i class="fa fa-folder-o fa-5x"></i>
-                                    <br>...
+                        <div class="form-horizontal">
+                            <div class="col-md-12">
+                                    <?php
+                                    $i = 0;
+                                    $d = 1;
+                                    foreach ($carpeta as $value) :
+                                        if($d == 1): ?>
+                                            <div class="form-group">
+                                        <?php endif;
+                                        if (!empty($value->carDoc_id_padre) && $i == 0) :
+                                            $i++;
+                                            ?>
+                                            <div class="col-md-1 carpeta_atras">  
+                                                <i class="fa fa-folder-o fa-4x"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="col-md-1 carpeta_seccion" toma="<?php echo $value->carDoc_id; ?>">  
+                                            <br>
+                                            <i class="fa fa-folder-o fa-4x"></i>
+                                            <span class="nombreDocumento"><?php echo $value->carDoc_nombre ?></span>
+                                        </div>
+                                    <?php 
+                                    $d++;
+                                     if($d == 13): ?>
+                                                </div>
+                                     <?php  
+                                     $d = 1;
+                                     endif;
+                                    endforeach; ?>
                                 </div>
-                            <?php } ?>
-                            <div class="col-md-1 carpeta_seccion" toma="<?php echo $value->carDoc_id; ?>">  
-                                <br>
-                                <i class="fa fa-folder-o fa-5x"></i>
-                                <br><span><?php echo $value->carDoc_nombre ?></span>
                             </div>
-                        <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +81,6 @@
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -69,20 +89,37 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-3">Nombre Carpeta</div>
-                    <div class="col-md-5"><input type="text" class="form-control" id="nueva_carpeta"></div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3" for="nueva_carpeta">Nombre Carpeta</label>
+                            <div class="col-md-9"><input type="text" class="form-control" id="nueva_carpeta"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default guardar_carpeta" data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-success guardar_carpeta" data-dismiss="modal">Guardar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
-
     </div>
 </div>
-
+<style>
+    .carpeta_seccion{
+        cursor: pointer;
+    }
+    .carpeta_seccion:hover{
+        border-style: dotted;
+        border-width: 1px;
+        background-color: #EFF4FA;
+    }
+</style>
 <script>
+
+    $('#crearCarpeta').click(function () {
+        $('#nueva_carpeta').val('');
+        $('#myModal').modal('show');
+    });
     $('body').delegate('.carpeta_seccion, .carpeta_atras', 'click', function () {
         $('.carpeta_seccion span').each(function () {
             $(this).css('background-color', '');
@@ -141,7 +178,7 @@
     function llenar_carpetas(msg, toma) {
         var html = "";
         var i = 0;
-        html += '<div class="col-md-1 carpeta_atras" toma=""><br><i class="fa fa-folder-o fa-5x"></i><br><span>...</span></div>';
+        html += '<div class="col-md-1 carpeta_atras" toma=""><br><i class="fa fa-folder-o fa-4x"></i><br><span>...</span></div>';
         padre = null;
         $.each(msg.Json, function (key, val) {
             i++;
@@ -149,18 +186,18 @@
             padre = val.carDoc_id_padre;
             html += '<div class="col-md-1 carpeta_seccion" toma="' + val.carDoc_id + '">  '
             html += '<br>'
-            html += '<i class="fa fa-folder-o fa-5x"></i>'
+            html += '<i class="fa fa-folder-o fa-4x"></i>'
             html += '<br><span>' + val.carDoc_nombre + '</span>'
             html += '</div>'
         });
         $('.genera_carpeta').html(html);
-        if (padre == null && i==0) {
+        if (padre == null && i == 0) {
             $('#id_carpeta').val(toma)
             $('.carpeta_atras').attr('toma', toma)
-        } else if(padre == null){
+        } else if (padre == null) {
             $('.carpeta_atras').hide();
             $('#id_carpeta').val('')
-        }else {
+        } else {
             $('.carpeta_atras').attr('toma', padre)
             $('#id_carpeta').val(padre)
         }
