@@ -9,28 +9,39 @@ class Mis_archivos_model extends CI_Model {
     function carpetas2($id = null) {
         $this->db->select('*');
         if ($id != null) {
-//            $this->db->where('(1', '1', FALSE);
             $this->db->where('carDoc_id_padre', $id);
-//            $this->db->or_where('carDoc_id', $id . ')', false);
         } else
             $this->db->where('carDoc_id_padre', null);
         $this->db->where('ACTIVO', 'S');
-        $this->db->order_by('carDoc_id_padre,carDoc_nombre');
+        $this->db->order_by('carDoc_nombre');
         $datos = $this->db->get('carpeta_documento');
 
 //        echo $this->db->last_query();
         return $datos = $datos->result();
     }
 
-    function new_folder() {
-        $post = $this->input->post();
-        if (!empty($post['id_carpeta']))
-            $this->db->set('carDoc_id_padre', $post['id_carpeta']);
-        $this->db->set('carDoc_nombre', $post['nueva_carpeta']);
-        $this->db->insert('carpeta_documento');
-        $id = $this->db->insert_id();
-        if (!empty($post['id_carpeta']))
-            $this->db->where('carDoc_id_padre', $post['id_carpeta']);
+    function new_folder($nuevaCarpeta,$idCarpetaPadre = null) {
+        try{
+            $this->db->trans_begin();
+            if (!empty($idCarpetaPadre))
+            $this->db->set('carDoc_id_padre', $idCarpetaPadre);
+            $this->db->set('carDoc_nombre', $nuevaCarpeta);
+            $this->db->insert('carpeta_documento');
+            if($this->db->trans_status() === FALSE){
+                $respuesta = $this->db->trans_rollback();
+            }else{
+                $respuesta = $this->db->insert_id();
+                $this->db->trans_commit();
+            }
+        }  catch (Exception $e){
+            
+        } finally {
+            return $respuesta;
+        }
+    }
+    function carpetaDocumento($idCarpeta){
+        if (!empty($idCarpeta))
+            $this->db->where('carDoc_id_padre', $idCarpeta);
         else
             $this->db->where('carDoc_id_padre', null);
         $this->db->order_by('carDoc_nombre');
@@ -46,7 +57,6 @@ class Mis_archivos_model extends CI_Model {
             $this->db->where('carDoc_id_padre', null);
         $this->db->order_by('carDoc_nombre');
         $date = $this->db->get('carpeta_documento');
-//        echo $this->db->last_query();
         return $date->result();
     }
 
