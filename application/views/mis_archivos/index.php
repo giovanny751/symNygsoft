@@ -47,7 +47,7 @@
                                     if ($d == 1):
                                         ?>
                                         <div class="form-group">
-                                        <?php
+                                            <?php
                                         endif;
                                         if (!empty($value->carDoc_id_padre) && $i == 0) :
                                             $i++;
@@ -55,11 +55,11 @@
                                             <div class="col-md-1 carpeta_atras">  
                                                 <i class="fa fa-folder-o fa-4x"></i>
                                             </div>
-    <?php endif; ?>
+                                        <?php endif; ?>
                                         <div class="col-md-1 carpeta_seccion" toma="<?php echo $value->carDoc_id; ?>">  
                                             <br>
                                             <i class="fa fa-folder-o fa-4x"></i>
-                                            <span class="nombreDocumento"><?php echo $value->carDoc_nombre ?></span>
+                                            <br><span class="nombreDocumento"><?php echo $value->carDoc_nombre ?></span>
                                         </div>
                                         <?php
                                         $d++;
@@ -212,80 +212,114 @@
     }
 </style>
 <div id="divMenu">
-            <ul>
-                <li>Hola mundo</li>
-                <li>Hola mundo</li>
-                <li>Hola mundo</li>
-                <li>Hola mundo</li>
-                <li>Hola mundo</li>
-            </ul>
-        </div>
+    <ul>
+        <li at="editar">Editar</li>
+        <li at="eliminar">Eliminar</li>
+    </ul>
+</div>
 <script>
-$(document).ready(function(){
-    //evento que se produce al mover el raton sobre el documento
-    $(document).on('mousemove',function(e){
-        //obtener las coordenadas X e Y del raton
-        var iX=e.pageX, iY=e.pageY;
-        //imprimir en la capa las coordenadas
-        $('#divCoordenadas').html('<strong>X: </strong>'+iX+', <strong>Y: </strong>'+iY);
+
+    $('html').click(function () {
+        $('#divMenu').css({
+            display: 'none'
+        });
     });
-     
-    //manejador de evento para el clic derecho (contextmenu)
-    $(document).on('contextmenu',function(e){
+//manejador de evento para el clic derecho (contextmenu)
+    $(document).on('contextmenu', function (e) {
         //evitamos que aparezca el menu predeterminado del navegador (si, asi se "bloquea")
         e.preventDefault();
-         
-        //volvemos a obtener las coordenadas del raton en el documento
-        var iX=e.pageX, iY=e.pageY;
-         
-        //mostramos nuestro menu contextual en la ubicacion X e Y del puntero del raton
-        $('#divMenu').css({
-            display:    'block',
-            left:       iX,
-            top:        iY
+    });
+
+    $(document).ready(function () {
+        //manejador de evento para el clic derecho (contextmenu)
+        $(document).on('contextmenu', '.carpeta_seccion', function (e) {
+            $('#divMenu ul li').attr("archivo", $(this).attr('toma'))
+            e.preventDefault();
+            //volvemos a obtener las coordenadas del raton en el documento
+            var iX = e.pageX, iY = e.pageY;
+            //mostramos nuestro menu contextual en la ubicacion X e Y del puntero del raton
+            $('#divMenu').css({
+                display: 'block',
+                left: iX,
+                top: iY - 47
+            });
         });
-         
-        //actualizamos el estado y decimos que "detectamos un clic"
-        $('#divEstado').html('<strong>Clic derecho</strong> detectado');
+
+        //evento cuando hacemos clic en un elemento (li) de la lista (ul)
+        $('#divMenu ul li').on('click', function () {
+            var opcion = $(this).attr('at');
+            var archivo = $(this).attr('archivo');
+
+            if (opcion == 'editar') {
+                $.post(
+                        url + "index.php/Mis_archivos/consultaCarpetaId",
+                        {archivo: archivo}
+                ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message'])
+                    else {
+                        $('#nueva_carpeta').val(msg.Json.carDoc_nombre);
+                        $('.guardar_carpeta').replaceWith('<button type="button" class="btn btn-info" id="actualizar" idCarpeta="' + msg.Json.carDoc_id + '" data-dismiss="modal">Actualizar</button>');
+                        $('#myModal').modal('show');
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error comunicarse con el administrador");
+                });
+
+            } else if (opcion == "eliminar") {
+                if (confirm("¿Esta seguro de eliminar la carpeta?"))
+                {
+                    $.post(
+                            url + "index.php/Mis_archivos/eliminarCarpeta",
+                            {archivo: archivo}
+                    ).done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message)) {
+                            alerta(msg.color, msg['message'])
+                            if (msg.color == 'verde')
+                                $('.carpeta_seccion[toma="' + archivo + '"]').remove();
+                        }
+                    }).fail(function (msg) {
+                        alerta("rojo", "Error comunicarse con el administrador");
+                    });
+                }
+            }
+        });
+
     });
-     
-    //manejador del evento clic sobre el documento
-    $(document).on('click',function(){
-        //cuando se hace clic ocultamos el menu contextual
-        $('#divMenu').css('display','none');
-        //actualizamos el estado indicando que detectamos un clic
-        $('#divEstado').html('<strong>Clic</strong> detectado');
+
+    $('body').delegate("#actualizar", "click", function () {
+        carpeta = $(this).attr('idCarpeta');
+        nombreCarpeta = $('#nueva_carpeta').val();
+        $.post(
+                url + "index.php/Mis_archivos/actualizarArchivo",
+                {
+                    idArchivo: carpeta,
+                    nombreArchivo: nombreCarpeta
+                }
+        ).done(function (msg) {
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta(msg.color, msg['message'])
+            else {
+                $('.carpeta_seccion[toma="' + carpeta + '"] span').text(nombreCarpeta);
+            }
+        }).fail(function (msg) {
+
+        });
+        $('#nueva_carpeta').modal('hide');
     });
-     
-    //evento que se produce al hacer scroll sobre la capa divScroll
-    $('#divScroll').on('scroll',function(){
-        //actualizamos el estado para indicar que hemos detectado el scroll
-        $('#divEstado').html('<strong>Scroll</strong> detectado');
-         
-        //este scroll se detecta tanto para la rueda del raton (mousewheel) como
-        //para las teclas direccionales (arriba/abajo)
-    });
-     
-    //evento cuando hacemos clic en un elemento (li) de la lista (ul)
-    $('#divMenu ul li').on('click',function(){
-        //mostramos una alerta
-        alert('Se hizo clic sobre un elemento de la lista.')
-    });
-     
-});
-    
 
     $('#crearCarpeta').click(function () {
         $('#nueva_carpeta').val('');
+        $('#actualizar').replaceWith('<button type="button" class="btn btn-success guardar_carpeta" data-dismiss="modal">Guardar</button>');
         $('#myModal').modal('show');
     });
     $('body').delegate('.carpeta_seccion, .carpeta_atras', 'click', function () {
         $('.carpeta_seccion span').each(function () {
             $(this).css('background-color', '');
-        })
+        });
         $('.carpeta_atras span').each(function () {
             $(this).css('background-color', '');
-        })
+        });
         $(this).children('span').css('background-color', '#2d5f8b');
     })
     $('body').delegate('.carpeta_seccion', 'dblclick', function () {
@@ -318,7 +352,7 @@ $(document).ready(function(){
                     alerta('Error al guardar');
                 })
     });
-    $('.guardar_carpeta').click(function () {
+    $('body').delegate(".guardar_carpeta", "click", function () {
         var url = "<?php echo base_url('index.php/Mis_archivos/new_folder'); ?>";
         var toma = $('#id_carpeta').val();
         $.post(url, {IdCarpetaPadre: $('#id_carpeta').val(), nueva_carpeta: $('#nueva_carpeta').val()})
@@ -330,7 +364,7 @@ $(document).ready(function(){
                     }
                 })
                 .fail(function () {
-                    alerta('Error al guardar');
+                    alerta("rojo",'Error comunicarse con el administrador');
                 })
     })
 

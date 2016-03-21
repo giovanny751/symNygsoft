@@ -20,26 +20,61 @@ class Mis_archivos_model extends CI_Model {
         return $datos = $datos->result();
     }
 
-    function new_folder($nuevaCarpeta,$idCarpetaPadre = null) {
-        try{
+    function new_folder($nuevaCarpeta, $idCarpetaPadre = null) {
+        try {
             $this->db->trans_begin();
             if (!empty($idCarpetaPadre))
-            $this->db->set('carDoc_id_padre', $idCarpetaPadre);
+                $this->db->set('carDoc_id_padre', $idCarpetaPadre);
             $this->db->set('carDoc_nombre', $nuevaCarpeta);
             $this->db->insert('carpeta_documento');
-            if($this->db->trans_status() === FALSE){
+            if ($this->db->trans_status() === FALSE) {
                 $respuesta = $this->db->trans_rollback();
-            }else{
+            } else {
                 $respuesta = $this->db->insert_id();
                 $this->db->trans_commit();
             }
-        }  catch (Exception $e){
+        } catch (Exception $e) {
             
         } finally {
             return $respuesta;
         }
     }
-    function carpetaDocumento($idCarpeta){
+
+    function consultaCarpetaXId($idCarpeta) {
+
+        $this->db->where("carDoc_id", $idCarpeta);
+        $this->db->order_by('carDoc_nombre');
+        $carpeta = $this->db->get('carpeta_documento');
+        return $carpeta->result();
+    }
+
+    function eliminarCarpeta($idCarpeta) {
+        $this->db->trans_begin();
+        $this->db->where("carDoc_id", $idCarpeta);
+        $date = $this->db->delete('carpeta_documento');
+        if ($this->db->trans_status() === FALSE) {
+            $respuesta = $this->db->trans_rollback();
+        } else {
+            $respuesta = $this->db->insert_id();
+            $this->db->trans_commit();
+        }
+        return $this->db->trans_status();
+    }
+    function actualizarCarpeta($idCarpeta,$nombreCarpeta) {
+        $this->db->trans_begin();
+        $this->db->where("carDoc_id", $idCarpeta);
+        $this->db->set("carDoc_nombre",$nombreCarpeta);
+        $date = $this->db->update('carpeta_documento');
+        if ($this->db->trans_status() === FALSE) {
+            $respuesta = $this->db->trans_rollback();
+        } else {
+            $respuesta = $this->db->insert_id();
+            $this->db->trans_commit();
+        }
+        return $this->db->trans_status();
+    }
+
+    function carpetaDocumento($idCarpeta) {
         if (!empty($idCarpeta))
             $this->db->where('carDoc_id_padre', $idCarpeta);
         else
