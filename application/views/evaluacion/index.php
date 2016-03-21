@@ -35,6 +35,18 @@
                                 <input type="text" value="<?php echo (isset($datos[0]->eva_nombre) ? $datos[0]->eva_nombre : '' ) ?>" class=" form-control obligatorio  " id="eva_nombre" name="eva_nombre">
                                 <br>
                             </div>
+                            <div class="col-md-3">
+                                <label for="eva_nombre">
+                                    * Preguntas aleatorias                        
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="eva_random" name="eva_random" class="form-control">
+                                    <option value="SI" <?php echo (isset($datos[0]->eva_random) ? (($datos[0]->eva_random=='SI')?'selected':'') : '' ) ?> >Si</option>
+                                    <option value="NO" <?php echo (isset($datos[0]->eva_random) ? (($datos[0]->eva_random=='NO')?'selected':'') : '' ) ?> >No</option>
+                                </select>
+                                <br>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -49,8 +61,6 @@
                                     <?php } ?>
                                 </select><br>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label for="eva_nombre">
                                     * Numero de preguntas a evaluar                        

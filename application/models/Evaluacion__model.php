@@ -15,11 +15,11 @@ class Evaluacion__model extends CI_Model {
 //            creatorDate
 //            modificationUser
 //            modificationDate
-            $this->db->set('modificationUser',$this->session->userdata('usu_id'));
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
             $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('evaluacion', $post);
         } else {
-            $this->db->set('creatorUser',$this->session->userdata('usu_id'));
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
             $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('evaluacion', $post);
             $id = $this->db->insert_id();
@@ -57,7 +57,9 @@ class Evaluacion__model extends CI_Model {
         $this->db->select('eva_nombre');
         $this->db->select('eva_tiempo');
         $this->db->select('eva_num_preguntas');
-        $this->db->select('(select count(*) from preguntas where eva_id=evaluacion.eva_id) cantidad');
+        $this->db->select('eva_random');
+        $this->db->select('(select count(*) from preguntas where eva_id=evaluacion.eva_id) cantidad_banco');
+        $this->db->select("(select count(*) from preguntas where activo='S' and eva_id=evaluacion.eva_id) cantidad_activas");
         $this->db->where('ACTIVO', 'S');
         $datos = $this->db->get('evaluacion');
         $datos = $datos->result();
@@ -75,6 +77,7 @@ class Evaluacion__model extends CI_Model {
         $this->db->select('eva_nombre');
         $this->db->select('eva_tiempo');
         $this->db->select('eva_num_preguntas');
+        $this->db->select('eva_random');
         $this->db->where('ACTIVO', 'S');
         $datos = $this->db->get('evaluacion');
         $datos = $datos->result();
@@ -92,14 +95,17 @@ class Evaluacion__model extends CI_Model {
 //        $this->db->join('area', 'area.are_id=preguntas.are_id');
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
 //        $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
-        $this->db->order_by('rand()');
-        $datos = $this->db->get('preguntas', ($evaluacion[0]->eva_num_preguntas==0)?10000:$evaluacion[0]->eva_num_preguntas);
+        if ($evaluacion[0]->eva_random == 1)
+            $this->db->order_by('rand()');
+        $datos = $this->db->get('preguntas', ($evaluacion[0]->eva_num_preguntas == 0) ? 10000 : $evaluacion[0]->eva_num_preguntas);
         $datos = $datos->result();
         return $datos;
     }
 
     function tiempo_incio($post, $evaluacion) {
         $this->db->where('eva_id', $post['eva_id']);
+        $this->db->where('useEva_resuelta', 'N');
+        $this->db->where('useEva_activo', 'S');
         $this->db->where('use_id', $this->session->userdata('usu_id'));
         $datos = $this->db->get('user_evaluacion');
         $datos = $datos->result();
@@ -109,6 +115,8 @@ class Evaluacion__model extends CI_Model {
             $fecha = date("Y-m-d H:i:s");
             $this->db->set('useEva_fecha', $fecha);
             $this->db->where('eva_id', $post['eva_id']);
+            $this->db->where('useEva_resuelta', 'N');
+            $this->db->where('useEva_activo', 'S');
             $this->db->where('use_id', $this->session->userdata('usu_id'));
             $datos = $this->db->update('user_evaluacion');
             return $fecha;
@@ -154,15 +162,28 @@ class Evaluacion__model extends CI_Model {
 
     function ver_evaluaciones_resueltas($post) {
         $this->db->select('evaluacion.eva_id, eva_nombre,user_evaluacion.use_id', false);
-        $this->db->join('user_evaluacion', "user_evaluacion.eva_id=evaluacion.eva_id and user_evaluacion.useEva_activo='S' and user_evaluacion.use_id=" . $post['usuarioid'], 'inner', false);
-        $this->db->join('respuesta_evaluacion', "respuesta_evaluacion.eva_id=evaluacion.eva_id", 'inner', false);
-        $this->db->where('ACTIVO', 'S');
-        $this->db->where('respuesta_evaluacion.usu_id', $post['usuarioid']);
+        $this->db->join('user_evaluacion', "user_evaluacion.eva_id=evaluacion.eva_id and  user_evaluacion.use_id=" . $post['usuarioid'], 'inner', false);
+//        $this->db->join('respuesta_evaluacion', "respuesta_evaluacion.eva_id=evaluacion.eva_id", 'inner', false);
+//        $this->db->where('ACTIVO', 'S');
+        $this->db->where('user_evaluacion.est_id <>', 3);
+        $this->db->where('useEva_resuelta', 'S');
+        $this->db->where('user_evaluacion.use_id', $post['usuarioid']);
         $this->db->group_by('evaluacion.eva_id');
         $datos = $this->db->get('evaluacion');
 //        echo $this->db->last_query();
         $datos = $datos->result();
         return $datos;
+    }
+
+    function evaluaciones_reset($post) {
+
+        $this->db->where('use_id', $post['usuarioid']);
+        $this->db->where('eva_id', $post['evaluacion']);
+        $this->db->set('est_id', 3);
+        $this->db->set('user_elimina', $this->session->userdata('usu_id'));
+        $this->db->update('user_evaluacion');
+//        echo $this->db->last_query();        
+        return $this->ver_evaluaciones_resueltas($post);
     }
 
     function arignar_evaluacion($post) {
@@ -176,6 +197,7 @@ class Evaluacion__model extends CI_Model {
                 $this->db->select('useEva_id');
                 $this->db->where('use_id', $post['usuarioid']);
                 $this->db->where('eva_id', $info[$i]);
+                $this->db->where('est_id <>', 3);
                 $datos = $this->db->get('user_evaluacion');
                 $datos = $datos->result();
 
@@ -203,9 +225,19 @@ class Evaluacion__model extends CI_Model {
             $datos = $this->db->get('preguntas');
             $datos = $datos->result();
             $hoy = date("Y-m-d H:i:s");
+            
+            
+            $this->db->select('useEva_id');
+            $this->db->where('eva_id', $datos[0]->eva_id);
+            $this->db->where('use_id', $this->session->userdata('usu_id'));
+            $this->db->where('useEva_resuelta', 'N');
+            $user_ev=$this->db->get('user_evaluacion');
+            $user_ev = $user_ev->result();
+            
             foreach ($post as $key => $value) {
-                $this->db->set('eva_id', $datos[0]->eva_id);
-                $this->db->set('usu_id', $this->data['usu_id']);
+                $this->db->set('useEva_id', $datos[0]->useEva_id);
+//                $this->db->set('eva_id', $datos[0]->eva_id);
+//                $this->db->set('usu_id', $this->session->userdata('usu_id'));
                 $this->db->set('pre_id', $key);
                 if (is_numeric($value))
                     $this->db->set('res_id', $value);
@@ -215,6 +247,11 @@ class Evaluacion__model extends CI_Model {
                 $this->db->set('resEva_fecha_creacion', $hoy);
                 $this->db->insert('respuesta_evaluacion');
             }
+            $this->db->where('eva_id', $datos[0]->eva_id);
+            $this->db->where('use_id', $this->session->userdata('usu_id'));
+            $this->db->where('useEva_resuelta', 'N');
+            $this->db->set('useEva_resuelta', 'S');
+            $this->db->update('user_evaluacion');
         } catch (Exception $exc) {
             
         }

@@ -46,7 +46,9 @@
                                     <th>Nombre</th>
                                     <th>Tiempo (Min)</th>
                                     <th>N° preguntas a evaluar</th>
-                                    <th>N° preguntas en el banco</th>
+                                    <th>Preguntas aleatorias </th>
+                                    <th>N° preguntas en el banco total</th>
+                                    <th>N° preguntas en el banco activas</th>
                                     <th>Acción</th>
                                     </thead>
                                     <tbody>

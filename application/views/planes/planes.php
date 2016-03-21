@@ -1,4 +1,4 @@
-    <div class="row">
+<div class="row">
     <div class="row">
         <div class="col-md-6">
             <br>
@@ -226,7 +226,7 @@
                                                         <td><?php echo $ti->tar_fechaInicio ?></td>
                                                         <td><?php echo $ti->tar_fechaFinalizacion ?></td>
                                                         <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
-                                                        <td><?php echo $ti->Emp_Nombre." ".$ti->Emp_Apellidos ?></td>
+                                                        <td><?php echo $ti->Emp_Nombre . " " . $ti->Emp_Apellidos ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -296,16 +296,24 @@
                                                             ?>
                                                             <div class="panel panel-default" id="<?php echo $id ?>">
                                                                 <div class="panel-heading">
-                                                                    <h4 class="panel-title">
-                                                                        <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
-                                                                            <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
-                                                                        </a>
-                                                                        <div class="posicionIconoActividad">
-                                                                            <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
-                                                                            <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
-                                                                            <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
+                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
+                                                                                </a>
+                                                                            </h4>
                                                                         </div>
-                                                                    </h4>
+                                                                        <div class="col-md-2">
+                                                                            <h4 class="panel-title">
+                                                                                <div class="posicionIconoActividad">
+                                                                                    <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
+                                                                                    <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
+                                                                                    <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
+                                                                                </div>
+                                                                            </h4>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div id="collapse_<?php echo $id . 'c'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                                                     <div class="panel-body">
@@ -682,9 +690,9 @@
     </div>
 </div>
 <script>
-    
-    $( ".fecha" ).datepicker( "option", "maxDate", "+0m +0d" );
-    
+
+    $(".fecha").datepicker("option", "maxDate", "+0m +0d");
+
     $('document').ready(function () {
         costo = $('#costo').text();
         costoreal = $('#costorealplan').val();
@@ -1018,11 +1026,15 @@
     });
     function agregarregistro(tabla, msg, contenido, destino, clase) {
         var acordeon = '<div class="panel panel-default" id="' + msg.uno + '">\n\
-                                            <div class="panel-heading">\n\
-                                                <h4 class="panel-title">\n\
+                                           <div class="panel-heading">\n\
+                                           <div class="row">\n\
+                                            <div class="col-md-10"> \n\
+                                                <div class="panel-heading">\n\
+                                                    <h4 class="panel-title">\n\
                                                     <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_' + msg.uno + destino + '" aria-expanded="false">\n\
                                                         <i class="fa fa-folder-o carpeta"></i> ' + msg.dos + " - " + msg.tres + '\n\
-                                                    </a>\n\
+                                                    </a></h4>\n\
+                                                </div></div><div class="col-md-2"><h4>\n\
                                                     <div class="posicionIconoActividad">';
         if (destino == 'c')
             acordeon += '<i class="fa fa-file-o carpeta nuevo_hijo" data-toggle="modal" data-target="#myModal8" title="ACTIVIDAD HIJO" car_id="' + msg.uno + '"></i> ';
@@ -1033,6 +1045,7 @@
                                                         <i class="fa fa-times eliminarcarpeta" title="Eliminar" tipo="' + destino + '" car_id="' + msg.uno + '"></i>\n\
                                                     </div>\n\
                                                 </h4>\n\
+                                            </div>\n\
                                             </div>\n\
                                             <div id="collapse_' + msg.uno + destino + '" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">\n\
                                                 <div class="panel-body">\n\

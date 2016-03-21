@@ -121,7 +121,7 @@ class User_model extends CI_Model {
                     . "SELECT "
                     . "GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM "
                     . "(SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, "
-                    . "est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario "
+                    . "user.est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario "
                     . "FROM user "
                     . "LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = "
                     . "(select max(ing_fechaIngreso) from ingreso ) "
@@ -166,20 +166,25 @@ class User_model extends CI_Model {
     function evaluacion_usuario($id) {
         try {
 
-            $datos = $this->db->query('select eva_id from respuesta_evaluacion where usu_id=' . $id . ' group by eva_id');
-            $datos = $datos->result();
-            $d = array();
-            foreach ($datos as $value) {
-                $d[] = $value->eva_id;
-            }
+//            $datos = $this->db->query('select user_evaluacion.eva_id from respuesta_evaluacion '
+////                    . ' join  user_evaluacion on user_evaluacion.eva_id=respuesta_evaluacion.eva_id '
+//                    . ' where user_evaluacion.est_id <> 3  and usu_id=' . $id . ' group by eva_id');
+//            $datos = $datos->result();
+////            echo $this->db->last_query();
+//            $d = array();
+//            foreach ($datos as $value) {
+//                $d[] = $value->eva_id;
+//            }
 
             $this->db->select("evaluacion.*");
             $this->db->where("ue.use_id", $id);
             $this->db->where("ue.useEva_activo", 'S');
-            if (count($d))
-                $this->db->where_not_in("evaluacion.eva_id", $d);
+            $this->db->where("ue.useEva_resuelta", 'N');
+//            if (count($d))
+//                $this->db->where_not_in("evaluacion.eva_id", $d);
             $this->db->join("user_evaluacion ue ", "ue.eva_id=evaluacion.eva_id", "inner", false);
             $user = $this->db->get('evaluacion');
+//            echo $this->db->last_query();
             return $user->result();
         } catch (exception $e) {
             

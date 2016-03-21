@@ -195,12 +195,7 @@
                         alerta("rojo", msg['message'])
                         $('#myModal3').modal('hide');
                     } else {
-                        $('#resultados').html('');
-                        $.each(msg.Json, function (key, val) {
-                            var x = Math.floor((Math.random() * 1000) + 2000);
-                            var y = Math.floor((Math.random() * 1000) + 2000);
-                            $('#resultados').append('<tr><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
-                        })
+                        evaluaciones(msg);
                     }
                 })
                 .fail(function (msg) {
@@ -208,9 +203,31 @@
                     $('#myModal3').modal('hide');
                 })
     })
+    function evaluaciones(msg) {
+        $('#resultados').html('');
+        $.each(msg.Json, function (key, val) {
+            var x = Math.floor((Math.random() * 1000) + 2000);
+            var y = Math.floor((Math.random() * 1000) + 2000);
+            $('#resultados').append('<tr><td><input type="radio" class="evaluaciones_reset" eva="' + val.eva_id  + '" user="' +  val.use_id + '"></td><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
+        })
+    }
     $('body').delegate(".modificar", "click", function () {
         $("#usu_id").val($(this).attr("usu_id"));
         $("#f10").submit();
+    });
+    $('body').delegate(".evaluaciones_reset", "click", function () {
+        var r = confirm('¿Desea Eliminar Esta Prueba?');
+        if (r == false)
+            return false;
+        var usuario = $(this).attr("user");
+        var evaluacion = $(this).attr("eva");
+        $.post(url + 'index.php/Evaluacion/evaluaciones_reset', {usuarioid: usuario, evaluacion: evaluacion})
+                .done(function (msg) {
+                    evaluaciones(msg);
+                })
+                .fail(function () {
+
+                })
     });
 
     $('body').delegate('.permiso', 'click', function () {
@@ -268,13 +285,13 @@
                 $('#bodyuser *').remove();
                 var body = "";
                 var table = $('#tablesst').DataTable();
-                    table.clear().draw();
+                table.clear().draw();
                 $.each(msg.Json, function (key, val) {
                     if (val.est_id == 1)
                         var activo = "Activo";
                     if (val.est_id != 1)
                         var activo = "Inactivo";
-                    
+
                     table.row.add([
                         val.usu_cedula,
                         val.usu_usuario,

@@ -143,6 +143,15 @@ class Evaluacion extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function evaluaciones_reset() {
+        try {
+            $data['Json'] = $this->Evaluacion__model->evaluaciones_reset($this->input->post());
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
     function arignar_evaluacion() {
         try {
