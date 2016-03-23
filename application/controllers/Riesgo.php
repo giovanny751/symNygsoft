@@ -426,7 +426,8 @@ class Riesgo extends My_Controller {
 //                        "rieCol_colorhtml" => $t->rieCol_colorhtml,
                         "rie_actividad" => $t->rie_actividad,
                         "estadoAceptacion" => $t->estadoAceptacion,
-                        "cantidadTareas" => $t->cantidadTareas
+                        "cantidadTareas" => $t->cantidadTareas,
+                        "nivRie_color" => $t->nivRie_color
                     );
                 }
                 $this->output->set_content_type('application/json')->set_output(json_encode($i));
