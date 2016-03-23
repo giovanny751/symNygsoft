@@ -109,7 +109,7 @@
                                                     <select name="nivelDeficiencia" id="nivelDeficiencia" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($deficiencia as $d): ?>
-                                                            <option value="<?php echo $d->nivDef_valor ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
+                                                        <option <?php echo (!empty($riesgo->nivDef_id) && $d->nivDef_id == $riesgo->nivDef_id )?"selected ":"";?> value="<?php echo $d->nivDef_id ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -120,7 +120,7 @@
                                                     <select name="nivelExposicion" id="nivelExposicion" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($exposicion as $e): ?>
-                                                            <option value="<?php echo $e->nivExp_valor ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
+                                                            <option <?php echo (!empty($riesgo->nivExp_id) && $e->nivExp_id == $riesgo->nivExp_id )?"selected ":"";?> value="<?php echo $e->nivExp_id ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -128,7 +128,7 @@
                                             <div class="form-group">
                                                 <label for="nivelProbabilidad" class="col-md-4">Nivel de Probabilidad</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="nivelProbabilidad" class="form-control" readonly=""/>
+                                                    <input type="text" id="nivelProbabilidad" value="<?php echo (!empty($riesgo->nivPro_Nivel))?$riesgo->nivPro_Nivel:""; ?>" name="nivelProbabilidad" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -137,7 +137,7 @@
                                                     <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($consecuencia as $c): ?>
-                                                            <option value="<?php echo $c->nivCon_nc ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
+                                                            <option <?php echo (!empty($riesgo->nivCon_id) && $e->nivCon_id == $riesgo->nivCon_id )?"selected ":"";?> value="<?php echo $c->nivCon_id ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -145,7 +145,7 @@
                                             <div class="form-group">
                                                 <label for="nivelRiesgo" class="col-md-4">Nivel de riesgo</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="nivelRiesgo" class="form-control" readonly=""/>
+                                                    <input type="text" id="nivelRiesgo" value="<?php echo (!empty($riesgo->nivRie_nivel))?$riesgo->nivRie_nivel:""; ?>" name="nivelRiesgo" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -799,7 +799,7 @@
                                 </div>"
             $('#frmagregarregistro').append(fila);
         }).fail(function (msg) {
-            alerta("rojo","Error comunicarse con el administrador"):
+            alerta("rojo","Error comunicarse con el administrador");
         });
     });
     function agregarregistro(tabla, msg, contenido, destino, clase) {

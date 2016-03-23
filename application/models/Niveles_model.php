@@ -6,6 +6,50 @@ class Niveles_model extends CI_Model {
         parent::__construct();
     }
 
+    function nivelDeficienciaxId($idNivelProbabilidad) {
+        try {
+            $this->db->select("nivDef_id");
+            $this->db->select("nivDef_nivel");
+            $this->db->select("nivDef_valor");
+            $this->db->select("nivDef_significado");
+            $this->db->where("nivDef_id",$idNivelProbabilidad);
+            $nivel = $this->db->get("nivel_deficiencia");
+            return $nivel->result();
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function nivelExposicionxId($idNivelExposicion) {
+        try {
+            $this->db->select("nivExp_id");
+            $this->db->select("nivExp_nivel");
+            $this->db->select("nivExp_valor");
+            $this->db->select("nivExp_Significado");
+            $this->db->where("nivExp_id",$idNivelExposicion);
+            $nivel = $this->db->get("nivel_exposicion");
+            return $nivel->result();
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function nivelConsecuenciaxId($nivelConsecuenciaId) {
+        try {
+            $this->db->select("nivCon_nivel");
+            $this->db->select("nivCon_nc");
+            $this->db->select("nivCon_significado");
+            $this->db->where("nivCon_id",$nivelConsecuenciaId);
+            $nivel = $this->db->get("nivel_consecuencias");
+            return $nivel->result();
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
     function nivelDeficiencia() {
         try {
             $this->db->select("nivDef_id");
@@ -35,8 +79,10 @@ class Niveles_model extends CI_Model {
             
         }
     }
+    
     function nivelConsecuencia() {
         try {
+            $this->db->select("nivCon_id");
             $this->db->select("nivCon_nivel");
             $this->db->select("nivCon_nc");
             $this->db->select("nivCon_significado");
@@ -52,7 +98,6 @@ class Niveles_model extends CI_Model {
     function nivelProbabilidad($deficiencia,$exposicion,$consecuencia = null) {
         try {
             $multiplicacion =  $deficiencia * $exposicion;
-            
             $this->db->select("nivPro_Nivel");
             $this->db->select("nivPro_valMax");
             $this->db->select("nivPro_valMin");

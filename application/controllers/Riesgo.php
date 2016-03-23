@@ -93,7 +93,12 @@ class Riesgo extends My_Controller {
                 "col_id" => $this->input->post("color"),
                 "rie_fecha" => $this->input->post("fecha"),
                 "rie_fechaCreacion" => date("Y-m-d H:i:s"),
-                "rie_actividad" => $this->input->post("actividades")
+                "rie_actividad" => $this->input->post("actividades"),
+                "nivDef_id" => $this->input->post("nivelDeficiencia"),
+                "nivExp_id" => $this->input->post("nivelExposicion"),
+                "nivCon_id" => $this->input->post("nivelConsecuencia"),
+                "nivPro_Nivel" => $this->input->post("nivelProbabilidad"),
+                "nivRie_nivel" => $this->input->post("nivelRiesgo")
             );
             $id = $this->Riesgo_model->create($data);
             if (!empty($this->input->post("cargo"))):
@@ -113,8 +118,18 @@ class Riesgo extends My_Controller {
 
     function nivelProbabilidad() {
         try {
-            $this->load->model("Niveles_model");
-            $data['Json'] = $this->Niveles_model->nivelProbabilidad($this->input->post("deficiencia"), $this->input->post("exposicion"), $this->input->post("consecuencia"));
+            $this->load->model(array(
+                "Niveles_model"
+                ));
+            
+            $deficiencia = $this->Niveles_model->nivelDeficienciaxId($this->input->post("deficiencia"));
+            $exposicion = $this->Niveles_model->nivelExposicionxId($this->input->post("exposicion"));
+            $consecuencia = "";            
+            if(!empty($this->input->post("consecuencia"))){
+                $nivelConsecuencia = $this->Niveles_model->nivelConsecuenciaxId($this->input->post("exposicion"));
+                $consecuencia = $nivelConsecuencia[0]->nivCon_nc;
+            }
+            $data['Json'] = $this->Niveles_model->nivelProbabilidad($deficiencia[0]->nivDef_valor, $exposicion[0]->nivExp_valor,$consecuencia );
             if (count($data['Json']) == 0)
                 throw new Exception("No se encontro nivel de probabilidad");
         } catch (exception $e) {
