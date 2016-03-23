@@ -276,6 +276,17 @@ class Ingreso_model extends CI_Model {
         }
     }
 
+    function permisosusuario($rol,$usuario) {
+        try {
+            $this->db->where("usu_id",$usuario);
+            $this->db->set("rol_id",$rol);
+            $this->db->update("user");
+        } catch (exception $e) {
+            
+        } finally {
+            return $this->db->trans_status();
+        }
+    }
     function permisosusuariomenu($data) {
         try {
             $this->db->trans_begin();

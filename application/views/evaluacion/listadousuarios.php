@@ -16,7 +16,9 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="form-group">
-                                    <label for="cedula">Cédula</label><input type="text" name="cedula" id="cedula" class="form-control">
+                                    <label for="cedula">Cédula</label>
+                                    <input type="text" name="cedula" id="cedula" class="form-control">
+                                    <input type="hidden" name="tipo" id="tipo" class="form-control" value="<?php echo $tipo; ?>">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">

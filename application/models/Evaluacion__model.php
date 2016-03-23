@@ -129,11 +129,13 @@ class Evaluacion__model extends CI_Model {
                 . 'tipo_pregunta.tipPre_nombre,preguntas.res_id');
         $this->db->where('preguntas.activo', 'S');
         $this->db->where('pre_visible', 'S');
-        $this->db->where('preguntas.eva_id', $post['eva_id']);
+        $this->db->where('user_evaluacion.eva_id', $post['eva_id']);
+        $this->db->where('user_evaluacion.use_id', $post['user']);
 //        $this->db->join('tema', 'tema.tem_id=preguntas.tem_id');
 //        $this->db->join('area', 'area.are_id=preguntas.are_id');
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
-        $this->db->join('respuesta_evaluacion', 'respuesta_evaluacion.pre_id=preguntas.pre_id and respuesta_evaluacion.eva_id=preguntas.eva_id');
+        $this->db->join('user_evaluacion', 'user_evaluacion.eva_id=preguntas.eva_id');
+        $this->db->join('respuesta_evaluacion', 'respuesta_evaluacion.pre_id=preguntas.pre_id and user_evaluacion.eva_id=preguntas.eva_id');
         $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
         $datos = $this->db->get('preguntas');
         $datos = $datos->result();
@@ -153,7 +155,8 @@ class Evaluacion__model extends CI_Model {
     function respondio($post) {
         $this->db->select('*', false);
         $this->db->where('eva_id', $post['eva_id']);
-        $this->db->where('usu_id', $post['user']);
+        $this->db->where('use_id', $post['user']);
+        $this->db->join('user_evaluacion', 'user_evaluacion.useEva_id=respuesta_evaluacion.useEva_id');
         $datos = $this->db->get('respuesta_evaluacion');
 //        echo $this->db->last_query();
         $datos = $datos->result();

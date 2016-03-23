@@ -59,8 +59,8 @@
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                                         <select id="TipoUsuario" name="TipoUsuario" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
-                                            <?php foreach($tipoUsuario as $tu): ?>
-                                            <option <?php echo (!empty($usuario[0]->tipUsuEva_id) && $usuario[0]->tipUsuEva_id == $tu->tipUsuEva_id) ? "selected" : ""; ?> value="<?php echo $tu->tipUsuEva_id ?>"><?php echo $tu->tipUsuEva_tipo ?></option>
+                                            <?php foreach ($tipoUsuario as $tu): ?>
+                                                <option <?php echo (isset($usuario[0]->tipUsuEva_id)) ? (($usuario[0]->tipUsuEva_id == $tu->tipUsuEva_id) ? "selected" : ""):''; ?> value="<?php echo $tu->tipUsuEva_id ?>"><?php echo $tu->tipUsuEva_tipo ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div> 
@@ -207,8 +207,8 @@
     </div>    
 </div>    
 <script>
-    $('#rol').change(function () {
-        if ($(this).val() == 60) {
+    $('#TipoUsuario').change(function () {
+        if ($(this).val() == 1) {
             $('.aspirante select').removeClass("form-control");
             $('.aspirante select').removeClass("form-control ");
             $('.aspirante select').removeClass("form-control obligatorio");
@@ -256,21 +256,25 @@
             $.post(ruta, $('#f3').serialize()).
                     done(function (msg) {
                         alerta("verde", "Datos guardados correctamente");
-                        if (confirm("¿Desea Guardar otro usuario?")) {
-                            $(".guardar").addClass("none");
-                            $(".guardar[metodo=guardar]").removeClass("none");
-                            $('select,input').val('');
-                            $('input[type="checkbox"]').attr("checked", false)
-                            $('#empleado *').remove();
-                        } else {
+<?php if (!isset($usuario[0]->emp_id)) { ?>
+                            if (confirm("¿Desea Guardar otro usuario?")) {
+                                $(".guardar").addClass("none");
+                                $(".guardar[metodo=guardar]").removeClass("none");
+                                $('select,input').val('');
+                                $('input[type="checkbox"]').attr("checked", false)
+                                $('#empleado *').remove();
+                            } else {
+                                window.location.href = url + "index.php/administrativo/listadousuarios";
+                            }
+<?php } else { ?>
                             window.location.href = url + "index.php/administrativo/listadousuarios";
-                        }
+<?php } ?>
                     })
                     .fail(function (msg) {
                         alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
                     });
         }
     });
-    $('#rol').trigger('change');
+    $('#TipoUsuario').trigger('change');
     $('#cargo').trigger('change');
 </script>    

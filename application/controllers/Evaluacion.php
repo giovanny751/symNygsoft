@@ -96,10 +96,11 @@ class Evaluacion extends My_Controller {
             $this->load->model('Estados_model');
             $this->load->model('User_model');
             $this->load->model('Roles_model');
-            $this->data['roles'] = $this->Roles_model->roles();
+//            $this->data['roles'] = $this->Roles_model->roles();
             $this->data['estado'] = $this->Estados_model->detail();
-            $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
-            $this->data["usuarios"] = $this->User_model->consultageneral_evaluacion();
+            $this->data['tipo'] = 1;
+//            $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
+//            $this->data["usuarios"] = $this->User_model->consultageneral_evaluacion();
             $this->layout->view("evaluacion/listadousuarios", $this->data);
         } catch (exception $e) {
             
@@ -107,6 +108,25 @@ class Evaluacion extends My_Controller {
             
         }
     }
+    function listadousuarios2() {
+        try {
+            $this->load->model('Tipo_documento_model');
+            $this->load->model('Estados_model');
+            $this->load->model('User_model');
+            $this->load->model('Roles_model');
+//            $this->data['roles'] = $this->Roles_model->roles();
+            $this->data['estado'] = $this->Estados_model->detail();
+            $this->data['tipo'] = 2;
+//            $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
+//            $this->data["usuarios"] = $this->User_model->consultageneral_evaluacion();
+            $this->layout->view("evaluacion/listadousuarios", $this->data);
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    
 
     function consultarusuario() {
         try {
@@ -116,6 +136,7 @@ class Evaluacion extends My_Controller {
                     , $this->input->post('cedula')
                     , $this->input->post('estado')
                     , $this->input->post('nombre')
+                    , $this->input->post('tipo')
             );
         } catch (exception $e) {
             $data['message'] = $e->getMessage();

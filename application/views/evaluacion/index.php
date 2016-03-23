@@ -57,7 +57,7 @@
                             <div class="col-md-3">
                                 <select id="eva_tiempo" name="eva_tiempo" class="form-control">
                                     <?php for ($i = 0; $i < 60; $i++) { ?>
-                                        <option value="<?php echo $i ?>" <?php echo (isset($datos[0]->tiempo) ? (($datos[0]->tiempo == $i) ? 'selected' : '') : '' ) ?>><?php echo ($i==0)?'Sin tiempo':$i ?> </option>
+                                        <option value="<?php echo $i ?>" <?php echo (isset($datos[0]->eva_tiempo) ? (($datos[0]->eva_tiempo == $i) ? 'selected' : '') : '' ) ?>><?php echo ($i==0)?'Sin tiempo':$i ?> </option>
                                     <?php } ?>
                                 </select><br>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="col-md-3">
                                 <select id="eva_num_preguntas" name="eva_num_preguntas" class="form-control">
                                     <?php for ($i = 0; $i < 60; $i++) { ?>
-                                        <option value="<?php echo $i ?>" <?php echo (isset($datos[0]->tiempo) ? (($datos[0]->tiempo == $i) ? 'selected' : '') : '' ) ?>><?php echo ($i==0)?'Todas':$i ?> </option>
+                                        <option value="<?php echo $i ?>" <?php echo (isset($datos[0]->eva_num_preguntas) ? (($datos[0]->eva_num_preguntas == $i) ? 'selected' : '') : '' ) ?>><?php echo ($i==0)?'Todas':$i ?> </option>
                                     <?php } ?>
                                 </select><br>
                             </div>

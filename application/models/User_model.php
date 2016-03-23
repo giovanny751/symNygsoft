@@ -104,11 +104,13 @@ class User_model extends CI_Model {
         }
     }
 
-    function filteruser_evaluacion($apellido = null, $cedula = null, $estado = null, $nombre = null) {
+    function filteruser_evaluacion($apellido = null, $cedula = null, $estado = null, $nombre = null,$tipo=null) {
         try {
             $where = "where 1 ";
             if (!empty($apellido))
                 $where.=" and usu_apellido like '%" . $apellido."%'";
+            if (!empty($tipo))
+                $where.=" and tipUsuEva_id=".$tipo." ";
             if (!empty($cedula))
                 $where.=" and usu_cedula like '%" . $cedula."%'";
             if (!empty($estado))
@@ -120,7 +122,7 @@ class User_model extends CI_Model {
             $user = $this->db->query(""
                     . "SELECT "
                     . "GROUP_CONCAT(eva_nombre SEPARATOR ', ') conca, ww.* FROM "
-                    . "(SELECT user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, "
+                    . "(SELECT tipUsuEva_id,user.usu_nombre, evaluacion.eva_nombre, ingreso.ing_fechaIngreso, "
                     . "user.est_id, usu_cedula, usu_apellido, user.usu_id,usu_usuario "
                     . "FROM user "
                     . "LEFT JOIN ingreso ON ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = "
@@ -202,7 +204,7 @@ class User_model extends CI_Model {
         }
     }
 
-    function update($data, $id) {
+    function update($id) {
         try {
             
             // se confirma primero el rol que tenia el usuario para quitarcelo
@@ -258,6 +260,7 @@ class User_model extends CI_Model {
                 $this->db->set('usu_cambiocontrasena', $this->input->post('cambiocontrasena'));
             else
                 $this->db->set('usu_cambiocontrasena', null);
+                $this->db->set('tipUsuEva_id', $this->input->post('TipoUsuario'));
             
             if (!empty($post['rol']))
                 $this->db->set('rol_id', $this->input->post('rol'));

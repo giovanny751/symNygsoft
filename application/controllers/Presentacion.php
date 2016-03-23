@@ -23,15 +23,15 @@ class Presentacion extends My_Controller {
     }
 
     function principal() {
+        $this->load->model("User_model");
+        $this->data['evaluacion'] = $this->User_model->evaluacion_usuario($this->data['user']['usu_id']);
 
-        if ($this->data['user']['rol_id'] != 60) {
+        if (count($this->data['evaluacion'])) {
+            $this->layout->view('evaluacion/quiz', $this->data);
+        } else {
             $id = $this->data['user']['emp_id'];
             $this->data['inicio'] = $this->Ingreso_model->admin_inicio();
             $this->layout->view('presentacion/principal', $this->data);
-        } else {
-            $this->load->model("User_model");
-            $this->data['evaluacion'] = $this->User_model->evaluacion_usuario($this->data['user']['usu_id']);
-            $this->layout->view('evaluacion/quiz', $this->data);
         }
     }
 
@@ -242,16 +242,17 @@ class Presentacion extends My_Controller {
             
         }
     }
-    function guardarNotificacionRol(){
+
+    function guardarNotificacionRol() {
         $this->load->model("Rolnotificacion_model");
         $notificacion = $this->input->post('notificacion');
         $rol = $this->input->post('rol');
         $info = array();
-        for($i = 0; $i < count($notificacion); $i++):
+        for ($i = 0; $i < count($notificacion); $i++):
             $info[] = array(
-                "rol_id"=>$rol,
-                "not_id"=>$notificacion[$i]
-            ); 
+                "rol_id" => $rol,
+                "not_id" => $notificacion[$i]
+            );
         endfor;
         $this->Rolnotificacion_model->guardarNotificacion($info);
     }
@@ -423,7 +424,9 @@ class Presentacion extends My_Controller {
                     "rol_id" => $rol[$i],
                     "usu_id" => $usuario
                 );
+                $r = $rol[$i];
             }
+            $this->Ingreso_model->permisosusuario($r, $usuario);
             $msg['Json'] = $this->Ingreso_model->permisosusuariomenu($data);
             if ($msg == false)
                 throw new Exception("Error en la base de datos");

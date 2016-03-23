@@ -797,22 +797,7 @@ class Administrativo extends My_Controller {
     function actualizarusuario() {
         try {
             $this->load->model('User_model');
-            $data = array(
-                'usu_contrasena' => $this->input->post('contrasena'),
-                'est_id' => $this->input->post('estado'),
-                'usu_cedula' => $this->input->post('cedula'),
-                'usu_nombre' => $this->input->post('nombres'),
-                'usu_apellido' => $this->input->post('apellidos'),
-                'usu_usuario' => $this->input->post('usuario'),
-                'usu_email' => $this->input->post('email'),
-                'sex_id' => $this->input->post('genero'),
-                'car_id' => $this->input->post('cargo'),
-                'tipUsuEva_id' => $this->input->post('TipoUsuario'),
-                'emp_id' => $this->input->post('empleado'),
-                'usu_cambiocontrasena' => $this->input->post('cambiocontrasena'),
-                'usu_fechaCreacion' => date('Y-m-d H:i:s')
-            );
-            $this->User_model->update($data, $this->input->post('usuid'));
+            $this->User_model->update( $this->input->post('usuid'));
         } catch (exception $e) {
             
         } finally {
