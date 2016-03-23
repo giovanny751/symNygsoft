@@ -137,7 +137,7 @@
                                                     <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($consecuencia as $c): ?>
-                                                            <option <?php echo (!empty($riesgo->nivCon_id) && $e->nivCon_id == $riesgo->nivCon_id )?"selected ":"";?> value="<?php echo $c->nivCon_id ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
+                                                            <option <?php echo ((!empty($riesgo->nivCon_id)) && $c->nivCon_id == $riesgo->nivCon_id )?"selected ":"";?> value="<?php echo $c->nivCon_id ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
