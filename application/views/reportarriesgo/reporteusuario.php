@@ -48,85 +48,82 @@
     </head>
     <body>
         <div class="container">
-        <header>
-            <div class="logo">SST</div>
-        </header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet box blue">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="glyphicon glyphicon-ok"></i>Datos de solicitud de registro de peligro
+            <header>
+                <div class="logo">SST</div>
+            </header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="glyphicon glyphicon-ok"></i>Datos de solicitud de registro de peligro
+                                </div>
                             </div>
-                        </div>
-                        <div class="portlet-body">
-                            <form method="post" id="solicitud">
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="cedula" class="col-sm-2 control-label">Cédula del empleado:</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" name="cedula" id="cedula" class="form-control" />
-                                        </div>
-                                        <label for="sede" class="col-sm-2 control-label">Correo electrónico:</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" name="correo" id="correo" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="dimension1" class="col-sm-2 control-label"><?php echo $empresa->Dim_id ?></label>
-                                        <div class="col-sm-4">
-                                            <select name="dimension1" id="dimension1" class="form-control">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($dimension as $d1): ?>
-                                                    <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                        <label for="dimension2" class="col-sm-2 control-label"><?php echo $empresa->Dimdos_id ?></label>
-                                        <div class="col-sm-4">
-                                            <select name="dimension2" id="dimension2" class="form-control">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($dimension2 as $d2): ?>
-                                                    <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="descripcion" class="col-sm-2 control-label">Descripción del Peligro</label>
-                                        <div class="col-sm-10">
-                                            <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-4">
-                                        <div class="form-group" align="center">
-                                            <button type="button" class="btn blue btn-block" id="enviar">Enviar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <div class="note" id="nota">
-                                                <h4 class="block" id="tituloError"></h4>
-                                                <p id="textoError"></p>
+                            <div class="portlet-body">
+                                <form method="post" id="solicitud">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="cedula" class="col-sm-2 control-label">Cédula del empleado:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" name="cedula" id="cedula" class="form-control" />
+                                            </div>
+                                            <label for="sede" class="col-sm-2 control-label">Correo electrónico:</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" name="correo" id="correo" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="dimension1" class="col-sm-2 control-label"><?php echo $empresa->Dim_id ?></label>
+                                            <div class="col-sm-4">
+                                                <select name="dimension1" id="dimension1" class="form-control dimencion_uno_se">
+                                                    <option value="">::Seleccionar::</option>
+                                                    <?php foreach ($dimension as $d1): ?>
+                                                        <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <label for="dimension2" class="col-sm-2 control-label"><?php echo $empresa->Dimdos_id ?></label>
+                                            <div class="col-sm-4">
+                                                <select name="dimension2" id="dimension2" class="form-control dimencion_dos_se">
+                                                    <option value="">::Seleccionar::</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="descripcion" class="col-sm-2 control-label">Descripción del Peligro</label>
+                                            <div class="col-sm-10">
+                                                <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-offset-4 col-sm-4">
+                                            <div class="form-group" align="center">
+                                                <button type="button" class="btn blue btn-block" id="enviar">Enviar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="note" id="nota">
+                                                    <h4 class="block" id="tituloError"></h4>
+                                                    <p id="textoError"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <script type="text/javascript" src="<?php echo base_url() ?>/js/jquery_1.11.3.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>/js/jquery_ui_1.11.4.min.js"></script>
@@ -156,6 +153,27 @@
                 nota.show();
 
             }
+            base_url_js = '<?php echo base_url() ?>'
+            $('.dimencion_uno_se').change(function () {
+                $('.dimencion_dos_se').html('');
+                if ($(this).val() == '')
+                    return false;
+                var url = '<?php echo base_url('index.php/Reportarriesgo/traer_dimencion') ?>';
+                $.post(url, {dimencion1: $(this).val()})
+                        .done(function (msg) {
+                            if (!jQuery.isEmptyObject(msg.message))
+                                alerta("rojo", msg['message'])
+                            else {
+                                $('.dimencion_dos_se').append('<option value="">::Seleccionar::</option>');
+                                $.each(msg['Json'], function (key, val) {
+                                    $('.dimencion_dos_se').append('<option value="' + val.dim_id + '">' + val.dim_descripcion + '</option>')
+                                });
+                            }
+                        })
+                        .fail(function (msg) {
+                            alerta('rojo', 'Error en la consulta');
+                        })
+            })
         </script>
     </body>
 </html>

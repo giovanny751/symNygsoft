@@ -127,7 +127,8 @@ class Evaluacion__model extends CI_Model {
 
         $this->db->select('preguntas.pre_id,preguntas.pre_contexto, preguntas.pre_nombre,'
                 . 'tipo_pregunta.tipPre_nombre,preguntas.res_id');
-        $this->db->where('preguntas.activo', 'S');
+//        $this->db->where('preguntas.activo', 'S');
+        $this->db->where('user_evaluacion.useEva_activo','S');
         $this->db->where('pre_visible', 'S');
         $this->db->where('user_evaluacion.eva_id', $post['eva_id']);
         $this->db->where('user_evaluacion.use_id', $post['user']);
@@ -137,9 +138,7 @@ class Evaluacion__model extends CI_Model {
         $this->db->join('respuesta_evaluacion', ' respuesta_evaluacion.pre_id=preguntas.pre_id');
         $this->db->join('user_evaluacion', 'user_evaluacion.useEva_id=respuesta_evaluacion.useEva_id');
         $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
-        
-        
-        
+
         $datos = $this->db->get('preguntas');
 //        echo $this->db->last_query();
         $datos = $datos->result();
@@ -224,41 +223,48 @@ class Evaluacion__model extends CI_Model {
 
     function calificar($post) {
         try {
+            $id = "";
             foreach ($post as $key => $value) {
                 $id = $key;
             }
-            $this->db->select('eva_id');
-            $this->db->where('pre_id', $id);
-            $datos = $this->db->get('preguntas');
-            $datos = $datos->result();
-            $hoy = date("Y-m-d H:i:s");
-            
-            
-            $this->db->select('useEva_id');
-            $this->db->where('eva_id', $datos[0]->eva_id);
-            $this->db->where('use_id', $this->session->userdata('usu_id'));
-            $this->db->where('useEva_resuelta', 'N');
-            $user_ev=$this->db->get('user_evaluacion');
-            $user_ev = $user_ev->result();
-            
-            foreach ($post as $key => $value) {
-                $this->db->set('useEva_id', $datos[0]->useEva_id);
+            $id_eva=$post['id_eva'];
+            unset($post['id_eva']);
+            if (!empty($id_eva)) {
+                $hoy = date("Y-m-d H:i:s");
+
+
+                $this->db->select('useEva_id');
+                $this->db->where('eva_id', $id_eva);
+                $this->db->where('use_id', $this->session->userdata('usu_id'));
+                $this->db->where('useEva_resuelta', 'N');
+                $user_ev = $this->db->get('user_evaluacion');
+                $user_ev = $user_ev->result();
+//            echo $this->db->last_query();
+//            print_y($user_ev);
+                $ye=0;
+                foreach ($post as $key => $value) {
+                    $this->db->set('useEva_id', $user_ev[0]->useEva_id);
 //                $this->db->set('eva_id', $datos[0]->eva_id);
 //                $this->db->set('usu_id', $this->session->userdata('usu_id'));
-                $this->db->set('pre_id', $key);
-                if (is_numeric($value))
-                    $this->db->set('res_id', $value);
-                else
-                    $this->db->set('res_texto', $value);
+                    $this->db->set('pre_id', $key);
+                    if (is_numeric($value))
+                        $this->db->set('res_id', $value);
+                    else
+                        $this->db->set('res_texto', $value);
 
-                $this->db->set('resEva_fecha_creacion', $hoy);
-                $this->db->insert('respuesta_evaluacion');
+                    $this->db->set('resEva_fecha_creacion', $hoy);
+                    $this->db->insert('respuesta_evaluacion');
+                    $ye++;
+                }
+                $this->db->where('eva_id', $id_eva);
+                $this->db->where('use_id', $this->session->userdata('usu_id'));
+                $this->db->where('useEva_resuelta', 'N');
+                $this->db->set('useEva_resuelta', 'S');
+                $this->db->update('user_evaluacion');
             }
-            $this->db->where('eva_id', $datos[0]->eva_id);
-            $this->db->where('use_id', $this->session->userdata('usu_id'));
-            $this->db->where('useEva_resuelta', 'N');
-            $this->db->set('useEva_resuelta', 'S');
-            $this->db->update('user_evaluacion');
+            if($ye==0){
+                return "ya";
+            }
         } catch (Exception $exc) {
             
         }

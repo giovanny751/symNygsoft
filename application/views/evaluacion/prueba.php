@@ -12,6 +12,9 @@
             </div>
             <div class="portlet-body form">
                 <form action="<?php echo base_url('index.php/Evaluacion/calificar') ?>" method="post" id="form_evaluacion" onsubmit="return enviar();">
+                    <div style="display: none">
+                        <input type="hidden" value="<?php echo $post['eva_id']; ?>" name="id_eva" id="id_eva">
+                    </div>
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12 " >

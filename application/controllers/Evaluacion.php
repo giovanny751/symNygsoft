@@ -23,7 +23,7 @@ class Evaluacion extends My_Controller {
 
     function prueba() {
         try {
-            $post = $this->input->post();
+            $this->data['post']=$post = $this->input->post();
             $this->data['nombre_evaluacion'] = $this->Evaluacion__model->nombre_evaluacion($post);
             $this->data['tiempo_incio'] = $this->Evaluacion__model->tiempo_incio($post, $this->data['nombre_evaluacion']);
             $this->data['preguntas_evaluacion'] = $this->Evaluacion__model->preguntas_evaluacion($post, $this->data['nombre_evaluacion']);
@@ -193,8 +193,12 @@ class Evaluacion extends My_Controller {
     function calificar() {
         try {
             $post = $this->input->post();
-            $this->Evaluacion__model->calificar($post);
+            $y=$this->Evaluacion__model->calificar($post);
+            if($y=='ya'){
+            $this->session->set_flashdata(array('message' => 'Tiempo de la prueba a finalizado.', 'message_type' => 'danger'));   
+            }else{
             $this->session->set_flashdata(array('message' => 'Evaluación Guardada con Exíto.', 'message_type' => 'success'));
+            }
             redirect('index.php/Presentacion/principal', 'location');
         } catch (exception $e) {
             $e->getMessage();

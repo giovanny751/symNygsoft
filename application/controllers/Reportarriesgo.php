@@ -36,6 +36,16 @@ class Reportarriesgo extends CI_Controller {
             
         }
     }
+    public function traer_dimencion() {
+        try {
+            $this->load->model('Dimension2_model');
+            $data['Json'] = $this->Dimension2_model->traer_dimencion();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
     function guardaSolicitud() {
         try {

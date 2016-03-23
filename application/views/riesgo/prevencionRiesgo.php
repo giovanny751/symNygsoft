@@ -27,7 +27,7 @@
                             <div class="tabbable tabbable-tabdrop">
                                 <ul class="nav nav-tabs">
                                     <li class='active'>
-                                        <a data-toggle="tab" href="#tab1">Prevensión</a>
+                                        <a data-toggle="tab" href="#tab1">Prevención</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tab2">Asignación de control</a>
