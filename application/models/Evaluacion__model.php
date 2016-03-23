@@ -95,7 +95,7 @@ class Evaluacion__model extends CI_Model {
 //        $this->db->join('area', 'area.are_id=preguntas.are_id');
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
 //        $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
-        if ($evaluacion[0]->eva_random == 1)
+        if ($evaluacion[0]->eva_random == 'SI')
             $this->db->order_by('rand()');
         $datos = $this->db->get('preguntas', ($evaluacion[0]->eva_num_preguntas == 0) ? 10000 : $evaluacion[0]->eva_num_preguntas);
         $datos = $datos->result();
@@ -134,10 +134,14 @@ class Evaluacion__model extends CI_Model {
 //        $this->db->join('tema', 'tema.tem_id=preguntas.tem_id');
 //        $this->db->join('area', 'area.are_id=preguntas.are_id');
         $this->db->join('tipo_pregunta', 'tipo_pregunta.tipPre_id=preguntas.tipPre_id');
-        $this->db->join('user_evaluacion', 'user_evaluacion.eva_id=preguntas.eva_id');
-        $this->db->join('respuesta_evaluacion', 'respuesta_evaluacion.pre_id=preguntas.pre_id and user_evaluacion.eva_id=preguntas.eva_id');
+        $this->db->join('respuesta_evaluacion', ' respuesta_evaluacion.pre_id=preguntas.pre_id');
+        $this->db->join('user_evaluacion', 'user_evaluacion.useEva_id=respuesta_evaluacion.useEva_id');
         $this->db->order_by('preguntas.eva_id,preguntas.are_id,preguntas.tem_id,preguntas.tipPre_id');
+        
+        
+        
         $datos = $this->db->get('preguntas');
+//        echo $this->db->last_query();
         $datos = $datos->result();
         return $datos;
     }

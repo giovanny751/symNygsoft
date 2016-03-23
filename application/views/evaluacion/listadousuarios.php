@@ -97,7 +97,7 @@
                     <input type="hidden" value="" id="usuarioid">
                     <table class="table table-responsive">
                         <thead>
-                        <th></th>
+                        <th>Acción</th>
                         <th>Nombre Evaluación</th>
                         </thead>
                         <tbody id="resultados">
@@ -210,7 +210,7 @@
         $.each(msg.Json, function (key, val) {
             var x = Math.floor((Math.random() * 1000) + 2000);
             var y = Math.floor((Math.random() * 1000) + 2000);
-            $('#resultados').append('<tr><td><input type="radio" class="evaluaciones_reset" eva="' + val.eva_id  + '" user="' +  val.use_id + '"></td><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
+            $('#resultados').append('<tr><td><button class="btn btn-danger evaluaciones_reset" eva="' + val.eva_id  + '" user="' +  val.use_id + '">Eliminar</button> </td><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
         })
     }
     $('body').delegate(".modificar", "click", function () {
