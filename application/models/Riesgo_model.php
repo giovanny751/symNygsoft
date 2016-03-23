@@ -73,6 +73,7 @@ class Riesgo_model extends CI_Model {
             $this->db->select("dimension2.dim_descripcion as des2");
             $this->db->select("dimension.dim_descripcion as des1");
             $this->db->select("riesgo.rie_zona");
+            $this->db->select("riesgo.nivRie_nivel as estadoAceptacion");
             $this->db->select("riesgo.rie_descripcion");
             $this->db->select("riesgo.rie_fecha");
             $this->db->select("riesgo_clasificacion_tipo.rieClaTip_tipo");

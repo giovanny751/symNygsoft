@@ -410,6 +410,7 @@ class Riesgo extends My_Controller {
             $planes = $this->Riesgo_model->filtrobusqueda(
                     $this->input->post("cargo"), $this->input->post("categoria"), $this->input->post("dimensionuno"), $this->input->post("dimensiondos"), $this->input->post("tipo")
             );
+               
             $i = array();
             if (count($planes) > 0) {
                 foreach ($planes as $t) {
@@ -424,6 +425,7 @@ class Riesgo extends My_Controller {
                         "rieClaTip_tipo" => $t->rieClaTip_tipo,
 //                        "rieCol_colorhtml" => $t->rieCol_colorhtml,
                         "rie_actividad" => $t->rie_actividad,
+                        "estadoAceptacion" => $t->estadoAceptacion,
                         "cantidadTareas" => $t->cantidadTareas
                     );
                 }

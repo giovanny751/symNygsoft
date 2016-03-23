@@ -218,7 +218,7 @@
                                             <i class='fa fa-street-view fa-2x cargoMultiple' title='Cargos' rie_id='" + val.rie_id + "' ></i>\n\
                                     </td>"; //Cargos
                             tbody += "<td style='background-color:" + val.rieCol_colorhtml + "'>" + (val.rie_fecha != null ? val.rie_fecha : '') + "</td>";
-                            tbody += "<td style='background-color:" + val.rieCol_colorhtml + "'>" + (val.estado != null ? val.estado : '') + "</td>";
+                            tbody += "<td style='background-color:" + val.rieCol_colorhtml + "'>" + (val.estadoAceptacion != null ? val.estadoAceptacion : '') + "</td>";
                             tbody += "<td style='background-color:" + val.rieCol_colorhtml + "'></td>";
                             tbody += '<td class="transparent" style="background-color:' + val.rieCol_colorhtml + '">\n\
                                             <i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" rie_id="' + val.rie_id + '" ></i>\n\
