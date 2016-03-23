@@ -71,27 +71,40 @@ class Tipo_contrato extends My_Controller {
     function delete_tipo_contrato() {
         try {
             $post = $this->input->post();
+            IF(empty($post))
+        throw new Exception("No existen parametros para eliminar el tipo de contrato");
+            
             $this->Tipo_contrato__model->delete_tipo_contrato($post);
-            redirect('index.php/Tipo_contrato/consult_tipo_contrato', 'location');
+            $tipoContrato = $this->Tipo_contrato__model->tipoContrato();
+            
+            if(empty($tipoContrato))
+                throw new Exception("No existen tipos de contrato");
+            else 
+                $data['Json'] = $tipoContrato;
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
     function edit_tipo_contrato() {
         try {
-            $this->data['title'] = "Tipo De Contrato";
+            if(empty($this->input->post()))
+                throw new Exception("No existen valores para actualizar"); 
+
             $this->data['post'] = $this->input->post();
-            if (!isset($this->data['post']['campo']))
-                redirect('index.php/Tipo_contrato/consult_tipo_contrato', 'location');
-            $this->data['datos'] = $this->Tipo_contrato__model->edit_tipo_contrato($this->data['post']);
+            $this->data['datos'] = $this->Tipo_contrato__model->edit_tipo_contrato($this->input->post('idTipoContrato'),$this->input->post('tipoContrato'));
+            $tipoContrato = $this->Tipo_contrato__model->tipoContrato();
+            if(empty($tipoContrato))
+                throw new Exception("No existen tipos de contrato");
+            else 
+                $data['Json'] = $tipoContrato;
             $this->layout->view('tipo_contrato/index', $this->data);
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
