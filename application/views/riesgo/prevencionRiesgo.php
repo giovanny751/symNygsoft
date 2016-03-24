@@ -27,7 +27,7 @@
                             <div class="tabbable tabbable-tabdrop">
                                 <ul class="nav nav-tabs">
                                     <li class='active'>
-                                        <a data-toggle="tab" href="#tab1">Prevención</a>
+                                        <a data-toggle="tab" href="#tab1">Prevensión</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tab2">Asignación de control</a>
@@ -39,7 +39,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="planPrevencion" class="col-md-2 control-label"><span>*</span>Plan de prevención</label>
+                                                        <label for="planPrevencion" class="col-md-2 "><span>*</span>Plan de prevención</label>
                                                         <div class="col-md-10">
                                                             <input type="text" name="planPrevencion" id="planPrevencion" class="form-control obligatorio">
                                                         </div>
@@ -51,7 +51,7 @@
                                                     <div class="form-group">
                                                         <label for="clasificacion" class="col-md-4 control-label">Clasificación del riesgo</label>
                                                         <div class="col-md-8">
-                                                            <select name='clasificacion[]' id='clasificacion' class="form-control" multiple>
+                                                            <select name='clasificacion[]' id='clasificacion' class="form-control obligatorio" multiple>
                                                                 <?php foreach ($categoria as $ca) : ?>
                                                                     <option <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo strtoupper($ca->rieCla_categoria) ?></option>
                                                                 <?php endforeach; ?>
@@ -61,9 +61,9 @@
                                                 </div> 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="tiposriesgos" class="col-md-4 control-label">Tipo riesgo</label>
+                                                        <label for="tiposriesgos" class="col-md-4 control-label ">Tipo riesgo</label>
                                                         <div class="col-md-8">
-                                                            <select name='tiposriesgos[]' id='tiposriesgos' class="form-control" multiple>
+                                                            <select name='tiposriesgos[]' id='tiposriesgos' class="form-control obligatorio" multiple>
                                                                 <?php foreach ($tipoClasificacion as $tc): ?>
                                                                     <option <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo $tc->rieClaTip_tipo ?></option>
                                                                 <?php endforeach; ?>
@@ -74,7 +74,7 @@
                                                 <div class="col-md-4">
                                                     <label for="lista_riesgos" class="col-md-4 control-label">Riesgo</label>
                                                     <div class="col-md-8">
-                                                        <select name='lista_riesgos[]' id='lista_riesgos' class="form-control" multiple>
+                                                        <select name='lista_riesgos[]' id='lista_riesgos' class="form-control obligatorio" multiple>
                                                             <?php foreach ($riesgos as $e) { ?>
                                                                 <?php
                                                                 $select = "";
@@ -95,16 +95,16 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="fechaInicio" class="col-md-6 control-label"><span>*</span>Fecha inicio</label>
-                                                        <div class="col-md-6">
+                                                        <label for="fechaInicio" class="col-md-4"><span>*</span>Fecha inicio</label>
+                                                        <div class="col-md-8">
                                                             <input type="text" name="fechaInicio" id="fechaInicio" class="form-control fecha obligatorio">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="fechaFin" class="col-md-6 control-label">Fecha fin</label>
-                                                        <div class="col-md-6">
+                                                        <label for="fechaFin" class="col-md-4 control-label">Fecha fin</label>
+                                                        <div class="col-md-8">
                                                             <input type="text" name="fechaFin" id="fechaFin" class="form-control fecha">
                                                         </div>
                                                     </div>
@@ -336,10 +336,16 @@
                                 if (!jQuery.isEmptyObject(msg.message))
                                     alerta("amarillo", msg['message']);
                                 else {
-                                    $('#pre_id').val(msg.Json);
-                                    $('#guardar').attr("pre_id", msg.message);
-//                                    $('#guardar').removeAttr("title");
-//                                    $('#guardar').attr("title", "Actualizar");
+                                    if (confirm("Desean guardar otra prevención")) {
+                                        $('input,select,textarea').val("");
+                                        $('#tiposriesgos *').remove();
+                                        $('#lista_riesgos *').remove();
+                                    }else{
+                                        $('#pre_id').val(msg.Json);
+                                        $('#guardar').attr("pre_id", msg.message);
+                                        $('#guardar').removeAttr("title");
+                                        $('#guardar').attr("title", "Actualizar");
+                                    }
                                 }
                             })
                             .fail(function (msg) {
