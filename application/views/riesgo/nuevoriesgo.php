@@ -109,7 +109,7 @@
                                                     <select name="nivelDeficiencia" id="nivelDeficiencia" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($deficiencia as $d): ?>
-                                                        <option <?php echo (!empty($riesgo->nivDef_id) && $d->nivDef_id == $riesgo->nivDef_id )?"selected ":"";?> value="<?php echo $d->nivDef_id ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
+                                                            <option <?php echo (!empty($riesgo->nivDef_id) && $d->nivDef_id == $riesgo->nivDef_id ) ? "selected " : ""; ?> value="<?php echo $d->nivDef_id ?>"><?php echo strtoupper($d->nivDef_nivel) . " (" . $d->nivDef_valor . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -120,7 +120,7 @@
                                                     <select name="nivelExposicion" id="nivelExposicion" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($exposicion as $e): ?>
-                                                            <option <?php echo (!empty($riesgo->nivExp_id) && $e->nivExp_id == $riesgo->nivExp_id )?"selected ":"";?> value="<?php echo $e->nivExp_id ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
+                                                            <option <?php echo (!empty($riesgo->nivExp_id) && $e->nivExp_id == $riesgo->nivExp_id ) ? "selected " : ""; ?> value="<?php echo $e->nivExp_id ?>"><?php echo strtoupper($e->nivExp_nivel) . " (" . $e->nivExp_valor . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -128,7 +128,7 @@
                                             <div class="form-group">
                                                 <label for="nivelProbabilidad" class="col-md-4">Nivel de Probabilidad</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="nivelProbabilidad" value="<?php echo (!empty($riesgo->nivPro_Nivel))?$riesgo->nivPro_Nivel:""; ?>" name="nivelProbabilidad" class="form-control" />
+                                                    <input type="text" id="nivelProbabilidad" value="<?php echo (!empty($riesgo->nivPro_Nivel)) ? $riesgo->nivPro_Nivel : ""; ?>" name="nivelProbabilidad" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -137,7 +137,7 @@
                                                     <select name="nivelConsecuencia" id="nivelConsecuencia" class="form-control calculoNivelProbabilidad obligatorio" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($consecuencia as $c): ?>
-                                                            <option <?php echo ((!empty($riesgo->nivCon_id)) && $c->nivCon_id == $riesgo->nivCon_id )?"selected ":"";?> value="<?php echo $c->nivCon_id ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
+                                                            <option <?php echo ((!empty($riesgo->nivCon_id)) && $c->nivCon_id == $riesgo->nivCon_id ) ? "selected " : ""; ?> value="<?php echo $c->nivCon_id ?>"><?php echo strtoupper($c->nivCon_nivel) . " (" . $c->nivCon_nc . ")" ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -145,7 +145,24 @@
                                             <div class="form-group">
                                                 <label for="nivelRiesgo" class="col-md-4">Nivel de riesgo</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="nivelRiesgo" value="<?php echo (!empty($riesgo->nivRie_nivel))?$riesgo->nivRie_nivel:""; ?>" name="nivelRiesgo" class="form-control" />
+                                                    <?php
+                                                    $nivelColor = "";
+                                                    $palabra = "";
+                                                    if (!empty($riesgo->nivRie_nivel)) {
+                                                        $color = substr($riesgo->nivRie_nivel, 0, 1);
+                                                        if ($color == 1)
+                                                            $nivelColor = "red";
+                                                        elseif ($color == 2)
+                                                            $nivelColor = "yellow";
+                                                        elseif ($color == 3)
+                                                            $nivelColor = "green";
+                                                        elseif ($color == 4)
+                                                            $nivelColor = "orange";
+                                                        
+                                                        $palabra =  substr($riesgo->nivRie_nivel, 0, 1);
+                                                    }
+                                                    ?>
+                                                    <input type="text" id="nivelRiesgo"  style="background-color:<?php echo $nivelColor; ?>" value="<?php echo (!empty($riesgo->nivRie_nivel)) ? $riesgo->nivRie_nivel : ""; ?>" name="nivelRiesgo" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -191,7 +208,7 @@
                                 <input type="hidden" name="rie_id" id="rie_id" value="<?php echo (!empty($rie_id)) ? $rie_id : ""; ?>" />
                             </form>
                         </div>
-                        <?php if (!empty($rie_id)): ?>
+<?php if (!empty($rie_id)): ?>
                             <div class="portlet box blue">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -233,7 +250,7 @@
                                                     <th>Responsables</th>
                                                     </thead> 
                                                     <tbody>
-                                                        <?php if (empty($tareas)) { ?>
+    <?php if (empty($tareas)) { ?>
                                                             <tr>
                                                                 <td colspan="9">
                                                         <center>
@@ -269,10 +286,10 @@
                                                                 <td style="text-align:center"><?php echo $tar->diferencia ?></td>
                                                                 <td><?php echo $tar->Emp_Nombre ?></td>
                                                             </tr>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
+            <?php
+        }
+    }
+    ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -289,7 +306,7 @@
                                                     <th>Responsables</th>
                                                     </thead>
                                                     <tbody >
-                                                        <?php foreach ($tareasinactivas as $ti): ?>
+    <?php foreach ($tareasinactivas as $ti): ?>
                                                             <tr>
                                                                 <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
                                                                 <td></td>
@@ -300,7 +317,7 @@
                                                                 <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
                                                                 <td><?php echo $ti->nombre ?></td>
                                                             </tr>
-                                                        <?php endforeach; ?>
+    <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -369,7 +386,7 @@
                                                                                             <th>Acción</th>
                                                                                             </thead>
                                                                                             <tbody>
-                                                                                                <?php foreach ($numcar as $numerocar => $campocar): ?>
+            <?php foreach ($numcar as $numerocar => $campocar): ?>
                                                                                                     <tr>
                                                                                                         <td><?php echo $campocar[0] ?></td>
                                                                                                         <td><?php echo $campocar[1] ?></td>
@@ -382,7 +399,7 @@
                                                                                                             <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
                                                                                                         </td>
                                                                                                     </tr>   
-                                                                                                <?php endforeach; ?>
+            <?php endforeach; ?>
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </div>
@@ -401,12 +418,12 @@
                                             </div>
                                             <div id="tab5" class="tab-pane">
                                                 <p><br></p>
-                                                <?php if (!empty($tareas)) { ?>
+                                                        <?php if (!empty($tareas)) { ?>
                                                     <div id="grafica_granf">
                                                         <form id="formulario_grant">
                                                             <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($fecha_maxima) ? $fecha_maxima : '') ?>">
                                                             <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($fecha_minima) ? $fecha_minima : '') ?>">
-                                                            <?php foreach ($tareas as $value) { ?>
+        <?php foreach ($tareas as $value) { ?>
                                                                 <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
                                                                 <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
                                                                 <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
@@ -414,10 +431,10 @@
                                                                 <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
                                                                 <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
                                                                 <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
-                                                            <?php } ?>                                        
+        <?php } ?>                                        
                                                         </form>
                                                     </div>
-                                                <?php } ?>                                        
+    <?php } ?>                                        
                                             </div>
                                             <div id="tab6" class="tab-pane">
                                                 <table class="tablesst">
@@ -500,9 +517,9 @@
                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                                         <select id="carpeta" name="carpeta" class="form-control ">
                                                             <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($carpetas as $carp): ?>
+    <?php foreach ($carpetas as $carp): ?>
                                                                 <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre . " " . $carp->regCar_descripcion ?></option>
-                                                            <?php endforeach; ?>
+    <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -539,7 +556,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
+<?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -718,7 +735,7 @@
             $('#myModal4').modal("toggle");
             alerta("verde", "Se actualizaron los datos correctamente");
         }).fail(function (msg) {
-            alerta("rojo","Error comunicarse con el administrador");
+            alerta("rojo", "Error comunicarse con el administrador");
         });
     });
 
@@ -799,7 +816,7 @@
                                 </div>"
             $('#frmagregarregistro').append(fila);
         }).fail(function (msg) {
-            alerta("rojo","Error comunicarse con el administrador");
+            alerta("rojo", "Error comunicarse con el administrador");
         });
     });
     function agregarregistro(tabla, msg, contenido, destino, clase) {
@@ -960,6 +977,6 @@
                 $('#grafica_granf').html(imagen)
             })
             .fail(function () {
-                alerta("rojo","Error comunicarse con el administrador");
+                alerta("rojo", "Error comunicarse con el administrador");
             });
 </script>

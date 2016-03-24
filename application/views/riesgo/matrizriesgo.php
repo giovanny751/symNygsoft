@@ -6,19 +6,25 @@
     </div>
 </div>
 <div class='cuerpoContenido'>
+    <table class="table table-bordered table-hover">
         <?php
-        $tabla = "<table>";
-        foreach ($matriz as $key => $value) {
-            $tabla .= "<tr><td rowspan='".count($value)."'>".$key."</td>";
-            for ($i = 0; $i < count($value); $i++) {
-               $tabla .= "<tr>".$value[$i]."</tr>";
+        foreach ($matriz as $plan => $cantidad):
+            echo "<tr>";
+            echo "<td rowspan='".count($cantidad,COUNT_RECURSIVE)."'>" . $plan . "</td>";
+            for($i = 0; $i < count($cantidad);$i++){
+                if($i == 0):
+                    echo "<td>".$cantidad[$i]."</td>";
+                    echo "<tr>";
+                else:
+                    echo "<tr>";
+                    echo "<td>".$cantidad[$i]."</td>";
+                    echo "<tr>";
+                endif;
             }
-            $tabla .= "</tr>";
-        }
-        $tabla .= "</table>";
-        echo $tabla;
+        endforeach;
         ?>
-    </table>              
+    </table>
+
 </div>
 <style>
     /*    tr td{
