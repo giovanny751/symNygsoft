@@ -16,5 +16,10 @@ class Inspeccion_model extends CI_Model {
             return $this->db->insert_id();
         }
     }
+    function consultaInspeccion(){
+        $inspeccion=$this->db->get("inspeccion");
+        
+        return $inspeccion->result();
+    }
 }
 ?>

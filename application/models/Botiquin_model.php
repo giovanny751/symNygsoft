@@ -24,6 +24,10 @@ class Botiquin_model extends CI_Model {
             
         }
     }
+    function consultaBotiquin(){
+        $inspeccion=$this->db->get("botiquin");
+        return $inspeccion->result();
+    }
 }
 
 ?>

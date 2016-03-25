@@ -20,6 +20,11 @@ class Extintor_model extends CI_Model {
             
         }
     }
+    function consultaExtintor(){
+        $inspeccion=$this->db->get("extintor");
+        
+        return $inspeccion->result();
+    }
 
 }
 

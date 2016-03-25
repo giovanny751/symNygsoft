@@ -139,6 +139,19 @@ class Documento extends My_Controller {
             
         }
     }
+    function filtros(){
+        $this->layout->view("documentos/filtros");
+    }
+    function filtroInspeccion(){
+        $this->load->model(array("Botiquin_model","Extintor_model","Inspeccion_model"));
+        
+        if($this->input->post('tipoinspec') == 1)
+        $this->Botiquin_model->consultaBotiquin();
+        if($this->input->post('tipoinspec') == 2)
+        $this->Extintor_model->consultaExtintor();
+        if($this->input->post('tipoinspec') == 3)
+        $this->Inspeccion_model->consultaInspeccion();
+    }
 
 }
 
