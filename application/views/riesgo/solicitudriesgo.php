@@ -97,7 +97,7 @@
                     </form>
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
+                            <table id="tabla_general" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Solicitud</th>
@@ -162,6 +162,10 @@
         </div>
     </div>
     <script type="text/javascript">
+        $(function () {
+            var tabla = $('#tabla_general').DataTable();
+        })
+
         $("#consultar").click(function () {
             $.post(
                     url + "index.php/riesgo/filtroSolicitud",
@@ -172,19 +176,21 @@
                         if (typeof (msg.message) != "undefined") {
                             alerta("rojo", "Error al momento de ingresar datos");
                         } else {
+                            var tabla = $('#tabla_general').DataTable();
+                            tabla.row().clear().draw();
                             $.each(msg.Json, function (indice, valor) {
-                                html += "<tr>";
-                                html += "<td>" + valor.solicitud + "</td>";
-                                html += "<td>" + valor.empleado + "</td>";
-                                html += "<td>" + valor.correo + "</td>";
-                                html += "<td>" + valor.dimension1 + "</td>";
-                                html += "<td>" + ((valor.dimension2 == null) ? "" : valor.dimension2) + "</td>";
-                                html += "<td>" + valor.fechaCreacion + "</td>";
-                                html += "<td class='transparent'><button type='button' class='btn btn-circle' data-toggle='modal' data-target='#solicitud' data-whatever='" + valor.solicitud + "'><i class='fa fa-street-view'></i></button></td>"
-                                html += "</tr>";
+                                tabla.row.add([
+                                    valor.solicitud,
+                                    valor.empleado,
+                                    valor.correo,
+                                    valor.dimension1,
+                                    ((valor.dimension2 == null) ? "" : valor.dimension2),
+                                    valor.fechaCreacion,
+                                    "<button type='button' class='btn btn-circle' data-toggle='modal' data-target='#solicitud' data-whatever='" + valor.solicitud + "'><i class='fa fa-street-view'></i></button>"
+                                ]).draw();
                             });
-                            $("#tablaSolicitud").append(html);
-                            alerta("verde", "Exito")
+//                            $("#tablaSolicitud").append(html);
+//                            alerta("verde", "Exito")
                         }
                     })
                     .fail(function () {
