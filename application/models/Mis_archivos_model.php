@@ -7,11 +7,14 @@ class Mis_archivos_model extends CI_Model {
     }
 
     function carpetas2($id = null) {
-        $this->db->select('*');
-        if ($id != null) {
-            $this->db->where('carDoc_id_padre', $id);
-        } else
-            $this->db->where('carDoc_id_padre', null);
+        
+        $this->db->select('carpeta_documento.carDoc_id as idCarpeta');
+        $this->db->select('carpeta_documento.carDoc_nombre as nombre');
+        $this->db->select('carpeta_documento.carDoc_id_padre idpadre');
+        if ($id != null) 
+            $this->db->where('carpeta_documento.carDoc_id_padre', $id);
+        else
+            $this->db->where('carpeta_documento.carDoc_id_padre', null);
         $this->db->where('ACTIVO', 'S');
         $this->db->order_by('carDoc_nombre');
         $datos = $this->db->get('carpeta_documento');

@@ -19,9 +19,10 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <div class="row">
+                    <div class="row" id="panel" tipo="1">
                         <div class="col-md-4">
-                            <button class="btn btn-info" title="Subir Documento"><i class="fa fa-arrow-up"></i></button>
+                            <input type="file" id="documento3" name="files[]" required="required" class="obligatorioArchivo"  >
+                            <button class="btn btn-info" title="Subir Documento" id="procesar"><i class="fa fa-arrow-up"></i></button>
                             <button class="btn btn-info" title="Nueva Carpeta"  id="crearCarpeta"><i class="fa fa-folder-open-o"></i></button>
                         </div>
                         <div class="col-md-4"></div>
@@ -29,7 +30,8 @@
                             <div class="form-group">
                                 <div class="input-icon">
                                     <i class="fa fa-search"></i>
-                                    <input type="text" name="id_carpeta" id="id_carpeta" class="form-control placeholder-no-fix" value="<?php echo $carpeta[0]->carDoc_id_padre ?>">
+                                    <input type="text" name="carpetas" id="carpetas" class="form-control placeholder-no-fix" value="">
+                                    <input type="hidden" name="id_carpeta" id="id_carpeta" class="form-control placeholder-no-fix" value="<?php echo (!empty($carpeta[0]->carDoc_id_padre))?$carpeta[0]->carDoc_id_padre:""; ?>">
                                 </div>
                             </div>
                         </div>
@@ -49,17 +51,42 @@
                                         <div class="form-group">
                                             <?php
                                         endif;
-                                        if (!empty($value->carDoc_id_padre) && $i == 0) :
+                                        if (!empty($value->idpadre) && $i == 0) :
                                             $i++;
                                             ?>
                                             <div class="col-md-1 carpeta_atras">  
                                                 <i class="fa fa-folder-o fa-4x"></i>
                                             </div>
                                         <?php endif; ?>
-                                        <div class="col-md-1 carpeta_seccion" toma="<?php echo $value->carDoc_id; ?>">  
+                                        <div class="col-md-1 carpeta_seccion" tipo="2" toma="<?php echo $value->nombre; ?>">  
                                             <br>
                                             <i class="fa fa-folder-o fa-4x"></i>
                                             <br><span class="nombreDocumento"><?php echo $value->carDoc_nombre ?></span>
+                                        </div>
+                                        <?php
+                                        $d++;
+                                        if ($d == 13):
+                                            ?>
+                                        </div>
+                                        <?php
+                                        $d = 1;
+                                    endif;
+                                endforeach;
+                                ?>
+                                <?php
+                                $i = 0;
+                                $d = 1;
+                                foreach ($documentos as $value) :
+                                    if ($d == 1):
+                                        ?>
+                                        <div class="form-group">
+                                            <?php
+                                        endif;
+                                        ?>
+                                        <div class="col-md-1 carpeta_seccion" tipo="2" toma="<?php echo $value->carDoc_id; ?>">  
+                                            <br>
+                                            <i class="fa fa-cube fa-4x"></i>
+                                            <br><span class="nombreDocumento"><?php echo $value->repDoc_nombre ?></span>
                                         </div>
                                         <?php
                                         $d++;
@@ -211,13 +238,38 @@
         clear: both;
     }
 </style>
-<div id="divMenu">
-    <ul>
-        <li at="editar">Editar</li>
-        <li at="eliminar">Eliminar</li>
-    </ul>
-</div>
+<div id="divMenu"></div>
 <script>
+    $('#procesar').click(function () {
+        if (obligatorio('obligatorioArchivo')) {
+            var file_data = $('#documento3').prop('files')[0];
+            var form_data = new FormData();
+            form_data.append('file', file_data);
+            form_data.append('carpeta', $('#id_carpeta').val());
+
+            var fullPath = document.getElementById('documento3').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+            }
+            $.ajax({
+                url: url + 'index.php/Mis_archivos/subir_archivo',
+                dataType: 'text', // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function (data) {
+                    $('#resultados').html(data)
+                }
+            });
+        }
+    });
+
 
     $('html').click(function () {
         $('#divMenu').css({
@@ -232,7 +284,16 @@
 
     $(document).ready(function () {
         //manejador de evento para el clic derecho (contextmenu)
-        $(document).on('contextmenu', '.carpeta_seccion', function (e) {
+        $(document).on('contextmenu', '.carpeta_seccion,#panel', function (e) {
+            $('#divMenu *').remove();
+            var opciones = '<ul>';
+            if ($(this).attr('tipo') == 2)
+                opciones += '<li class="opciones" at="editar">Editar</li><li at="eliminar" class="opciones">Eliminar</li>';
+            if ($(this).attr('tipo') == 1)
+                opciones += '<li class="opciones" at="crearCarpeta">Crear Carpeta</li><li at="subirArchivo" class="opciones">Subir Archivo</li>';
+            opciones += "</ul>";
+
+            $('#divMenu').append(opciones);
             $('#divMenu ul li').attr("archivo", $(this).attr('toma'))
             e.preventDefault();
             //volvemos a obtener las coordenadas del raton en el documento
@@ -246,10 +307,9 @@
         });
 
         //evento cuando hacemos clic en un elemento (li) de la lista (ul)
-        $('#divMenu ul li').on('click', function () {
+        $('body').delegate(".opciones", "click", function () {
             var opcion = $(this).attr('at');
             var archivo = $(this).attr('archivo');
-
             if (opcion == 'editar') {
                 $.post(
                         url + "index.php/Mis_archivos/consultaCarpetaId",
@@ -282,6 +342,8 @@
                         alerta("rojo", "Error comunicarse con el administrador");
                     });
                 }
+            } else if (opcion == "crearCarpeta") {
+                nuevaCarpeta();
             }
         });
 
@@ -309,10 +371,13 @@
     });
 
     $('#crearCarpeta').click(function () {
+        nuevaCarpeta();
+    });
+    function nuevaCarpeta() {
         $('#nueva_carpeta').val('');
         $('#actualizar').replaceWith('<button type="button" class="btn btn-success guardar_carpeta" data-dismiss="modal">Guardar</button>');
         $('#myModal').modal('show');
-    });
+    }
     $('body').delegate('.carpeta_seccion, .carpeta_atras', 'click', function () {
         $('.carpeta_seccion span').each(function () {
             $(this).css('background-color', '');
@@ -364,7 +429,7 @@
                     }
                 })
                 .fail(function () {
-                    alerta("rojo",'Error comunicarse con el administrador');
+                    alerta("rojo", 'Error comunicarse con el administrador');
                 })
     })
 
