@@ -15,13 +15,17 @@ class Mis_archivos extends My_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model(array('Mis_archivos_model',"Repositoriodocumento_model"));
+        $this->load->model(array('Mis_archivos_model', "Repositoriodocumento_model"));
     }
 
     function index() {
 
-        $this->data['carpeta'] = $this->Mis_archivos_model->carpetas2();
-        $this->data['documentos'] =  $this->Repositoriodocumento_model->documentos();
+//        $this->data['carpeta'] = $this->Mis_archivos_model->carpetas2();
+        $this->data['documentos'] = $this->Repositoriodocumento_model->documentos();
+
+//        echo "<pre>";
+//        var_dump($this->data['documentos']);die;
+
         $this->layout->view("mis_archivos/index", $this->data);
     }
 
@@ -32,12 +36,12 @@ class Mis_archivos extends My_Controller {
             $idCarpeta = $this->Mis_archivos_model->new_folder($this->input->post('nueva_carpeta'), $this->input->post('IdCarpetaPadre'));
             if ($idCarpeta == false)
                 throw new Exception("Error al crear la carpeta en base de datos");
-
-            $data['Json'] = $this->Mis_archivos_model->carpetaDocumento($this->input->post('IdCarpetaPadre'));
+            $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
+            $data['Json'] = $this->Repositoriodocumento_model->documentos($this->input->post('IdCarpetaPadre'));
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            echo json_encode($data);
         }
     }
 
@@ -55,10 +59,19 @@ class Mis_archivos extends My_Controller {
 
     function eliminarCarpeta() {
         try {
-            if (empty($this->input->post("archivo")))
-                throw new Exception("No existe archivo para editar");
-            $respuesta = $this->Mis_archivos_model->eliminarCarpeta($this->input->post("archivo"));
+            if (empty($this->input->post("archivo")) || empty($this->input->post("tipo")))
+                throw new Exception("No existe archivo para Eliminar");
+            if (empty($this->input->post("tipo") == 2)) {
+                $this->load->model("Mis_archivos_model");
+                $respuesta = $this->Mis_archivos_model->eliminarCarpeta($this->input->post("archivo"));
+            }
+            if ($this->input->post("tipo") == 3) {
+                $this->load->model("Repositoriodocumento_model");
+                $respuesta = $this->Repositoriodocumento_model->eliminarArchivo($this->input->post("archivo"));
+            }
             if ($respuesta == 1) {
+                $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
+                $data['Json'] = $this->Repositoriodocumento_model->documentos($this->input->post('IdCarpetaPadre'));
                 $data['color'] = 'verde';
                 throw new Exception("Carpeta eliminada correctamente");
             } else if ($respuesta == 0) {
@@ -68,7 +81,7 @@ class Mis_archivos extends My_Controller {
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            echo json_encode($data);
         }
     }
 
@@ -94,51 +107,79 @@ class Mis_archivos extends My_Controller {
 
     function traer_folder() {
         try {
-            $data['Json'] = $this->Mis_archivos_model->traer_folder();
+            $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
+            $data['Json'] = $this->Repositoriodocumento_model->documentos($this->input->post('IdCarpetaPadre'));
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            echo json_encode($data);
         }
     }
 
     function traer_atras() {
         try {
-            $data['Json'] = $this->Mis_archivos_model->traer_atras();
+            $idCarpetaAnterior = $this->Mis_archivos_model->traer_atras();
+            $data['carpetaPadre'] = $idCarpetaAnterior[0]->carDoc_id_padre;
+            $data['Json'] = $this->Repositoriodocumento_model->documentos($data['carpetaPadre']);
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            echo json_encode($data);
+        }
+    }
+
+    function ordenamiento() {
+        try {
+            if (empty($this->input->post('orden')))
+                throw new Exception("No existe dato para poder ordenar");
+            $data['carpetaPadre'] = $this->input->post("padre");
+//            echo $this->input->post('orden');die;
+            $data['Json'] = $this->Repositoriodocumento_model->documentos($data['carpetaPadre'], $this->input->post('orden'));
+            echo json_encode($data);
+            die;
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            echo json_encode($data);
         }
     }
 
     public function subir_archivo() {
-        ini_set('MAX_EXECUTION_TIME', -1);
-        ini_set('memory_limit', -1);
-        $uploaddir = './uploads/cargueArchivos';
-        $carpeta = "";
-        if(!empty($this->input->post("carpeta")))
-            $carpeta = $this->input->post("carpeta");
-        
-        $this->load->model("Repositoriodocumento_model");
-        if (isset($_FILES['file'])) {
-            $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
-            $nombre = $_FILES['file']['name'];
-            $tamano = filesize($_FILES['file']['tmp_name']);
-            $fh = fopen($_FILES['file']['tmp_name'], 'r');
-            $documento = fread($fh, filesize($_FILES['file']['tmp_name']));
-            $documento = addslashes($documento);
-            $archivo = array(
-                "carDoc_id"=>$carpeta,
-                "repDoc_tamano"=>$tamano, 
-                "repDoc_extension"=>explode(".", $nombre)[1], 
-                "repDoc_nombre"=>$nombre, 
-                "repDoc_documento"=>$documento 
-            );
-            $this->Repositoriodocumento_model->saveFile($archivo);
-        } else {
-            echo "<br>-¡Error en el cargue del archivo !\n";
-            die();
+        try {
+            ini_set('MAX_EXECUTION_TIME', -1);
+            ini_set('memory_limit', -1);
+            $uploaddir = './uploads/cargueArchivos';
+            $carpeta = "";
+            if (!empty($this->input->post("carpeta")))
+                $carpeta = $this->input->post("carpeta");
+
+            $this->load->model("Repositoriodocumento_model");
+            if (isset($_FILES['file'])) {
+                $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
+                $nombre = $_FILES['file']['name'];
+                $tamano = filesize($_FILES['file']['tmp_name']);
+                $fh = fopen($_FILES['file']['tmp_name'], 'r');
+                $documento = fread($fh, filesize($_FILES['file']['tmp_name']));
+                $documento = addslashes($documento);
+                $archivo = array(
+                    "carDoc_id" => $carpeta,
+                    "repDoc_tamano" => $tamano,
+                    "repDoc_extension" => explode(".", $nombre)[1],
+                    "repDoc_nombre" => $nombre,
+                    "repDoc_documento" => $documento
+                );
+                $this->Repositoriodocumento_model->saveFile($archivo);
+
+
+                $data['carpetaPadre'] = $carpeta;
+                $data['Json'] = $this->Repositoriodocumento_model->documentos($data['carpetaPadre']);
+                echo json_encode($data);
+                die;
+            }
+        } catch (exception $e) {
+            $this->data["message"] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

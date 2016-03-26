@@ -54,7 +54,8 @@ class Mis_archivos_model extends CI_Model {
     function eliminarCarpeta($idCarpeta) {
         $this->db->trans_begin();
         $this->db->where("carDoc_id", $idCarpeta);
-        $date = $this->db->delete('carpeta_documento');
+        $this->db->set("est_id",3);
+        $date = $this->db->update('carpeta_documento');
         if ($this->db->trans_status() === FALSE) {
             $respuesta = $this->db->trans_rollback();
         } else {
@@ -106,15 +107,6 @@ class Mis_archivos_model extends CI_Model {
             $this->db->where('carDoc_id_padre', null);
         $date = $this->db->get('carpeta_documento');
         $date = $date->result();
-
-        if (!empty($date[0]->carDoc_id)) {
-            $this->db->where('carDoc_id_padre', $date[0]->carDoc_id_padre);
-            $this->db->order_by('carDoc_nombre');
-            $date = $this->db->get('carpeta_documento');
-            $date = $date->result();
-        }
-
-//        echo $this->db->last_query();
         return $date;
     }
 
