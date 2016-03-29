@@ -156,17 +156,20 @@ class Mis_archivos extends My_Controller {
             $this->load->model("Repositoriodocumento_model");
             if (isset($_FILES['file'])) {
                 $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
+                $tipo = $_FILES['file']['type'];
                 $nombre = $_FILES['file']['name'];
                 $tamano = filesize($_FILES['file']['tmp_name']);
-                $fh = fopen($_FILES['file']['tmp_name'], 'r');
-                $documento = fread($fh, filesize($_FILES['file']['tmp_name']));
+                $fh = fopen($_FILES['file']['tmp_name'], 'rb');
+                $documento = fread($fh, $_FILES['file']['size']);
                 $documento = addslashes($documento);
+                fclose($fh);
                 $archivo = array(
                     "carDoc_id" => $carpeta,
                     "repDoc_tamano" => $tamano,
                     "repDoc_extension" => explode(".", $nombre)[1],
                     "repDoc_nombre" => $nombre,
-                    "repDoc_documento" => $documento
+                    "repDoc_documento" => $documento,
+                    "repDoc_tipo" => $tipo
                 );
                 $this->Repositoriodocumento_model->saveFile($archivo);
 
@@ -181,6 +184,18 @@ class Mis_archivos extends My_Controller {
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
+    }
+
+    function descarga() {
+        $post = $this->input->post();
+        $datos = $this->Mis_archivos_model->descarga($post['carpeta_descarga']);
+        $tipo=$datos[0]->repDoc_tipo;
+        $nombre = $datos[0]->repDoc_nombre;
+        $documento = $datos[0]->repDoc_documento;
+        header("Content-type:" . $tipo);
+//        header("Content-Disposition: attachment; filename=$nombre");
+        header("Content-Disposition: attachment; filename=".$nombre);
+        echo $documento;
     }
 
 }

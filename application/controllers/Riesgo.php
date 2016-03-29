@@ -506,14 +506,13 @@ class Riesgo extends My_Controller {
         $matriz = $this->Riesgo_model->matrizRiesgo();
         $i = array();
         foreach ($matriz as $m) :
-            $i[$m->pla_nombre][] = $m->actPad_nombre;
+            $i[$m->pla_nombre][$m->actHij_nombre][$m->tar_descripcion][$m->rieCla_categoria][$m->rieClaTip_tipo][$m->rie_descripcion][] = $m->actPad_nombre;
         endforeach;
-//        echo "<pre>";
-//        print_y($i);die;
+        echo "<pre>";
+        print_y($i);die;
         $this->data['matriz'] = $i;
         $this->layout->view("riesgo/matrizriesgo", $this->data);
     }
-
     function solicitudriesgo() {
         try {
             $this->load->model(array("Empleado_model"

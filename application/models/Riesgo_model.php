@@ -150,7 +150,6 @@ class Riesgo_model extends CI_Model {
             $this->db->join("riesgo_clasificacion","riesgo_clasificacion.rieCla_id = riesgo.rieCla_id","left");
             $this->db->join("riesgo_clasificacion_tipo","riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id","left");
             $matriz = $this->db->get("planes");
-            echo $this->db->last_query();die;
         }catch(exception $e){
             
         }finally{

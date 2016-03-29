@@ -109,6 +109,12 @@ class Mis_archivos_model extends CI_Model {
         $date = $date->result();
         return $date;
     }
+    function descarga($id){
+        $this->db->where('repDoc_id',$id);
+        $datos=$this->db->get('repositorio_documento');
+        $datos=$datos->result();
+        return $datos;
+    }
 
 }
 

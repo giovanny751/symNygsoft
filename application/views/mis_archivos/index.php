@@ -381,6 +381,11 @@
                 }
             } else if (opcion == "crearCarpeta") {
                 nuevaCarpeta();
+            }else if(opcion=='descargar'){
+                if($(this).attr('tipo')=='3'){
+                    $('#carpeta_descarga').val($(this).attr('archivo'));
+                    $('#form_descarga').submit();
+                }
             }
         });
 
@@ -542,3 +547,6 @@
 
     }
 </script>
+<form action="<?php echo base_url('index.php/Mis_archivos/descarga') ?>" method="post" target="_black" id="form_descarga">
+    <input id="carpeta_descarga" name="carpeta_descarga" type="hidden">
+</form>
