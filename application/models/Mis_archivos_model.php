@@ -15,7 +15,7 @@ class Mis_archivos_model extends CI_Model {
             $this->db->where('carpeta_documento.carDoc_id_padre', $id);
         else
             $this->db->where('carpeta_documento.carDoc_id_padre', null);
-        $this->db->where('ACTIVO', 'S');
+        $this->db->where('est_id', '1');
         $this->db->order_by('carDoc_nombre');
         $datos = $this->db->get('carpeta_documento');
 

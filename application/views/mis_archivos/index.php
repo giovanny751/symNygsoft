@@ -71,13 +71,17 @@
                                             <?php
                                         endif;
                                         $tipo = 3;
-                                        if ( $value['extension'] == "carpeta") {
+                                        if ($value['extension'] == "carpeta") {
                                             $tipo = 2;
-                                        } 
+                                        }
                                         ?>
                                         <div class="col-md-1 carpeta_seccion" tipo="<?php echo $tipo; ?>" toma="<?php echo $value['carDoc_id']; ?>" archivoId="<?php echo $value['archivoId']; ?>">  
                                             <br>
-                                            <img src='<?php echo base_url('uploads/icon') ."/".$value['extension'] . ".png" ?>' width='40px'>
+                                            <?php if ($value['extension'] == "carpeta") { ?>
+                                                <img src='<?php echo base_url('uploads/icon') . "/carpeta.png" ?>' width='40px'>
+                                            <?php } else { ?>
+                                                <img src='<?php echo base_url('uploads/icon') . "/" . $value['extension'] . ".png" ?>' width='40px'>
+                                            <?php } ?>
                                             <br><span class="nombreDocumento" style="font-size: 11px"><?php echo $value['nombre'] ?></span>
                                         </div>
                                         <?php
@@ -239,18 +243,20 @@
 <div id="divMenu"></div>
 <script>
     $('#ordenar').change(function () {
-        $.post(
-                url + "index.php/Mis_archivos/ordenamiento",
-                {
-                    padre: $('#id_carpeta').val(),
-                    orden: $(this).val()
-                }
-        ).done(function (msg) {
-            llenar_carpetas(msg, msg.carpetaPadre);
-        })
-                .fail(function (msg) {
-
-                });
+        if ($(this).val() != "") {
+            $.post(
+                    url + "index.php/Mis_archivos/ordenamiento",
+                    {
+                        padre: $('#id_carpeta').val(),
+                        orden: $(this).val()
+                    }
+            ).done(function (msg) {
+                llenar_carpetas(msg, msg.carpetaPadre);
+            })
+                    .fail(function (msg) {
+                            alerta("rojo","Error comunicarse con el administrador");
+                    });
+        }
     });
     $('#procesar').click(function () {
         if (obligatorio('obligatorioArchivo')) {
@@ -423,7 +429,8 @@
         var toma = $(this).attr('toma');
         $.post(url, {IdCarpetaPadre: $(this).attr('toma')})
                 .done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
+                    message = jQuery.parseJSON(msg);
+                    if (!jQuery.isEmptyObject(message.message))
                         alerta("rojo", msg['message'])
                     else {
                         llenar_carpetas(msg, toma);
@@ -478,14 +485,18 @@
             html += "<div class='form-group'>";
             html += '<div class="col-md-1 carpeta_atras" toma="">\n\
                     <br>\n\
-                    <i class="fa fa-folder-o fa-4x"></i><br><span>...</span>\n\
-                </div>';
+                    <img src="' + url + "uploads/icon/carpetaVerde.png" + '" width="40px">\n\
+                    <br><span style="font-size: 11px">Atrás</span> \n\
+               </div>';
         }
         padre = null;
         $.each(msg.Json, function (key, val) {
             var icons = "";
-
-            icons = "<img src='" + '<?php echo base_url('uploads/icon') ?>' +"/"+ val.extension + ".png' width='40px'>";
+            if (val.extension != "carpeta") {
+                icons = "<img src='" + url + 'uploads/icon/' + val.extension + ".png' width='40px'>";
+            } else {
+                icons = "<img src='" + url + "uploads/icon/carpeta.png' width='40px'>";
+            }
             console.log(icons);
             var tipo = 3;
             if (icons == "" && val.extension == "carpeta") {
@@ -501,9 +512,9 @@
             i++;
             padre = val.idpadre;
 //            html += '<div class="col-md-1 carpeta_seccion" toma="' + val.idCarpeta + '">  ';
-            html += '<div class="col-md-1 carpeta_seccion" tipo="' + tipo + '" toma="' + val.idCarpeta + '" archivoId="' + val.archivoId + '">';
+            html += '<div class="col-md-1 carpeta_seccion" tipo="' + tipo + '" toma="' + val.carDoc_id + '" archivoId="' + val.archivoId + '">';
             html += '<br>';
-                html += icons;
+            html += icons;
             html += '<br><span style="font-size: 11px">' + val.nombre + '</span>';
             html += '</div>';
             d++;
