@@ -19,21 +19,42 @@ class Mis_archivos extends My_Controller {
     }
 
     function index() {
-
-//        $this->data['carpeta'] = $this->Mis_archivos_model->carpetas2();
+        $carpetas = $this->Mis_archivos_model->carpetas2();
+//        $carpetas = $this->carpeta($carpetas);
+        $this->data['carpetas'] = $carpetas;
         $this->data['documentos'] = $this->Repositoriodocumento_model->documentos();
-
-//        echo "<pre>";
-//        var_dump($this->data['documentos']);die;
-
         $this->layout->view("mis_archivos/index", $this->data);
+    }
+    public function carpetas_2() {
+        $id=$this->input->post('id');
+        $carpetas = $this->Mis_archivos_model->carpetas2($id);
+        $this->output->set_content_type('application/json')->set_output(json_encode($carpetas));
+    }
+
+    function printTree($tree, $num = 0) {
+        if (!is_null($tree) && count($tree) > 0) {
+            echo '<ul ' . (($num == 0) ? 'class="sTree2 listsClass" ' : 'style="display:none"') . '>';
+            foreach ($tree as $node) {
+                $nombre_=Mis_archivos::nombre_arbol($node['name']);
+                echo '<li class="uno">'
+                . '<div class="recurso_sele2" recarga="0" id_elemento="' . $node['name'] . '" name_folder="' . $nombre_ . '"  activo="0"><span class="fa fa-folder-o"></span> ' . $nombre_. "</div>";
+                $num++;
+                Mis_archivos::printTree($node['children'], $num);
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+    }
+    function nombre_arbol($id) {
+        $carpetas = $this->Mis_archivos_model->nombre_arbol($id);
+        return $carpetas;
     }
 
     function new_folder() {
         try {
             if (empty($this->input->post('nueva_carpeta')))
                 throw new Exception("No ha ingresado el nombre de la carpeta");
-            $idCarpeta = $this->Mis_archivos_model->new_folder($this->input->post('nueva_carpeta'), $this->input->post('IdCarpetaPadre'));
+            $idCarpeta = $this->Mis_archivos_model->new_folder($this->input->post('nueva_carpeta'), $this->input->post('IdCarpetaPadre'),$this->input->post('descripcion'));
             if ($idCarpeta == false)
                 throw new Exception("Error al crear la carpeta en base de datos");
             $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
@@ -90,7 +111,7 @@ class Mis_archivos extends My_Controller {
             if (empty($this->input->post('idArchivo')) || empty($this->input->post('nombreArchivo')))
                 throw new Exception("No cumple los parametros para actualizar carpeta");
 
-            $respuesta = $this->Mis_archivos_model->actualizarCarpeta($this->input->post('idArchivo'), $this->input->post('nombreArchivo'));
+            $respuesta = $this->Mis_archivos_model->actualizarCarpeta($this->input->post('idArchivo'), $this->input->post('nombreArchivo'),$this->input->post('descripcion'));
             if ($respuesta == true) {
                 $data['Json'] = true;
             } elseif ($respuesta == false) {
@@ -189,12 +210,12 @@ class Mis_archivos extends My_Controller {
     function descarga() {
         $post = $this->input->post();
         $datos = $this->Mis_archivos_model->descarga($post['carpeta_descarga']);
-        $tipo=$datos[0]->repDoc_tipo;
+        $tipo = $datos[0]->repDoc_tipo;
         $nombre = $datos[0]->repDoc_nombre;
         $documento = $datos[0]->repDoc_documento;
         header("Content-type:" . $tipo);
 //        header("Content-Disposition: attachment; filename=$nombre");
-        header("Content-Disposition: attachment; filename=".$nombre);
+        header("Content-Disposition: attachment; filename=" . $nombre);
         echo $documento;
     }
 

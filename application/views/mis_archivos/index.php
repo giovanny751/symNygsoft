@@ -50,52 +50,89 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="row genera_carpeta">
+                    <div class="row">
                         <div class="form-horizontal">
-                            <div class="col-md-12">
-                                <?php
-                                $i = 0;
-                                $d = 1;
-                                foreach ($documentos as $value) :
-                                    if ($d == 1):
-                                        ?>
-                                        <div class="form-group">
-                                            <?php
-                                        endif;
-                                        if (!empty($value['idpadre']) && $i == 0) :
-                                            $i++;
-                                            ?>
-                                            <div class="col-md-1 carpeta_atras">  
-                                                <i class="fa fa-folder-o fa-4x"></i>
-                                            </div>
-                                            <?php
-                                        endif;
-                                        $tipo = 3;
-                                        if ($value['extension'] == "carpeta") {
-                                            $tipo = 2;
-                                        }
-                                        ?>
-                                        <div class="col-md-1 carpeta_seccion" tipo="<?php echo $tipo; ?>" toma="<?php echo $value['carDoc_id']; ?>" archivoId="<?php echo $value['archivoId']; ?>">  
-                                            <br>
-                                            <?php if ($value['extension'] == "carpeta") { ?>
-                                                <img src='<?php echo base_url('uploads/icon') . "/carpeta.png" ?>' width='40px'>
-                                            <?php } else { ?>
-                                                <img src='<?php echo base_url('uploads/icon') . "/" . $value['extension'] . ".png" ?>' width='40px'>
+                            <div class="col-md-4">
+                                <div class="carpetas" style="padding-left: 10px">
+                                    <li>
+                                        <div toma="" tipo="2" name_folder="actas" activo="0" class="recurso_sele2" recarga="1">
+                                            <img width="20px" src="<?php echo base_url(); ?>uploads/icon/carpeta.png"> &nbsp;&nbsp;&nbsp;
+                                            Mis Archivos
+                                        </div>
+                                        <ul at='1'>
+                                            <?php foreach ($carpetas as $value) { ?>
+                                                <li>
+                                                    <div class="recurso_sele2" activo="0" name_folder="<?php echo $value->nombre ?>" tipo="2" toma="<?php echo $value->idCarpeta ?>" style="" color="#000">
+                                                        <img width="20px" src="<?php echo base_url(); ?>uploads/icon/carpeta.png"> &nbsp;&nbsp;&nbsp;
+                                                        <?php echo $value->nombre; ?>
+                                                    </div>
+                                                </li>
                                             <?php } ?>
-                                            <br><span class="nombreDocumento" style="font-size: 11px"><?php echo $value['nombre'] ?></span>
-                                        </div>
-                                        <?php
-                                        $d++;
-                                        if ($d == 13):
-                                            ?>
-                                        </div>
-                                        <?php
-                                        $d = 1;
-                                    endif;
-                                endforeach;
-                                ?>
+                                        </ul>
+                                    </li>
 
+                                </div>
+                                <input type="hidden" id="carpeta_selec" name="carpeta_selec">
+                                <br><p>
                             </div>
+                            <div class="col-md-8">
+                                <div class="row genera_carpeta">
+                                    <div class="col-md-12">
+                                        <?php
+                                        $i = 0;
+                                        $d = 1;
+                                        foreach ($documentos as $value) :
+                                            if ($d == 1):
+                                                ?>
+                                                <div class="form-group">
+                                                    <?php
+                                                endif;
+                                                if (!empty($value['idpadre']) && $i == 0) :
+                                                    $i++;
+                                                    ?>
+                                                    <div class="col-md-1 carpeta_atras">  
+                                                        <i class="fa fa-folder fa-4x"></i>
+                                                    </div>
+                                                    <?php
+                                                endif;
+                                                $tipo = 3;
+                                                if ($value['extension'] == "carpeta") {
+                                                    $tipo = 2;
+                                                }
+                                                ?>
+                                                <div class="col-md-1 carpeta_seccion" title="<?php echo $value['nombre'] ?>:  <?php echo $value['carDoc_descripcion'] ?>" tipo="<?php echo $tipo; ?>" toma="<?php echo $value['carDoc_id']; ?>" archivoId="<?php echo $value['archivoId']; ?>">  
+                                                    <br>
+                                                    <?php if ($value['extension'] == "carpeta") { ?>
+                                                        <img  src='<?php echo base_url('uploads/icon') . "/carpeta.png" ?>'   width='40px'>
+                                                    <?php } else { ?>
+                                                        <img src='<?php echo base_url('uploads/icon') . "/" . $value['extension'] . ".png" ?>'  onerror="this.src='<?php echo base_url() ?>uploads/icon/nn.png'" width='40px'>
+                                                    <?php } ?>
+                                                    <br>
+                                                    <span class="nombreDocumento" style="font-size: 11px">
+                                                        <?php
+                                                        if (strlen($value['nombre']) > 13) {
+                                                            $re = substr($value['nombre'], 0, 13);
+                                                            echo $re . '...';
+                                                        } else {
+                                                            echo $value['nombre'];
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                                <?php
+                                                $d++;
+                                                if ($d == 13):
+                                                    ?>
+                                                </div>
+                                                <?php
+                                                $d = 1;
+                                            endif;
+                                        endforeach;
+                                        ?>
+
+                                    </div>
+                                </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -119,7 +156,13 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="col-md-3" for="nueva_carpeta">Nombre Carpeta</label>
-                            <div class="col-md-9"><input type="text" class="form-control" id="nueva_carpeta"></div>
+                            <div class="col-md-9"><input type="text" class="form-control" id="nueva_carpeta"><br></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3" for="nueva_carpeta">Descripción</label>
+                            <div class="col-md-9"><textarea class="form-control" name="descripcion" id="descripcion"></textarea></div>
                         </div>
                     </div>
                 </div>
@@ -131,21 +174,7 @@
         </div>
     </div>
 </div>
-<div id="myMenu1" class="contextMenu" style="display: none">
-
-    <ul>
-
-        <li id="open"><img src="folder.png" /> Open</li>
-
-        <li id="email"><img src="email.png" /> Email</li>
-
-        <li id="save"><img src="disk.png" /> Save</li>
-
-        <li id="close"><img src="cross.png" /> Close</li>
-
-    </ul>
-
-</div>
+<div id="myMenu1" class="contextMenu" style="display: none"></div>
 <style>
     .carpetaSeleccionada{
         border-style: dotted;
@@ -241,7 +270,56 @@
     }
 </style>
 <div id="divMenu"></div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
+    $('body').delegate('.recurso_sele2', 'click', function () {
+        var toma = $(this).attr('toma');
+        if ($('#carpeta_selec').val() != toma)
+            obtener_doc(toma);
+    });
+    $('body').on('click', '.recurso_sele2', function () {
+        if ($(this).next().attr('style') == 'display:none') {
+            $(this).next().attr('style', 'display')
+        } else {
+            $(this).next().attr('style', 'display:none')
+        }
+        colorear()
+        $(this).css('color', '#FFF')
+        $(this).css('background', '#008Ac9');
+        $(this).attr('activo', '1');
+        var id = $(this).attr('toma');
+        $('#carpeta_selec').val(id);
+        if ($(this).attr('recarga') == 1)
+            return false;
+        var apuntador = $(this)
+        $.post(url + "index.php/Mis_archivos/carpetas_2", {id: id})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("rojo", msg['message'])
+                    else {
+                        var html = "<ul at='1'>";
+                        $.each(msg, function (key, val) {
+                            html += "<li>";
+                            html += '<div class="recurso_sele2" tipo="2" activo="0" name_folder="' + val.nombre + '" toma="' + val.idCarpeta + '" >';
+
+                            html += '<img width="20px" src="<?php echo base_url(); ?>uploads/icon/carpeta.png"  > &nbsp;&nbsp;&nbsp;';
+                            html += val.nombre;
+                            html += '';
+                            html += "</div>";
+                            html += "</li>";
+                        })
+                        html += "</ul>";
+                        apuntador.attr('recarga', '1')
+                        apuntador.parent().append(html);
+                    }
+                })
+                .fail(function () {
+                    alerta('rojo', ' Error en la consulta');
+                })
+
+    })
     $('#ordenar').change(function () {
         if ($(this).val() != "") {
             $.post(
@@ -254,7 +332,7 @@
                 llenar_carpetas(msg, msg.carpetaPadre);
             })
                     .fail(function (msg) {
-                            alerta("rojo","Error comunicarse con el administrador");
+                        alerta("rojo", "Error comunicarse con el administrador");
                     });
         }
     });
@@ -282,7 +360,7 @@
                 data: form_data,
                 type: 'post',
                 success: function (msg) {
-//                    $('#resultados').html(data);
+                    //                    $('#resultados').html(data);
                     $('#documento3').val('')
                     llenar_carpetas(msg, msg.carpetaPadre);
                 }
@@ -297,7 +375,7 @@
             display: 'none'
         });
     });
-//manejador de evento para el clic derecho (contextmenu)
+    //manejador de evento para el clic derecho (contextmenu)
     $(document).on('contextmenu', function (e) {
         //evitamos que aparezca el menu predeterminado del navegador (si, asi se "bloquea")
         e.preventDefault();
@@ -321,7 +399,6 @@
             opciones += "</ul>";
 
             $('#divMenu').append(opciones);
-            console.log("tipo");
             if ($(this).attr('tipo') == 2)
                 $('#divMenu ul li').attr("archivo", $(this).attr('toma'))
             if ($(this).attr('tipo') == 3)
@@ -336,8 +413,7 @@
             $('#divMenu').css({
                 display: 'block',
                 left: iX,
-                top: iY - 47
-            });
+                top: iY - 47});
         });
 
         //evento cuando hacemos clic en un elemento (li) de la lista (ul)
@@ -353,6 +429,7 @@
                         alerta("rojo", msg['message'])
                     else {
                         $('#nueva_carpeta').val(msg.Json.carDoc_nombre);
+                        $('#descripcion').val(msg.Json.carDoc_descripcion);
                         $('.guardar_carpeta').replaceWith('<button type="button" class="btn btn-info" id="actualizar" idCarpeta="' + msg.Json.carDoc_id + '" data-dismiss="modal">Actualizar</button>');
                         $('#myModal').modal('show');
                     }
@@ -381,8 +458,8 @@
                 }
             } else if (opcion == "crearCarpeta") {
                 nuevaCarpeta();
-            }else if(opcion=='descargar'){
-                if($(this).attr('tipo')=='3'){
+            } else if (opcion == 'descargar') {
+                if ($(this).attr('tipo') == '3') {
                     $('#carpeta_descarga').val($(this).attr('archivo'));
                     $('#form_descarga').submit();
                 }
@@ -394,12 +471,13 @@
     $('body').delegate("#actualizar", "click", function () {
         carpeta = $(this).attr('idCarpeta');
         nombreCarpeta = $('#nueva_carpeta').val();
+        descripcion = $('#descripcion').val();
         $.post(
                 url + "index.php/Mis_archivos/actualizarArchivo",
                 {
                     idArchivo: carpeta,
-                    nombreArchivo: nombreCarpeta
-                }
+                    descripcion: descripcion,
+                    nombreArchivo: nombreCarpeta}
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
                 alerta(msg.color, msg['message'])
@@ -423,16 +501,23 @@
     $('body').delegate('.carpeta_seccion, .carpeta_atras', 'click', function () {
         $('.carpeta_seccion span').each(function () {
             $(this).css('background-color', '');
+            $(this).css('color', '#000');
         });
         $('.carpeta_atras span').each(function () {
             $(this).css('background-color', '');
+            $(this).css('color', '#000');
         });
         $(this).children('span').css('background-color', '#2d5f8b');
+        $(this).children('span').css('color', '#FFF');
+        $(this).children('span').css('color', '#FFF');
     })
+
     $('body').delegate('.carpeta_seccion', 'dblclick', function () {
-        var url = "<?php echo base_url('index.php/Mis_archivos/traer_folder'); ?>"
         var toma = $(this).attr('toma');
-        $.post(url, {IdCarpetaPadre: $(this).attr('toma')})
+        obtener_doc(toma);
+    });
+    function obtener_doc(toma) {
+        $.post(url + 'index.php/Mis_archivos/traer_folder', {IdCarpetaPadre: toma})
                 .done(function (msg) {
                     message = jQuery.parseJSON(msg);
                     if (!jQuery.isEmptyObject(message.message))
@@ -444,8 +529,10 @@
                 .fail(function () {
                     alerta('Error al guardar');
                 })
-    });
+    }
     $('body').delegate('.carpeta_atras', 'dblclick', function () {
+        colorear();
+        $('#carpeta_selec').val('-');
         var url = "<?php echo base_url('index.php/Mis_archivos/traer_atras'); ?>"
         var toma = $(this).attr('toma');
         $.post(url, {id_carpeta: $(this).attr('toma')})
@@ -463,21 +550,19 @@
     $('body').delegate(".guardar_carpeta", "click", function () {
         var url = "<?php echo base_url('index.php/Mis_archivos/new_folder'); ?>";
         var toma = $('#id_carpeta').val();
-        $.post(url, {IdCarpetaPadre: $('#id_carpeta').val(), nueva_carpeta: $('#nueva_carpeta').val()})
+        $.post(url, {IdCarpetaPadre: $('#id_carpeta').val(), descripcion: $('#descripcion').val(), nueva_carpeta: $('#nueva_carpeta').val()})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message'])
                     else {
                         llenar_carpetas(msg, toma)
                     }
-                })
-                .fail(function () {
-                    alerta("rojo", 'Error comunicarse con el administrador');
-                })
+                }).fail(function () {
+            alerta("rojo", 'Error comunicarse con el administrador');
+        })
     })
 
     function llenar_carpetas(msg, toma) {
-//        console.log(msg);
         var i = 0;
         var d = 1;
         msg = jQuery.parseJSON(msg);
@@ -489,20 +574,23 @@
             d = 2;
             html += "<div class='form-group'>";
             html += '<div class="col-md-1 carpeta_atras" toma="">\n\
-                    <br>\n\
-                    <img src="' + url + "uploads/icon/carpetaVerde.png" + '" width="40px">\n\
-                    <br><span style="font-size: 11px">Atrás</span> \n\
+                                <br>\n\
+                                    <img src="' + url + "uploads/icon/carpetaVerde.png" + '" width="40px">\n\
+                                        <br><span style="font-size: 11px">Atrás</span> \n\
                </div>';
         }
         padre = null;
         $.each(msg.Json, function (key, val) {
             var icons = "";
+            img = "'<?php echo base_url() ?>uploads/icon/nn.png'";
+            img = 'onerror="this.src=' + img + '"';
+            var r = val.nombre;
             if (val.extension != "carpeta") {
-                icons = "<img src='" + url + 'uploads/icon/' + val.extension + ".png' width='40px'>";
+                icons = "<img src='" + url + 'uploads/icon/' + val.extension + ".png' width='40px' " + img + "  >";
             } else {
-                icons = "<img src='" + url + "uploads/icon/carpeta.png' width='40px'>";
+
+                icons = "<img src='" + url + "uploads/icon/carpeta.png' width='40px' " + img + " >";
             }
-            console.log(icons);
             var tipo = 3;
             if (icons == "" && val.extension == "carpeta") {
                 icons = "fa-folder-o";
@@ -516,11 +604,15 @@
             }
             i++;
             padre = val.idpadre;
-//            html += '<div class="col-md-1 carpeta_seccion" toma="' + val.idCarpeta + '">  ';
-            html += '<div class="col-md-1 carpeta_seccion" tipo="' + tipo + '" toma="' + val.carDoc_id + '" archivoId="' + val.archivoId + '">';
+            //            html += '<div class="col-md-1 carpeta_seccion" toma="' + val.idCarpeta + '">  ';
+            html += '<div class="col-md-1 carpeta_seccion" title="' + r+':  '+val.carDoc_descripcion + '" tipo="' + tipo + '" toma="' + val.carDoc_id + '" archivoId="' + val.archivoId + '">';
             html += '<br>';
             html += icons;
-            html += '<br><span style="font-size: 11px">' + val.nombre + '</span>';
+            if (r.length > 13)
+                var res = r.substring(0, 13);
+            else
+                var res = r + "...";
+            html += '<br><span style="font-size: 11px">' + res + '</span>';
             html += '</div>';
             d++;
             if (d == 13) {
@@ -528,10 +620,9 @@
                 d = 1;
             }
         });
-        html += "</div>"
-        html += "</div>"
+        html += "</div>";
+        html += "</div>";
 
-//        console.log(html);
 
         $('.genera_carpeta').html(html);
         if (padre == null && i == 0) {
@@ -546,7 +637,51 @@
         }
 
     }
+
+
+    function colorear() {
+        $('.recurso_sele2').each(function () {
+            $(this).css('background', '#FFF')
+            $(this).css('color', '#000')
+            $(this).attr('color', '#000')
+            $(this).attr('activo', '0');
+        })
+    }
+    $(function () {
+        $(document).tooltip();
+    });
 </script>
 <form action="<?php echo base_url('index.php/Mis_archivos/descarga') ?>" method="post" target="_black" id="form_descarga">
     <input id="carpeta_descarga" name="carpeta_descarga" type="hidden">
 </form>
+<style>
+
+    .recurso_sele2 {
+        /*border: 1px solid #72b8f2;*/
+        border-radius: 7px;
+        margin: 4px;
+        padding: 4px;
+        /*background: #89c4f4;*/
+        width: 50%;
+        /*color:#FFF;*/
+    }
+
+    .recurso_sele2 i{
+        float: right
+    }
+    .carpetas span{
+        color: yellow;
+    }
+    .recurso_sele2:hover{
+        border: 1px solid #72b8f2;
+        background: #89c4f4;
+    }
+    #formulario_documento2 {
+        background-color: white !important;
+        border: 2px solid #337ab7 !important;
+        color: gray;
+    }
+    .nombreDocumento{
+        padding: 5px;
+    }
+</style>

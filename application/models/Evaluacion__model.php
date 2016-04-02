@@ -128,8 +128,9 @@ class Evaluacion__model extends CI_Model {
         $this->db->select('preguntas.pre_id,preguntas.pre_contexto, preguntas.pre_nombre,'
                 . 'tipo_pregunta.tipPre_nombre,preguntas.res_id');
 //        $this->db->where('preguntas.activo', 'S');
-        $this->db->where('user_evaluacion.useEva_activo','S');
-        $this->db->where('pre_visible', 'S');
+//        $this->db->where('user_evaluacion.useEva_activo','S');
+//        $this->db->where('pre_visible', 'S');
+        $this->db->where('est_id', '1');
         $this->db->where('user_evaluacion.eva_id', $post['eva_id']);
         $this->db->where('user_evaluacion.use_id', $post['user']);
 //        $this->db->join('tema', 'tema.tem_id=preguntas.tem_id');

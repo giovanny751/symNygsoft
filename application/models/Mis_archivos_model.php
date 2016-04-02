@@ -7,11 +7,11 @@ class Mis_archivos_model extends CI_Model {
     }
 
     function carpetas2($id = null) {
-        
+
         $this->db->select('carpeta_documento.carDoc_id as idCarpeta');
         $this->db->select('carpeta_documento.carDoc_nombre as nombre');
         $this->db->select('carpeta_documento.carDoc_id_padre idpadre');
-        if ($id != null) 
+        if ($id != null)
             $this->db->where('carpeta_documento.carDoc_id_padre', $id);
         else
             $this->db->where('carpeta_documento.carDoc_id_padre', null);
@@ -23,12 +23,23 @@ class Mis_archivos_model extends CI_Model {
         return $datos = $datos->result();
     }
 
-    function new_folder($nuevaCarpeta, $idCarpetaPadre = null) {
+    function nombre_arbol($id) {
+        $this->db->where('carDoc_id', $id);
+        $this->db->where('est_id', '1');
+        $datos = $this->db->get('carDoc_id');
+        $datos = $datos->result();
+        return $datos[0]->carDoc_nombre;
+    }
+
+    function new_folder($nuevaCarpeta, $idCarpetaPadre = null, $descripcion = null) {
         try {
             $this->db->trans_begin();
             if (!empty($idCarpetaPadre))
                 $this->db->set('carDoc_id_padre', $idCarpetaPadre);
             $this->db->set('carDoc_nombre', $nuevaCarpeta);
+            $this->db->set('carDoc_descripcion', $descripcion);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date('Y-m-d H:i:s'));
             $this->db->insert('carpeta_documento');
             if ($this->db->trans_status() === FALSE) {
                 $respuesta = $this->db->trans_rollback();
@@ -54,7 +65,7 @@ class Mis_archivos_model extends CI_Model {
     function eliminarCarpeta($idCarpeta) {
         $this->db->trans_begin();
         $this->db->where("carDoc_id", $idCarpeta);
-        $this->db->set("est_id",3);
+        $this->db->set("est_id", 3);
         $date = $this->db->update('carpeta_documento');
         if ($this->db->trans_status() === FALSE) {
             $respuesta = $this->db->trans_rollback();
@@ -64,10 +75,13 @@ class Mis_archivos_model extends CI_Model {
         }
         return $this->db->trans_status();
     }
-    function actualizarCarpeta($idCarpeta,$nombreCarpeta) {
+
+    function actualizarCarpeta($idCarpeta, $nombreCarpeta, $descripcion) {
         $this->db->trans_begin();
         $this->db->where("carDoc_id", $idCarpeta);
-        $this->db->set("carDoc_nombre",$nombreCarpeta);
+        $this->db->set("carDoc_nombre", $nombreCarpeta);
+        $this->db->set("carDoc_descripcion", $descripcion);
+        $this->db->set('modificationUser', $this->session->userdata('usu_id'));
         $date = $this->db->update('carpeta_documento');
         if ($this->db->trans_status() === FALSE) {
             $respuesta = $this->db->trans_rollback();
@@ -109,10 +123,11 @@ class Mis_archivos_model extends CI_Model {
         $date = $date->result();
         return $date;
     }
-    function descarga($id){
-        $this->db->where('repDoc_id',$id);
-        $datos=$this->db->get('repositorio_documento');
-        $datos=$datos->result();
+
+    function descarga($id) {
+        $this->db->where('repDoc_id', $id);
+        $datos = $this->db->get('repositorio_documento');
+        $datos = $datos->result();
         return $datos;
     }
 

@@ -21,9 +21,9 @@ class Repositoriodocumento_model extends CI_Model {
             $carpetaWhere = "and carDoc_id = 0" ;
             $carpetaPadre = " and IF(carDoc_id_padre != '',carDoc_id_padre,0) = 0" ;
         }
-        $sql = "select * from ((select CONVERT(carDoc_nombre USING latin1) as nombre,carDoc_id,IF(carDoc_id_padre != '',carDoc_id_padre,0) as idpadre ,'carpeta' as extension,'1' as numero,'' as archivoId from carpeta_documento  where est_id = 1 {$carpetaPadre} {$orden})
+        $sql = "select * from ((select CONVERT(carDoc_nombre USING latin1) as nombre,carDoc_id,carDoc_descripcion,IF(carDoc_id_padre != '',carDoc_id_padre,0) as idpadre ,'carpeta' as extension,'1' as numero,'' as archivoId from carpeta_documento  where est_id = 1 {$carpetaPadre} {$orden})
             union
-            (select CONVERT(repDoc_nombre USING latin1) as nombre,'',carDoc_id as idpadre,repDoc_extension as extension,'2' as numero,repDoc_id as archivoId  from repositorio_documento where est_id = 1 {$carpetaWhere}  {$orden})) tabla {$orden}";
+            (select CONVERT(repDoc_nombre USING latin1) as nombre,'',carDoc_id as idpadre,'' carDoc_descripcion,repDoc_extension as extension,'2' as numero,repDoc_id as archivoId  from repositorio_documento where est_id = 1 {$carpetaWhere}  {$orden})) tabla {$orden}";
                      
         $repositorio = $this->db->query($sql);
         
