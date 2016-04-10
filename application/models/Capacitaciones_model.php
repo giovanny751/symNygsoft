@@ -4,6 +4,8 @@ class Capacitaciones_model extends CI_Model{
     
     
     function guardarCapacitacion($data){
+        $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
         $this->db->insert("capacitacion",$data);
         return $this->db->insert_id();
     }

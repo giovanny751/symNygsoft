@@ -9,6 +9,7 @@ class Empleadocontrato_model extends CI_Model{
     function CreacionContrato($data){
         try{
             $this->db->trans_begin();
+            
             $this->db->insert("empleado_contratos",$data);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();

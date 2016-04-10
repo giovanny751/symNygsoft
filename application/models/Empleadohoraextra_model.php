@@ -46,6 +46,8 @@ class Empleadohoraextra_model extends CI_Model {
         try{
             $this->db->where("empHorExt_id",$id);
             $this->db->set("empleado_horas_extra.est_id",3);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("empleado_horas_extra");
         }catch(Exception $e){
             

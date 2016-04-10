@@ -29,6 +29,7 @@ class Empleadoincapacidad_model extends CI_Model {
     }
     function create($data) {
         try {
+            
             $this->db->insert("empleado_incapacidad", $data);
         } catch (exception $e) {
             

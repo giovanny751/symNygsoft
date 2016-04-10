@@ -213,8 +213,12 @@ class Evaluacion__model extends CI_Model {
                 if (count($datos)) {
                     $this->db->set('useEva_activo', 'S');
                     $this->db->where('useEva_id', $datos[0]->useEva_id);
+                    $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                    $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                     $this->db->update('user_evaluacion');
                 } else {
+                    $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                    $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                     $this->db->insert('user_evaluacion');
                 }
 //                echo $this->db->last_query();
@@ -228,7 +232,7 @@ class Evaluacion__model extends CI_Model {
             foreach ($post as $key => $value) {
                 $id = $key;
             }
-            $id_eva=$post['id_eva'];
+            $id_eva = $post['id_eva'];
             unset($post['id_eva']);
             if (!empty($id_eva)) {
                 $hoy = date("Y-m-d H:i:s");
@@ -242,7 +246,7 @@ class Evaluacion__model extends CI_Model {
                 $user_ev = $user_ev->result();
 //            echo $this->db->last_query();
 //            print_y($user_ev);
-                $ye=0;
+                $ye = 0;
                 foreach ($post as $key => $value) {
                     $this->db->set('useEva_id', $user_ev[0]->useEva_id);
 //                $this->db->set('eva_id', $datos[0]->eva_id);
@@ -254,6 +258,8 @@ class Evaluacion__model extends CI_Model {
                         $this->db->set('res_texto', $value);
 
                     $this->db->set('resEva_fecha_creacion', $hoy);
+                    $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                    $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                     $this->db->insert('respuesta_evaluacion');
                     $ye++;
                 }
@@ -261,9 +267,11 @@ class Evaluacion__model extends CI_Model {
                 $this->db->where('use_id', $this->session->userdata('usu_id'));
                 $this->db->where('useEva_resuelta', 'N');
                 $this->db->set('useEva_resuelta', 'S');
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                 $this->db->update('user_evaluacion');
             }
-            if($ye==0){
+            if ($ye == 0) {
                 return "ya";
             }
         } catch (Exception $exc) {

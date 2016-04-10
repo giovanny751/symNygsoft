@@ -44,6 +44,7 @@ class Registro_model extends CI_Model {
             $this->db->select("registro.reg_fechaCreacion");
             $this->db->select("registro.reg_fechaModificacion");
             $this->db->select("registro.userCreator");
+            $this->db->where("registro.est_id", 1);
             $this->db->join("tarea", "tarea.tar_id = registro.tar_id", "LEFT");
             $this->db->join("planes", "planes.pla_id = registro.pla_id", "LEFT");
             if (!empty($inicia))
@@ -60,6 +61,7 @@ class Registro_model extends CI_Model {
         try {
             $this->db->join("tarea", "tarea.tar_id = registro.tar_id", "LEFT");
             $this->db->join("planes", "planes.pla_id = registro.pla_id", "LEFT");
+            $this->db->where("registro.est_id", 1);
             $avance = $this->db->get("registro");
             return $avance->num_rows();
         } catch (exception $e) {
@@ -70,11 +72,15 @@ class Registro_model extends CI_Model {
     function guardar_registro($post) {
         try {
 //            print_r($post);
-            if(!empty($post['reg_id'])){
+            if (!empty($post['reg_id'])) {
                 $this->db->where("reg_id", $post['reg_id']);
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('reg_fechaModificacion', date("Y-m-d H:i:s"));
                 $this->db->update("registro", $post);
                 return $post['reg_id'];
-            }else{
+            } else {
+                $this->db->set('userCreator', $this->session->userdata('usu_id'));
+                $this->db->set('reg_fechaCreacion', date("Y-m-d H:i:s"));
                 $this->db->insert("registro", $post);
                 return $this->db->insert_id();
             }
@@ -82,9 +88,12 @@ class Registro_model extends CI_Model {
             
         }
     }
-    function actualizar_registro($post,$idregistro) {
+
+    function actualizar_registro($post, $idregistro) {
         try {
-            $this->db->where("reg_id",$idregistro);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('reg_fechaModificacion', date("Y-m-d H:i:s"));
+            $this->db->where("reg_id", $idregistro);
             $this->db->update("registro", $post);
             return $idregistro;
         } catch (exception $e) {
@@ -95,7 +104,8 @@ class Registro_model extends CI_Model {
     function registroxcarpeta($carpeta) {
         try {
             $this->db->where("regCar_id", $carpeta);
-            $this->db->join("user", "user.usu_id = registro.userCreator","left");
+            $this->db->join("user", "user.usu_id = registro.userCreator", "left");
+            $this->db->where("registro.est_id", 1);
             $registro = $this->db->get("registro");
             return $registro->result();
         } catch (exception $e) {
@@ -106,15 +116,18 @@ class Registro_model extends CI_Model {
     function eliminarregistro($id) {
         try {
             $this->db->where("reg_id", $id);
-            $this->db->delete("registro");
+            $this->db->set("est_id", 3);
+            $this->db->update("registro");
         } catch (exception $e) {
             
         }
     }
+
     function modificarregistro($id) {
         try {
             $this->db->where("reg_id", $id);
-            $datos=$this->db->get("registro");
+            $this->db->where("registro.est_id", 1);
+            $datos = $this->db->get("registro");
             return $datos->result();
         } catch (exception $e) {
             
@@ -124,6 +137,7 @@ class Registro_model extends CI_Model {
     function detallexidregitro($id) {
         try {
             $this->db->where("reg_id", $id);
+            $this->db->where("registro.est_id", 1);
             $registro = $this->db->get("registro");
             return $registro->result();
         } catch (exception $e) {
@@ -190,6 +204,7 @@ class Registro_model extends CI_Model {
             $this->db->select("registro.reg_fechaModificacion");
             $this->db->select("registro.userCreator");
             $this->db->select("planes.pla_nombre");
+            $this->db->where("registro.est_id", 1);
             $this->db->join("planes", "planes.pla_id = registro.pla_id", "LEFT");
             $this->db->join("tarea", "tarea.tar_id = registro.tar_id", "LEFT");
             $this->db->join("empleado", "empleado.emp_id = tarea.emp_id", "LEFT");

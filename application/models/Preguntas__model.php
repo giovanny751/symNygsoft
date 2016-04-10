@@ -23,14 +23,20 @@ class Preguntas__model extends CI_Model {
                 $this->db->where($post["campo"], $post[$post["campo"]]);
                 $id = $post[$post["campo"]];
                 unset($post['campo']);
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                 $this->db->update('preguntas', $post);
             } else {
                 unset($post['campo']);
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert('preguntas', $post);
                 $id = $this->db->insert_id();
             }
             $this->db->set('activo', 'N');
             $this->db->where('pre_id', $id);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->update('respuestas');
 
             for ($i = 0; $i < count($respuesta); $i++) {
@@ -40,8 +46,12 @@ class Preguntas__model extends CI_Model {
                 if (!empty($res_id[$i])) {
                     $id_res = $res_id[$i];
                     $this->db->where('res_id', $res_id[$i]);
+                    $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                    $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                     $this->db->update('respuestas');
                 } else {
+                    $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                    $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                     $this->db->insert('respuestas');
                     $id_res = $this->db->insert_id();
                 }
@@ -51,6 +61,8 @@ class Preguntas__model extends CI_Model {
             }
             $this->db->set('res_id', $id_respuesta);
             $this->db->where('pre_id', $id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('preguntas');
 
 
@@ -64,6 +76,8 @@ class Preguntas__model extends CI_Model {
         try {
             $this->db->set('ACTIVO', 'N');
             $this->db->where($post["campo"], $post[$post["campo"]]);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('preguntas');
         } catch (exception $e) {
             
@@ -74,6 +88,8 @@ class Preguntas__model extends CI_Model {
         try {
             $this->db->set('pre_visible', $post['pre_visible']);
             $this->db->where('pre_id', $post['pre_id']);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('preguntas');
         } catch (exception $e) {
             
@@ -84,6 +100,8 @@ class Preguntas__model extends CI_Model {
         try {
             $this->db->set('ACTIVO', 'N');
             $this->db->where($post["campo"], $post[$post["campo"]]);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('preguntas');
         } catch (exception $e) {
             
@@ -162,7 +180,7 @@ class Preguntas__model extends CI_Model {
             $this->db->where('preguntas.pre_id', $post['id']);
             $this->db->select('preguntas.res_id id_respuesta,preguntas.*,tp.*,re.* ');
             $this->db->join('tipo_pregunta tp', 'tp.tipPre_id=preguntas.tipPre_id');
-            $this->db->join('respuestas re', "re.pre_id=preguntas.pre_id and re.activo='S'",'left',false);
+            $this->db->join('respuestas re', "re.pre_id=preguntas.pre_id and re.activo='S'", 'left', false);
             $datos = $this->db->get('preguntas');
             $datos = $datos->result();
 //            echo $this->db->last_query();

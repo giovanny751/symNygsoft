@@ -19,6 +19,8 @@ class Planes_model extends CI_Model {
 
     function create() {
         try {
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("planes");
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -32,6 +34,8 @@ class Planes_model extends CI_Model {
                 $this->db->where('pla_id', $id);
                 $this->db->delete('planes_normas');
             }
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert_batch("planes_normas", $data);
         } catch (exception $e) {
             
@@ -188,7 +192,8 @@ class Planes_model extends CI_Model {
             if (!empty($post['nombre']))
             $this->db->set("pla_nombre", $post['nombre']);
             
-            
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("planes");
 //            echo $this->db->last_query();
         } catch (exception $e) {

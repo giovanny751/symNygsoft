@@ -107,6 +107,8 @@ class Empleado_model extends CI_Model {
             if(!empty($post['fondo']))
                 $this->db->set('emp_fondo',$post['fondo']);
             $this->db->set('Est_id' , 1);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("empleado");
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -116,6 +118,8 @@ class Empleado_model extends CI_Model {
 
     function update($data, $id) {
         try {
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->where("emp_id", $id);
             $this->db->update("empleado", $data);
         } catch (exception $e) {
@@ -147,7 +151,10 @@ class Empleado_model extends CI_Model {
     function delete($id) {
         try {
             $this->db->where("emp_id", $id);
-            $this->db->delete("empleado");
+            $this->db->set("Est_id", 3);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
+            $this->db->update("empleado");
         } catch (exception $e) {
             
         }
@@ -306,6 +313,8 @@ class Empleado_model extends CI_Model {
             return $datos[0]->TipCon_Id;
         } else {
             $this->db->set('TipCon_Descripcion', $nombre_contrato);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('tipo_contrato');
             return $this->db->insert_id();
         }
@@ -320,6 +329,8 @@ class Empleado_model extends CI_Model {
             return $datos[0]->TipAse_Id;
         } else {
             $this->db->set('TipAse_Nombre', $nombre);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('tipo_aseguradora');
             return $this->db->insert_id();
         }
@@ -334,6 +345,8 @@ class Empleado_model extends CI_Model {
         } else {
             $this->db->set('est_id', 1);
             $this->db->set('dim_descripcion', $nombre);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('dimension');
             return $this->db->insert_id();
         }
@@ -348,6 +361,8 @@ class Empleado_model extends CI_Model {
         } else {
             $this->db->set('est_id', 1);
             $this->db->set('dim_descripcion', $nombre);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('dimension2');
             return $this->db->insert_id();
         }
@@ -361,6 +376,8 @@ class Empleado_model extends CI_Model {
         if (count($datos)) {
             return $datos[0]->tipDoc_id;
         } else {
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->set('tipDoc_Descripcion', $nombre);
             $this->db->insert('tipo_documento');
             return $this->db->insert_id();
@@ -390,6 +407,8 @@ class Empleado_model extends CI_Model {
         } else {
             $this->db->set('ase_nombre', $nombre);
             $this->db->set('tipAse_id', $tipo);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('aseguradoras');
             return $this->db->insert_id();
         }

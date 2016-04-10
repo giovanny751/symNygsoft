@@ -8,6 +8,8 @@ class Documentogrupo_model extends CI_Model {
 
     function creaciongrupo($data) {
         try {
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("documento_grupo", $data);
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -17,6 +19,8 @@ class Documentogrupo_model extends CI_Model {
 
     function actualizaciongrupo($data, $id) {
         try {
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->where("docGru_id", $id);
             $this->db->update("documento_grupo", $data);
         } catch (exception $e) {

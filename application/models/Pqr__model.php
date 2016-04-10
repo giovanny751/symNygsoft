@@ -11,8 +11,12 @@ class Pqr__model extends CI_Model {
             $this->db->where($post["campo"], $post[$post["campo"]]);
             $id = $post[$post["campo"]];
             unset($post['campo']);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('pqr', $post);
         } else {
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('pqr', $post);
             $id = $this->db->insert_id();
         }
@@ -22,6 +26,8 @@ class Pqr__model extends CI_Model {
     function delete_pqr($post) {
         $this->db->set('ACTIVO', 'N');
         $this->db->where($post["campo"], $post[$post["campo"]]);
+        $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
         $this->db->update('pqr');
     }
 

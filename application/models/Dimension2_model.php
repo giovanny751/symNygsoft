@@ -9,6 +9,8 @@ class Dimension2_model extends CI_Model {
     function create($data) {
         try {
             $this->db->trans_begin();
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("dimension2", $data);
             if ($this->db->trans_status() === FALSE)
                 $this->db->trans_rollback();
@@ -23,6 +25,8 @@ class Dimension2_model extends CI_Model {
 
     function update($data) {
         try {
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("dimension2", $data);
         } catch (exception $e) {
             
@@ -38,8 +42,8 @@ class Dimension2_model extends CI_Model {
             $this->db->select("dimension2.dim_descripcion");
             $this->db->select("dimension2.est_id");
             $this->db->order_by("dim_descripcion");
-            $this->db->select("(select count(dim1_id) from riesgo where dimension2.dim_id = riesgo.dim2_id) as cantidadRiesgo",false);
-            $this->db->join("dimension",'dimension2.dim_id1=dimension.dim_id','left');
+            $this->db->select("(select count(dim1_id) from riesgo where dimension2.dim_id = riesgo.dim2_id) as cantidadRiesgo", false);
+            $this->db->join("dimension", 'dimension2.dim_id1=dimension.dim_id', 'left');
             $cargo = $this->db->get("dimension2");
 //            echo $this->db->last_query();
             return $cargo->result();
@@ -48,7 +52,7 @@ class Dimension2_model extends CI_Model {
         }
     }
 
-    function consultxname($name,$dim) {
+    function consultxname($name, $dim) {
         try {
             $this->db->where("dim_descripcion", $name);
             $this->db->where("est_id", 1);
@@ -66,6 +70,8 @@ class Dimension2_model extends CI_Model {
             $this->db->trans_begin();
             $this->db->where("dim_id", $id);
             $this->db->set("est_id", 3);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("dimension2");
             if ($this->db->trans_status() === FALSE)
                 $this->db->trans_rollback();
@@ -89,7 +95,7 @@ class Dimension2_model extends CI_Model {
         }
     }
 
-    function guardarmodificaciondimension($descripcion, $id,$id_dim1) {
+    function guardarmodificaciondimension($descripcion, $id, $id_dim1) {
         try {
             $this->db->trans_begin();
             $this->db->where("dim_id", $id);
@@ -120,14 +126,14 @@ class Dimension2_model extends CI_Model {
             
         }
     }
-    
+
     public function traer_dimencion() {
-        $post=$this->input->post();
-        $this->db->where('dim_id1',$post['dimencion1']);
-        $this->db->where('est_id',1);
+        $post = $this->input->post();
+        $this->db->where('dim_id1', $post['dimencion1']);
+        $this->db->where('est_id', 1);
         $this->db->order_by("dim_descripcion");
-        $datos=$this->db->get('dimension2');
-        $datos=$datos->result();
+        $datos = $this->db->get('dimension2');
+        $datos = $datos->result();
         return $datos;
     }
 

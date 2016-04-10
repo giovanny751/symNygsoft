@@ -48,6 +48,8 @@ class Empleadoausentismo_model extends CI_Model {
     function saveVacation($data){
         try{
             $this->db->trans_begin();
+            $this->db->set('UserCreator', $this->session->userdata('usu_id'));
+            $this->db->set('fechaCreacion', date("Y-m-d H:i:s"));
             $this->db->insert("empleado_ausentismo",$data);
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();
@@ -64,6 +66,8 @@ class Empleadoausentismo_model extends CI_Model {
         try{
             $this->db->trans_begin();
             $this->db->where("empAus_id",$id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('fechaModificacion', date("Y-m-d H:i:s"));
             $this->db->update("empleado_ausentismo",$data);
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();

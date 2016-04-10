@@ -66,9 +66,13 @@ class Avancetarea_model extends CI_Model {
     function create($data,$post) {
         try{
         if(empty($post['avaTar_id'])){
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
         $this->db->insert("avance_tarea", $data);
         $id=$this->db->insert_id();
         }else{
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
         $this->db->where("avaTar_id", $post['avaTar_id']);    
         $this->db->update("avance_tarea", $data);    
         $id=$post['avaTar_id'];

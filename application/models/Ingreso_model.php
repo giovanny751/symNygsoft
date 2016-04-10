@@ -121,6 +121,8 @@ class Ingreso_model extends CI_Model {
             $data = array('menu_nombrepadre' => $modulo,
                 'menu_idpadre' => $general
             );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('modulo', $data);
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -132,6 +134,8 @@ class Ingreso_model extends CI_Model {
         try {
             $this->db->where("menu_id", $idgeneral);
             $this->db->set("mod_icons", $nuevoIcono);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("modulo");
         } catch (exception $e) {
             
@@ -142,6 +146,8 @@ class Ingreso_model extends CI_Model {
         try {
             $data = array('menu_idhijo' => $padre);
             $this->db->where('menu_id', $padre);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('modulo', $data);
         } catch (exception $e) {
             
@@ -156,6 +162,8 @@ class Ingreso_model extends CI_Model {
                 'phone' => $celular,
                 'active' => 1
             );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('users', $data);
         } catch (exception $e) {
             
@@ -229,6 +237,8 @@ class Ingreso_model extends CI_Model {
             if (!empty($nombre))
                 $this->db->set('menu_nombrepadre', $nombre);
             $this->db->where('menu_id', $idgeneral);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('modulo');
         } catch (exception $e) {
             
@@ -261,6 +271,8 @@ class Ingreso_model extends CI_Model {
             $this->db->set('menu_accion', $accion);
             $this->db->set('menu_estado', $estado);
             $this->db->where('menu_id', $id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('modulo');
         } catch (exception $e) {
             
@@ -280,6 +292,8 @@ class Ingreso_model extends CI_Model {
         try {
             $this->db->where("usu_id",$usuario);
             $this->db->set("rol_id",$rol);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("user");
         } catch (exception $e) {
             
@@ -324,6 +338,8 @@ class Ingreso_model extends CI_Model {
         try {
             $this->db->where("usu_id", $id);
             $this->db->set("rol_id", "");
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("user");
         } catch (exception $e) {
             

@@ -27,27 +27,6 @@ class Color_model extends CI_Model {
         }
     }
 
-    function create($estado, $color) {
-        try {
-            $this->db->set("estAce_id", $estado);
-            $this->db->set("col_color", $color);
-            $this->db->insert("color");
-        } catch (exception $e) {
-            
-        }
-    }
-
-    function colorxestado($estado) {
-        try {
-            $this->db->order_by("col_color");
-            $this->db->where("estAce_id", $estado);
-            $color = $this->db->get("color");
-            return $color->result();
-        } catch (exception $e) {
-            
-        }
-    }
-
 }
 
 ?>
