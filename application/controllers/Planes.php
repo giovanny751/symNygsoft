@@ -235,29 +235,17 @@ class Planes extends My_Controller {
                 , "Actividad_padre__model"
                 , "Registrocarpeta_model"
                 , "Avancetarea_model"
+                , "Tarea_model"
                     )
             );
 
             $this->data['plan'] = array();
             if (!empty($this->input->post('pla_id'))) {
-                $this->data['todo_izq'] = $this->Planes_model->min_id();
-                $this->db->where('pla_id <', $this->input->post('pla_id'));
-                $this->data['izq'] = $this->Planes_model->max_id();
-                if (empty($this->data['izq'])) {
-                    $this->data['izq'] = $this->data['todo_izq'];
-                }
-                $this->db->where('pla_id >', $this->input->post('pla_id'));
-                $this->data['derecha'] = $this->Planes_model->select_id();
-                $this->data['max_der'] = $this->Planes_model->max_id();
-
-                if (empty($this->data['derecha'])) {
-                    $this->data['derecha'] = $this->data['max_der'];
-                }
-                $this->load->model("Tarea_model");
-                $carpeta = $this->Registrocarpeta_model->detailxplan($this->input->post('pla_id'));
+                
+                $carpetaSistma = $this->Registrocarpeta_model->detailxplan($this->input->post('pla_id'));
                 $this->data['carpetas'] = $this->Registrocarpeta_model->detailxplancarpetas($this->input->post('pla_id'));
                 $d = array();
-                foreach ($carpeta as $c) {
+                foreach ($carpetaSistma as $c) {
                     $d[$c->regCar_id][$c->regCar_nombre . " - " . $c->regCar_descripcion][] = array(
                         $c->reg_archivo,
                         $c->reg_descripcion,
@@ -265,7 +253,8 @@ class Planes extends My_Controller {
                         $c->usu_nombre . " " . $c->usu_apellido,
                         $c->reg_tamano,
                         $c->reg_fechaCreacion,
-                        $c->reg_id
+                        $c->reg_id,
+                        $c->reg_ruta
                     );
                 }
                 $this->data['carpeta'] = $d;
@@ -369,7 +358,9 @@ class Planes extends My_Controller {
         try {
             $this->load->model("Registrocarpeta_model");
             $id = $this->Registrocarpeta_model->create(
-                    $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("pla_id")
+                    $this->input->post("nombrecarpeta"), 
+                    $this->input->post("descripcioncarpeta"), 
+                    $this->input->post("pla_id")
             );
             $data = $this->Registrocarpeta_model->detailxid($id);
             $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
@@ -679,16 +670,25 @@ class Planes extends My_Controller {
 
     function modificarpeta() {
         try {
+            if(empty($this->input->post('nombrecarpeta')) || empty($this->input->post('descripcioncarpeta')))
+                throw new Exception("Debe ingresar los datos correctamente");
+                
             $this->load->model('Registrocarpeta_model');
             $this->Registrocarpeta_model->modificarpeta(
                     $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("plaCar_id")
             );
-            $data = $this->Registrocarpeta_model->cargarcarpetas($this->input->post("plaCar_id"));
-            $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
+            $respuesta = $this->Registrocarpeta_model->cargarcarpetas($this->input->post("plaCar_id"));
+            if(!empty($respuesta))
+            {
+                $data['Json'] = $respuesta[0];
+            }
+            else{
+                throw new Exception("No existen carpetas para cargue");
+            }
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

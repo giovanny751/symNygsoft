@@ -428,7 +428,7 @@
                                                                                     <tbody>
                                                                                         <?php foreach ($numcar as $numerocar => $campocar): ?>
                                                                                             <tr>
-                                                                                                <td><?php echo $campocar[0] ?></td>
+                                                                                                <td><a target='_black' href='<?php echo base_url().$campocar[7]."/".$campocar[6]."/".$campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
                                                                                                 <td><?php echo $campocar[1] ?></td>
                                                                                                 <td><?php echo $campocar[2] ?></td>
                                                                                                 <td><?php echo $campocar[3] ?></td>
@@ -565,22 +565,22 @@
                                     <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" id="frmcarpetaregistro">
+                                    <form method="post" id="frmcarpetaregistro" class="form-horizontal">
                                         <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="nombrecarpeta">Nombre</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="descripcioncarpeta">Descripción:</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="nombrecarpeta" class="col-md-2" for="nombrecarpeta">Nombre</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="descripcioncarpeta" class="col-md-2" for="descripcioncarpeta">Descripción:</label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -752,7 +752,6 @@
             $.each(msg, function (key, val) {
                 option += "<option " + ((car_id == val.actPad_id) ? "selected" : "") + " value='" + val.actPad_id + "'>" + val.actPad_codigo + " - " + val.actPad_nombre + "</option>"
             });
-
             $("#idpadre").append(option);
         }).fail(function (msg) {
             alerta("rojo", "Error, favor comunicarse con el administrador del sistema");
@@ -760,8 +759,7 @@
 
         $('#eliminaractividad').remove();
         $('#actPad_id').remove();
-        $('#nombrecarpeta').val("");
-        $('#descripcioncarpeta').val("");
+        $('#nombrecarpeta,#descripcioncarpeta').val("");
         $('.modificaractividad').replaceWith('<button class="btn btn-primary" id="guardaractividadpadre" type="button">Guardar</button>');
 
     });
@@ -800,7 +798,6 @@
                 .fail(function (msg) {
                     alerta("rojo", "Error,por favor comunicarse con el administrador del sistema");
                 });
-
     });
 
     $('body').delegate(".editaractividad", "click", function () {
@@ -836,23 +833,22 @@
         });
     });
     $('body').delegate(".modificarcarpeta", "click", function () {
-
-        $.post(
-                url + "index.php/planes/modificarpeta",
-                $('#frmcarpetaregistro').serialize()
-                ).done(function (msg) {
-            $('a[href="#collapse_' + msg.regCar_id + 'r"]').text(msg.regCar_descripcion);
-            $('#myModal4').modal("toggle");
-            alerta("verde", "Se actualizaron los datos correctamente");
-        }).fail(function (msg) {
-
-        });
+        if (obligatorio("carbligatorio")) {
+            $.post(
+                    url + "index.php/planes/modificarpeta",
+                    $('#frmcarpetaregistro').serialize()
+                    ).done(function (msg) {
+                $('a[href="#collapse_' + msg.Json.regCar_id + 'r"]').html("<i class='fa fa-folder-o carpeta'></i> "+msg.Json.regCar_nombre+" - "+msg.Json.regCar_descripcion);
+                $('#myModal4').modal("toggle");
+                alerta("verde", "Se actualizaron los datos correctamente");
+            }).fail(function (msg) {
+                alerta("rojo", "Error comunicarse con el administrador")
+            });
+        }
     });
 
     $('body').delegate(".nuevoregistro,.modificarregistro", "click", function () {
-        $('#carpeta').val("");
-        $('#version').val("");
-        $('#reg_descripcion').val("");
+        $('#carpeta,#version,#reg_descripcion').val("");
         $("#archivoadescargar").remove();
         $('#carpeta').val($(this).attr('car_id'));
     });
@@ -922,7 +918,7 @@
                                         </thead>\n\
                                         <tbody>\n\
                                             <tr>\n\
-                                            <td colspan='6'>\n\
+                                            <td colspan='7'>\n\
                                             <center><b>No hay registros asociados</b></center>\n\
                                             </td>\n\
                                             </tr>\n\
@@ -940,11 +936,8 @@
 
     });
     $('.direccionar').click(function () {
-
-        if ($(this).attr('num') == 1)
-            $('#frmdireccionar').attr("action", url + "index.php/tareas/nuevatarea");
-        if ($(this).attr('num') == 2)
-            $('#frmdireccionar').attr("action", url + "index.php/tareas/registro");
+        var archivo = ($(this).attr('num') == 1) ? "nuevatarea" : "registro";
+        $('#frmdireccionar').attr("action", url + "index.php/tareas/" + archivo);
         $('#frmdireccionar').submit();
     });
     $('body').delegate(".editarhistorial", "click", function () {
@@ -1121,7 +1114,6 @@
             data: form_data,
             type: 'post',
             success: function (result) {
-
                 $("#myModal15").modal("toggle");
                 result = jQuery.parseJSON(result);
                 var idcarpeta = $('#carpeta').val()
@@ -1130,7 +1122,6 @@
                 $.each(result, function (key, val) {
                     filas += "<tr>";
                     filas += "<td><a target='_black' href='<?php echo base_url('') ?>" + val.reg_ruta + '/' + val.reg_id + '/' + val.reg_archivo + "'>" + (val.reg_archivo == null ? '' : val.reg_archivo) + "</a></td>";
-//                    filas += "<td>" + val.reg_archivo + "</td>";
                     filas += "<td>" + val.reg_descripcion + "</td>";
                     filas += "<td>" + val.reg_version + "</td>";
                     filas += "<td>" + val.usu_nombre + " " + val.usu_apellido + "</td>";
@@ -1150,13 +1141,12 @@
                 alerta('verde', 'Registro guardado con exito.');
             }
         });
-    })
+    });
 
     $('.crear_padre').click(function () {
-        $('#actPad_id').val('');
-        $('#idactividad').val('');
-        $('#nombreactividad').val('');
-    })
+        $('#actPad_id,#idactividad,#nombreactividad').val('');
+    });
+
     $('body').delegate('.eliminar', 'click', function () {
         if ($(this).attr('acthij_id') == '')
             return false;

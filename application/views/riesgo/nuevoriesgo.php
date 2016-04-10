@@ -590,25 +590,25 @@
                         } else {
                             if (msg.Json[0].nivRie_nivel != undefined) {
                                 $('#nivelRiesgo').val(msg.Json[0].nivRie_nivel + " - " + msg.Json[0].nivRie_tipo);
-                                if (msg.Json[0].nivRie_nivel == 'I')
+                                if (msg.Json[0].nivRie_nivel == '1')
                                     $('#nivelRiesgo').css({
                                         border: "2px solid red",
                                         background: "red",
                                         color: "white"
                                     });
-                                else if (msg.Json[0].nivRie_nivel == 'II')
+                                else if (msg.Json[0].nivRie_nivel == '2')
                                     $('#nivelRiesgo').css({
                                         border: "2px solid yellow",
                                         background: "yellow",
                                         color: "black"
                                     });
-                                else if (msg.Json[0].nivRie_nivel == 'III')
+                                else if (msg.Json[0].nivRie_nivel == '3')
                                     $('#nivelRiesgo').css({
                                         border: "2px solid green",
                                         background: "green",
                                         color: "black"
                                     });
-                                else if (msg.Json[0].nivRie_nivel == 'IV')
+                                else if (msg.Json[0].nivRie_nivel == '4')
                                     $('#nivelRiesgo').css({
                                         border: "2px solid orange",
                                         background: "orange",
