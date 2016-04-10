@@ -2,18 +2,19 @@
 
 class Registrocarpeta_model extends CI_Model {
 
-    function __construct() { 
+    function __construct() {
         parent::__construct();
-    } 
-    
-    function detail(){
+    }
+
+    function detail() {
         try {
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
+
     function detailxplan($pla_id){
         try {
         $this->db->where("registro_carpeta.pla_id",$pla_id);
@@ -26,59 +27,70 @@ class Registrocarpeta_model extends CI_Model {
         $this->db->select("registro.reg_id");
         $this->db->select("registro.reg_archivo");
         $this->db->select("registro.reg_tamano");
-        $this->db->select("user.usu_nombre");
-        $this->db->select("user.usu_apellido");
-        $this->db->join("registro","registro.regCar_id = registro_carpeta.regCar_id","LEFT");
-        $this->db->join("user","user.usu_id = registro.userCreator");
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
-        } catch (exception $e) {
-            
-        }
-    }
-    function detailxriesgo($rie_id){
-        try {
-        $this->db->where("registro_carpeta.rie_id",$rie_id);
-        $this->db->select("registro_carpeta.regCar_id");
-        $this->db->select("registro_carpeta.regCar_nombre");
-        $this->db->select("registro_carpeta.regCar_descripcion");
-        $this->db->select("registro.reg_version");
-        $this->db->select("registro.reg_descripcion");
-        $this->db->select("registro.reg_fechaCreacion");
         $this->db->select("registro.reg_ruta");
-        $this->db->select("registro.reg_id");
-        $this->db->select("registro.reg_archivo");
-        $this->db->select("registro.reg_tamano");
         $this->db->select("user.usu_nombre");
         $this->db->select("user.usu_apellido");
+        $this->db->where("registro_carpeta.est_id", 1);
         $this->db->join("registro","registro.regCar_id = registro_carpeta.regCar_id","LEFT");
-        $this->db->join("user","user.usu_id = registro.userCreator","left");
+        $this->db->join("user","user.usu_id = registro_carpeta.creatorUser");
         $carpeta = $this->db->get("registro_carpeta");
-//        echo $this->db->last_query();die; 
-        return $carpeta->result();
-        } catch (exception $e) {
-            
-        }
-    }
-    function consultaCarpetaxIdIndicador($regCar_id){
-        try {
-        $this->db->where("registro_carpeta.regCar_id",$regCar_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
-        } catch (exception $e) {
-            
-        }
-    }
-    function detailxindicador($ind_id){
-        try {
-        $this->db->where("registro_carpeta.ind_id",$ind_id);
-        $carpeta = $this->db->get("registro_carpeta");
+        
+//        echo $this->db->last_query();die;
+        
         return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
     
+    function detailxriesgo($rie_id) {
+        try {
+            $this->db->where("registro_carpeta.rie_id", $rie_id);
+            $this->db->select("registro_carpeta.regCar_id");
+            $this->db->select("registro_carpeta.regCar_nombre");
+            $this->db->select("registro_carpeta.regCar_descripcion");
+            $this->db->select("registro.reg_version");
+            $this->db->select("registro.reg_descripcion");
+            $this->db->select("registro.reg_fechaCreacion");
+            $this->db->select("registro.reg_ruta");
+            $this->db->select("registro.reg_id");
+            $this->db->select("registro.reg_archivo");
+            $this->db->select("registro.reg_tamano");
+            $this->db->select("user.usu_nombre");
+            $this->db->select("user.usu_apellido");
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->join("registro", "registro.regCar_id = registro_carpeta.regCar_id", "LEFT");
+            $this->db->join("user", "user.usu_id = registro.userCreator", "left");
+            $carpeta = $this->db->get("registro_carpeta");
+//        echo $this->db->last_query();die; 
+            return $carpeta->result();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function consultaCarpetaxIdIndicador($regCar_id) {
+        try {
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->where("registro_carpeta.regCar_id", $regCar_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
+        } catch (exception $e) {
+            
+        }
+    }
+
+    function detailxindicador($ind_id) {
+        try {
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->where("registro_carpeta.ind_id", $ind_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
+        } catch (exception $e) {
+            
+        }
+    }
+
     function consultaIndicadoryRegistroxInd($id) {
         try {
             $this->db->select("registro_carpeta.regCar_id");
@@ -95,106 +107,117 @@ class Registrocarpeta_model extends CI_Model {
             $this->db->select("user.usu_nombre");
             $this->db->select("user.usu_apellido");
             $this->db->where("registro_carpeta.ind_id", $id);
-            $this->db->join("registro","registro.regCar_id = registro_carpeta.regCar_id","left");
-            $this->db->join("user","user.usu_id = registro.userCreator","Left");
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->join("registro", "registro.regCar_id = registro_carpeta.regCar_id", "left");
+            $this->db->join("user", "user.usu_id = registro.userCreator", "Left");
             $valor = $this->db->get("registro_carpeta");
             return $valor->result();
         } catch (exception $e) {
             
         }
     }
-    
-    function detailxtarea($tar_id,$regCar_id = null){
+
+    function detailxtarea($tar_id, $regCar_id = null) {
         try {
-        if(!empty($regCar_id))$this->db->where("registro_carpeta.regCar_id",$regCar_id);
-        $this->db->select("registro_carpeta.regCar_id");
-        $this->db->select("registro_carpeta.regCar_nombre");
-        $this->db->select("registro_carpeta.regCar_descripcion");
-        $this->db->select("registro.reg_version");
-        $this->db->select("registro.reg_descripcion");
-        $this->db->select("registro.reg_fechaCreacion");
-        $this->db->select("registro.reg_id");
-        $this->db->select("registro.reg_archivo");
-        $this->db->select("registro.reg_tamano");
-        $this->db->select("user.usu_nombre");
-        $this->db->select("user.usu_apellido");
-        $this->db->join("registro","registro.regCar_id = registro_carpeta.regCar_id","LEFT");
-        $this->db->join("user","user.usu_id = registro_carpeta.userCreator");
-        $this->db->where("registro_carpeta.tar_id",$tar_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            if (!empty($regCar_id))
+                $this->db->where("registro_carpeta.regCar_id", $regCar_id);
+            $this->db->select("registro_carpeta.regCar_id");
+            $this->db->select("registro_carpeta.regCar_nombre");
+            $this->db->select("registro_carpeta.regCar_descripcion");
+            $this->db->select("registro.reg_version");
+            $this->db->select("registro.reg_descripcion");
+            $this->db->select("registro.reg_fechaCreacion");
+            $this->db->select("registro.reg_id");
+            $this->db->select("registro.reg_archivo");
+            $this->db->select("registro.reg_tamano");
+            $this->db->select("user.usu_nombre");
+            $this->db->select("user.usu_apellido");
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->join("registro", "registro.regCar_id = registro_carpeta.regCar_id", "LEFT");
+            $this->db->join("user", "user.usu_id = registro_carpeta.userCreator");
+            $this->db->where("registro_carpeta.tar_id", $tar_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function detailxtareas($tar_id){
+
+    function detailxtareas($tar_id) {
         try {
-        $this->db->where("registro_carpeta.tar_id",$tar_id);
-        $this->db->select("registro_carpeta.regCar_id");
-        $this->db->select("registro_carpeta.regCar_nombre");
-        $this->db->select("registro_carpeta.regCar_descripcion");
-        $this->db->select("registro.reg_id");
-        $this->db->select("registro.reg_version");
-        $this->db->select("registro.reg_descripcion");
-        $this->db->select("registro.reg_ruta");
-        $this->db->select("registro.reg_archivo");
-        $this->db->select("registro.reg_tamano");
-        $this->db->select("registro.reg_fechaCreacion");
-        $this->db->select("user.usu_nombre");
-        $this->db->select("user.usu_apellido");
-        $this->db->join("registro","registro.regCar_id = registro_carpeta.regCar_id","LEFT");
-        $this->db->join("user","user.usu_id = registro.userCreator","LEFT");
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->where("registro_carpeta.tar_id", $tar_id);
+            $this->db->select("registro_carpeta.regCar_id");
+            $this->db->select("registro_carpeta.regCar_nombre");
+            $this->db->select("registro_carpeta.regCar_descripcion");
+            $this->db->select("registro.reg_id");
+            $this->db->select("registro.reg_version");
+            $this->db->select("registro.reg_descripcion");
+            $this->db->select("registro.reg_ruta");
+            $this->db->select("registro.reg_archivo");
+            $this->db->select("registro.reg_tamano");
+            $this->db->select("registro.reg_fechaCreacion");
+            $this->db->select("user.usu_nombre");
+            $this->db->select("user.usu_apellido");
+            $this->db->where("registro_carpeta.est_id", 1);
+            $this->db->join("registro", "registro.regCar_id = registro_carpeta.regCar_id", "LEFT");
+            $this->db->join("user", "user.usu_id = registro.userCreator", "LEFT");
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function detailxtareascarpetas($tar_id){
+
+    function detailxtareascarpetas($tar_id) {
         try {
-        $this->db->where("registro_carpeta.tar_id",$tar_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->where("registro_carpeta.tar_id", $tar_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function detailxplancarpetas($pla_id){
+
+    function detailxplancarpetas($pla_id) {
         try {
-        $this->db->where("registro_carpeta.pla_id",$pla_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->where("registro_carpeta.pla_id", $pla_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function detailxriesgocarpetas($rie_id){
+
+    function detailxriesgocarpetas($rie_id) {
         try {
-        $this->db->where("registro_carpeta.rie_id",$rie_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->where("registro_carpeta.rie_id", $rie_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function allfolders(){
+
+    function allfolders() {
         try {
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function detailxid($regCar_id){
+
+    function detailxid($regCar_id) {
         try {
-        $this->db->select("regCar_id as uno, regCar_nombre as dos,regCar_descripcion as tres");
-        $this->db->where("regCar_id",$regCar_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->select("regCar_id as uno, regCar_nombre as dos,regCar_descripcion as tres");
+            $this->db->where("regCar_id", $regCar_id);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
+
     function allfolders2($id) {
         try {
             $this->db->where("tar_id", $id);
@@ -204,14 +227,16 @@ class Registrocarpeta_model extends CI_Model {
             
         }
     }
-    function detailxplannombre($pla_id,$nombre,$descripcion){
+
+    function detailxplannombre($pla_id, $nombre, $descripcion) {
         try {
-        $this->db->where("regCar_nombre",$nombre);
-        $this->db->where("regCar_descripcion",$descripcion);
-        $this->db->where("pla_id",$pla_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        echo $this->db->last_query();die;
-        return $carpeta->result();
+            $this->db->where("regCar_nombre", $nombre);
+            $this->db->where("regCar_descripcion", $descripcion);
+            $this->db->where("pla_id", $pla_id);
+            $carpeta = $this->db->get("registro_carpeta");
+//            echo $this->db->last_query();
+//            die;
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
@@ -222,8 +247,9 @@ class Registrocarpeta_model extends CI_Model {
         $data = array(
           "regCar_nombre"=>$nombre,  
           "regCar_descripcion"=>$descripcion,
-          "regCar_fechaCreacion"=>date('Y-m-d H:i:s'),
-          "pla_id"=> $pla_id 
+          "pla_id"=> $pla_id,
+          "creatorUser"=>$this->data["usu_id"],
+          "creatorDate"=>date('Y-m-d H:i:s')
         );
         $this->db->insert("registro_carpeta",$data);
         return $this->db->insert_id();
@@ -231,72 +257,88 @@ class Registrocarpeta_model extends CI_Model {
             
         }
     }
-    function createRiesgo($nombre,$descripcion,$rie_id,$usu_id) {
+
+    function createRiesgo($nombre, $descripcion, $rie_id, $usu_id) {
         try {
-        $data = array(
-          "regCar_nombre"=>$nombre,  
-          "regCar_descripcion"=>$descripcion,
-          "regCar_fechaCreacion"=>date('Y-m-d H:i:s'),
-          "rie_id"=> $rie_id,
-          "userCreator"=>$usu_id  
-        );
-        $this->db->insert("registro_carpeta",$data);
-        return $this->db->insert_id();
+            $data = array(
+                "regCar_nombre" => $nombre,
+                "regCar_descripcion" => $descripcion,
+                "regCar_fechaCreacion" => date('Y-m-d H:i:s'),
+                "rie_id" => $rie_id,
+                "userCreator" => $usu_id
+            );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
+            $this->db->insert("registro_carpeta", $data);
+            return $this->db->insert_id();
         } catch (exception $e) {
             
         }
     }
+
     function guardarCarpeta($data) {
         try {
-        $this->db->insert("registro_carpeta",$data);
-        return $this->db->insert_id();
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
+            $this->db->insert("registro_carpeta", $data);
+            return $this->db->insert_id();
         } catch (exception $e) {
             
         }
     }
-    function createtarea($nombre,$descripcion,$tar_id,$usu_id) {
+
+    function createtarea($nombre, $descripcion, $tar_id, $usu_id) {
         try {
-        $data = array(
-          "regCar_nombre"=>$nombre,  
-          "regCar_descripcion"=>$descripcion,
-          "regCar_fechaCreacion"=>date('Y-m-d H:i:s'),
-          "tar_id"=> $tar_id, 
-          "userCreator"=>$usu_id
-        );
-        $this->db->insert("registro_carpeta",$data);
-        return $this->db->insert_id();
+            $data = array(
+                "regCar_nombre" => $nombre,
+                "regCar_descripcion" => $descripcion,
+                "regCar_fechaCreacion" => date('Y-m-d H:i:s'),
+                "tar_id" => $tar_id,
+                "userCreator" => $usu_id
+            );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
+            $this->db->insert("registro_carpeta", $data);
+            return $this->db->insert_id();
         } catch (exception $e) {
             
         }
     }
-    function cargarcarpetas($regCar_id){
+
+    function cargarcarpetas($regCar_id) {
         try {
-        $this->db->where("regCar_id",$regCar_id);
-        $carpeta = $this->db->get("registro_carpeta");
-        return $carpeta->result();
+            $this->db->where("regCar_id", $regCar_id);
+            $this->db->where("registro_carpeta.est_id", 1);
+            $carpeta = $this->db->get("registro_carpeta");
+            return $carpeta->result();
         } catch (exception $e) {
             
         }
     }
-    function eliminarcarpeta($regCar_id){
+
+    function eliminarcarpeta($regCar_id) {
         try {
-        $this->db->where("regCar_id",$regCar_id);
-        $this->db->delete("registro_carpeta");
+            $this->db->where("regCar_id", $regCar_id);
+            $this->db->set("est_id", 3);
+            $this->db->update("registro_carpeta");
         } catch (exception $e) {
             
         }
     }
+
     function modificarpeta($nombre,$descripcion,$regCar_id){
         try {
         $this->db->where("regCar_id",$regCar_id);
         $this->db->set("regCar_nombre",$nombre);
         $this->db->set("regCar_descripcion",$descripcion);
-        $this->db->set("regCar_fechaModificacion",date('Y-m-d H:i:s'));
+        $this->db->set("modificationDate",date('Y-m-d H:i:s'));
+        $this->db->set("modificationUser",$this->data["usu_id"]);
         $this->db->update("registro_carpeta");
         } catch (exception $e) {
             
         }
-    }
+    } 
+
 }
 
 ?>
