@@ -48,6 +48,8 @@ class Vacaciones_model extends CI_Model {
     function saveVacation($data){
         try{
             $this->db->trans_begin();
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("vacaciones",$data);
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();
@@ -64,6 +66,8 @@ class Vacaciones_model extends CI_Model {
         try{
             $this->db->trans_begin();
             $this->db->where("vac_id",$id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("vacaciones",$data);
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();

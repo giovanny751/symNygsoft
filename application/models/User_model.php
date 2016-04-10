@@ -73,6 +73,8 @@ class User_model extends CI_Model {
 
     function create($data) {
         try {
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('user', $data);
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -168,16 +170,6 @@ class User_model extends CI_Model {
     function evaluacion_usuario($id) {
         try {
 
-//            $datos = $this->db->query('select user_evaluacion.eva_id from respuesta_evaluacion '
-////                    . ' join  user_evaluacion on user_evaluacion.eva_id=respuesta_evaluacion.eva_id '
-//                    . ' where user_evaluacion.est_id <> 3  and usu_id=' . $id . ' group by eva_id');
-//            $datos = $datos->result();
-////            echo $this->db->last_query();
-//            $d = array();
-//            foreach ($datos as $value) {
-//                $d[] = $value->eva_id;
-//            }
-
             $this->db->select("evaluacion.*");
             $this->db->where("ue.use_id", $id);
             $this->db->where("ue.useEva_activo", 'S');
@@ -267,6 +259,8 @@ class User_model extends CI_Model {
             else
                 $this->db->set('rol_id', null);
 
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->where("usu_id", $id);
             $this->db->update("user");
             
@@ -301,6 +295,8 @@ class User_model extends CI_Model {
         try {
             $this->db->where("usu_id", $usu_id);
             $this->db->set("rol_id", $rol);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("user");
             echo $this->db->last_query();
             die;
@@ -346,6 +342,8 @@ class User_model extends CI_Model {
             $this->db->trans_begin();
             $this->db->where("usu_id", $id);
             $this->db->set("est_id", "3");
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("user");
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();

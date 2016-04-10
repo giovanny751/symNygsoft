@@ -8,6 +8,8 @@ class Riesgo_model extends CI_Model {
 
     function guardarriesgo($data) {
         try {
+            $this->db->set('userCreator', $this->session->userdata('usu_id'));
+            $this->db->set('rie_fechaCreacion', date("Y-m-d H:i:s"));
             $this->db->insert("riesgo", $data);
         } catch (exception $e) {
             
@@ -17,6 +19,8 @@ class Riesgo_model extends CI_Model {
     function atualizarriesgo($id, $data) {
         try {
             $this->db->where("rie_id", $id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('rie_fechaModificacion', date("Y-m-d H:i:s"));
             $this->db->update("riesgo", $data);
         } catch (exception $e) {
             
@@ -26,6 +30,8 @@ class Riesgo_model extends CI_Model {
     function create($data) {
         try {
             $this->db->trans_begin();
+            $this->db->set('userCreator', $this->session->userdata('usu_id'));
+            $this->db->set('rie_fechaCreacion', date("Y-m-d H:i:s"));
             $this->db->insert("riesgo", $data);
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();
@@ -41,7 +47,8 @@ class Riesgo_model extends CI_Model {
 
     function eliminar_riesgos($post) {
         $this->db->where("rie_id", $post['rie_id']);
-        $this->db->delete('riesgo');
+        $this->db->set("est_id", 3);
+        $this->db->update('riesgo');
         return true;
     }
     function detailxid($id) {
@@ -146,7 +153,7 @@ class Riesgo_model extends CI_Model {
             $this->db->join("actividad_hijo","actividad_hijo.actHij_padreid = actividad_padre.actPad_id","left");  
             $this->db->join("tarea","tarea.actHij_id = actividad_hijo.actHij_id","left");
             $this->db->join("tarea_riesgos","tarea_riesgos.tar_id = tarea.tar_id","left");
-            $this->db->join("riesgo","riesgo.rie_id = tarea_riesgos.rie_id","left");
+            $this->db->join("riesgo","riesgo.rie_id = tarea_riesgos.rie_id and est_id=1","left",false);
             $this->db->join("riesgo_clasificacion","riesgo_clasificacion.rieCla_id = riesgo.rieCla_id","left");
             $this->db->join("riesgo_clasificacion_tipo","riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id","left");
             $matriz = $this->db->get("planes");

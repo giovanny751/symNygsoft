@@ -46,6 +46,7 @@ class Roles_model extends CI_Model {
         try {
             $this->db->set('rol_nombre', $nombre);
             $this->db->set('rol_fechaCreacion', date("Y-m-d"));
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
             $this->db->insert('roles');
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -57,6 +58,7 @@ class Roles_model extends CI_Model {
         try {
             $this->db->where("rol_id", $id);
             $this->db->set("rol_fechaModificacion", date('Y-m-d H:i:s'));
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
             $this->db->update('roles');
         } catch (exception $e) {
             
@@ -117,6 +119,8 @@ class Roles_model extends CI_Model {
                 "usu_id" => $iduser,
                 "rol_id" => $idrol
             );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("permisos", $data);
         } catch (exception $e) {
             

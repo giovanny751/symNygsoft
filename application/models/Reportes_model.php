@@ -31,6 +31,8 @@ class Reportes_model extends CI_Model {
     function guardarreporte($reporte) {
         try {
             $this->db->set('rep_nombre', $reporte);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('reportes');
         } catch (exception $e) {
             
@@ -61,6 +63,8 @@ class Reportes_model extends CI_Model {
             $this->db->where('rep_id', $id);
             $this->db->set('rep_nombre', $nombre);
             $this->db->set('rep_estado', $estado);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('reportes');
         } catch (exception $e) {
             
@@ -70,6 +74,8 @@ class Reportes_model extends CI_Model {
     function guardartodoreporte($data, $id) {
         try {
             $this->db->where('rep_id', $id);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('reporte', $data);
         } catch (exception $e) {
             
@@ -105,6 +111,8 @@ class Reportes_model extends CI_Model {
             $data = array('rep_nombrepadre' => $modulo,
                 'rep_idpadre' => $general
             );
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert('reporte', $data);
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -141,6 +149,8 @@ class Reportes_model extends CI_Model {
         try {
             $data = array('rep_idhijo' => $padre);
             $this->db->where('rep_id', $padre);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('reporte', $data);
         } catch (exception $e) {
             

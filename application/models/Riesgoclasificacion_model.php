@@ -8,7 +8,7 @@ class Riesgoclasificacion_model extends CI_Model {
 
     function detail() {
         try {
-            $this->db->order_by("rieCla_categoria","asc");
+            $this->db->order_by("rieCla_categoria", "asc");
             $datos = $this->db->get("riesgo_clasificacion");
             return $datos->result();
         } catch (exception $e) {
@@ -30,7 +30,7 @@ class Riesgoclasificacion_model extends CI_Model {
             
         }
     }
-    
+
     function detailandtipo_categoria($categoria_id) {
         try {
             $this->db->select("riesgo_clasificacion_tipo.rieClaTip_id as clasificacion_id");
@@ -38,7 +38,7 @@ class Riesgoclasificacion_model extends CI_Model {
             $this->db->select("riesgo_clasificacion.rieCla_categoria as categoria");
             $this->db->select("riesgo_clasificacion.rieCla_id as clasificacion");
             $this->db->join("riesgo_clasificacion_tipo", "riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id", "LEFT");
-            $this->db->where("riesgo_clasificacion.rieCla_id",$categoria_id);
+            $this->db->where("riesgo_clasificacion.rieCla_id", $categoria_id);
             $datos = $this->db->get("riesgo_clasificacion");
 //            echo $this->db->last_query();die;
             return $datos->result();
@@ -46,6 +46,7 @@ class Riesgoclasificacion_model extends CI_Model {
             
         }
     }
+
     function detailandtipo_categoria_batch($categoria_id) {
         try {
             $this->db->select("riesgo_clasificacion_tipo.rieClaTip_id as clasificacion_id");
@@ -53,9 +54,9 @@ class Riesgoclasificacion_model extends CI_Model {
             $this->db->select("riesgo_clasificacion.rieCla_categoria as categoria");
             $this->db->select("riesgo_clasificacion.rieCla_id as clasificacion");
             $this->db->join("riesgo_clasificacion_tipo", "riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id", "LEFT");
-            $this->db->where_in("riesgo_clasificacion.rieCla_id",$categoria_id);
-            $this->db->order_by("riesgo_clasificacion.rieCla_categoria","asc");
-            $this->db->order_by("riesgo_clasificacion_tipo.rieClaTip_tipo","asc");
+            $this->db->where_in("riesgo_clasificacion.rieCla_id", $categoria_id);
+            $this->db->order_by("riesgo_clasificacion.rieCla_categoria", "asc");
+            $this->db->order_by("riesgo_clasificacion_tipo.rieClaTip_tipo", "asc");
             $datos = $this->db->get("riesgo_clasificacion");
 //            echo $this->db->last_query();
             return $datos->result();
@@ -78,8 +79,12 @@ class Riesgoclasificacion_model extends CI_Model {
         try {
             if ($rieCla_id == null) {
                 $this->db->set("rieCla_categoria", $categoria);
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert("riesgo_clasificacion");
             } else {
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                 $this->db->set("rieCla_categoria", $categoria);
                 $this->db->where("rieCla_id", $rieCla_id);
                 $this->db->update("riesgo_clasificacion");
@@ -107,16 +112,16 @@ class Riesgoclasificacion_model extends CI_Model {
             
         }
     }
-    
-    function elementosXFactores(){
+
+    function elementosXFactores() {
         $this->db->select("riesgo_clasificacion.rieCla_id");
         $this->db->select("riesgo_clasificacion.rieCla_categoria");
         $this->db->select("riesgo_clasificacion_tipo.rieClaTip_tipo");
         $this->db->select("riesgo_clasificacion_tipo.rieClaTip_id");
         $this->db->select("riesgo_clasificacion_elemento.rieClaEle_id");
         $this->db->select("riesgo_clasificacion_elemento.rieClaEle_elemento");
-        $this->db->join("riesgo_clasificacion_tipo","riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id");
-        $this->db->join("riesgo_clasificacion_elemento","riesgo_clasificacion_elemento.rieClaTip_id = riesgo_clasificacion_tipo.rieClaTip_id");
+        $this->db->join("riesgo_clasificacion_tipo", "riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id");
+        $this->db->join("riesgo_clasificacion_elemento", "riesgo_clasificacion_elemento.rieClaTip_id = riesgo_clasificacion_tipo.rieClaTip_id");
         $factores = $this->db->get("riesgo_clasificacion");
 //        echo $this->db->last_query();die;
         return $factores->result();

@@ -62,7 +62,8 @@ class Tarea_model extends CI_Model {
             if (isset($post['rutinario']))
                 if (!empty($post['rutinario']))
                     $this->db->set("tar_rutinario", $this->input->post("rutinario"));
-
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("tarea");
             return $this->db->insert_id();
         } catch (exception $e) {
@@ -98,6 +99,8 @@ class Tarea_model extends CI_Model {
             $this->db->set('nor_norma', $post['norma']);
             $this->db->set('nor_descripcion', $post['descripcion']);
 //            $this->db->where('nor_id', $post['nor_id']);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("norma");
             return $this->lista_norma();
         } catch (exception $e) {
@@ -114,6 +117,8 @@ class Tarea_model extends CI_Model {
                 $this->db->set('est_id', 3);
             }
             $this->db->where('nor_id', $post['nor_id']);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("norma");
 //            echo $this->db->last_query();
             return $this->lista_norma();
@@ -157,8 +162,12 @@ class Tarea_model extends CI_Model {
             }
             if (!empty($post['norArt_id'])) {
                 $this->db->where('norArt_id', $post['norArt_id']);
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+                $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                 $this->db->update("norma_articulo");
             } else {
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert("norma_articulo");
             }
 //            echo $this->db->last_query();
@@ -226,6 +235,8 @@ class Tarea_model extends CI_Model {
                     $this->db->set("tar_rutinario", $this->input->post("rutinario"));
 
             $this->db->where("tar_id", $idtarea);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("tarea");
         } catch (exception $e) {
             
@@ -237,6 +248,8 @@ class Tarea_model extends CI_Model {
             $this->db->trans_begin();
             $this->db->where("tar_id", $tar_id);
             $this->db->set("est_id", 3);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("tarea");
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -408,12 +421,16 @@ class Tarea_model extends CI_Model {
             foreach ($clasificacionriesgo as $key => $value) {
                 $this->db->set('rieCla_id', $value);
                 $this->db->set('tar_id', $id);
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert('tarea_riegos_clasificacion');
             }
         if (count($tiposriesgos))
             foreach ($tiposriesgos as $key => $value) {
                 $this->db->set('rieClaTip_id', $value);
                 $this->db->set('tar_id', $id);
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+                $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert('tarea_riesgo_clasificacion_tipo');
             }
     }
@@ -461,17 +478,17 @@ class Tarea_model extends CI_Model {
                     avance_tarea.avaTar_fechaCreacion as avaTar_fechaCreacion,
                     tarea.tar_id,
                     avance_tarea.avaTar_id,
-                    `avance_tarea`.`avaTar_progreso` as `progreso`, `tarea`.`car_id`, 
-                    `tipo`.`tip_tipo`, `tar_nombre`, `tarea`.`tar_fechaInicio`, 
-                    `tarea`.`tar_fechaFinalizacion`, 
+                    avance_tarea.avaTar_progreso as progreso, tarea.car_id, 
+                    tipo.tip_tipo, tar_nombre, tarea.tar_fechaInicio, 
+                    tarea.tar_fechaFinalizacion, 
                     timestampdiff(HOUR, (tar_fechaInicio),(tar_fechaFinalizacion)) as diferencia, 
-                    `empleado`.`Emp_Nombre` 
-                    FROM `planes` 
-                    JOIN `tarea` ON `tarea`.`pla_id` = `planes`.`pla_id` 
-                    LEFT JOIN `avance_tarea` ON `avance_tarea`.`tar_id` = `tarea`.`tar_id` 
-                    LEFT JOIN `empleado` ON `empleado`.`emp_id` = `tarea`.`emp_id` 
-                    LEFT JOIN `tipo` ON `tipo`.`tip_id` = `tarea`.`tip_id` 
-                    WHERE `planes`.`pla_id` = '" . $id . "' AND `tarea`.`est_id` = 1
+                    empleado.Emp_Nombre 
+                    FROM planes 
+                    JOIN tarea ON tarea.pla_id = planes.pla_id 
+                    LEFT JOIN avance_tarea ON avance_tarea.tar_id = tarea.tar_id 
+                    LEFT JOIN empleado ON empleado.emp_id = tarea.emp_id 
+                    LEFT JOIN tipo ON tipo.tip_id = tarea.tip_id 
+                    WHERE planes.pla_id = '" . $id . "' AND tarea.est_id = 1
                     ORDER BY avance_tarea.avaTar_fechaCreacion desc
                     ) tabla
                     GROUP BY tar_id

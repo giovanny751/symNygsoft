@@ -9,7 +9,9 @@ class Riesgoclasificaciontipo_model extends CI_Model {
     function create($categoria, $tipo) {
         try {
             $this->db->set("rieCla_id", $categoria);
-            $this->db->set("rieClaTip_tipo	", $tipo);
+            $this->db->set("rieClaTip_tipo", $tipo);
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("riesgo_clasificacion_tipo");
         } catch (exception $e) {
             
@@ -31,7 +33,7 @@ class Riesgoclasificaciontipo_model extends CI_Model {
         try {
             $this->db->select("riesgo_clasificacion_tipo.*,riesgo_clasificacion.rieCla_categoria");
             $this->db->where_in("riesgo_clasificacion_tipo.rieCla_id", $categoria);
-            $this->db->join('riesgo_clasificacion','riesgo_clasificacion.rieCla_id=riesgo_clasificacion_tipo.rieCla_id');
+            $this->db->join('riesgo_clasificacion', 'riesgo_clasificacion.rieCla_id=riesgo_clasificacion_tipo.rieCla_id');
             $this->db->order_by("riesgo_clasificacion.rieCla_categoria,riesgo_clasificacion_tipo.rieClaTip_tipo");
             $data = $this->db->get("riesgo_clasificacion_tipo");
             return $data->result();
@@ -39,13 +41,17 @@ class Riesgoclasificaciontipo_model extends CI_Model {
             
         }
     }
-    function modificarClasificacionTipo($categoria,$idtipo,$tipo){
-        $this->db->where("rieClaTip_id",$idtipo);
-        $this->db->where("rieCla_id",$categoria);
-        $this->db->set("rieClaTip_tipo",$tipo);
+
+    function modificarClasificacionTipo($categoria, $idtipo, $tipo) {
+        $this->db->where("rieClaTip_id", $idtipo);
+        $this->db->where("rieCla_id", $categoria);
+        $this->db->set("rieClaTip_tipo", $tipo);
+        $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+        $this->db->set('modificationDate', date("Y-m-d H:i:s"));
         $this->db->update('riesgo_clasificacion_tipo');
     }
-    function consultaClasificacionTipo(){
+
+    function consultaClasificacionTipo() {
         try {
             $data = $this->db->get("riesgo_clasificacion_tipo");
             return $data->result();
@@ -53,6 +59,7 @@ class Riesgoclasificaciontipo_model extends CI_Model {
             
         }
     }
+
 }
 
 ?>

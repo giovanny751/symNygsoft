@@ -12,8 +12,12 @@ class Tipo_documento__model extends CI_Model {
                 $this->db->where($post["campo"], $post[$post["campo"]]);
                 $id = $post[$post["campo"]];
                 unset($post['campo']);
+                $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
                 $this->db->update('tipo_documento', $post);
             } else {
+                $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
                 $this->db->insert('tipo_documento', $post);
                 $id = $this->db->insert_id();
             }
@@ -27,6 +31,8 @@ class Tipo_documento__model extends CI_Model {
         try {
             $this->db->set('ACTIVO', 'N');
             $this->db->where($post["campo"], $post[$post["campo"]]);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('tipo_documento');
         } catch (exception $e) {
             

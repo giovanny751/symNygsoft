@@ -19,6 +19,8 @@ class Riesgoclasificacionelemento_model extends CI_Model {
     function save($data) {
         try {
             $this->db->trans_begin();
+            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
+            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
             $this->db->insert("riesgo_clasificacion_elemento", $data);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
