@@ -14,86 +14,62 @@
                 <div class="form-body">
                     <form action="<?php echo base_url('index.php/') . '/Pqr/consult_pqr'; ?>" method="post" >
                         <div class="row">
+                            <label for="tipSol_id" class="col-md-3">
+                                Tipo De Solicitud:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="tipSol_id">
-                                    Tipo De Solicitud:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <?php echo lista("tipSol_id", "tipSol_id", "form-control obligatorio", "tipo_solicitud", "tipSol_id", "tipSol_nombre", (isset($post['tipSol_id']) ? $post['tipSol_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                    <br>
                             </div>
-
-                            <div class="col-md-3">
-                                <label for="temSol_id">
-                                    Tema:                        </label>
-                            </div>
+                            <label for="temSol_id" class="col-md-3">
+                                Tema:                        
+                            </label>
                             <div class="col-md-3">
 
                                 <?php echo lista("temSol_id", "temSol_id", "form-control obligatorio", "temaSolicitud", "temSol_id", "temSol_nombre", (isset($post['temSol_id']) ? $post['temSol_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                    <br>
                             </div>
-
+                            <label for="pqr_detalle" class="col-md-3">
+                                Detalles:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="pqr_detalle">
-                                    Detalles:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <input type="text" value="<?php echo (isset($post['pqr_detalle']) ? $post['pqr_detalle'] : '' ) ?>" class="form-control obligatorio  " id="pqr_detalle" name="pqr_detalle">
                                 <br>
                             </div>
-
+                            <label for="sol_id" class="col-md-3">
+                                Solicitante:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="sol_id">
-                                    Solicitante:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <?php echo lista("sol_id", "sol_id", "form-control obligatorio", "solicitante", "sol_id", "sol_nombre", (isset($post['sol_id']) ? $post['sol_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                    <br>
                             </div>
-
+                            <label for="pqr_nombre" class="col-md-3">
+                                Nombre:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="pqr_nombre">
-                                    Nombre:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <input type="text" value="<?php echo (isset($post['pqr_nombre']) ? $post['pqr_nombre'] : '' ) ?>" class="form-control obligatorio  " id="pqr_nombre" name="pqr_nombre">
                                 <br>
                             </div>
-
+                            <label for="email" class="col-md-3">
+                                E-mail:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="email">
-                                    E-mail:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <input type="text" value="<?php echo (isset($post['email']) ? $post['email'] : '' ) ?>" class="form-control obligatorio  " id="email" name="email">
                                 <br>
                             </div>
-
+                            <label for="telefono" class="col-md-3">
+                                Teléfono:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="telefono">
-                                    Teléfono:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <input type="text" value="<?php echo (isset($post['telefono']) ? $post['telefono'] : '' ) ?>" class="form-control obligatorio  number" id="telefono" name="telefono">
                                 <br>
                             </div>
-
+                            <label for="dep_id" class="col-md-3">
+                                Departamento:                        
+                            </label>
                             <div class="col-md-3">
-                                <label for="dep_id">
-                                    Departamento:                        </label>
-                            </div>
-                            <div class="col-md-3">
-
                                 <?php echo lista("dep_id", "dep_id", "form-control obligatorio", "departamento", "dep_id", "dep_nombre", (isset($post['dep_id']) ? $post['dep_id'] : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                    <br>
                             </div>
-
                         </div>
                         <center><button class="btn btn-dcs">Consultar</button></center><p>
                     </form>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -173,12 +149,4 @@
         $('#<?php echo $campo ?>3').val(num);
         $('#delete').submit();
     }
-    $('body').delegate('.number', 'keypress', function (tecla) {
-        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-            return false;
-    });
-    $('.fecha').datepicker({
-        rtl: Metronic.isRTL(),
-        autoclose: true
-    });
 </script>

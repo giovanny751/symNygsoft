@@ -428,7 +428,7 @@
                                                                                     <tbody>
                                                                                         <?php foreach ($numcar as $numerocar => $campocar): ?>
                                                                                             <tr>
-                                                                                                <td><a target='_black' href='<?php echo base_url().$campocar[7]."/".$campocar[6]."/".$campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
+                                                                                                <td><a target='_black' href='<?php echo base_url() . $campocar[7] . "/" . $campocar[6] . "/" . $campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
                                                                                                 <td><?php echo $campocar[1] ?></td>
                                                                                                 <td><?php echo $campocar[2] ?></td>
                                                                                                 <td><?php echo $campocar[3] ?></td>
@@ -477,17 +477,13 @@
                                         <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
                                         <input type="hidden" value="" name="actPad_id" id="actPad_id"/>
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="idactividad">Código:</label>
-                                            </div>
+                                            <label for="idactividad" class="col-md-2">Código:</label>
                                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                                 <input type="text" id="idactividad" name="idactividad" class="form-control acobligatorio">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="nombreactividad">Nombre:</label>
-                                            </div>
+                                            <label for="nombreactividad" class="col-md-2">Nombre:</label>
                                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                                 <input type="text" id="nombreactividad" name="nombreactividad" class="form-control acobligatorio">
                                             </div>
@@ -509,43 +505,43 @@
                                     <h4 class="modal-title" id="myModalLabel">NUEVO REGISTRO</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" id="frmagregarregistro">
+                                    <form method="post" id="frmagregarregistro" class="form-horizontal">
                                         <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="idactividad">Carpeta:</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <select id="carpeta" name="carpeta" class="form-control ">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($carpetas as $carp): ?>
-                                                        <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="version">Versión:</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="text" id="version" name="version" class="form-control ">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="reg_descripcion">Descripción:</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <textarea id="reg_descripcion" name="reg_descripcion" class="form-control "></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                <label for="archivo">Adjuntar archivo:</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="file" id="archivo" name="archivo" class="form-control ">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                        <label for="idactividad">Carpeta:</label>
+                                                    </div>
+                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                        <select id="carpeta" name="carpeta" class="form-control obligatorioRegistro">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($carpetas as $carp): ?>
+                                                                <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="version" class="col-md-2">Versión:</label>
+
+                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                        <input type="text" id="version" name="version" class="form-control obligatorioRegistro">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="reg_descripcion" class="col-md-2">Descripción:</label>
+
+                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                        <textarea id="reg_descripcion" name="reg_descripcion" class="form-control obligatorioRegistro"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="archivo" class="col-md-2">Adjuntar archivo:</label>
+                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                        <input type="file" id="archivo" name="archivo" class="form-control obligatorioRegistro">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -664,7 +660,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                            <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label for="descripcion">Descripción</label>
                                                     <textarea class="form-control descripcion2" id="descripcion" name="descripcion"></textarea>
@@ -838,7 +834,7 @@
                     url + "index.php/planes/modificarpeta",
                     $('#frmcarpetaregistro').serialize()
                     ).done(function (msg) {
-                $('a[href="#collapse_' + msg.Json.regCar_id + 'r"]').html("<i class='fa fa-folder-o carpeta'></i> "+msg.Json.regCar_nombre+" - "+msg.Json.regCar_descripcion);
+                $('a[href="#collapse_' + msg.Json.regCar_id + 'r"]').html("<i class='fa fa-folder-o carpeta'></i> " + msg.Json.regCar_nombre + " - " + msg.Json.regCar_descripcion);
                 $('#myModal4').modal("toggle");
                 alerta("verde", "Se actualizaron los datos correctamente");
             }).fail(function (msg) {
@@ -1098,49 +1094,51 @@
         }
     });
     $('#btnguardarregistro').click(function () {
-        var file_data = $('#archivo').prop('files')[0];
-        var form_data = new FormData();
-        form_data.append('archivo', file_data);
-        form_data.append('pla_id', $('#pla_id').val());
-        form_data.append('regCar_id', $('#carpeta').val());
-        form_data.append('reg_version', $('#version').val());
-        form_data.append('reg_descripcion', $('#reg_descripcion').val());
-        $.ajax({
-            url: url + "index.php/planes/guardarregistroempleado",
-            dataType: 'text', // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,
-            type: 'post',
-            success: function (result) {
-                $("#myModal15").modal("toggle");
-                result = jQuery.parseJSON(result);
-                var idcarpeta = $('#carpeta').val()
-                $('#collapse_' + idcarpeta + 'r').find('table tbody *').remove();
-                var filas = "";
-                $.each(result, function (key, val) {
-                    filas += "<tr>";
-                    filas += "<td><a target='_black' href='<?php echo base_url('') ?>" + val.reg_ruta + '/' + val.reg_id + '/' + val.reg_archivo + "'>" + (val.reg_archivo == null ? '' : val.reg_archivo) + "</a></td>";
-                    filas += "<td>" + val.reg_descripcion + "</td>";
-                    filas += "<td>" + val.reg_version + "</td>";
-                    filas += "<td>" + val.usu_nombre + " " + val.usu_apellido + "</td>";
-                    filas += "<td>" + val.reg_tamano + "</td>";
-                    filas += "<td>" + val.reg_fechaCreacion + "</td>";
-                    filas += "<td>";
-                    filas += "<i class='fa fa-times fa-2x eliminarregistro btn btn-danger' title='Eliminar' reg_id='" + val.reg_id + "'></i>";
-                    filas += "<i class='fa fa-pencil-square-o fa-2x modificarregistro btn btn-info' title='Modificar' reg_id='" + val.reg_id + "'  data-target='#myModal15' data-toggle='modal'></i>";
-                    filas += "</td>";
-                    filas += "</tr>";
-                });
-                $('#collapse_' + idcarpeta + 'r').find('table tbody').append(filas)
-                $('#carpeta').val('');
-                $('#version').val('');
-                $('#reg_descripcion').val('');
-                $('#archivo').val('');
-                alerta('verde', 'Registro guardado con exito.');
-            }
-        });
+        if (obligatorio("obligatorioRegistro")) {
+            var file_data = $('#archivo').prop('files')[0];
+            var form_data = new FormData();
+            form_data.append('archivo', file_data);
+            form_data.append('pla_id', $('#pla_id').val());
+            form_data.append('regCar_id', $('#carpeta').val());
+            form_data.append('reg_version', $('#version').val());
+            form_data.append('reg_descripcion', $('#reg_descripcion').val());
+            $.ajax({
+                url: url + "index.php/planes/guardarregistroempleado",
+                dataType: 'text', // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function (result) {
+                    $("#myModal15").modal("toggle");
+                    result = jQuery.parseJSON(result);
+                    var idcarpeta = $('#carpeta').val()
+                    $('#collapse_' + idcarpeta + 'r').find('table tbody *').remove();
+                    var filas = "";
+                    $.each(result, function (key, val) {
+                        filas += "<tr>";
+                        filas += "<td><a target='_black' href='<?php echo base_url('') ?>" + val.reg_ruta + '/' + val.reg_id + '/' + val.reg_archivo + "'>" + (val.reg_archivo == null ? '' : val.reg_archivo) + "</a></td>";
+                        filas += "<td>" + val.reg_descripcion + "</td>";
+                        filas += "<td>" + val.reg_version + "</td>";
+                        filas += "<td>" + val.usu_nombre + " " + val.usu_apellido + "</td>";
+                        filas += "<td>" + val.reg_tamano + "</td>";
+                        filas += "<td>" + val.reg_fechaCreacion + "</td>";
+                        filas += "<td>";
+                        filas += "<i class='fa fa-times fa-2x eliminarregistro btn btn-danger' title='Eliminar' reg_id='" + val.reg_id + "'></i>";
+                        filas += "<i class='fa fa-pencil-square-o fa-2x modificarregistro btn btn-info' title='Modificar' reg_id='" + val.reg_id + "'  data-target='#myModal15' data-toggle='modal'></i>";
+                        filas += "</td>";
+                        filas += "</tr>";
+                    });
+                    $('#collapse_' + idcarpeta + 'r').find('table tbody').append(filas)
+                    $('#carpeta').val('');
+                    $('#version').val('');
+                    $('#reg_descripcion').val('');
+                    $('#archivo').val('');
+                    alerta('verde', 'Registro guardado con exito.');
+                }
+            });
+        }
     });
 
     $('.crear_padre').click(function () {

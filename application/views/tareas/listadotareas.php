@@ -237,20 +237,21 @@
 
     });
     $('body').delegate(".eliminar", "click", function () {
-        var seleccion = $(this)
-        $.post(
-                url + "index.php/tareas/eliminartarea",
-                {tarea: $(this).attr("tar_id")}
-        ).done(function (msg) {
-            if (!jQuery.isEmptyObject(msg.message))
-                alerta("amarillo", msg['message'])
-            else {
-                seleccion.parents("tr").remove();
-                alerta("verde", "Tarea eliminada correctamente");
-            }
-        }).fail(function (msg) {
-            alerta("rojo", "Error, por favor comunicarse con el administrador del sistema")
-        });
-
+        if (confirm("Esta segurio de eliminar la tarea?")) {
+            var seleccion = $(this)
+            $.post(
+                    url + "index.php/tareas/eliminartarea",
+                    {tarea: $(this).attr("tar_id")}
+            ).done(function (msg) {
+                if (!jQuery.isEmptyObject(msg.message))
+                    alerta("amarillo", msg['message'])
+                else {
+                    seleccion.parents("tr").remove();
+                    alerta("verde", "Tarea eliminada correctamente");
+                }
+            }).fail(function (msg) {
+                alerta("rojo", "Error, por favor comunicarse con el administrador del sistema")
+            });
+        }
     });
 </script>

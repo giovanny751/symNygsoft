@@ -41,11 +41,11 @@ class Empleadoregistro_model extends CI_Model {
         $this->db->select("empleado_registro.empReg_tamano");
         $this->db->select("empleado_registro.empgReg_fecha");
         $this->db->where("empleado_carpeta.emp_id",$emp_id);
-        $this->db->join("empleado_registro", "empleado_carpeta.empCar_id = empleado_registro.empReg_carpeta", "LEFT");
-        $this->db->join("empleado", "empleado.emp_id = empleado_registro.emp_id", "LEFT");
+        $this->db->join("empleado_registro", "empleado_carpeta.empCar_id = empleado_registro.empReg_carpeta and empleado_registro.est_id = 1", "LEFT");
+        $this->db->join("empleado", "empleado.emp_id = empleado_carpeta.emp_id");
         $this->db->where("empleado_carpeta.est_id",1);
-        $this->db->where("empleado_registro.est_id", 1);
         $data = $this->db->get("empleado_carpeta");
+//        echo $this->db->last_query();die;
         return $data->result();
         } catch (exception $e) {
             
@@ -79,7 +79,7 @@ class Empleadoregistro_model extends CI_Model {
         $this->db->select("CONCAT(empleado.Emp_Nombre,' ',empleado.Emp_Apellidos) as nombre", false);
         $this->db->where("empReg_carpeta", $id);
         $this->db->join("empleado", "empleado.emp_id = empleado_registro.emp_id ");
-        $this->db->where("est_id", 1);
+        $this->db->where("empleado_registro.est_id", 1);
         $data = $this->db->get("empleado_registro");
         return $data->result();
         } catch (exception $e) {

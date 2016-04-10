@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon" id="guardar" pre_id="" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
-            <div class="circuloIcon" title="Listado empleados"><i class="fa fa-sticky-note fa-2x"></i></div>
+        <a href="<?php echo base_url("index.php/riesgo/listadoPrevencion"); ?>">
+            <div class="circuloIcon" title="Listado Prevención de riesgos"><i class="fa fa-sticky-note fa-2x"></i></div>
         </a>
         <br>
     </div>

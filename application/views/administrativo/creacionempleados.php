@@ -727,18 +727,22 @@
                 <h4 class="modal-title" id="myModalLabel">AGREGAR CARPETA</h4>
             </div>
             <div class="modal-body">
-                <form method="post" id="formcarpeta">
+                <form method="post" id="formcarpeta" class="form-horizontal">
                     <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                     <div class="row">
-                        <label for="nombrecarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Nombre:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <input type="nombre" id="nombrecarpeta" name="nombrecarpeta" class="form-control ObligatorioCarpeta">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="descripcioncarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Descripción:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <textarea  id="descripcioncarpeta" name="descripcioncarpeta" class="form-control"></textarea>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="nombrecarpeta" class="col-md-2">Nombre:</label>
+                                <div class="col-md-10">
+                                    <input type="nombre" id="nombrecarpeta" name="nombrecarpeta" class="form-control ObligatorioCarpeta">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcioncarpeta" class="col-md-2">Descripción:</label>
+                                <div class="col-md-10">
+                                    <textarea  id="descripcioncarpeta" name="descripcioncarpeta" class="form-control"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -876,35 +880,39 @@
                 <h4 class="modal-title" id="myModalLabel">AGREGAR REGISTRO</h4>
             </div>
             <div class="modal-body">
-                <form method="post" id="formregistro" >
+                <form method="post" id="formregistro" class="form-horizontal">
                     <input type="hidden" name="empReg_id" id="empReg_id" />
                     <div class="row">
-                        <label for="empReg_carpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Carpeta:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <select id="empReg_carpeta" name="empReg_carpeta" class="form-control">
-                                <option value="">::Seleccionar::</option>
-                                <?php foreach ($carpeta as $car): ?>
-                                    <option value="<?php echo $car->empCar_id ?>"><?php echo $car->empCar_nombre ?> - <?php echo $car->empCar_descripcion ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="empReg_version" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Versión:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <input type="text" id="empReg_version" name="empReg_version" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="empReg_descripcion" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Descripción:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <textarea  id="empReg_descripcion" name="empReg_descripcion" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="archivocarpeta" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Adjuntar archivo:</label>
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <input type="file" id="archivocarpeta" name="archivo" class="form-control">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="empReg_carpeta" class="col-md-2">Carpeta:</label>
+                                <div class="col-md-10">
+                                    <select id="empReg_carpeta" name="empReg_carpeta" class="form-control">
+                                        <option value="">::Seleccionar::</option>
+                                        <?php foreach ($carpeta as $car): ?>
+                                            <option value="<?php echo $car->empCar_id ?>"><?php echo $car->empCar_nombre ?> - <?php echo $car->empCar_descripcion ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="empReg_version" class="col-md-2">Versión:</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="empReg_version" name="empReg_version" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="empReg_descripcion" class="col-md-2">Descripción:</label>
+                                <div class="col-md-10">
+                                    <textarea  id="empReg_descripcion" name="empReg_descripcion" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="archivocarpeta" class="col-md-2">Adjuntar archivo:</label>
+                                <div class="col-md-10">
+                                    <input type="file" id="archivocarpeta" name="archivo" class="form-control">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <input type="hidden" value="<?php echo $empleado[0]->Emp_Id ?>" name="Emp_Id" class="empleadoId" />
@@ -1465,7 +1473,7 @@ endforeach;
             data: form_data,
             type: 'post',
             success: function (result) {
-                
+
                 $('#archivocarpeta').val('')
                 $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody *').remove();
                 var filas = "";

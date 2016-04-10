@@ -1,6 +1,8 @@
+<br>
 <div class="row">
     <div class="circuloIcon guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">

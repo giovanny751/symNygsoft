@@ -16,101 +16,66 @@
                         <div class="row">
                             <?php $id = (isset($datos[0]->pqr_id) ? $datos[0]->pqr_id : '' ) ?>
                             <input type="hidden" value="<?php echo (isset($datos[0]->pqr_id) ? $datos[0]->pqr_id : '' ) ?>" class=" form-control   " id="pqr_id" name="pqr_id">
-
-
-                            <div class="col-md-3">
-                                <label for="tipSol_id">
-                                    *                             Tipo De Solicitud:                        </label>
-                            </div>
+                            <label for="tipSol_id" class="col-md-3">
+                                *Tipo De Solicitud: 
+                            </label>
                             <div class="col-md-3">
                                 <?php echo lista("tipSol_id", "tipSol_id", "form-control obligatorio", "tipo_solicitud", "tipSol_id", "tipSol_nombre", (isset($datos[0]->tipSol_id) ? $datos[0]->tipSol_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                        <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="temSol_id">
-                                    *                             Tema:                        </label>
-                            </div>
+                            <label for="temSol_id" class="col-md-3">
+                                * Tema: 
+                            </label>
                             <div class="col-md-3">
                                 <?php echo lista("temSol_id", "temSol_id", "form-control obligatorio", "temaSolicitud", "temSol_id", "temSol_nombre", (isset($datos[0]->temSol_id) ? $datos[0]->temSol_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                        <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="pqr_detalle">
-                                    *                             Detalles:                        </label>
-                            </div>
+                            <label for="pqr_detalle" class="col-md-3">
+                                * Detalles:                        
+                            </label>
                             <div class="col-md-9">
                                 <textarea class=" form-control obligatorio  " id="pqr_detalle" name="pqr_detalle"><?php echo (isset($datos[0]->pqr_detalle) ? $datos[0]->pqr_detalle : '' ) ?></textarea>
                                 <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="sol_id">
-                                    *                             Solicitante:                        </label>
-                            </div>
+                            <label for="sol_id" class="col-md-3">
+                                *  Solicitante: 
+                            </label>
                             <div class="col-md-3">
                                 <?php echo lista("sol_id", "sol_id", "form-control obligatorio", "solicitante", "sol_id", "sol_nombre", (isset($datos[0]->sol_id) ? $datos[0]->sol_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                        <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="pqr_nombre">
-                                    *                             Nombre:                        </label>
-                            </div>
+                            <label for="pqr_nombre" class="col-md-3">
+                                * Nombre: 
+                            </label>
                             <div class="col-md-3">
                                 <input type="text" value="<?php echo (isset($datos[0]->pqr_nombre) ? $datos[0]->pqr_nombre : '' ) ?>" class=" form-control obligatorio  " id="pqr_nombre" name="pqr_nombre">
                                 <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="email">
-                                    *                             E-mail:                        </label>
-                            </div>
+                            <label for="email" class="col-md-3">
+                                * E-mail:                        
+                            </label>
                             <div class="col-md-3">
                                 <input type="email" value="<?php echo (isset($datos[0]->email) ? $datos[0]->email : '' ) ?>" class=" form-control obligatorio  " id="email" name="email">
-
-
                                 <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="telefono">
-                                    *                             Teléfono:                        </label>
-                            </div>
+                            <label for="telefono" class="col-md-3">
+                                * Teléfono: 
+                            </label>
                             <div class="col-md-3">
                                 <input type="text" value="<?php echo (isset($datos[0]->telefono) ? $datos[0]->telefono : '' ) ?>" class=" form-control obligatorio  number" id="telefono" name="telefono">
                                 <br>
                             </div>
-
-
-
-                            <div class="col-md-3">
-                                <label for="dep_id">
-                                    *                             Departamento:                        </label>
-                            </div>
+                            <label for="dep_id" class="col-md-3">
+                                * Departamento: 
+                            </label>
                             <div class="col-md-3">
                                 <?php echo lista("dep_id", "dep_id", "form-control obligatorio", "departamento", "dep_id", "dep_nombre", (isset($datos[0]->dep_id) ? $datos[0]->dep_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                        <br>
                             </div>
                             <?php if (isset($post['campo'])) { ?>
-                                <div class="col-md-3">
-                                    <label for="dep_id">
-                                        *                             Estado:                        </label>
-                                </div>
+                                <label for="dep_id" class="col-md-3">
+                                    * Estado:  
+                                </label>
                                 <div class="col-md-3">
                                     <?php echo lista("estSol_id", "estSol_id", "form-control obligatorio", "estado_solicitud", "estSol_id", "estSol_nombre", (isset($datos[0]->estSol_id) ? $datos[0]->estSol_id : ''), array("ACTIVO" => "S"), /* readOnly? */ false); ?>                        <br>
                                 </div>
                             <?php } ?>
-
                         </div>
                         <?php if (isset($post['campo'])) { ?>
                             <input type="hidden" name="<?php echo $post['campo'] ?>" value="<?php echo $post[$post['campo']] ?>">
@@ -159,11 +124,4 @@
             return true;
         }
     }
-    $('body').delegate('.number', 'keypress', function (tecla) {
-        if (tecla.charCode > 0 && tecla.charCode < 48 || tecla.charCode > 57)
-            return false;
-    });
-    $('.fecha').datepicker({dateFormat: 'yy-mm-dd'});
-
-
 </script>

@@ -19,51 +19,47 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <form method="post" id="f4">
+                    <form method="post" id="f4" class="form-horizontal">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="tipo">Tipo</label>
-                                    <select name="tipo" id="tipo" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($tipo as $ti) { ?>
-                                            <option value="<?php echo $ti->indTip_id ?>"><?php echo $ti->indTip_tipo ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group">
-                                    <label for="dimensionUno"><?php echo $empresa[0]->Dim_id ?></label>
-                                    <select name="dimensionUno" id="dimensionUno" class="form-control dimencion_uno_se">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($dimension as $d1) { ?>
-                                            <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group">
-                                    <label for="dimesionDos"><?php echo $empresa[0]->Dimdos_id ?></label>
-                                    <select name="dimesionDos" id="dimesionDos" class="form-control dimencion_dos_se">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($dimension2 as $d2) { ?>
-                                            <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <label for="tipo" class="col-md-1">Tipo</label>
+                                    <div class="col-md-3">
+                                        <select name="tipo" id="tipo" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($tipo as $ti) { ?>
+                                                <option value="<?php echo $ti->indTip_id ?>"><?php echo $ti->indTip_tipo ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label for="dimensionUno" class="col-md-1"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-3">
+                                        <select name="dimensionUno" id="dimensionUno" class="form-control dimencion_uno_se">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($dimension as $d1) { ?>
+                                                <option value="<?php echo $d1->dim_id ?>"><?php echo $d1->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label for="dimesionDos" class="col-md-1"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-3">
+                                        <select name="dimesionDos" id="dimesionDos" class="form-control dimencion_dos_se">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($dimension2 as $d2) { ?>
+                                                <option value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+                            <div class="col-md-offset-8 col-md-4" style="text-align: right">
                                 <div class="form-group">
-                                    <label>&nbsp;</label><button type="button" class="btn-sst" id="limpiar">Limpiar</button>
-                                    <label>&nbsp;</label><button type="button" class="btn-sst" id="consultar">Consultar</button>
+                                    <div class="col-md-12">
+                                        <label>&nbsp;</label><button type="button" class="btn-sst" id="limpiar">Limpiar</button>
+                                        <label>&nbsp;</label><button type="button" class="btn-sst" id="consultar">Consultar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -135,8 +131,6 @@
                         });
                     }
                     $('#bodyIndicador').append(tbody);
-                    //                    
-                    alerta("verde", "Exito al consultar");
                 })
                 .fail(function () {
                     alerta("rojo", "Error al consultar");
@@ -147,6 +141,7 @@
         $.post(url + "index.php/Indicador/eliminar_Indicador", {ind_id: $(this).attr('ind_id')})
                 .done(function () {
                     $('#consultar').trigger('click');
+                    alerta("verde","Eliminado correctamente")
                 })
                 .fail(function () {
                     alerta('Error al eliminar el registro')
