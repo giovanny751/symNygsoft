@@ -266,11 +266,11 @@ class Ingreso_model extends CI_Model {
 
     function guardaratributosmenu($nombre, $controlador, $accion, $estado, $id) {
         try {
+            $this->db->where('menu_id', $id);
             $this->db->set('menu_nombrepadre', $nombre);
             $this->db->set('menu_controlador', $controlador);
             $this->db->set('menu_accion', $accion);
             $this->db->set('menu_estado', $estado);
-            $this->db->where('menu_id', $id);
             $this->db->set('modificationUser', $this->session->userdata('usu_id'));
             $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update('modulo');
@@ -441,15 +441,6 @@ class Ingreso_model extends CI_Model {
         $query = $this->db->get("modulo");
 //        echo $this->db->last_query();die;
         return $query->result_array();
-    }
-
-    function eliminarusuario($usu_id) {
-        try {
-            $this->db->where("usu_id", $usu_id);
-            $this->db->delete("user");
-        } catch (exception $e) {
-            
-        }
     }
 
     function ciudades() {
