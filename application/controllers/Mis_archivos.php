@@ -25,8 +25,9 @@ class Mis_archivos extends My_Controller {
         $this->data['documentos'] = $this->Repositoriodocumento_model->documentos();
         $this->layout->view("mis_archivos/index", $this->data);
     }
+
     public function carpetas_2() {
-        $id=$this->input->post('id');
+        $id = $this->input->post('id');
         $carpetas = $this->Mis_archivos_model->carpetas2($id);
         $this->output->set_content_type('application/json')->set_output(json_encode($carpetas));
     }
@@ -35,9 +36,9 @@ class Mis_archivos extends My_Controller {
         if (!is_null($tree) && count($tree) > 0) {
             echo '<ul ' . (($num == 0) ? 'class="sTree2 listsClass" ' : 'style="display:none"') . '>';
             foreach ($tree as $node) {
-                $nombre_=Mis_archivos::nombre_arbol($node['name']);
+                $nombre_ = Mis_archivos::nombre_arbol($node['name']);
                 echo '<li class="uno">'
-                . '<div class="recurso_sele2" recarga="0" id_elemento="' . $node['name'] . '" name_folder="' . $nombre_ . '"  activo="0"><span class="fa fa-folder-o"></span> ' . $nombre_. "</div>";
+                . '<div class="recurso_sele2" recarga="0" id_elemento="' . $node['name'] . '" name_folder="' . $nombre_ . '"  activo="0"><span class="fa fa-folder-o"></span> ' . $nombre_ . "</div>";
                 $num++;
                 Mis_archivos::printTree($node['children'], $num);
                 echo '</li>';
@@ -45,6 +46,7 @@ class Mis_archivos extends My_Controller {
             echo '</ul>';
         }
     }
+
     function nombre_arbol($id) {
         $carpetas = $this->Mis_archivos_model->nombre_arbol($id);
         return $carpetas;
@@ -54,7 +56,7 @@ class Mis_archivos extends My_Controller {
         try {
             if (empty($this->input->post('nueva_carpeta')))
                 throw new Exception("No ha ingresado el nombre de la carpeta");
-            $idCarpeta = $this->Mis_archivos_model->new_folder($this->input->post('nueva_carpeta'), $this->input->post('IdCarpetaPadre'),$this->input->post('descripcion'));
+            $idCarpeta = $this->Mis_archivos_model->new_folder($this->input->post('nueva_carpeta'), $this->input->post('IdCarpetaPadre'), $this->input->post('descripcion'));
             if ($idCarpeta == false)
                 throw new Exception("Error al crear la carpeta en base de datos");
             $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
@@ -111,7 +113,7 @@ class Mis_archivos extends My_Controller {
             if (empty($this->input->post('idArchivo')) || empty($this->input->post('nombreArchivo')))
                 throw new Exception("No cumple los parametros para actualizar carpeta");
 
-            $respuesta = $this->Mis_archivos_model->actualizarCarpeta($this->input->post('idArchivo'), $this->input->post('nombreArchivo'),$this->input->post('descripcion'));
+            $respuesta = $this->Mis_archivos_model->actualizarCarpeta($this->input->post('idArchivo'), $this->input->post('nombreArchivo'), $this->input->post('descripcion'));
             if ($respuesta == true) {
                 $data['Json'] = true;
             } elseif ($respuesta == false) {
@@ -134,6 +136,15 @@ class Mis_archivos extends My_Controller {
             $data['message'] = $e->getMessage();
         } finally {
             echo json_encode($data);
+        }
+    }
+    function oter_version() {
+        try {
+            $data['Json'] = $this->Repositoriodocumento_model->oter_version($this->input->post('id'));
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -176,21 +187,34 @@ class Mis_archivos extends My_Controller {
 
             $this->load->model("Repositoriodocumento_model");
             if (isset($_FILES['file'])) {
-                $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
-                $tipo = $_FILES['file']['type'];
-                $nombre = $_FILES['file']['name'];
-                $tamano = filesize($_FILES['file']['tmp_name']);
-                $fh = fopen($_FILES['file']['tmp_name'], 'rb');
-                $documento = fread($fh, $_FILES['file']['size']);
-                $documento = addslashes($documento);
-                fclose($fh);
+
+                $mi_archivo = 'file';
+                $config['upload_path'] = "uploads/mis_documentos";
+//                $config['file_name'] = "nombre_archivo";
+                $config['allowed_types'] = "*";
+                $config['max_size'] = "50000";
+//                $config['max_width'] = "2000";
+//                $config['max_height'] = "2000";
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload($mi_archivo)) {
+                    //*** ocurrio un error
+                    $data['uploadError'] = $this->upload->display_errors();
+                    echo $this->upload->display_errors();
+                    return;
+                }
+                $data['uploadSuccess'] = $this->upload->data();
+
+//                print_y($data['uploadSuccess']);
+//                die();
+                $ext=  explode('.', $data['uploadSuccess']['file_ext']);
                 $archivo = array(
                     "carDoc_id" => $carpeta,
-                    "repDoc_tamano" => $tamano,
-                    "repDoc_extension" => explode(".", $nombre)[1],
-                    "repDoc_nombre" => $nombre,
-                    "repDoc_documento" => $documento,
-                    "repDoc_tipo" => $tipo
+                    "repDoc_tamano" => $data['uploadSuccess']['file_size'],
+                    "repDoc_extension" => $ext[1],
+                    "repDoc_nombre" => $data['uploadSuccess']['client_name'],
+                    "repDoc_documento" => $data['uploadSuccess']['file_name'],
+                    "repDoc_tipo" => $_FILES['file']['type']
                 );
                 $this->Repositoriodocumento_model->saveFile($archivo);
 
@@ -210,13 +234,23 @@ class Mis_archivos extends My_Controller {
     function descarga() {
         $post = $this->input->post();
         $datos = $this->Mis_archivos_model->descarga($post['carpeta_descarga']);
-        $tipo = $datos[0]->repDoc_tipo;
-        $nombre = $datos[0]->repDoc_nombre;
-        $documento = $datos[0]->repDoc_documento;
-        header("Content-type:" . $tipo);
-//        header("Content-Disposition: attachment; filename=$nombre");
-        header("Content-Disposition: attachment; filename=" . $nombre);
-        echo $documento;
+
+
+
+        $archivo2 = base_url() . "uploads/mis_documentos/" . $datos[0]->repDoc_documento;
+        $downloadfilename = $datos[0]->repDoc_nombre; // el nombre con el que se descargara, puede ser diferente al original 
+        $ruta = './uploads/mis_documentos/' . $datos[0]->repDoc_documento;
+
+        if (is_file($ruta)) {
+            header('Content-Type: application/force-download');
+            header('Content-Disposition: attachment; filename=' . basename($downloadfilename));
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($ruta));
+            ob_clean();
+            flush();
+            readfile($ruta);
+        } else
+            exit('Error al descargar el archivo');
     }
 
 }

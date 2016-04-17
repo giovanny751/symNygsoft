@@ -7,6 +7,17 @@ class Repositoriodocumento_model extends CI_Model {
     }
 
     function saveFile($data) {
+
+        if (!empty($this->input->post("nueva_version"))) {
+            $this->db->set('est_id', 5);
+            $this->db->where('repDoc_id', $this->input->post("nueva_version"));
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
+            $this->db->update('repositorio_documento');
+
+            $id_version = $this->nueva_version($this->input->post("nueva_version"));
+            $this->db->set('repDoc_id_padre', $id_version);
+        }
         $this->db->set('creatorUser', $this->session->userdata('usu_id'));
         $this->db->set('creatorDate', date("Y-m-d H:i:s"));
         $this->db->insert("repositorio_documento", $data);
@@ -50,6 +61,36 @@ class Repositoriodocumento_model extends CI_Model {
             $this->db->trans_commit();
         }
         return $this->db->trans_status();
+    }
+
+    function nueva_version($id) {
+        $this->db->where('repDoc_id', $id);
+        $datos = $this->db->get('repositorio_documento');
+        $datos = $datos->result();
+        if (!empty($datos[0]->repDoc_id_padre)) {
+            return $datos[0]->repDoc_id_padre;
+        } else
+            return $id;
+    }
+
+    function oter_version($id) {
+        $this->db->where('repDoc_id', $id);
+        $datos = $this->db->get('repositorio_documento');
+        $datos = $datos->result();
+        if (!empty($datos[0]->repDoc_id_padre)) {
+            $this->db->select('repositorio_documento.*,user.usu_nombre,user.usu_apellido,uss.usu_nombre uno,uss.usu_apellido dos');
+            $this->db->where('(repDoc_id', $datos[0]->repDoc_id_padre, false);
+            $this->db->or_where('repDoc_id_padre', $datos[0]->repDoc_id_padre.")", false);
+//            $this->db->or_where('1', '1)', false);
+            $this->db->join('user', 'repositorio_documento.modificationUser=user.usu_id', 'left');
+            $this->db->join('user uss', 'repositorio_documento.creatorUser=uss.usu_id', 'left');
+            $this->db->order_by('modificationDate');
+            $datos = $this->db->get('repositorio_documento');
+            $datos = $datos->result();
+//            echo $this->db->last_query();
+            return $datos;
+        }
+        return '';
     }
 
 }

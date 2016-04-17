@@ -41,7 +41,8 @@ class Administrativo extends My_Controller {
                 'Empleadohoraextra_model',
                 'Empleadocontrato_model',
                 'Empleadoincapacidad_model',
-                'Capacitaciones_model'
+                'Capacitaciones_model',
+                'Dotacion_model'
             ));
             $this->data['tipoHora'] = $this->Horaextratipo_model->tipos();
             $empleadoId = (!empty($this->input->post('emp_id'))) ? $this->input->post('emp_id') : "";
@@ -55,6 +56,7 @@ class Administrativo extends My_Controller {
                 $this->data['empleado'] = $this->Empleado_model->consultaempleadoxid($empleadoId);
                 $this->data["aserguradorasxempleado"] = $this->Empleadotipoaseguradora_model->consult_empleado($empleadoId);
                 $this->data["carpeta"] = $this->Empleadocarpeta_model->detail($empleadoId);
+                $this->data["dotacion"] = $this->Dotacion_model->detail($empleadoId);
                 $registro = $this->Empleadoregistro_model->detailxIdEmpleado($empleadoId);
                 $this->data['registro'] = array();
                 foreach ($registro as $campo)
@@ -199,7 +201,7 @@ class Administrativo extends My_Controller {
                 "empAus_fechaFinal" => $this->input->post("finvacaciones"),
                 "empAus_observaciones" => $this->input->post("observacionvacaciones"),
                 "emp_id" => $this->input->post("emp_id"),
-                "UserCreator"=>$this->session->userdata('usu_id')
+                "UserCreator" => $this->session->userdata('usu_id')
             );
             if ($this->Empleadoausentismo_model->saveVacation($data) == true)
                 $data['Json'] = $this->Empleadoausentismo_model->detailxEmpleado($this->input->post("emp_id"));
@@ -288,6 +290,7 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+
     function modificarAusentismo() {
         try {
             $this->load->model('Empleadoausentismo_model');
@@ -453,7 +456,9 @@ class Administrativo extends My_Controller {
                 mkdir($targetPath, 0777, true);
             }
             $target_path = $targetPath . '/' . basename($_FILES['archivo']['name']);
-            if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) { }
+            if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
+                
+            }
             $detallecarpeta = $this->Empleadoregistro_model->detallexcarpeta($post['empReg_carpeta']);
         } catch (exception $e) {
             
@@ -687,14 +692,14 @@ class Administrativo extends My_Controller {
     function creacionusuarios() {
         try {
             $this->load->model(array(
-                'Sexo_model', 
-                'Cargo_model', 
-                'Empleado_model', 
-                'Estados_model', 
-                'User_model', 
+                'Sexo_model',
+                'Cargo_model',
+                'Empleado_model',
+                'Estados_model',
+                'User_model',
                 'Roles_model',
                 "Tipousuarioevaluacion_model"
-                ));
+            ));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['empleado'] = $this->Empleado_model->detail();
             $this->data['estado'] = $this->Estados_model->detail();
@@ -717,7 +722,7 @@ class Administrativo extends My_Controller {
 
     function listadousuarios() {
         try {
-            $this->load->model(array("Tipousuarioevaluacion_model",'Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
+            $this->load->model(array("Tipousuarioevaluacion_model", 'Tipo_documento_model', 'Estados_model', 'User_model', 'Roles_model'));
             $this->data['roles'] = $this->Roles_model->roles();
             $this->data['estado'] = $this->Estados_model->detail();
             $this->data["tipodocumento"] = $this->Tipo_documento_model->detail();
@@ -797,7 +802,7 @@ class Administrativo extends My_Controller {
     function actualizarusuario() {
         try {
             $this->load->model('User_model');
-            $this->User_model->update( $this->input->post('usuid'));
+            $this->User_model->update($this->input->post('usuid'));
         } catch (exception $e) {
             
         } finally {
@@ -1054,14 +1059,20 @@ class Administrativo extends My_Controller {
     }
 
     function dimension2() {
-        $this->data['title'] = "Dimensión 2";
-        $this->load->model(array('Dimension2_model', 'Empresa_model'));
-        $this->data['empresa'] = $this->Empresa_model->detail();
-        if (!empty($this->data['empresa'][0]->Dimdos_id)) {
-            $this->data['dimension'] = $this->Dimension2_model->detail();
-            $this->layout->view("administrativo/dimension2", $this->data);
-        } else {
-            redirect('index.php/administrativo/empresa', 'location');
+        try {
+            $this->data['title'] = "Dimensión 2";
+            $this->load->model(array('Dimension2_model', 'Empresa_model'));
+            $this->data['empresa'] = $this->Empresa_model->detail();
+            if (!empty($this->data['empresa'][0]->Dimdos_id)) {
+                $this->data['dimension'] = $this->Dimension2_model->detail();
+                $this->layout->view("administrativo/dimension2", $this->data);
+            } else {
+                redirect('index.php/administrativo/empresa', 'location');
+            }
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
     }
 
@@ -1131,24 +1142,41 @@ class Administrativo extends My_Controller {
     }
 
     function actualizardimension2() {
-        $this->load->model('Dimension_model');
+        try {
+            $this->load->model('Dimension_model');
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function dimension() {
-        $this->data['title'] = "Dimensión 1";
-        $this->load->model(array('Dimension_model', 'Empresa_model'));
-        $this->data['empresa'] = $this->Empresa_model->detail();
-        if (!empty($this->data['empresa'][0]->Dim_id)) {
-            $this->data['dimension'] = $this->Dimension_model->detail();
-            $this->layout->view("administrativo/dimension", $this->data);
+        try {
+            $this->data['title'] = "Dimensión 1";
+            $this->load->model(array('Dimension_model', 'Empresa_model'));
+            $this->data['empresa'] = $this->Empresa_model->detail();
+            if (!empty($this->data['empresa'][0]->Dim_id)) {
+                $this->data['dimension'] = $this->Dimension_model->detail();
+                $this->layout->view("administrativo/dimension", $this->data);
+            }
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
     }
 
     function consultadimensionxid() {
-
-        $this->load->model('Dimension_model');
-        $this->data['dimension'] = $this->Dimension_model->consultadimensionxid($this->input->post('dim_id'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($this->data['dimension'][0]));
+        try {
+            $this->load->model('Dimension_model');
+            $this->data['dimension'] = $this->Dimension_model->consultadimensionxid($this->input->post('dim_id'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($this->data['dimension'][0]));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function guardarmodificaciondimension() {
@@ -1204,29 +1232,39 @@ class Administrativo extends My_Controller {
     }
 
     function actualizardimension() {
-        $this->load->model('Dimension_model');
+        try {
+            $this->load->model('Dimension_model');
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function empresa() {
-        $this->data['title'] = "Empresa";
-        $this->data['subtitle'] = "Datos";
-        $this->load->model(array("Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
-        $this->data['mensaje'] = "";
-        if ($this->session->guardadoexito == "guardado con exito") {
-            $this->data['mensaje'] = "guardado con exito";
-            $this->session->guardadoexito = "xyz";
+        try {
+            $this->data['title'] = "Empresa";
+            $this->data['subtitle'] = "Datos";
+            $this->load->model(array("Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
+            $this->data['mensaje'] = "";
+            if ($this->session->guardadoexito == "guardado con exito") {
+                $this->data['mensaje'] = "guardado con exito";
+                $this->session->guardadoexito = "xyz";
+            }
+            $this->data['ciudad'] = $this->Ingreso_model->ciudades();
+            $this->data['sector'] = $this->Ingreso_model->sectorEconomico();
+            $this->data['tamano'] = $this->Tamano_empresa_model->detail();
+            $this->data['informacion'] = $this->Empresa_model->detail();
+            $this->data['actividadeconomica'] = $this->Actividadeconomica_model->detail();
+            $this->layout->view("administrativo/empresa", $this->data);
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
-        $this->data['ciudad'] = $this->Ingreso_model->ciudades();
-        $this->data['sector'] = $this->Ingreso_model->sectorEconomico();
-        $this->data['tamano'] = $this->Tamano_empresa_model->detail();
-        $this->data['informacion'] = $this->Empresa_model->detail();
-        $this->data['actividadeconomica'] = $this->Actividadeconomica_model->detail();
-        $this->layout->view("administrativo/empresa", $this->data);
     }
 
     function guardarempresa() {
-
-
         try {
             $this->load->model("Empresa_model");
             if (isset($_FILES['userfile']['name']))
@@ -1276,57 +1314,118 @@ class Administrativo extends My_Controller {
     }
 
     function autocompletar() {
-        $info = auto("user", "usu_id", "usu_nombre", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("user", "usu_id", "usu_nombre", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletarIncapacidadReferencia() {
-        $info = auto("incapacidad_referencia", "incRef_cod", "incRef_nombre", $this->input->get('term'), 10);
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("incapacidad_referencia", "incRef_cod", "incRef_nombre", $this->input->get('term'), 10);
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletaruapellido() {
-        $info = auto("user", "usu_id", "usu_apellido", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("user", "usu_id", "usu_apellido", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletaruacedula() {
-        $info = auto("user", "usu_id", "usu_cedula", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("user", "usu_id", "usu_cedula", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletarcedula() {
-        $info = auto("empleado", "Emp_Id", "Emp_Cedula", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("empleado", "Emp_Id", "Emp_Cedula", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletarnombre() {
-        $info = auto("empleado", "Emp_Id", "Emp_Nombre", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("empleado", "Emp_Id", "Emp_Nombre", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function autocompletarapellido() {
-        $info = auto("empleado", "Emp_Id", "Emp_Apellido", $this->input->get('term'));
-        $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        try {
+            $info = auto("empleado", "Emp_Id", "Emp_Apellido", $this->input->get('term'));
+            $this->output->set_content_type('application/json')->set_output(json_encode($info));
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function riesgo() {
-        if ($this->consultaacceso($this->data["usu_id"])) {
-            $this->layout->view("administrativo/riesgo");
+        try {
+            if ($this->consultaacceso($this->data["usu_id"])) {
+                $this->layout->view("administrativo/riesgo");
+            }
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
     }
 
     function clasificacionriesgo() {
+        try {
         if ($this->consultaacceso($this->data["usu_id"])) {
             $this->layout->view("administrativo/clasificacionriesgo");
+        }
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
     }
 
     function importar_empleados() {
+        try {
         $this->layout->view("administrativo/importar_empleados");
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     public function subir_archivo() {
+        try {
         ini_set('MAX_EXECUTION_TIME', -1);
         ini_set('memory_limit', -1);
         $this->load->model("Empleado_model");
@@ -1422,6 +1521,11 @@ class Administrativo extends My_Controller {
         echo "<br>Registros Creados : " . $creados;
         if (!empty($incosistencias)) {
             echo "<br>Datos con errores : " . $incosistencias;
+        }
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
     }
 
@@ -1745,17 +1849,29 @@ class Administrativo extends My_Controller {
     }
 
     function horasextras() {
-        $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
-        $this->data['empleados'] = $this->Empleado_model->empleados();
+        try {
+            $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
+            $this->data['empleados'] = $this->Empleado_model->empleados();
 //        var_dump($this->data['empleados']);die;
-        $this->data['tipo'] = $this->Horaextratipo_model->tipos();
-        $this->layout->view("administrativo/horasextras", $this->data);
+            $this->data['tipo'] = $this->Horaextratipo_model->tipos();
+            $this->layout->view("administrativo/horasextras", $this->data);
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function elementos_proteccion() {
-        $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
-        $this->data['empleados'] = $this->Empleado_model->detail();
-        $this->layout->view("administrativo/elementos_proteccion", $this->data);
+        try {
+            $this->load->model(array('Empleado_model', 'Horaextratipo_model'));
+            $this->data['empleados'] = $this->Empleado_model->detail();
+            $this->layout->view("administrativo/elementos_proteccion", $this->data);
+        } catch (Exeption $e) {
+            
+        } finally {
+            
+        }
     }
 
     function consultaClasificacion() {
@@ -1825,23 +1941,29 @@ class Administrativo extends My_Controller {
     }
 
     function guardarCapacitaciones() {
-        $this->load->model(array("Capacitaciones_model", "Empleadocapacitacion_model"));
-        $responsable = array(
-            "emp_id_responsable" => $this->input->post("responsable"),
-            "cap_fechaCapacitacion" => $this->input->post("fechaCapacitacion"),
-            "cap_observacion" => $this->input->post("observacion"),
-            "cap_nombreCapacitacion" => $this->input->post("nombre")
-        );
-        $id = $this->Capacitaciones_model->guardarCapacitacion($responsable);
-        $guardarEmpleados = array();
-        $empleados = $this->input->post("empleado");
-        for ($i = 0; $i < count($empleados); $i++) {
-            $guardarEmpleados[] = array(
-                "emp_id" => $empleados[$i],
-                "cap_id" => $id
+        try {
+            $this->load->model(array("Capacitaciones_model", "Empleadocapacitacion_model"));
+            $responsable = array(
+                "emp_id_responsable" => $this->input->post("responsable"),
+                "cap_fechaCapacitacion" => $this->input->post("fechaCapacitacion"),
+                "cap_observacion" => $this->input->post("observacion"),
+                "cap_nombreCapacitacion" => $this->input->post("nombre")
             );
+            $id = $this->Capacitaciones_model->guardarCapacitacion($responsable);
+            $guardarEmpleados = array();
+            $empleados = $this->input->post("empleado");
+            for ($i = 0; $i < count($empleados); $i++) {
+                $guardarEmpleados[] = array(
+                    "emp_id" => $empleados[$i],
+                    "cap_id" => $id
+                );
+            }
+            $this->Empleadocapacitacion_model->guardar($guardarEmpleados);
+        } catch (Exeption $e) {
+            
+        } finally {
+            
         }
-        $this->Empleadocapacitacion_model->guardar($guardarEmpleados);
     }
 
     function guardar_admin_inicio() {
@@ -1867,6 +1989,7 @@ class Administrativo extends My_Controller {
             
         }
     }
+
     function eliminarAccidente() {
         try {
             $this->load->model(array("Accidentes_model"));
@@ -1877,15 +2000,36 @@ class Administrativo extends My_Controller {
             
         }
     }
-       function listadoCapacitacion(){
-        try{
+
+    function listadoCapacitacion() {
+        try {
             $this->load->model(array("Capacitaciones_model"));
             $this->data["capacitacion"] = $this->Capacitaciones_model->todasCapacitaciones();
-            $this->layout->view("administrativo/listadoCapacitacion",$this->data);
-        }catch(exception $e){
+            $this->layout->view("administrativo/listadoCapacitacion", $this->data);
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
+        }
+    }
+    function guardar_protexion() {
+        try {
+            $this->load->model(array("Dotacion_model"));
+            $this->Dotacion_model->guardar_protexion();
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
+    function consultar_empreado() {
+        try {
+            $this->load->model(array("Dotacion_model"));
+            $data['Json'] = $this->Dotacion_model->consultar_empreado();
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
