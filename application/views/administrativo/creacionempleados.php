@@ -67,6 +67,9 @@
                                 <li>
                                     <a data-toggle="tab" href="#tab6">Registro</a>
                                 </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab9">Dotación</a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div id="tab1" class="tab-pane active">
@@ -459,6 +462,40 @@
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div id="tab9" class="tab-pane">
+                                    
+                                    <p></p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        <div class="panel-body">
+                                            <table class="table table-hover table-bordered tabla-sst">
+                                                <thead>
+                                                <th>ELEMENTO DE PROTECCIÓN</th>
+                                                <th>TALLA</th>
+                                                <th>INDICACIÓN DE USO</th>
+                                                <th>VIDA UTIL/FECHA CADUCIDAD</th>
+                                                <th>UNDS</th>
+                                                <th>FECHA DE ENTREGA</th>
+                                                <th>INDICACIÓN DE ALMACENAMIENTO</th>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($dotacion as $key => $value) { ?>
+                                                    <tr>
+                                                        <td><?php echo $value->dot_nombre ?></td>
+                                                        <td><?php echo $value->dot_talla ?></td>
+                                                        <td><?php echo $value->dot_indicacion ?></td>
+                                                        <td><?php echo $value->doc_fecha_caducidad ?></td>
+                                                        <td><?php echo $value->doc_unidades ?></td>
+                                                        <td><?php echo $value->doc_fecha_entrega ?></td>
+                                                        <td><?php echo $value->doc_indicaciones ?></td>
+                                                    </tr>
+                                                    <?php }?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="tab6" class="tab-pane">

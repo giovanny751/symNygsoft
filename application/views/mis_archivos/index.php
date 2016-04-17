@@ -21,8 +21,7 @@
                 <div class="form-body">
                     <div class="row" id="panel" tipo="1">
                         <div class="col-md-4">
-                            <input type="file" id="documento3" name="files[]" required="required" class="obligatorioArchivo"  >
-                            <button class="btn btn-info" title="Subir Documento" id="procesar"><i class="fa fa-arrow-up"></i></button>
+                            <button class="btn btn-info subir_documento" title="Subir Documento"  data-toggle="modal" data-target="#myModal_cargue"><i class="fa fa-arrow-up"></i></button>
                             <button class="btn btn-info" title="Nueva Carpeta"  id="crearCarpeta"><i class="fa fa-folder-open-o"></i></button>
                         </div>
                         <div class="col-md-4">
@@ -52,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="form-horizontal">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="carpetas" style="padding-left: 10px">
                                     <li>
                                         <div toma="" tipo="2" name_folder="actas" activo="0" class="recurso_sele2" recarga="1">
@@ -75,7 +74,7 @@
                                 <input type="hidden" id="carpeta_selec" name="carpeta_selec">
                                 <br><p>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <div class="row genera_carpeta">
                                     <div class="col-md-12">
                                         <?php
@@ -100,7 +99,7 @@
                                                     $tipo = 2;
                                                 }
                                                 ?>
-                                                <div class="col-md-1 carpeta_seccion" title="<?php echo $value['nombre'] ?>:  <?php echo $value['carDoc_descripcion'] ?>" tipo="<?php echo $tipo; ?>" toma="<?php echo $value['carDoc_id']; ?>" archivoId="<?php echo $value['archivoId']; ?>">  
+                                                <div class="col-md-1 carpeta_seccion" title="<?php echo $value['nombre'] ?>  <?php echo!empty($value['carDoc_descripcion']) ? ":" . $value['carDoc_descripcion'] : '' ?>" tipo="<?php echo $tipo; ?>" toma="<?php echo $value['carDoc_id']; ?>" archivoId="<?php echo $value['archivoId']; ?>">  
                                                     <br>
                                                     <?php if ($value['extension'] == "carpeta") { ?>
                                                         <img  src='<?php echo base_url('uploads/icon') . "/carpeta.png" ?>'   width='40px'>
@@ -172,6 +171,44 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
+    </div>
+</div>
+<div id="myModal_cargue" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Documento.</h4>
+            </div>
+            <div class="modal-body">
+                <p><input type="file" id="documento3" name="files[]" required="required" class="obligatorioArchivo"  ></p>
+                <input type="hidden" id="nueva_version">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="procesar">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="myModal_cargue2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Otras Versiones.</h4>
+            </div>
+            <div class="modal-body">
+                <div id="otras_versiones"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
     </div>
 </div>
 <div id="myMenu1" class="contextMenu" style="display: none"></div>
@@ -274,6 +311,10 @@
 <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
+
+    $('body').delegate('.subir_documento', 'click', function () {
+        $('#nueva_version').val('');
+    })
     $('body').delegate('.recurso_sele2', 'click', function () {
         var toma = $(this).attr('toma');
         if ($('#carpeta_selec').val() != toma)
@@ -341,6 +382,7 @@
             var file_data = $('#documento3').prop('files')[0];
             var form_data = new FormData();
             form_data.append('file', file_data);
+            form_data.append('nueva_version', $('#nueva_version').val());
             form_data.append('carpeta', $('#id_carpeta').val());
 
             var fullPath = document.getElementById('documento3').value;
@@ -362,6 +404,7 @@
                 success: function (msg) {
                     //                    $('#resultados').html(data);
                     $('#documento3').val('')
+                    $('#myModal_cargue').modal('hide');
                     llenar_carpetas(msg, msg.carpetaPadre);
                 }
             });
@@ -390,12 +433,14 @@
             }
             $('#divMenu *').remove();
             var opciones = '<ul>';
-            if ($(this).attr('tipo') == 3)
-                opciones += '<li class="opciones" at="descargar">Descargar</li><li at="eliminar" class="opciones">Eliminar</li>';
+            if ($(this).attr('tipo') == 3) {
+                opciones += '<li class="opciones" at="descargar">Descargar</li><li at="eliminar" class="opciones">Eliminar</li><li at="new_version" class="opciones" data-toggle="modal" data-target="#myModal_cargue">Nueva Versión</li><li at="oter_version" class="opciones" data-toggle="modal" data-target="#myModal_cargue2">Otras Versiones</li>';
+                $('#nueva_version').val($(this).attr('archivoid'));
+            }
             if ($(this).attr('tipo') == 2)
                 opciones += '<li class="opciones" at="editar">Editar</li><li at="eliminar" class="opciones">Eliminar</li>';
             if ($(this).attr('tipo') == 1)
-                opciones += '<li class="opciones" at="crearCarpeta">Crear Carpeta</li><li at="subirArchivo" class="opciones">Subir Archivo</li>';
+                opciones += '<li class="opciones" at="crearCarpeta">Crear Carpeta</li><li at="subirArchivo" class="opciones" data-toggle="modal" data-target="#myModal_cargue">Subir Archivo</li>';
             opciones += "</ul>";
 
             $('#divMenu').append(opciones);
@@ -456,6 +501,12 @@
                         alerta("rojo", "Error comunicarse con el administrador");
                     });
                 }
+            } else if (opcion == "oter_version") {
+                oter_version();
+            } else if (opcion == "new_version") {
+
+            } else if (opcion == "subirArchivo") {
+                $("#nueva_version").val('')
             } else if (opcion == "crearCarpeta") {
                 nuevaCarpeta();
             } else if (opcion == 'descargar') {
@@ -467,6 +518,50 @@
         });
 
     });
+    $('body').delegate('.descarga_doc', 'click', function () {
+        $('#carpeta_descarga').val($(this).attr('id_doc'));
+        $('#form_descarga').submit();
+    })
+    function oter_version() {
+
+        $.post(url + "index.php/Mis_archivos/oter_version", {id: $("#nueva_version").val()})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message)) {
+                        alerta("rojo", msg['message'])
+                        $('#myModal_cargue2').modal('hide');
+                    } else {
+                        var html = '';
+                        $.each(msg['Json'], function (key, val) {
+
+                            img = "'<?php echo base_url() ?>uploads/icon/nn.png'";
+                            img = 'onerror="this.src=' + img + '"';
+                            var r = val.nombre;
+                            var tipo = 3;
+                            icons = "<a href='javascript:'><img src='" + url + 'uploads/icon/' + val.repDoc_extension + ".png' class='descarga_doc' id_doc='" + val.repDoc_id + "' width='40px' " + img + "  ></a>";
+                            html += "<div class='row'>";
+                            html += "<div class='col-md-12'>";
+                            html += "<div class='col-md-3'>";
+                            html += icons;
+                            html += "</div>";
+                            html += "<div class='col-md-9'>";
+                            html += "Nombre: " + val.repDoc_nombre;
+                            html += "<br>Extencion: " + val.repDoc_extension;
+                            html += "<br>Tamaño: " + val.repDoc_tamano;
+                            html += "<br>Usuario Modificador: " + (val.usu_nombre == null ? val.uno + " " + val.dos : val.usu_nombre + " " + val.usu_apellido);
+                            html += "<br>Fecha Modificación: " + (val.modificationDate == null ? val.creatorDate : val.modificationDate);
+                            html += "</div>";
+                            html += "</div>";
+                            html += "</div>";
+                            html += "<div class='row'><hr>";
+                            html += "</div>";
+                        })
+                        $('#otras_versiones').html(html)
+                    }
+                })
+                .fail(function () {
+
+                })
+    }
 
     $('body').delegate("#actualizar", "click", function () {
         carpeta = $(this).attr('idCarpeta');
@@ -489,7 +584,6 @@
         });
         $('#nueva_carpeta').modal('hide');
     });
-
     $('#crearCarpeta').click(function () {
         nuevaCarpeta();
     });
@@ -517,18 +611,19 @@
         obtener_doc(toma);
     });
     function obtener_doc(toma) {
-        $.post(url + 'index.php/Mis_archivos/traer_folder', {IdCarpetaPadre: toma})
-                .done(function (msg) {
-                    message = jQuery.parseJSON(msg);
-                    if (!jQuery.isEmptyObject(message.message))
-                        alerta("rojo", msg['message'])
-                    else {
-                        llenar_carpetas(msg, toma);
-                    }
-                })
-                .fail(function () {
-                    alerta('Error al guardar');
-                })
+        if (toma)
+            $.post(url + 'index.php/Mis_archivos/traer_folder', {IdCarpetaPadre: toma})
+                    .done(function (msg) {
+                        message = jQuery.parseJSON(msg);
+                        if (!jQuery.isEmptyObject(message.message))
+                            alerta("rojo", msg['message'])
+                        else {
+                            llenar_carpetas(msg, toma);
+                        }
+                    })
+                    .fail(function () {
+                        alerta('Error al guardar');
+                    })
     }
     $('body').delegate('.carpeta_atras', 'dblclick', function () {
         colorear();
@@ -567,7 +662,6 @@
         var d = 1;
         msg = jQuery.parseJSON(msg);
         toma = msg.carpetaPadre;
-
         html = "<div class='form-horizontal'>";
         html += "<div class='col-md-12'>";
         if (toma && toma != 0 && toma != "0" && toma != "") {
@@ -585,19 +679,13 @@
             img = "'<?php echo base_url() ?>uploads/icon/nn.png'";
             img = 'onerror="this.src=' + img + '"';
             var r = val.nombre;
+            var tipo = 3;
             if (val.extension != "carpeta") {
                 icons = "<img src='" + url + 'uploads/icon/' + val.extension + ".png' width='40px' " + img + "  >";
             } else {
-
+                tipo = 2;
                 icons = "<img src='" + url + "uploads/icon/carpeta.png' width='40px' " + img + " >";
             }
-            var tipo = 3;
-            if (icons == "" && val.extension == "carpeta") {
-                icons = "fa-folder-o";
-                tipo = 2;
-            } else if (icons == "" && val.extension != "carpeta")
-                icons = "fa-edit";
-
 
             if (d == 1) {
                 html += "<div class='form-group'>";
@@ -605,7 +693,7 @@
             i++;
             padre = val.idpadre;
             //            html += '<div class="col-md-1 carpeta_seccion" toma="' + val.idCarpeta + '">  ';
-            html += '<div class="col-md-1 carpeta_seccion" title="' + r+':  '+val.carDoc_descripcion + '" tipo="' + tipo + '" toma="' + val.carDoc_id + '" archivoId="' + val.archivoId + '">';
+            html += '<div class="col-md-1 carpeta_seccion" title="' + r + ' ' + (val.carDoc_descripcion != null ? (val.carDoc_descripcion != 0 ? ": " + val.carDoc_descripcion : '') : '') + '" tipo="' + tipo + '" toma="' + val.carDoc_id + '" archivoId="' + val.archivoId + '">';
             html += '<br>';
             html += icons;
             if (r.length > 13)
@@ -622,8 +710,6 @@
         });
         html += "</div>";
         html += "</div>";
-
-
         $('.genera_carpeta').html(html);
         if (padre == null && i == 0) {
             $('#id_carpeta').val(toma)

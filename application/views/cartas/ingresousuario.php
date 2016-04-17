@@ -18,7 +18,7 @@
             <td style='text-transform: capitalize'><?php echo $contrasena; ?></td>
         </tr>
         <tr>
-            <th colspan="2">http://sym.nygsoft.com/index.php/login</th>
+            <th colspan="2"><?php echo base_url(); ?></th>
         </tr>
     </table>    
     <br>
