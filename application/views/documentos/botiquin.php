@@ -71,7 +71,7 @@
                                                     <td><?php echo $elemento[1]; ?></td>
                                                     <td class="transparent">
                                                         <select name="opcion[]" class="form-control" style="text-align:center">
-                                                            <option>::Seleccionar::</option>
+                                                            <option value=''>::Seleccionar::</option>
                                                             <option value="1">Si</option>
                                                             <option value="0">No</option>
                                                         </select>
@@ -116,7 +116,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message'])
                     else {
-                        $('input[type="text"],select,textarea').val();
+                        $('input[type="text"],select,textarea').val('');
                         $('input').prop('checked', false);
                         alerta("verde", "Datos guardados correctamente");
                     }

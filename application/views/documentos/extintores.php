@@ -32,7 +32,7 @@
                                     <label class="col-md-4" for="empleado">Nombre de quien realiza la inspección:</label>
                                     <div class="col-md-8">
                                         <select name="empleado" id="empleado" class="form-control">
-                                            <option>::Seleccionar::</option>
+                                            <option value=''>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
                                                 <option value="<?php echo $emp->Emp_id ?>"><?php echo strtoupper($emp->Emp_Nombre . " " . $emp->Emp_Apellidos) ?></option>
                                             <?php endforeach; ?>
@@ -277,7 +277,13 @@
                 url + "index.php/documento/guardarExtintor"
                 , $('#FrmExtintores').serialize()
                 ).done(function (msg) {
-
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("rojo", msg['message'])
+            else {
+                $('input[type="text"],select,textarea').val('');
+                $('input').prop('checked', false);
+                alerta("verde", "Datos guardados correctamente");
+            }
         }).fail(function (msg) {
 
         });

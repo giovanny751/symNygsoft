@@ -26,7 +26,6 @@ class Empresa_model extends CI_Model {
             $this->db->select("emp_direccion");
             $this->db->select("ciu_id");
             $this->db->select("tam_id");
-            $this->db->select("numEmp_id");
             $this->db->select("actEco_id");
             $this->db->select("Dim_id");
             $this->db->select("Dimdos_id");
@@ -37,7 +36,7 @@ class Empresa_model extends CI_Model {
             $this->db->select("(select distinct count(*) from "
                     . "empleado "
                     . "join empleado_contratos on empleado_contratos.emp_id = empleado.Emp_id "
-                    . "where est_id = 1 and empleado_contratos.empCon_fechaHasta > '".date('Y-m-d')."' ) as numEmpleados");
+                    . "where est_id = 1 and (empleado_contratos.empCon_fechaHasta > '".date('Y-m-d')."' or empleado_contratos.empCon_fechaHasta = '0000-00-00 00:00:00') ) as numEmpleados");
             $empresa = $this->db->get("empresa");
                         
             return $empresa->result();
