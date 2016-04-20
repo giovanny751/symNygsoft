@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="fecha">Fecha Inspección</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="fecha" id="fecha" class="form-control fecha" >
+                                        <input type="text" name="fecha" id="fecha" class="form-control fecha obliContrato" >
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <label class="col-md-6 control-label" for="empleado">Nombre de quien realiza la inspección:</label>
                                     <div class="col-md-6">
-                                        <select name="empleado" id="empleado" class="form-control">
+                                        <select name="empleado" id="empleado" class="form-control obliContrato">
                                             <option value=''>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
                                                 <option value="<?php echo $emp->Emp_id ?>"><?php echo strtoupper($emp->Emp_Nombre . " " . $emp->Emp_Apellidos) ?></option>
@@ -106,21 +106,23 @@
 <script>
 
     $('#guardarInspeccion').click(function () {
-        $.post(
-                url + "index.php/documento/guardarInspeccion",
-                $('#FrmInspeccion').serialize()
-                )
-                .done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
-                        alerta("amarillo", msg['message'])
-                    else {
-                        $('input[type="text"],select,textarea').val('');
-                        $('input').prop('checked', false);
-                        alerta("verde", "Datos guardados correctamente");
-                    }
-                })
-                .fail(function (msg) {
-                    alerta("rojo", "Error por favor comunicarse con el administrador");
-                });
+        if (obligatorio('obliContrato')) {
+            $.post(
+                    url + "index.php/documento/guardarInspeccion",
+                    $('#FrmInspeccion').serialize()
+                    )
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("amarillo", msg['message'])
+                        else {
+                            $('input[type="text"],select,textarea').val('');
+                            $('input').prop('checked', false);
+                            alerta("verde", "Datos guardados correctamente");
+                        }
+                    })
+                    .fail(function (msg) {
+                        alerta("rojo", "Error por favor comunicarse con el administrador");
+                    });
+        }
     });
 </script>

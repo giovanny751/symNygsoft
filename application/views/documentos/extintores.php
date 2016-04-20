@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4" for="fechaInspeccion">Fecha Inspección</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="fecha" id="fechaInspeccion" class="form-control fecha" >
+                                        <input type="text" name="fecha" id="fechaInspeccion" class="form-control fecha obliContrato" >
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4" for="empleado">Nombre de quien realiza la inspección:</label>
                                     <div class="col-md-8">
-                                        <select name="empleado" id="empleado" class="form-control">
+                                        <select name="empleado" id="empleado" class="form-control obliContrato">
                                             <option value=''>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
                                                 <option value="<?php echo $emp->Emp_id ?>"><?php echo strtoupper($emp->Emp_Nombre . " " . $emp->Emp_Apellidos) ?></option>
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">NO. Extintor</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="noextintor" class="form-control">
+                                        <input type="text" name="noextintor" class="form-control obliContrato">
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="capacidad">Capacidad</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="capacidad" id="capacidad" class="form-control">
+                                        <input type="text" name="capacidad" id="capacidad" class="form-control obliContrato">
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="clase">Clase</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="clase" id="clase" class="form-control">
+                                        <input type="text" name="clase" id="clase" class="form-control obliContrato">
                                     </div>
                                 </div>
                             </div>
@@ -273,19 +273,21 @@
 </div>
 <script>
     $('#guardarInsExtintores').click(function () {
-        $.post(
-                url + "index.php/documento/guardarExtintor"
-                , $('#FrmExtintores').serialize()
-                ).done(function (msg) {
-            if (!jQuery.isEmptyObject(msg.message))
-                alerta("rojo", msg['message'])
-            else {
-                $('input[type="text"],select,textarea').val('');
-                $('input').prop('checked', false);
-                alerta("verde", "Datos guardados correctamente");
-            }
-        }).fail(function (msg) {
+        if (obligatorio('obligatorio')) {
+            $.post(
+                    url + "index.php/documento/guardarExtintor"
+                    , $('#FrmExtintores').serialize()
+                    ).done(function (msg) {
+                if (!jQuery.isEmptyObject(msg.message))
+                    alerta("rojo", msg['message'])
+                else {
+                    $('input[type="text"],select,textarea').val('');
+                    $('input').prop('checked', false);
+                    alerta("verde", "Datos guardados correctamente");
+                }
+            }).fail(function (msg) {
 
-        });
+            });
+        }
     });
 </script>

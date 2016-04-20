@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label for="fecha" class="col-md-4 control-label" >Fecha Inspección</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="fecha" id="fecha" class="form-control fecha" value='<?php echo date("Y-m-d") ?>'>
+                                        <input type="text" name="fecha" id="fecha" class="form-control fecha obligatorio" value='<?php echo date("Y-m-d") ?>'>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <label for="empleado" class="col-md-6 control-label">Nombre de quien realiza la inspección:</label>
                                     <div class="col-md-6">
-                                        <select name="empleado" id="empleado" class="form-control">
+                                        <select name="empleado" id="empleado" class="form-control obligatorio">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
                                                 <option value="<?php echo $emp->Emp_id ?>"><?php echo strtoupper($emp->Emp_Nombre . " " . $emp->Emp_Apellidos) ?></option>
@@ -108,6 +108,7 @@
     });
 
     $('#guardarInspeccionBotiquin').click(function () {
+        if(obligatorio('obligatorio')){
         $.post(
                 url + "index.php/documento/guardarBotiquin",
                 $('#FrmBotiquin').serialize()
@@ -125,4 +126,5 @@
                     alerta("rojo", "Error por favor comunicarse con el administrador")
                 });
     });
+    }
 </script>
