@@ -41,7 +41,7 @@
                                                     <div class="form-group">
                                                         <label for="planPrevencion" class="col-md-2 "><span>*</span>Plan de prevención</label>
                                                         <div class="col-md-10">
-                                                            <input type="text" name="planPrevencion" id="planPrevencion" class="form-control obligatorio">
+                                                            <input type="text" name="planPrevencion" id="planPrevencion" class="form-control obligatorio" value="<?php echo (!empty($Prevencion->pre_nombre))?$Prevencion->pre_nombre:"";?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,7 +97,7 @@
                                                     <div class="form-group">
                                                         <label for="fechaInicio" class="col-md-4"><span>*</span>Fecha inicio</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="fechaInicio" id="fechaInicio" class="form-control fecha obligatorio">
+                                                            <input type="text" name="fechaInicio" id="fechaInicio" value="<?php echo (!empty($Prevencion->pre_fechaInicio))?$Prevencion->pre_fechaInicio:"";?>" class="form-control fecha obligatorio">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,7 +105,7 @@
                                                     <div class="form-group">
                                                         <label for="fechaFin" class="col-md-4 control-label">Fecha fin</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="fechaFin" id="fechaFin" class="form-control fecha">
+                                                            <input type="text" name="fechaFin" id="fechaFin" value="<?php echo (!empty($Prevencion->pre_fechaInicio))?$Prevencion->pre_fechaFin:"";?>" class="form-control fecha">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,7 +120,7 @@
                                                             Medidas preventivas apropiadas
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasPreventivas" id="medidasPreventivas" class="form-control"></textarea>
+                                                            <textarea name="medidasPreventivas" id="medidasPreventivas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas))?$Prevencion->pre_medPreApropiadas:"";?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,7 +132,7 @@
                                                             Medidas adoptadas
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasAdoptadas" id="medidasAdoptadas" class="form-control"></textarea>
+                                                            <textarea name="medidasAdoptadas" id="medidasAdoptadas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas))?$Prevencion->pre_medidasAdoptadas:"";?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,7 +144,7 @@
                                                             <span>*</span>Medidas adoptar
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasAdoptar" id="medidasAdoptar" class="form-control obligatorio"></textarea>
+                                                            <textarea name="medidasAdoptar" id="medidasAdoptar" class="form-control obligatorio"><?php echo (!empty($Prevencion->pre_medidasAAdoptar))?$Prevencion->pre_medidasAAdoptar:"";?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,7 +154,7 @@
                                                     <div class="form-group">
                                                         <label for="presupuesto" class="col-md-6 control-label">Presupuesto</label>
                                                         <div class="col-md-6">
-                                                            <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number obligatorio"/>
+                                                            <input type="text" name="presupuesto" value="<?php echo (!empty($Prevencion->pre_presupuesto))?$Prevencion->pre_presupuesto:"";?>" id="presupuesto" class="form-control miles number obligatorio"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -178,7 +178,7 @@
                                                             <select name="dimUno" id="dimUno" class="form-control dimencion_uno_se obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($dimension as $d1) { ?>
-                                                                    <option <?php echo ((!empty($riesgo->dim1_id)) && ($d1->dim_id == $riesgo->dim1_id)) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
+                                                                    <option <?php echo (!empty($Prevencion->dimUno_id == $d1->dim_id ))?"selected":"";?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -198,7 +198,7 @@
                                                     <div class="form-group">
                                                         <label for="lugar" class="col-md-3 control-label">Lugar</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" name="lugar" id="lugar" class="form-control"/>
+                                                            <input type="text" name="lugar" id="lugar" class="form-control" value="<?php echo (!empty($Prevencion->pre_lugar))?$Prevencion->pre_lugar:"";?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,7 +211,7 @@
                                                             <select name="cargo" id="cargo" class="form-control obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($cargo as $c): ?> 
-                                                                    <option value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
+                                                                <option <?php echo (!empty($Prevencion->car_id == $c->car_id ))?"selected":"";?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -234,7 +234,7 @@
                                                     <div class="form-group">
                                                         <label for="observacion" class="col-md-1 control-label">Observación</label>
                                                         <div class="col-md-11">
-                                                            <textarea class="form-control" name="observacion" id="observacion"></textarea>
+                                                            <textarea class="form-control" name="observacion" id="observacion"><?php echo (!empty($Prevencion->pre_observacion))?$Prevencion->pre_observacion:"";?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

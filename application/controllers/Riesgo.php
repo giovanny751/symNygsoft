@@ -563,12 +563,15 @@ class Riesgo extends My_Controller {
     }
 
     function prevencionRiesgo() {
-        $this->load->model(array("Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model',"Riesgoclasificaciontipo_model"));
+        
+        $this->load->model(array("Prevencioncontrol_model","Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model',"Riesgoclasificaciontipo_model"));
+        if(!empty($this->input->post('pre_id'))){
+            $this->data['Prevencion'] = $this->Prevencioncontrol_model->consultaPrevencionxId($this->input->post('pre_id'));
+        }
         $this->data['empresa'] = $this->Empresa_model->detail();
         $this->data['categoria'] = $this->Riesgoclasificacion_model->detail();
         $categoria = 1;
         $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($categoria);
-//        $this->data['riesgos'] = $this->Tarea_model->lista_riesgos();
         $this->data['dimension'] = $this->Dimension_model->detail();
         $this->data['dimension2'] = $this->Dimension2_model->detail();
         $this->data['clasificacion'] = $this->Riesgoclasificacion_model->detail();
@@ -580,7 +583,7 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model(array("Prevencionriesgoclasificacion_model","Prevencion_model"));
             $variable = array(
-                "cargo" => $this->input->post("car_id"),
+                "car_id" => $this->input->post("car_id"),
                 "dimDos_id" => $this->input->post("dimDos"),
                 "dimUno_id" => $this->input->post("dimUno"),
                 "emp_id" => $this->input->post("empleado"),
@@ -596,7 +599,6 @@ class Riesgo extends My_Controller {
             );
             $pre_id = $this->Prevencion_model->guardarPrevencion($variable);
 
-            
             if (!empty($this->input->post('clasificacion'))):
                 $clasificacion = $this->input->post('clasificacion');
                 for ($i = 0; $i < count($clasificacion); $i++):
@@ -645,7 +647,9 @@ class Riesgo extends My_Controller {
     function consultaListadoPrevencion() {
         try {
             $this->load->model("Prevencioncontrol_model");
-            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion($this->input->post("fechaDesde"), $this->input->post("fechaHasta"));
+            $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion(
+                    $this->input->post()
+                    );
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
