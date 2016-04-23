@@ -89,7 +89,10 @@ class Tarearegistro_model extends CI_Model {
     function eliminar_actividad_hijo($post) {
         try {
             $this->db->where("actHij_id", $post['actHij_id']);
-            $this->db->delete("actividad_hijo");
+            $this->db->set("modificationUser",$this->data['usu_id']);
+            $this->db->set("modificationDate",date("Y-m-d H:i:s"));
+            $this->db->set("est_id",3);
+            $this->db->update("actividad_hijo");
         } catch (exception $e) {
             
         }

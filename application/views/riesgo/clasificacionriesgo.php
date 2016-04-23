@@ -1,9 +1,11 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon categoria" title="Agregar" ><i class="fa fa-floppy-o fa-3x"></i></div>
         <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -28,6 +30,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row informacion">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover">

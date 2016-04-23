@@ -60,7 +60,7 @@
                                     <td><?php echo $datos['rol_nombre']; ?></td>
                                     <td><?php echo $datos['rol_fechaCreacion']; ?></td>
                                     <td><?php echo $datos['rol_fechaModificacion']; ?></td>
-                                    <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="btn btn-info modificar">Opciones</button></td>
+                                    <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"    class="btn btn-info modificar">Opciones</button></td>
                                     <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-warning notificacion">Notificación</button></td>
                                     <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-danger eliminar">Eliminar</button></td>
                                 </tr>
@@ -168,12 +168,12 @@
 </div>    
 <script>
     $('.guardarRolNotificacion').click(function () {
-        $.post(url+"index.php/Presentacion/guardarNotificacionRol",$('#frmNotificacion').serialize())
-                .done(function(msg){
-                    
+        $.post(url + "index.php/Presentacion/guardarNotificacionRol", $('#frmNotificacion').serialize())
+                .done(function (msg) {
+
                 })
-                .fail(function(msg){
-                    
+                .fail(function (msg) {
+
                 });
     });
 
@@ -295,23 +295,29 @@
         $.post(
                 url + 'index.php/presentacion/rolesasignados',
                 {id: $(this).attr('rol')}, function (data) {
-            data = jQuery.parseJSON(data);
-            $.each(data, function (key, val) {
-                $('.seleccionados[value="' + val.menu_id + '"]').parent("span").addClass("checked");
-                $('.seleccionados[value="' + val.menu_id + '"]').prop('checked', true);
-                if (val.perRol_crear != 0) {
-                    $('.crear2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
-                    $('.crear2[value="' + val.menu_id + '"]').prop('checked', true);
-                }
-                if (val.perRol_modificar != 0) {
-                    $('.modificar2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
-                    $('.modificar2[value="' + val.menu_id + '"]').prop('checked', true);
-                }
-                if (val.perRol_eliminar != 0) {
-                    $('.eliminar2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
-                    $('.eliminar2[value="' + val.menu_id + '"]').prop('checked', true);
-                }
-            });
+            
+            if (!jQuery.isEmptyObject(data.message))
+                alerta("rojo", data.message);
+            else {
+                data = jQuery.parseJSON(data);
+                $.each(data, function (key, val) {
+                    $('.seleccionados[value="' + val.menu_id + '"]').parent("span").addClass("checked");
+                    $('.seleccionados[value="' + val.menu_id + '"]').prop('checked', true);
+                    if (val.perRol_crear != 0) {
+                        $('.crear2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
+                        $('.crear2[value="' + val.menu_id + '"]').prop('checked', true);
+                    }
+                    if (val.perRol_modificar != 0) {
+                        $('.modificar2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
+                        $('.modificar2[value="' + val.menu_id + '"]').prop('checked', true);
+                    }
+                    if (val.perRol_eliminar != 0) {
+                        $('.eliminar2[value="' + val.menu_id + '"]').parent("span").addClass("checked");
+                        $('.eliminar2[value="' + val.menu_id + '"]').prop('checked', true);
+                    }
+                });
+                $('#myModal').modal("show");
+            }
         });
     });
 </script>

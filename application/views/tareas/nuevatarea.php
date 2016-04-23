@@ -956,7 +956,7 @@
             ).done(function (msg) {
                 var data = "<option value=''>::Seleccionar::</option>";
                 $('#nombreempleado *').remove();
-                $.each(msg, function (key, val) {
+                $.each(msg.Json, function (key, val) {
                     data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase()  + " " + val.Emp_Apellidos.toUpperCase()  + "</option>"
                 });
                 $('#nombreempleado').append(data);

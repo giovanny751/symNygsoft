@@ -29,7 +29,9 @@ class Actividad_padre__model extends CI_Model {
 
     function delete_actividad_padre($post) {
         try {
-            $this->db->set('ACTIVO', 'N');
+            $this->db->set('modificationUser', $this->data['usu_id']);
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
+            $this->db->set('est_id',3);
             $this->db->where($post["campo"], $post[$post["campo"]]);
             $this->db->update('actividad_padre');
         } catch (exception $e) {

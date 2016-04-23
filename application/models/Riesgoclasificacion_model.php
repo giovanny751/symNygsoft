@@ -96,22 +96,25 @@ class Riesgoclasificacion_model extends CI_Model {
         }
     }
 
-    function eliminar($id) {
+    function eliminar($id,$usu_id) {
         try {
             $this->db->where("rieClaTip_id", $id);
             $this->db->set("est_id",3);
+            $this->db->set("modificationUser",$usu_id);
+            $this->db->set("modificationDate",date("Y-m-d H:i:s"));
             $this->db->update("riesgo_clasificacion_tipo");
         } catch (exception $e) {
             
         }
     }
 
-    function eliminarCategoria($rieCat_id) {
+    function eliminarCategoria($rieCat_id,$usu_id) {
         try {
             $this->db->where("rieCla_id", $rieCat_id);
             $this->db->set("est_id",3);
+            $this->db->set("modificationUser",$usu_id);
+            $this->db->set("modificationDate",date("Y-m-d H:i:s"));
             $this->db->update("riesgo_clasificacion");
-//            echo $this->db->last_query();die;
         } catch (exception $e) {
             
         }

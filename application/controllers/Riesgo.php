@@ -464,18 +464,16 @@ class Riesgo extends My_Controller {
             );
             $categoria = $this->Riesgoclasificacion_model->detailandtipo();
             $i = array();
-            foreach ($categoria as $c) {
+            foreach ($categoria as $c) :
                 $i[$c->rieCla_id][$c->rieCla_categoria][] = array(
                     $c->rieClaTip_id,
                     $c->rieClaTip_tipo
                 );
-            }
-
-            $this->output->set_content_type('application/json')->set_output(json_encode($i));
+            endforeach;
         } catch (exception $e) {
             
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($i));
         }
     }
 
@@ -483,7 +481,8 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model("Riesgoclasificacion_model");
             $this->Riesgoclasificacion_model->eliminarCategoria(
-                    $this->input->post('rieCla_id')
+                    $this->input->post('rieCla_id'),
+                    $this->data['usu_id']
             );
             $categoria = $this->Riesgoclasificacion_model->detailandtipo();
             $i = array();
