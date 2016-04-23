@@ -905,13 +905,19 @@ class Administrativo extends My_Controller {
 
     function consultausuarioscargo() {
         try {
+            if(empty($this->input->post('cargo')))
+                throw new Exception("No existe cargo a consultar");
             $this->load->model('Empleado_model');
-            $this->data["cargo"] = $this->Empleado_model->empleadoxcargo($this->input->post('cargo'));
-            $this->output->set_content_type('application/json')->set_output(json_encode($this->data["cargo"]));
+            $respuesta = $this->Empleado_model->empleadoxcargo($this->input->post('cargo'));
+            if(empty($respuesta)){
+                throw new Exception("No existen empleados asociados al cargo");
+            }else{
+                $data['Json'] = $respuesta;
+            }
         } catch (exception $e) {
-            
+            $data['message'] = $e->getMessage();
         } finally {
-            
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 

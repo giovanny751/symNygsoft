@@ -1,8 +1,10 @@
+<br>
 <div class="row">
     <div class="col-md-6">
         <div class="circuloIcon guardar" title="Agregar"><i class="fa fa-floppy-o fa-3x"></i></div> 
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -21,8 +23,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="descripcion" class="col-md-2 control-label"><span class="campoobligatorio">*</span>Tipo Indicador</label>
-                                    <div class="col-md-10">
+                                    <label for="descripcion" class="col-md-1"><span class="campoobligatorio">*</span>Tipo Indicador</label>
+                                    <div class="col-md-5">
                                         <input type="text" name="descripcion" id="descripcion" class="form-control obligatorio"/>
                                     </div>
                                 </div>

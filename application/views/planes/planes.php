@@ -1,3 +1,8 @@
+<style>
+        .mayuscula{  
+    text-transform: uppercase;  
+    }  
+</style>    
 <div class="row">
     <div class="row">
         <div class="col-md-6">
@@ -79,7 +84,7 @@
                                                 <div class="form-group">
                                                     <label for="nombre">
                                                         <span class="campoobligatorio">*</span>Nombre</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control obligatorio" value="<?php echo (!empty($plan[0]->pla_nombre) ) ? $plan[0]->pla_nombre : ""; ?>" />
+                                                    <input type="text" name="nombre" id="nombre" class="form-control obligatorio mayuscula" value="<?php echo (!empty($plan[0]->pla_nombre) ) ? $plan[0]->pla_nombre : ""; ?>" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="fechainicio"><span class="campoobligatorio">*</span>Fecha Inicio</label>
@@ -101,7 +106,7 @@
                                                     <select name="cargo" id="cargo" class="form-control" >
                                                         <option value="">::Seleccionar::</option>
                                                         <?php foreach ($cargo as $c) { ?>
-                                                            <option <?php echo (!empty($plan[0]->car_id) && $c->car_id == $plan[0]->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                                        <option <?php echo (!empty($plan[0]->car_id) && $c->car_id == $plan[0]->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
@@ -113,7 +118,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="presupuesto">Presupuesto</label>
-                                                    <input type="text" name="presupuesto" id="presupuesto" class="form-control number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" disabled="disabled"/>
+                                                    <input type="text" name="presupuesto" id="presupuesto" class="form-control number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="costoreal">Costo Real</label>
@@ -123,7 +128,7 @@
                                                     <label for="norma">Normatividad</label>
                                                     <select name="norma[]" id="norma" class="form-control " multiple>
                                                         <?php foreach ($norma as $n): ?>
-                                                            <option <?php echo (!empty($plan[0]->pla_id) ? (in_array($n->nor_id, $norma_planes) ? "selected" : '') : '' ); ?> value="<?php echo $n->nor_id ?>"><?php echo $n->nor_norma ?></option>
+                                                        <option <?php echo (!empty($plan[0]->pla_id) ? (in_array($n->nor_id, $norma_planes) ? "selected" : '') : '' ); ?> value="<?php echo $n->nor_id ?>"><?php echo strtoupper($n->nor_norma) ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -133,15 +138,14 @@
                                                     <label for="estado"><span class="campoobligatorio">*</span>Estado</label>
                                                     <select name="estado" id="estado" class="form-control obligatorio">
                                                         <option value="">::Seleccionar::</option>
-                                                        <?php foreach ($estado as $e) {
-                                                            ?>
-                                                            <option <?php echo (!empty($plan[0]->est_id) && $e->est_id == $plan[0]->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                                        <?php foreach ($estado as $e) { ?>
+                                                        <option <?php echo (!empty($plan[0]->est_id) && $e->est_id == $plan[0]->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo strtoupper($e->est_nombre) ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="descripcion">Descripción</label>
-                                                    <textarea name="descripcion" id="descripcion" class="form-control" style=" height: 116px;"> <?php echo (!empty($plan[0]->pla_descripcion) ) ? $plan[0]->pla_descripcion : ""; ?></textarea>
+                                                    <textarea name="descripcion" id="descripcion" class="form-control mayuscula" style=" height: 116px;"> <?php echo (!empty($plan[0]->pla_descripcion) ) ? $plan[0]->pla_descripcion : ""; ?></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="avanceprogramado">Avance programado</label>
@@ -233,7 +237,6 @@
                                         </table>
                                     </div>
                                     <div id="tab3" class="tab-pane">
-
                                         <table class="tablesst">
                                             <thead>
                                             <th>Fecha</th>
@@ -276,7 +279,6 @@
                                                 </tr>
                                             </tfoot>
                                         </table>   
-
                                     </div>
                                     <div id="tab4" class="tab-pane">
                                         <div class="portlet box blue" style="margin-top: 30px;">
@@ -1054,15 +1056,21 @@
                     cargo: $(this).val()
                 }
         ).done(function (msg) {
-            var data = "";
-            $('#empleado *').remove();
-            $.each(msg, function (key, val) {
-                data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre + " " + val.Emp_Apellidos + "</option>"
-            });
-            $('#empleado').append(data);
-<?php if (isset($plan[0]->emp_id)) { ?>
-                $('#empleado').val('<?php echo $plan[0]->emp_id; ?>');
-<?php } ?>
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("rojo", msg['message'])
+            else {
+                var data = "";
+                $('#empleado *').remove();
+                $.each(msg.Json, function (key, val) {
+                    nombre = val.Emp_Nombre;
+                    apellido = val.Emp_Apellidos;
+                    data += "<option value='" + val.Emp_Id + "'>" + nombre.toUpperCase() + " " + apellido.toUpperCase() + "</option>"
+                });
+                $('#empleado').append(data);
+                    <?php if (isset($plan[0]->emp_id)) { ?>
+                                        $('#empleado').val('<?php echo $plan[0]->emp_id; ?>');
+                    <?php } ?>
+                }
         }).fail(function (msg) {
 
         });
