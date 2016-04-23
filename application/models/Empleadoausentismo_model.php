@@ -32,8 +32,11 @@ class Empleadoausentismo_model extends CI_Model {
     function removeHolidays($vac_id){
         try{
             $this->db->trans_begin();
+            $this->db->set("est_id",3);
+            $this->db->set('modificationUser', $this->session->userdata('usu_id'));
+            $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->where("empAus_id",$vac_id);
-            $this->db->delete("empleado_ausentismo");
+            $this->db->update("empleado_ausentismo");
             if($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();
             }else{

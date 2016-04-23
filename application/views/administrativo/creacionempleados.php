@@ -424,7 +424,7 @@
                                                         <td><?php echo $v->diferencia ?></td>
                                                         <td><?php echo $v->vac_observaciones ?></td>
                                                         <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modifyHolidays' title='Modificar' vac_id='<?php echo $v->vac_id ?>' ></i></td>
-                                                        <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' vac_id='" + val.emp_id + "' ></i></td>
+                                                        <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' vac_id='<?php echo $v->vac_id ?>' ></i></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -456,7 +456,9 @@
                                                         <td><?php echo $au->empAus_fechaFinal ?></td>
                                                         <td><?php echo $au->diferencia ?></td>
                                                         <td><?php echo $au->empAus_observaciones ?></td>
-                                                        <td class='transparent'><i class='fa fa-pencil-square-o fa-2x modificarAusentismo' title='Modificar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
+                                                        <td class='transparent'>
+                                                            <i class='fa fa-pencil-square-o fa-2x modificarAusentismo' title='Modificar' empAus_id='<?php echo $au->empAus_id ?>' ></i>
+                                                        </td>
                                                         <td class='transparent'><i class='fa fa-trash-o fa-2x removeHolidays' title='Eliminar' empAus_id='<?php echo $au->empAus_id ?>' ></i></td>
                                                     </tr>
                                                 <?php endforeach; ?>
