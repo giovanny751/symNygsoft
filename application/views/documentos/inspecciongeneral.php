@@ -1,3 +1,10 @@
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="circuloIcon" id="guardarInspeccion" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+    </div>
+</div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -12,16 +19,11 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="circuloIcon" id="guardarInspeccion" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-                        </div>
-                    </div>
                     <form id="FrmInspeccion" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="fecha">Fecha Inspección</label>
+                                    <label class="col-md-4 control-label" for="fecha">Fecha de Inspección</label>
                                     <div class="col-md-8">
                                         <input type="text" name="fecha" id="fecha" class="form-control fecha obliContrato" >
                                     </div>

@@ -160,6 +160,11 @@
                     var table = $('#tablesst').DataTable();
                     table.clear().draw();
                     $.each(msg['Json'], function (key, val) {
+                        
+                        hasta = "";
+                        if(val.empCon_fechaHasta == '0000-00-00 00:00:00')
+                            hasta = 'Indefinido';
+                        
                         table.row.add([
                             val.Emp_Cedula,
                             val.Emp_Nombre,
@@ -168,7 +173,7 @@
                             val.est_nombre,
                             val.car_nombre,
                             val.empCon_fechaDesde,
-                            val.empCon_fechaHasta,
+                            hasta,
                             '<i class="fa fa-pencil-square-o fa-2x  modificar" aria-hidden="true" title="Modificar"  emp_id="' + val.Emp_Id + '"  data-toggle="modal" data-target="#myModal"></i>',
                             '<i class="fa fa-trash-o fa-2x   eliminar" aria-hidden="true" title="Eliminar" tareas="' + val.tareas_emp + '" planes="' + val.planes_emp + '" emp_id="' + val.Emp_Id + '"></i>'
                         ]).draw();

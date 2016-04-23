@@ -1,3 +1,10 @@
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+    </div>
+</div>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -12,11 +19,7 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-                        </div>
-                    </div>
+
                     <form method="post" id="FrmExtintores" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-6">
@@ -273,7 +276,7 @@
 </div>
 <script>
     $('#guardarInsExtintores').click(function () {
-        if (obligatorio('obligatorio')) {
+        if (obligatorio('obliContrato')) {
             $.post(
                     url + "index.php/documento/guardarExtintor"
                     , $('#FrmExtintores').serialize()
