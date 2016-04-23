@@ -31,13 +31,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <button type="button" class="btn-sst limpiar">Limpiar</button>
                                     <button type="button" class="btn-sst" id="consultar">Consultar</button>
                                 </div>
                             </div>
                         </form>
+                            <div class="col-md-1">
+                                <div class="circuloIcon" title="Nuevo Registro" data-toggle="modal" data-target="#myModal2" ><i class="fa fa-folder-open fa-3x"></i></div>
+                            </div>
                     </div>
                 </div>
                 <hr>
@@ -149,7 +152,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">NUEVO REGISTRO</h4>
+                <h4 class="modal-title" id="myModalLabel">REGISTRO</h4>
             </div>
             <div class="modal-body">
                 <form method="post" id="frmagregarregistro">
@@ -170,7 +173,7 @@
                             <label for="version">Versión:</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <input type="text" id="version" name="version" class="form-control ">
+                            <input type="text" id="version2" name="version" class="form-control ">
                         </div>
                     </div>
                     <div class="row">
@@ -215,7 +218,7 @@
                 {registro: $(this).attr('reg_id')}
         ).done(function (msg) {
             $('#carpeta').val(msg.regCar_id);
-            $('#version').val(msg.reg_version);
+            $('#version2').val(msg.reg_version);
             $('#reg_descripcion').val(msg.reg_descripcion);
             var fila = "<div class='row' id='archivoadescargar' >\n\
                                     <label style='color:black' class='col-lg-2 col-md-2 col-sm-2 col-xs-2'>\n\
@@ -249,13 +252,17 @@
         });
     });
     $('#btnguardarregistro').click(function () {
+    if($('#carpeta').val()==""){
+        alerta('rojo','Campo carpeta obligatorio');
+        return false;
+    }
         var file_data = $('#archivo').prop('files')[0];
         var form_data = new FormData();
         form_data.append('archivo', file_data);
         form_data.append('pla_id', $('#pla_id').val());
         form_data.append('regCar_id', $('#carpeta').val());
         form_data.append('reg_id', $('#reg_id').val());
-        form_data.append('reg_version', $('#version').val());
+        form_data.append('reg_version', $('#version2').val());
         form_data.append('reg_descripcion', $('#reg_descripcion').val());
         $.ajax({
             url: url + "index.php/planes/guardarregistroempleado",

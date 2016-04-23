@@ -21,46 +21,52 @@ class Planes extends My_Controller {
         try {
             $post = $this->input->post();
             $this->load->model('Registro_model');
-            $tamano = round($_FILES["archivo"]["size"] / 1024, 1) . " KB";
-            $post["reg_tamano"] = $tamano;
+
+
             $fecha = new DateTime();
             $post["reg_fechaCreacion"] = $fecha->format('Y-m-d H:i:s');
 
             //Creamos carpeta con el ID del registro
             if (isset($_FILES['archivo']['name']))
-                if (!empty($_FILES['archivo']['name']))
+                if (!empty($_FILES['archivo']['name'])) {
                     $post['reg_ruta'] = basename($_FILES['archivo']['name']);
+                    $tamano = round($_FILES["archivo"]["size"] / 1024, 1) . " KB";
+                    $post["reg_tamano"] = $tamano;
+                    $post['reg_archivo'] = basename($_FILES['archivo']['name']);
+                    $pla_id = $post['pla_id'];
+                    $targetPath = "./uploads/tareas/";
 
-            $pla_id = $post['pla_id'];
-            $targetPath = "./uploads/tareas/";
+                    //De la carpeta idRegistro, creamos carpeta con el id del empleado
+                    if (!file_exists($targetPath)) {
+                        mkdir($targetPath, 0777, true);
+                    }
+                    $targetPath = "./uploads/tareas/" . $pla_id;
+                    if (!file_exists($targetPath)) {
+                        mkdir($targetPath, 0777, true);
+                    }
 
-            //De la carpeta idRegistro, creamos carpeta con el id del empleado
-            if (!file_exists($targetPath)) {
-                mkdir($targetPath, 0777, true);
-            }
-            $targetPath = "./uploads/tareas/" . $pla_id;
-            if (!file_exists($targetPath)) {
-                mkdir($targetPath, 0777, true);
-            }
+                    $post['reg_ruta'] = $targetPath;
+                }
 
-            $post['reg_ruta'] = $targetPath;
-            $post['reg_archivo'] = basename($_FILES['archivo']['name']);
 
-            $post['userCreator'] = $this->data["usu_id"];
-            if (empty($this->input->post('reg_id')))
+
+            if (empty($this->input->post('reg_id'))) {
+                $post['userCreator'] = $this->data["usu_id"];
                 $id = $this->Registro_model->guardar_registro($post);
-            else
+            } else
                 $id = $this->Registro_model->actualizar_registro($post, $this->input->post('reg_id'));
 
-            $target_path = $targetPath . '/' . $id . '/';
-            if (!file_exists($target_path)) {
-                mkdir($target_path, 0777, true);
-            }
-            $target_path = $target_path . basename($_FILES['archivo']['name']);
-            if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
-                
-            }
-
+            if (isset($_FILES['archivo']['name']))
+                if (!empty($_FILES['archivo']['name'])) {
+                    $target_path = $targetPath . '/' . $id . '/';
+                    if (!file_exists($target_path)) {
+                        mkdir($target_path, 0777, true);
+                    }
+                    $target_path = $target_path . basename($_FILES['archivo']['name']);
+                    if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
+                        
+                    }
+                }
 
             $data = $this->Registro_model->registroxcarpeta($post['regCar_id']);
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -241,7 +247,7 @@ class Planes extends My_Controller {
 
             $this->data['plan'] = array();
             if (!empty($this->input->post('pla_id'))) {
-                
+
                 $carpetaSistma = $this->Registrocarpeta_model->detailxplan($this->input->post('pla_id'));
                 $this->data['carpetas'] = $this->Registrocarpeta_model->detailxplancarpetas($this->input->post('pla_id'));
                 $d = array();
@@ -358,9 +364,7 @@ class Planes extends My_Controller {
         try {
             $this->load->model("Registrocarpeta_model");
             $id = $this->Registrocarpeta_model->create(
-                    $this->input->post("nombrecarpeta"), 
-                    $this->input->post("descripcioncarpeta"), 
-                    $this->input->post("pla_id")
+                    $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("pla_id")
             );
             $data = $this->Registrocarpeta_model->detailxid($id);
             $this->output->set_content_type('application/json')->set_output(json_encode($data[0]));
@@ -514,20 +518,21 @@ class Planes extends My_Controller {
             
         }
     }
-    function consultaDescripcion(){
-        try{
-            if(empty($this->input->post("pla_id")))
+
+    function consultaDescripcion() {
+        try {
+            if (empty($this->input->post("pla_id")))
                 throw new Exception("No existe plan para consultar descripción");
             $this->load->model("Planes_model");
             $respuesta = $this->Planes_model->cargarDescripcion($this->input->post("pla_id"));
             $data['Json'] = $respuesta[0]->pla_descripcion;
-        }catch(exception $e){
+        } catch (exception $e) {
             $data['message'] = $e->getMessage();
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
+
     function consultaplanes() {
         try {
             $this->load->model("Planes_model");
@@ -670,19 +675,17 @@ class Planes extends My_Controller {
 
     function modificarpeta() {
         try {
-            if(empty($this->input->post('nombrecarpeta')) || empty($this->input->post('descripcioncarpeta')))
+            if (empty($this->input->post('nombrecarpeta')) || empty($this->input->post('descripcioncarpeta')))
                 throw new Exception("Debe ingresar los datos correctamente");
-                
+
             $this->load->model('Registrocarpeta_model');
             $this->Registrocarpeta_model->modificarpeta(
                     $this->input->post("nombrecarpeta"), $this->input->post("descripcioncarpeta"), $this->input->post("plaCar_id")
             );
             $respuesta = $this->Registrocarpeta_model->cargarcarpetas($this->input->post("plaCar_id"));
-            if(!empty($respuesta))
-            {
+            if (!empty($respuesta)) {
                 $data['Json'] = $respuesta[0];
-            }
-            else{
+            } else {
                 throw new Exception("No existen carpetas para cargue");
             }
         } catch (exception $e) {

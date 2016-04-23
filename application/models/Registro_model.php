@@ -73,6 +73,7 @@ class Registro_model extends CI_Model {
         try {
 //            print_r($post);
             if (!empty($post['reg_id'])) {
+                unset($post['archivo']);
                 $this->db->where("reg_id", $post['reg_id']);
                 $this->db->set('modificationUser', $this->session->userdata('usu_id'));
                 $this->db->set('reg_fechaModificacion', date("Y-m-d H:i:s"));
@@ -91,6 +92,7 @@ class Registro_model extends CI_Model {
 
     function actualizar_registro($post, $idregistro) {
         try {
+            unset($post['archivo']);
             $this->db->set('modificationUser', $this->session->userdata('usu_id'));
                 $this->db->set('reg_fechaModificacion', date("Y-m-d H:i:s"));
             $this->db->where("reg_id", $idregistro);
