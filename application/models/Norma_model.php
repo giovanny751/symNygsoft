@@ -9,6 +9,7 @@ class Norma_model extends CI_Model {
     function detail() {
         try {
             $this->db->order_by("nor_norma");
+            $this->db->where("est_id",1);
             $norma = $this->db->get("norma");
             return $norma->result();
         } catch (exception $e) {

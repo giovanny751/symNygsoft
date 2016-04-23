@@ -125,6 +125,7 @@
                 .fail(function (msg) {
                     alerta("rojo", "Error por favor comunicarse con el administrador")
                 });
+                }
     });
-    }
+    
 </script>
