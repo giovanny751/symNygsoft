@@ -459,7 +459,8 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model("Riesgoclasificacion_model");
             $this->Riesgoclasificacion_model->eliminar(
-                    $this->input->post('id')
+                    $this->input->post('id'),
+                    $this->data['usu_id']
             );
             $categoria = $this->Riesgoclasificacion_model->detailandtipo();
             $i = array();

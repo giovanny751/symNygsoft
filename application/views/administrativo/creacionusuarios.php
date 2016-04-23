@@ -60,7 +60,7 @@
                                         <select id="TipoUsuario" name="TipoUsuario" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($tipoUsuario as $tu): ?>
-                                                <option <?php echo (isset($usuario[0]->tipUsuEva_id)) ? (($usuario[0]->tipUsuEva_id == $tu->tipUsuEva_id) ? "selected" : ""):''; ?> value="<?php echo $tu->tipUsuEva_id ?>"><?php echo $tu->tipUsuEva_tipo ?></option>
+                                            <option <?php echo (isset($usuario[0]->tipUsuEva_id)) ? (($usuario[0]->tipUsuEva_id == $tu->tipUsuEva_id) ? "selected" : "") : ''; ?> value="<?php echo $tu->tipUsuEva_id ?>"><?php echo strtoupper($tu->tipUsuEva_tipo) ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div> 
@@ -87,7 +87,7 @@
                                         <select name="rol" id="rol" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($roles as $ro) { ?>
-                                                <option <?php echo (!empty($usuario[0]->rol_id) && $usuario[0]->rol_id == $ro['rol_id']) ? "selected" : ""; ?> value="<?php echo $ro['rol_id'] ?>"><?php echo $ro['rol_nombre'] ?></option>
+                                            <option <?php echo (!empty($usuario[0]->rol_id) && $usuario[0]->rol_id == $ro['rol_id']) ? "selected" : ""; ?> value="<?php echo $ro['rol_id'] ?>"><?php echo strtoupper($ro['rol_nombre']) ?></option>
                                             <?php } ?>
                                         </select>
                                     </div> 
@@ -156,7 +156,7 @@
                                         <select id="cargo" name="cargo" class="form-control obligatorio select2me">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($cargo as $c) { ?>
-                                                <option <?php echo (!empty($usuario[0]->car_id) && $usuario[0]->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                            <option <?php echo (!empty($usuario[0]->car_id) && $usuario[0]->car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>    
@@ -173,7 +173,7 @@
                                         <select id="genero" name="genero" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option> 
                                             <?php foreach ($sexo as $s) { ?>
-                                                <option <?php echo (!empty($usuario[0]->sex_id) && $usuario[0]->sex_id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                            <option <?php echo (!empty($usuario[0]->sex_id) && $usuario[0]->sex_id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo strtoupper($s->Sex_Sexo) ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>    
@@ -228,18 +228,21 @@
                     cargo: $(this).val()
                 }
         ).done(function (msg) {
-            var data = "<option value=''>::Seleccionar::</option>";
-            $('#empleado *').remove();
-            $.each(msg, function (key, val) {
-                data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre + " " + val.Emp_Apellidos + "</option>"
-            });
-            $('#empleado').append(data);
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta("rojo", msg['message'])
+            else {
+                var data = "<option value=''>::Seleccionar::</option>";
+                $('#empleado *').remove();
+                $.each(msg.Json, function (key, val) {
+                    data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase() + " " + val.Emp_Apellidos.toUpperCase() + "</option>"
+                });
+                $('#empleado').append(data);
 
 <?php if (isset($usuario[0]->emp_id)) { ?>
-                var emp_id = "<?php echo $usuario[0]->emp_id ?>";
-                $('#empleado').val(emp_id)
+                    var emp_id = "<?php echo $usuario[0]->emp_id ?>";
+                    $('#empleado').val(emp_id)
 <?php } ?>
-
+            }
         }).fail(function (msg) {
 
         })

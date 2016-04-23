@@ -22,6 +22,8 @@ class Riesgoclasificacion_model extends CI_Model {
             $this->db->select("riesgo_clasificacion.rieCla_id");
             $this->db->select("riesgo_clasificacion.rieCla_categoria");
             $this->db->select("riesgo_clasificacion_tipo.rieClaTip_tipo");
+            $this->db->where("riesgo_clasificacion.est_id",1);
+            $this->db->where("riesgo_clasificacion_tipo.est_id",1);
             $this->db->join("riesgo_clasificacion_tipo", "riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id", "LEFT");
             $datos = $this->db->get("riesgo_clasificacion");
 //            echo $this->db->last_query();die;
@@ -97,7 +99,8 @@ class Riesgoclasificacion_model extends CI_Model {
     function eliminar($id) {
         try {
             $this->db->where("rieClaTip_id", $id);
-            $this->db->delete("riesgo_clasificacion_tipo");
+            $this->db->set("est_id",3);
+            $this->db->update("riesgo_clasificacion_tipo");
         } catch (exception $e) {
             
         }
@@ -106,7 +109,8 @@ class Riesgoclasificacion_model extends CI_Model {
     function eliminarCategoria($rieCat_id) {
         try {
             $this->db->where("rieCla_id", $rieCat_id);
-            $this->db->delete("riesgo_clasificacion");
+            $this->db->set("est_id",3);
+            $this->db->update("riesgo_clasificacion");
 //            echo $this->db->last_query();die;
         } catch (exception $e) {
             
