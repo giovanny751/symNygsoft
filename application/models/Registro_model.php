@@ -97,6 +97,7 @@ class Registro_model extends CI_Model {
                 $this->db->set('reg_fechaModificacion', date("Y-m-d H:i:s"));
             $this->db->where("reg_id", $idregistro);
             $this->db->update("registro", $post);
+            echo $this->db->last_query();
             return $idregistro;
         } catch (exception $e) {
             

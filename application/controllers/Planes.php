@@ -20,6 +20,7 @@ class Planes extends My_Controller {
     function guardarregistroempleado() {
         try {
             $post = $this->input->post();
+            print_y($post);
             $this->load->model('Registro_model');
 
 

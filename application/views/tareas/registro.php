@@ -163,7 +163,7 @@
                             <label for="idactividad">Carpeta:</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <select id="carpeta" name="carpeta" class="form-control carpeta">
+                            <select id="carpeta" name="carpeta" class="form-control carpeta carpeta2">
                                 <option value="">::Seleccionar::</option>
                             </select>
                         </div>
@@ -232,9 +232,20 @@
 
 
             //            alert(msg.tar_id);
+            var id="";
+            var opc=0;
+            $('#pla_id').val(msg.pla_id)
+            if(msg.tar_id){
+                id=msg.tar_id;
+                opc=1;
+            }else{
+                id=msg.pla_id;
+                opc=2;
+            }
+            var carpeta=msg.regCar_id;
             $.post(
-                    url + "index.php/tareas/busqueda_carpeta",
-                    {tar_id: msg.tar_id}
+                    url + "index.php/Tareas/busqueda_carpeta",
+                    {tar_id:id , opc:opc }
             ).done(function (msg) {
                 $('.carpeta *').remove();
                 var option = "<option value=''>::Seleccionar::</option>";
@@ -242,6 +253,7 @@
                     option += "<option value='" + val.regCar_id + "'>" + val.regCar_nombre + "</option>";
                 });
                 $('.carpeta').append(option);
+                $('.carpeta2').val(carpeta);
             }).fail(function (msg) {
 
             });
@@ -260,7 +272,7 @@
         var form_data = new FormData();
         form_data.append('archivo', file_data);
         form_data.append('pla_id', $('#pla_id').val());
-        form_data.append('regCar_id', $('#carpeta').val());
+        form_data.append('regCar_id', $('.carpeta2').val());
         form_data.append('reg_id', $('#reg_id').val());
         form_data.append('reg_version', $('#version2').val());
         form_data.append('reg_descripcion', $('#reg_descripcion').val());
@@ -275,7 +287,7 @@
             success: function (result) {
                 $('#consultar').trigger('click')
                 //                $('#datatable_ajax tbody').append(filas);
-                $('#carpeta').val('');
+                $('.carpeta2').val('');
                 $('#version').val('');
                 $('#reg_descripcion').val('');
                 $('#archivo').val('');

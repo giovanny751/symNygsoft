@@ -699,7 +699,7 @@ class Tareas extends My_Controller {
     function busqueda_carpeta() {
         try {
             $this->load->model('Registrocarpeta_model');
-            $this->data['carpetas'] = $this->Registrocarpeta_model->allfolders2($this->input->post('tar_id'));
+            $this->data['carpetas'] = $this->Registrocarpeta_model->allfolders2($this->input->post('tar_id'),$this->input->post('opc'));
             $this->output->set_content_type('application/json')->set_output(json_encode($this->data['carpetas']));
         } catch (exception $e) {
             
