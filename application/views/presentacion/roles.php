@@ -240,7 +240,7 @@
                 url + 'index.php/presentacion/eliminarrol', {id: $(this).attr('rol')})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
-                        alerta("amarillo", msg['message'])
+                        alerta(msg.color, msg['message'])
                     else {
                         posicion.parents('tr').remove();
                         alerta("verde", "Eliminado con exito");

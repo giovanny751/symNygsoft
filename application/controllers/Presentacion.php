@@ -338,6 +338,7 @@ class Presentacion extends My_Controller {
             }
         } catch (exception $e) {
             $data["message"] = $e->getMessage();
+            $data['color'] = "amarillo";
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
