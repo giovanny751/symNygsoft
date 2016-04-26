@@ -103,7 +103,7 @@
                                         <th style='width:15%'>Indicador</th>\n\
                                         <th style='width:8%'>Dimensión</th>\n\
                                         <th style='width:8%'>Dimensión 2</th>\n\
-                                        <th style='width:15%'>Que miede</th>\n\
+                                        <th style='width:15%'>Que mide</th>\n\
                                         <th style='width:6%'>Frecuencia</th>\n\
                                         <th style='width:4%'>Valor Mínimo</th>\n\
                                         <th style='width:4%'>Valor Máximo</th>\n\
