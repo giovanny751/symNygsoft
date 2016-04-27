@@ -1251,12 +1251,13 @@ class Administrativo extends My_Controller {
         try {
             $this->data['title'] = "Empresa";
             $this->data['subtitle'] = "Datos";
-            $this->load->model(array("Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
+            $this->load->model(array("Inicio_model","Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
             $this->data['mensaje'] = "";
             if ($this->session->guardadoexito == "guardado con exito") {
                 $this->data['mensaje'] = "guardado con exito";
                 $this->session->guardadoexito = "xyz";
             }
+            $this->data['politicaGeneral'] = $this->Inicio_model->consultaPoliticaGeneral();
             $this->data['ciudad'] = $this->Ingreso_model->ciudades();
             $this->data['sector'] = $this->Ingreso_model->sectorEconomico();
             $this->data['tamano'] = $this->Tamano_empresa_model->detail();
@@ -2035,6 +2036,23 @@ class Administrativo extends My_Controller {
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
+    function guardarPoliticaEmpresarial(){
+        try{
+            if(empty($this->input->post("politica")))
+                throw new Exception("No existe política a guardar");
+            
+            $this->load->model(array("Inicio_model"));
+            $this->Inicio_model->guardarPoliticaEmpresa($this->input->post("politica"));
+            $data['message'] = "Guardado con exito";
+            $data['color'] =  "verde";
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+            $data['color'] = "rojo"; 
+        }finally{
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }

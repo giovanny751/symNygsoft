@@ -26,6 +26,30 @@ class Informes extends My_Controller {
         $this->data['tipo'] = $this->Tipo_model->avanceciclophva();
         $this->layout->view("informes/informephva",$this->data);
     }
+    
+    function informeHorasExtras(){
+        $this->load->model("Empleado_model");
+        $this->data['empleado'] = $this->Empleado_model->detail();
+//        echo "<pre>";
+//        var_dump($this->data['empleado']);die;
+        $this->layout->view("informes/informeHorasExtras",$this->data);
+    }
+    
+    function consultaInformeHorasExtras(){
+        try{
+        $this->load->model('Informes_model');
+        $respuesta = $this->Informes_model->horasExtras($this->input->post('empleado'),$this->input->post('fechaDesde'),$this->input->post('fechaHasta'));
+        if(!empty($respuesta)){
+            $data['Json'] = $respuesta;
+        }else{
+            throw new Exception("No existen horas extras");
+        }
+        }catch(Exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
 }
 

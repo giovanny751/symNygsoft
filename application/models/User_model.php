@@ -96,9 +96,8 @@ class User_model extends CI_Model {
                 $this->db->where('tipUsuEva_id', $tipoUsuario);
 
             $this->db->select("user.*");
-            $this->db->select("ingreso.ing_fechaIngreso");
+            $this->db->select("(select max(ing_fechaIngreso) from ingreso where ingreso.usu_id = user.usu_id) as ing_fechaIngreso",false,false);
             $this->db->where("user.est_id != ", 3);
-            $this->db->join("ingreso", "ingreso.usu_id = user.usu_id and ingreso.ing_fechaIngreso = (select max(ing_fechaIngreso) from ingreso )", "LEFT");
             $user = $this->db->get('user');
             return $user->result();
         } catch (exception $e) {

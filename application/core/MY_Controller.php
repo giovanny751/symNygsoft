@@ -27,6 +27,7 @@ class MY_Controller extends CI_Controller {
         $this->data["usu_id"] = $this->session->userdata('usu_id');
         validate_login($this->data['user']['usu_id']);
         $this->verificacion();
+                
     }
 
     function verificacion() {

@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="<?php echo base_url('dist/css/font-awesome.min.css'); ?>" />
+<script type="text/javascript" src="<?php echo base_url('dist/js/summernote.js?v=' . date("d-h")); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('dist/js/script_summernote.js?v=' . date("d-h")); ?>"></script>
+<link href="<?php echo base_url('dist/css/summernote.css?v=' . date("d-h")); ?>" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -115,7 +121,7 @@
                                                             $selected = ($informacion[0]->secEco_id == $s->secEco_id) ? "selected" : "";
                                                             ?>
                                                             <option  value="<?php echo $s->secEco_id ?>" <?php echo $selected ?>><?php echo $s->secEco_tipo ?></option>
-<?php endforeach; ?>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -141,7 +147,7 @@
                                                             $selected = ($informacion[0]->actEco_id == $ae->actEco_id) ? "selected" : "";
                                                             ?>
                                                             <option value="<?php echo $ae->actEco_id ?>" <?php echo $selected ?> ><?php echo $ae->actEco_Detalle ?></option>
-<?php } ?>
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -251,7 +257,12 @@
                             </form>
                         </div>
                         <div id="tab2" class="tab-pane">
-                            
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success" id="guardarPolitica">Guardar</button>
+                            </div>
+                            <div class="col-md-12">
+                                <textarea class="textareasumer" name="politica" id="politica"><?php echo (!empty($politicaGeneral[0]->ini_politicaEmpresarial))?$politicaGeneral[0]->ini_politicaEmpresarial:""; ?></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -266,6 +277,21 @@
     </div>
 
     <script>
+        
+        $('#guardarPolitica').click(function(){
+            
+            politica = $('#politica').code();
+            $.post("<?php echo base_url("index.php/administrativo/guardarPoliticaEmpresarial") ?>", {politica: politica})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta(msg.color, msg['message'])
+                    else {
+                        alerta('verde', 'la politica fue guardada con Exito');
+                    }
+                }).fail(function (msg) {
+            alerta('rojo', 'Error al Guardar');
+        })
+        });
 
         $('.dirigir').click(function () {
 
