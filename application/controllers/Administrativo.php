@@ -1954,7 +1954,9 @@ class Administrativo extends My_Controller {
                 "emp_id_responsable" => $this->input->post("responsable"),
                 "cap_fechaCapacitacion" => $this->input->post("fechaCapacitacion"),
                 "cap_observacion" => $this->input->post("observacion"),
-                "cap_nombreCapacitacion" => $this->input->post("nombre")
+                "cap_nombreCapacitacion" => $this->input->post("nombre"),
+                "creatorUser" => $this->data['usu_id'],
+                "creatorDate" => date("Y-m-d H:i:s")
             );
             $id = $this->Capacitaciones_model->guardarCapacitacion($responsable);
             $guardarEmpleados = array();
