@@ -142,6 +142,23 @@
 
                                 <br>
                             </div>
+                            <div class="col-md-3">
+                                <label for="tipInv_id">
+                                                  Tipo Dotación          </label>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo lista("tipInv_id", "tipInv_id", "form-control obligatorio", "tipo_inventario_estado", "tipInv_id", "tipInv_nombre", (isset($datos[0]->tipInv_id) ? $datos[0]->tipInv_id : '' ), array("est_id" => "1"), /* readOnly? */ false); ?>
+
+                                <br>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="tipInv_id">
+                                                            </label>
+                            </div>
+                            <div class="col-md-3">
+
+                                <br>
+                            </div>
 
                             <div class="col-md-3">
                                 <label for="inv_imagen">

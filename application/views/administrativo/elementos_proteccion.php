@@ -48,7 +48,8 @@
                                 <label>ELEMENTO DE PROTECCIÓN</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control obligatorio" name="elementop[]" id="elementop">
+                                <?php echo lista("elementop[]", "elementop", "form-control obligatorio", "inventario", "inv_id", "inv_nombre", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                <!--<input type="text" class="form-control obligatorio" name="elementop[]" id="elementop">-->
                             </div>
                             <div class="col-md-3">
                                 <label>UNDS</label>
@@ -56,6 +57,8 @@
                             <div class="col-md-3">
                                 <input type="text" class="form-control obligatorio number" name="unidades[]" id="unidades">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>TALLA</label>
                             </div>
@@ -68,6 +71,8 @@
                             <div class="col-md-3">
                                 <input type="text" class="form-control fecha obligatorio" name="fecha_entrega[]" id="fecha_entrega">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>INDICACIÓN DE USO</label>
                             </div>
@@ -80,6 +85,8 @@
                             <div class="col-md-3">
                                 <input type="text" class="form-control" name="indicacion_alm[]" id="indicacion_alm">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label>VIDA UTIL/FECHA CADUCIDAD</label>
                             </div>
@@ -123,17 +130,17 @@
         }
 
 
-        $.post(url+'index.php/Administrativo/consultar_empreado', {empleado: empleado})
+        $.post(url + 'index.php/Administrativo/consultar_empreado', {empleado: empleado})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message'])
                     else {
-                        
-                        $.each(msg['Json'],function(key,val){
-                            if(val.doc_fecha_entrega!=null)
-                            alerta('azul','Ultima fecha de entrega: '+val.doc_fecha_entrega)
+
+                        $.each(msg['Json'], function (key, val) {
+                            if (val.doc_fecha_entrega != null)
+                                alerta('azul', 'Ultima fecha de entrega: ' + val.doc_fecha_entrega)
                         })
-                        
+
                         var empleado_text = $('#empleado option:selected').text();
                         var html = '<tr>';
                         html += '<td><input type="hidden" name="empleados[]" class="selec_emple" value="' + empleado + '">' + empleado_text + '</td>';
@@ -152,13 +159,13 @@
     });
 
     $('body').delegate('.agregar_formulario', 'click', function () {
-        var html = '<div><div class=""><button class="agregar_formulario btn btn-success" type="button" tipo="1">+</button><button class="eliminar_formulario btn btn-danger" type="button" tipo="1">-</button></div><div class="row"><div class="col-md-3"><label>ELEMENTO DE PROTECCIÓN</label></div><div class="col-md-3"><input type="text" class="form-control obligatorio" name="elementop[]" id="elementop"></div>'
+        var html = '<div><div class=""><button class="agregar_formulario btn btn-success" type="button" tipo="1">+</button><button class="eliminar_formulario btn btn-danger" type="button" tipo="1">-</button></div><div class="row"><div class="col-md-3"><label>ELEMENTO DE PROTECCIÓN</label></div><div class="col-md-3">'+$('#elementop').parent().html()+'</div>'
                 + '<div class="col-md-3"><label>UNDS</label></div><div class="col-md-3"><input type="text" class="form-control obligatorio number" name="unidades[]" id="unidades">'
-                + '</div><div class="col-md-3"><label>TALLA</label></div><div class="col-md-3"><input type="text" class="form-control" name="talla[]" id="talla">'
+                + '</div></div><div class="row"><div class="col-md-3"><label>TALLA</label></div><div class="col-md-3"><input type="text" class="form-control" name="talla[]" id="talla">'
                 + '</div><div class="col-md-3"><label>FECHA DE ENTREGA</label></div><div class="col-md-3"><input type="text" class="form-control fecha obligatorio" name="fecha_entrega[]" id="fecha_entrega">'
-                + '</div><div class="col-md-3"><label>INDICACIÓN DE USO</label></div><div class="col-md-3"><input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">'
+                + '</div></div><div class="row"><div class="col-md-3"><label>INDICACIÓN DE USO</label></div><div class="col-md-3"><input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">'
                 + '</div><div class="col-md-3"><label>INDICACIÓN DE ALMACENAMIENTO</label></div><div class="col-md-3"><input type="text" class="form-control" name="indicacion_alm[]" id="indicacion_alm">'
-                + '</div><div class="col-md-3"><label>VIDA UTIL/FECHA CADUCIDAD</label></div><div class="col-md-3"><input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>'
+                + '</div></div><div class="row"><div class="col-md-3"><label>VIDA UTIL/FECHA CADUCIDAD</label></div><div class="col-md-3"><input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>'
                 + '</div></div><div class="row"><br><hr><br></div></div>'
         $('#resultado').append(html);
     });
