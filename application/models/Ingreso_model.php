@@ -438,6 +438,7 @@ class Ingreso_model extends CI_Model {
         $this->db->join("roles", "roles.rol_id = permisos_rol.rol_id", "left");
         $this->db->join("permisos", "permisos.rol_id = roles.rol_id and usu_id = $usu_id");
         $this->db->join("permisos_metodo", "permisos_metodo.mod_id = modulo.menu_id", "LEFT");
+        $this->db->join("user", "permisos.usu_id = user.usu_id and user.rol_id = permisos_rol.rol_id");
         $query = $this->db->get("modulo");
 //        echo $this->db->last_query();die;
         return $query->result_array();
