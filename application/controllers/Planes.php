@@ -490,9 +490,11 @@ class Planes extends My_Controller {
                         $data = array();
                         $i = 0;
                         foreach ($norma as $value) {
-                            $data[$i] = array(
+                            $data[] = array(
                                 'nor_id' => $value,
-                                'pla_id' => $id_plna
+                                'pla_id' => $id_plna,
+                                'creatorUser' => $this->data["usu_id"],
+                                'creatorDate' => date('Y-m-d H:i:s')
                             );
                             $i++;
                         }

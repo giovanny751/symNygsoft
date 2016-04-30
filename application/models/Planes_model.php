@@ -34,8 +34,10 @@ class Planes_model extends CI_Model {
                 $this->db->where('pla_id', $id);
                 $this->db->delete('planes_normas');
             }
-            $this->db->set('creatorUser', $this->session->userdata('usu_id'));
-            $this->db->set('creatorDate', date("Y-m-d H:i:s"));
+            
+//            echo "<pre>";
+//            var_dump($data);die;
+            
             $this->db->insert_batch("planes_normas", $data);
         } catch (exception $e) {
             
