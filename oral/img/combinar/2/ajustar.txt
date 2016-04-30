@@ -1,0 +1,5 @@
+la imagen tiene que quedar con las especificaciones que esta en la imagen formato.
+
+combinar las dos imagenes el doctor a la derecha y el producto a la izquierda y remover el fondo del doctor, la lectura del producto centrado entre el doctor y el producto.
+
+agregar un fondo a la imagen opaco como las otras imagenes de las carpetas
