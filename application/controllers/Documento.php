@@ -73,11 +73,12 @@ class Documento extends My_Controller {
             $inspeccion = array(
                 "ins_fecha" => $this->input->post("fecha"),
                 "emp_id" => $this->input->post("empleado"),
-                "ins_observacion" => $this->input->post("observacionGeneral")
+                "ins_observacion" => $this->input->post("observacionGeneral"),
+                "creatorDate" => date("Y-m-d H:i:s"),
+                "creatorUser" => $this->data["usu_id"]
             );
             $id = $this->Inspeccion_model->save($inspeccion);
-
-            $this->load->model("Inspeccionopcion_model");
+            
             $post = $this->input->post();
             $inspeccion = array();
 
@@ -90,9 +91,9 @@ class Documento extends My_Controller {
                     );
                 }
             }
-            $batchInscripcion = $this->Inspeccionopcion_model->save($inspeccion);
-            if ($batchInscripcion == false)
-                throw new Exception("Error al insertar datos");
+            if(!empty($inspeccion))
+                $batchInscripcion = $this->Inspeccionopcion_model->save($inspeccion);
+            
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {

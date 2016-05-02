@@ -178,7 +178,7 @@
                                                             <select name="dimUno" id="dimUno" class="form-control dimencion_uno_se obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($dimension as $d1) { ?>
-                                                                    <option <?php echo (!empty($Prevencion->dimUno_id == $d1->dim_id ))?"selected":"";?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
+                                                                    <option <?php echo (!empty($Prevencion->dimUno_id) && $Prevencion->dimUno_id == $d1->dim_id )?"selected":"";?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -211,7 +211,7 @@
                                                             <select name="cargo" id="cargo" class="form-control obligatorio">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php foreach ($cargo as $c): ?> 
-                                                                <option <?php echo (!empty($Prevencion->car_id == $c->car_id ))?"selected":"";?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
+                                                                <option <?php echo (!empty($Prevencion->car_id) && $Prevencion->car_id == $c->car_id )?"selected":"";?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -431,7 +431,7 @@
             ).done(function (msg) {
                 var data = "<option value=''>::Seleccionar::</option>";
                 $('#empleado *').remove();
-                $.each(msg, function (key, val) {
+                $.each(msg.Json, function (key, val) {
                     data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre + " " + val.Emp_Apellidos + "</option>"
                 });
                 $('#empleado').append(data);

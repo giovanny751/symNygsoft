@@ -576,6 +576,10 @@ class Riesgo extends My_Controller {
         $this->data['dimension2'] = $this->Dimension2_model->detail();
         $this->data['clasificacion'] = $this->Riesgoclasificacion_model->detail();
         $this->data['cargo'] = $this->Cargo_model->detail();
+        
+//        echo "<pre>";
+//        var_dump($this->data['cargo']);die;
+        
         $this->layout->view("riesgo/prevencionRiesgo", $this->data);
     }
 

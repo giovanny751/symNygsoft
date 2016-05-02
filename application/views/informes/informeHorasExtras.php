@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Empleado</label>
                                     <div class="col-md-2">
-                                        <select name="empleado" class="form-control fecha" id="empleado">
+                                        <select name="empleado" class="form-control" id="empleado">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
                                                 <option value="<?php echo $emp->Emp_id ?>"><?php echo $emp->Emp_Nombre . " " . $emp->Emp_Apellidos ?></option>
