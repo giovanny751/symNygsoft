@@ -72,13 +72,26 @@
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div id="tab1" class="tab-pane active">
-                                    <form method="post" id="f1" class="form-horizontal">
+                                <form method="post" id="f1" class="form-horizontal">
+                                    <div id="tab1" class="tab-pane active">
                                         <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="cedula" class="control-label col-md-3"><span class="campoobligatorio">*</span>Cédula</label>
+                                                    <label for="tipoDocumento" class="col-md-3"><span class="campoobligatorio">*</span>Tipo documento</label>
+                                                    <div class="col-md-9">
+                                                        <select name="tipoDocumento" id="tipoDocumento" class="form-control">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($tipoIdentificacion as $ti): ?>
+                                                                <option value="<?php echo $ti->tipIde_id ?>"><?php echo $ti->tipIde_tipo ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>    
+                                                </div>    
+                                            </div>    
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="cedula" class="col-md-3"><span class="campoobligatorio">*</span>N° Documento</label>
                                                     <div class="col-md-9">
                                                         <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
                                                     </div>    
@@ -86,7 +99,7 @@
                                             </div>    
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="nombre" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombres</label> 
                                                     <div class="col-md-9">
@@ -94,7 +107,78 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="apellidos" class="control-label col-md-3"><span class="campoobligatorio">*</span>Apellidos</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sexo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Género</label>
+                                                    <div class="col-md-9">
+                                                        <select name="sexo" id="sexo" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($sexo as $s): ?>
+                                                                <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="fechadenacimiento" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
+                                                    </div>    
+                                                </div>    
+                                            </div> 
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="peso" class="control-label col-md-3">Peso</label>  
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
+                                                    </div> 
+                                                </div> 
+                                            </div> 
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="estatura" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estatura</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="estadocivil" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estado Civil</label>
+                                                    <div class="col-md-9">
+                                                        <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($estadocivil as $ec) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="salario" class="control-label col-md-3">* Salario</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3" for="horario">Jornada</label>
                                                     <div class="col-md-9">
@@ -109,40 +193,65 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos" class="control-label col-md-3"><span class="campoobligatorio">*</span>Apellidos</label>
+                                                    <label for="telefono" class="control-label col-md-3">Teléfono</label>   
                                                     <div class="col-md-9">
-                                                        <input type="text" id="apellidos" name="apellidos" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Apellidos)) ? $empleado[0]->Emp_Apellidos : ""; ?>"/>
-                                                    </div>
-                                                </div>
+                                                        <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
+                                                    </div>     
+                                                </div>     
+                                            </div>  
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="telefono" class="control-label col-md-3">Celular</label>   
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="celular" name="celular" class="form-control number "  value="<?php echo (!empty($empleado[0]->emp_celular)) ? $empleado[0]->emp_celular : ""; ?>" />
+                                                    </div>     
+                                                </div>     
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="direcion" class="control-label col-md-3"><span class="campoobligatorio">*</span>Dirección</label>   
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
+                                                    </div>  
+                                                </div>  
+                                            </div> 
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="salario" class="control-label col-md-3">* Salario</label>
+                                                    <label for="email" class="control-label col-md-3"><span class="campoobligatorio">*</span>Correo</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
-                                                    </div>
-                                                </div>
+                                                        <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
+                                                    </div>    
+                                                </div>    
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="sexo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Género</label>
+                                                    <label for="cargo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Cargo</label>
                                                     <div class="col-md-9">
-                                                        <select name="sexo" id="sexo" class="form-control obligatorio">
+                                                        <select id="cargo" name="cargo" class="form-control obligatorio">
                                                             <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($sexo as $s): ?>
-                                                                <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                                            <?php endforeach; ?>
+                                                            <?php foreach ($cargo as $c) { ?>
+                                                                <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
+                                                            <?php } ?>
                                                         </select>
+                                                    </div>    
+                                                </div>    
+                                            </div> 
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="fondo" class="control-label col-md-3">Fondo de Pensiones</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3" for="planobligatoriodesalud"><span class="campoobligatorio">*</span>Plan Obligatorio de Salud</label>
                                                     <div class="col-md-9">
@@ -150,17 +259,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="fechadenacimiento" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Nacimiento</label> 
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="fechadenacimiento" name="fechadenacimiento" class="form-control fecha obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_FechaNacimiento)) ? $empleado[0]->Emp_FechaNacimiento : ""; ?>"/>
-                                                    </div>    
-                                                </div>    
-                                            </div>  
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="fechaafiliacionarl" class="control-label col-md-3"><span class="campoobligatorio">*</span>Fecha Afiliacion ARL</label> 
                                                     <div class="col-md-9">
@@ -170,76 +269,8 @@
                                             </div>    
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="estatura" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estatura</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="estatura" name="estatura" class="form-control obligatorio float"  value="<?php echo (!empty($empleado[0]->Emp_Estatura)) ? $empleado[0]->Emp_Estatura : ""; ?>"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="fondo" class="control-label col-md-3">Fondo de Pensiones</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="fondo" name="fondo" class="form-control"  value="<?php echo (!empty($empleado[0]->emp_fondo)) ? $empleado[0]->emp_fondo : ""; ?>"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="peso" class="control-label col-md-3">Peso</label>  
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="peso" name="peso" class="form-control float"  value="<?php echo (!empty($empleado[0]->Emp_Peso)) ? $empleado[0]->Emp_Peso : ""; ?>" />
-                                                    </div> 
-                                                </div> 
-                                            </div> 
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
-                                            </div>  
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="telefono" class="control-label col-md-3">Teléfono</label>   
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="telefono" name="telefono" class="form-control number "  value="<?php echo (!empty($empleado[0]->Emp_Telefono)) ? $empleado[0]->Emp_Telefono : ""; ?>" />
-                                                    </div>     
-                                                </div>     
-                                            </div>     
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="direcion" class="control-label col-md-3"><span class="campoobligatorio">*</span>Dirección</label>   
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="direcion" name="direccion" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Direccion)) ? $empleado[0]->Emp_Direccion : ""; ?>" />
-                                                    </div>  
-                                                </div>  
-                                            </div>  
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="contacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Contacto</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
-                                                    </div>  
-                                                </div>  
-                                            </div>  
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="telefonocontacto" class="control-label col-md-3">Teléfono Contacto</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
-                                                    </div>    
-                                                </div>    
-                                            </div>
-                                            <div class="col-md-6">
+
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="dimension1" class="control-label col-md-3"><?php echo $empresa[0]->Dim_id ?></label>
                                                     <div class="col-md-9">
@@ -252,17 +283,7 @@
                                                     </div>    
                                                 </div>    
                                             </div>    
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="email" class="control-label col-md-3"><span class="campoobligatorio">*</span>Email</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" id="email" name="email" class="form-control obligatorio email"  value="<?php echo (!empty($empleado[0]->Emp_Email)) ? $empleado[0]->Emp_Email : ""; ?>" />
-                                                    </div>    
-                                                </div>    
-                                            </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="dimension2" class="control-label col-md-3"><?php echo $empresa[0]->Dimdos_id ?></label>  
                                                     <div class="col-md-9">
@@ -275,37 +296,248 @@
                                                     </div>    
                                                 </div>    
                                             </div>    
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="estadocivil" class="control-label col-md-3"><span class="campoobligatorio">*</span>Estado Civil</label>
+                                                    <label for="tieneHijos" class="control-label col-md-3"><span class="campoobligatorio">*</span>Tiene Hijos</label>
                                                     <div class="col-md-9">
-                                                        <select id="estadocivil" name="estadocivil" class="form-control obligatorio">
+                                                        <select id="tieneHijos" name="emp_tieneHijos" class="form-control obligatorio">
                                                             <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($estadocivil as $ec) { ?>
-                                                                <option  <?php echo (!empty($empleado[0]->EstCiv_id) && $empleado[0]->EstCiv_id == $ec->EstCiv_id) ? "selected" : ""; ?> value="<?php echo $ec->EstCiv_id ?>"><?php echo $ec->EstCiv_Estado ?></option>
-                                                            <?php } ?>
+                                                            <option value="1">Si</option>
+                                                            <option value="2">No</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="cargo" class="control-label col-md-3"><span class="campoobligatorio">*</span>Cargo</label>
-                                                    <div class="col-md-9">
-                                                        <select id="cargo" name="cargo" class="form-control obligatorio">
-                                                            <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($cargo as $c) { ?>
-                                                                <option  <?php echo (!empty($empleado[0]->Car_id) && $empleado[0]->Car_id == $c->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo $c->car_nombre ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>    
-                                                </div>    
                                             </div>    
                                         </div>
-                                    </form>
-                                </div>
+                                        <fieldset class="contacto">
+                                            <legend>Información contacto</legend>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="contacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombre Contacto</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
+                                                        </div>  
+                                                    </div>  
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="telefonocontacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Teléfono Contacto</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control number obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_TelefonoContacto)) ? $empleado[0]->Emp_TelefonoContacto : ""; ?>" />
+                                                        </div>    
+                                                    </div>    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="telefonocontacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Correo Contacto</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_correoContacto)) ? $empleado[0]->Emp_correoContacto : ""; ?>" />
+                                                        </div>    
+                                                    </div>    
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
+                                                </div>  
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <fieldset class="conyuge">
+                                        <legend>Información cónyuge</legend>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="tipoIdentificacionConyuge">Tipo de documento</label>
+                                                        <div class="col-md-8">
+                                                            <select name="tipoIdentificacionConyuge" id="tipoIdentificacionConyuge" class="form-control">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($tipoIdentificacion as $ti): ?>
+                                                                    <option value="<?php echo $ti->tipIde_id ?>"><?php echo $ti->tipIde_tipo ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="cedulaConyuge">N° Documento</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="cedulaConyuge" id="cedulaConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="fechaNacimientoConyuge">Fecha nacimiento</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="fechaNacimientoConyuge" id="fechaNacimientoConyuge" class="form-control fecha">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="nombreConyuge">Nombres</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="nombreConyuge" id="nombreConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="apellidoConyuge">Apellidos</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="apellidoConyuge" id="apellidoConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="generoConyuge">Género</label>
+                                                        <div class="col-md-8">
+                                                            <select name="generoConyuge" id="generoConyuge" class="form-control">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($sexo as $s): ?>
+                                                                    <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="telefonoConyuge">Telefono</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="celularConyuge">Celular</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="direccionConyuge">Dirección</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="correoConyuge" class="col-md-4">Correo</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" id="correoConyuge" name="correoConyuge" class="form-control  email"  value="" />
+                                                        </div>    
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                    <fieldset class="hijos">
+                                        <legend>Hijo(s)</legend>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="tipoDocumentoHijo">Tipo de documento</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="tipoDocumentoHijo" id="tipoDocumentoHijo" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="documentoHijo">Documento</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="documentoHijo" id="documentoHijo" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="fechaNacimientoHijo">Fecha nacimiento</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="fechaNacimientoHijo" id="fechaNacimientoHijo" class="form-control fecha">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="nombreHijo">Nombres</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="nombreHijo" id="nombreHijo" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="apellidoHijo">Apellidos</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="apellidoHijo" id="apellidoHijo" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="generoHijo">Género</label>
+                                                        <div class="col-md-8">
+                                                            <select name="generoHijo" id="generoHijo" class="form-control">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($sexo as $s): ?>
+                                                                    <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="telefonoConyuge">Telefono</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="celularConyuge">Celular</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4" for="direccionConyuge">Dirección</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
                                 <div id="tab2" class="tab-pane">
                                     <form id="frmContrato" class="form-horizontal">
                                         <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
@@ -467,7 +699,6 @@
                                     </div>
                                 </div>
                                 <div id="tab9" class="tab-pane">
-
                                     <p></p>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -971,6 +1202,24 @@ foreach ($tipoaseguradora as $ta):
 endforeach;
 ?>
 <script>
+    $('.conyuge').hide();
+    $('.hijos').hide();
+
+    $('#estadocivil').change(function () {
+        if ($(this).val() == 2 || $(this).val() == 3) {
+            $('.conyuge').show('slow');
+        } else {
+            $('.conyuge').hide('slow');
+        }
+    });
+    $('#tieneHijos').change(function () {
+        if ($(this).val() == 1) {
+            $('.hijos').show('slow');
+        } else {
+            $('.hijos').hide('slow');
+        }
+    });
+
     $("body").delegate("#guardarInc", "click", function () {
         if (obligatorio('obligatorioInc') == true && difFechaIncapacidad("#fechaInicioInc", "#fechaFinalInc") > 0) {
             $.post(url + "index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())

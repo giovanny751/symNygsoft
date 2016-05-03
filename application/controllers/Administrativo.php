@@ -28,6 +28,7 @@ class Administrativo extends My_Controller {
                 'Dimension_model',
                 'Cargo_model',
                 'Tipo_aseguradora__model',
+                "Tipoidentificacion_model",
                 'Empleadotipoaseguradora_model',
                 'Empresa_model',
                 'Empleadoregistro_model',
@@ -44,6 +45,7 @@ class Administrativo extends My_Controller {
                 'Capacitaciones_model',
                 'Dotacion_model'
             ));
+            $this->data['tipoIdentificacion'] = $this->Tipoidentificacion_model->detail();
             $this->data['tipoHora'] = $this->Horaextratipo_model->tipos();
             $empleadoId = (!empty($this->input->post('emp_id'))) ? $this->input->post('emp_id') : "";
             if (isset($empleadoId)) {
@@ -522,7 +524,7 @@ class Administrativo extends My_Controller {
             $data = array(
                 'Emp_codigo' => $this->input->post('codigo'),
                 'Emp_Cedula' => $this->input->post('cedula'),
-                'TipDoc_id' => $this->input->post('tipodocumento'),
+                'tipIde_id' => $this->input->post('tipoDocumento'),
                 'Emp_Nombre' => $this->input->post('nombre'),
                 'Emp_Apellidos' => $this->input->post('apellidos'),
                 'sex_Id' => $this->input->post('sexo'),
@@ -530,6 +532,8 @@ class Administrativo extends My_Controller {
                 'Emp_Estatura' => $this->input->post('estatura'),
                 'Emp_Peso' => $this->input->post('peso'),
                 'Emp_Telefono' => $this->input->post('telefono'),
+                'emp_celular' => $this->input->post('celular'),
+                'emp_tieneHijos' => $this->input->post('emp_tieneHijos'),
                 'Emp_Direccion' => $this->input->post('direccion'),
                 'Emp_Contacto' => $this->input->post('contacto'),
                 'Emp_TelefonoContacto' => $this->input->post('telefonocontacto'),
