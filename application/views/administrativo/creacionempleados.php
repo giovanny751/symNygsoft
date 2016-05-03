@@ -72,8 +72,8 @@
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <form method="post" id="f1" class="form-horizontal">
-                                    <div id="tab1" class="tab-pane active">
+                                <div id="tab1" class="tab-pane active">
+                                    <form method="post" id="f1" class="form-horizontal">
                                         <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="row">
                                             <div class="col-md-4">
@@ -309,6 +309,11 @@
                                                 </div>
                                             </div>    
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
+                                            </div>  
+                                        </div>
                                         <fieldset class="contacto">
                                             <legend>Información contacto</legend>
                                             <div class="row">
@@ -337,207 +342,203 @@
                                                     </div>    
                                                 </div>
                                             </div>
+                                        </fieldset>
 
+                                        <fieldset class="conyuge">
+                                            <legend>Información cónyuge</legend>
                                             <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                    <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
-                                                </div>  
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="tipoIdentificacionConyuge">Tipo de documento</label>
+                                                            <div class="col-md-8">
+                                                                <select name="tipoIdentificacionConyuge" id="tipoIdentificacionConyuge" class="form-control">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($tipoIdentificacion as $ti): ?>
+                                                                        <option value="<?php echo $ti->tipIde_id ?>"><?php echo $ti->tipIde_tipo ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="cedulaConyuge">N° Documento</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="cedulaConyuge" id="cedulaConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="fechaNacimientoConyuge">Fecha nacimiento</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="fechaNacimientoConyuge" id="fechaNacimientoConyuge" class="form-control fecha">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="nombreConyuge">Nombres</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="nombreConyuge" id="nombreConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="apellidoConyuge">Apellidos</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="apellidoConyuge" id="apellidoConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="generoConyuge">Género</label>
+                                                            <div class="col-md-8">
+                                                                <select name="generoConyuge" id="generoConyuge" class="form-control">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($sexo as $s): ?>
+                                                                        <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="telefonoConyuge">Telefono</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="celularConyuge">Celular</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="direccionConyuge">Dirección</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="correoConyuge" class="col-md-4">Correo</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" id="correoConyuge" name="correoConyuge" class="form-control  email"  value="" />
+                                                            </div>    
+                                                        </div>    
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                        <fieldset class="hijos">
+                                            <legend>Hijo(s)</legend>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="tipoDocumentoHijo">Tipo de documento</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="tipoDocumentoHijo" id="tipoDocumentoHijo" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="documentoHijo">Documento</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="documentoHijo" id="documentoHijo" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="fechaNacimientoHijo">Fecha nacimiento</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="fechaNacimientoHijo" id="fechaNacimientoHijo" class="form-control fecha">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="nombreHijo">Nombres</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="nombreHijo" id="nombreHijo" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="apellidoHijo">Apellidos</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="apellidoHijo" id="apellidoHijo" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="generoHijo">Género</label>
+                                                            <div class="col-md-8">
+                                                                <select name="generoHijo" id="generoHijo" class="form-control">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($sexo as $s): ?>
+                                                                        <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="telefonoConyuge">Telefono</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="celularConyuge">Celular</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4" for="direccionConyuge">Dirección</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
-                                    </div>
-                                    <fieldset class="conyuge">
-                                        <legend>Información cónyuge</legend>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="tipoIdentificacionConyuge">Tipo de documento</label>
-                                                        <div class="col-md-8">
-                                                            <select name="tipoIdentificacionConyuge" id="tipoIdentificacionConyuge" class="form-control">
-                                                                <option value="">::Seleccionar::</option>
-                                                                <?php foreach ($tipoIdentificacion as $ti): ?>
-                                                                    <option value="<?php echo $ti->tipIde_id ?>"><?php echo $ti->tipIde_tipo ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="cedulaConyuge">N° Documento</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="cedulaConyuge" id="cedulaConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="fechaNacimientoConyuge">Fecha nacimiento</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="fechaNacimientoConyuge" id="fechaNacimientoConyuge" class="form-control fecha">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="nombreConyuge">Nombres</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="nombreConyuge" id="nombreConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="apellidoConyuge">Apellidos</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="apellidoConyuge" id="apellidoConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="generoConyuge">Género</label>
-                                                        <div class="col-md-8">
-                                                            <select name="generoConyuge" id="generoConyuge" class="form-control">
-                                                                <option value="">::Seleccionar::</option>
-                                                                <?php foreach ($sexo as $s): ?>
-                                                                    <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="telefonoConyuge">Telefono</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="celularConyuge">Celular</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="direccionConyuge">Dirección</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="correoConyuge" class="col-md-4">Correo</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" id="correoConyuge" name="correoConyuge" class="form-control  email"  value="" />
-                                                        </div>    
-                                                    </div>    
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </form>
+                                </div>
 
-                                    </fieldset>
-                                    <fieldset class="hijos">
-                                        <legend>Hijo(s)</legend>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="tipoDocumentoHijo">Tipo de documento</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="tipoDocumentoHijo" id="tipoDocumentoHijo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="documentoHijo">Documento</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="documentoHijo" id="documentoHijo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="fechaNacimientoHijo">Fecha nacimiento</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="fechaNacimientoHijo" id="fechaNacimientoHijo" class="form-control fecha">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="nombreHijo">Nombres</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="nombreHijo" id="nombreHijo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="apellidoHijo">Apellidos</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="apellidoHijo" id="apellidoHijo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="generoHijo">Género</label>
-                                                        <div class="col-md-8">
-                                                            <select name="generoHijo" id="generoHijo" class="form-control">
-                                                                <option value="">::Seleccionar::</option>
-                                                                <?php foreach ($sexo as $s): ?>
-                                                                    <option  <?php echo (!empty($empleado[0]->sex_Id) && $empleado[0]->sex_Id == $s->Sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="telefonoConyuge">Telefono</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="telefonoConyuge" id="telefonoConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="celularConyuge">Celular</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="celularConyuge" id="celularConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-md-4" for="direccionConyuge">Dirección</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" name="direccionConyuge" id="direccionConyuge" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
                                 <div id="tab2" class="tab-pane">
                                     <form id="frmContrato" class="form-horizontal">
                                         <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
