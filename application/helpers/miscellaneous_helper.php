@@ -150,7 +150,7 @@ function max_folio($id) {
     return $datos[0]->consecutivo;
 }
 
-function pdf($html = null, $logo = null, $nombre = null,$estadistica,$itiniere,$transporte) {
+function pdf($html = null, $logo = null, $nombre = null, $estadistica, $itiniere, $transporte) {
 //$html= utf8_decode($html);
 //    $html="OOOJHKJHKJH JLH KJH KH KJH";
     ob_clean();
@@ -192,273 +192,281 @@ function pdf($html = null, $logo = null, $nombre = null,$estadistica,$itiniere,$
     $r = $estadistica[0]->arlno;
 //echo "<pre>";
 //    var_dump($estadistica);die();
-    $total=$xc+$yc+$r;
-    $r1=($xc*360)/$total;
-    $r2=($yc*360)/$total;
-    $r3=($r*360)/$total;
-    $r1=  round($r1);
-    $r2=  round($r2);
-    $r3=  round($r3);
+    $total = $xc + $yc + $r;
+    $r1 = ($xc * 360) / $total;
+    $r2 = ($yc * 360) / $total;
+    $r3 = ($r * 360) / $total;
+    $r1 = round($r1);
+    $r2 = round($r2);
+    $r3 = round($r3);
     $xc1 = 105;
     $yc1 = 120;
     $r11 = 50;
     $pdf->SetFillColor(0, 0, 255);
     $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2+$r1, 'FD', false, 0, 2);
+    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2+$r1, 0, 'FD', false, 0, 2);
-    
-        $pdf->SetTextColor(0,0,255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: '.$xc);
-    $pdf->SetTextColor(0,255,0);
-    $pdf->Text(150, 155, 'SI: '.$yc);
-    $pdf->SetTextColor(255,0,0);
-    $pdf->Text(150, 160, 'NO: '.$r);
-    
-        $pdf->AddPage();
-    
+    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
+
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
+    $pdf->SetTextColor(0, 255, 0);
+    $pdf->Text(150, 155, 'SI: ' . $yc);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Text(150, 160, 'NO: ' . $r);
+
+    $pdf->AddPage();
+
 //----------------------------------------------------------------
 //   GRAFICA No 2
-    $pdf->SetTextColor(0,0,0);
-        $pdf->Write(10, '                                                             PENSION');
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Write(10, '                                                             PENSION');
     $xc = $estadistica[0]->pensionnula;
     $yc = $estadistica[0]->pensionsi;
     $r = $estadistica[0]->pensionno;
 
-    $total=$xc+$yc+$r;
-    $r1=($xc*360)/$total;
-    $r2=($yc*360)/$total;
-    $r3=($r*360)/$total;
-    $r1=  round($r1);
-    $r2=  round($r2);
-    $r3=  round($r3);
+    $total = $xc + $yc + $r;
+    $r1 = ($xc * 360) / $total;
+    $r2 = ($yc * 360) / $total;
+    $r3 = ($r * 360) / $total;
+    $r1 = round($r1);
+    $r2 = round($r2);
+    $r3 = round($r3);
     $xc1 = 105;
     $yc1 = 100;
     $r11 = 50;
     $pdf->SetFillColor(0, 0, 255);
     $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2+$r1, 'FD', false, 0, 2);
+    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2+$r1, 0, 'FD', false, 0, 2);
-    
-        $pdf->SetTextColor(0,0,255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: '.$xc);
-    $pdf->SetTextColor(0,255,0);
-    $pdf->Text(150, 155, 'SI: '.$yc);
-    $pdf->SetTextColor(255,0,0);
-    $pdf->Text(150, 160, 'NO: '.$r);
-        $pdf->AddPage();
+    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
+
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
+    $pdf->SetTextColor(0, 255, 0);
+    $pdf->Text(150, 155, 'SI: ' . $yc);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Text(150, 160, 'NO: ' . $r);
+    $pdf->AddPage();
 //----------------------------------------------------------------
 //   GRAFICA No 3
-        $pdf->SetTextColor(0,0,0);
-        $pdf->Write(10, '                                                                 EPS');
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Write(10, '                                                                 EPS');
     $xc = $estadistica[0]->epsnula;
     $yc = $estadistica[0]->epssi;
     $r = $estadistica[0]->epsno;
 
-    $total=$xc+$yc+$r;
-    $r1=($xc*360)/$total;
-    $r2=($yc*360)/$total;
-    $r3=($r*360)/$total;
-    $r1=  round($r1);
-    $r2=  round($r2);
-    $r3=  round($r3);
+    $total = $xc + $yc + $r;
+    $r1 = ($xc * 360) / $total;
+    $r2 = ($yc * 360) / $total;
+    $r3 = ($r * 360) / $total;
+    $r1 = round($r1);
+    $r2 = round($r2);
+    $r3 = round($r3);
     $xc1 = 105;
     $yc1 = 100;
     $r11 = 50;
     $pdf->SetFillColor(0, 0, 255);
     $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2+$r1, 'FD', false, 0, 2);
+    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2+$r1, 0, 'FD', false, 0, 2);
-    
-        $pdf->SetTextColor(0,0,255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: '.$xc);
-    $pdf->SetTextColor(0,255,0);
-    $pdf->Text(150, 155, 'SI: '.$yc);
-    $pdf->SetTextColor(255,0,0);
-    $pdf->Text(150, 160, 'NO: '.$r);
-        $pdf->AddPage();
+    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
+
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
+    $pdf->SetTextColor(0, 255, 0);
+    $pdf->Text(150, 155, 'SI: ' . $yc);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Text(150, 160, 'NO: ' . $r);
+    $pdf->AddPage();
 //----------------------------------------------------------------
 //   GRAFICA No 4
-        $pdf->SetTextColor(0,0,0);
-        $pdf->Write(10, '                                                  CAJA DE COMPENSACIÓN');
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Write(10, '                                                  CAJA DE COMPENSACIÓN');
     $xc = $estadistica[0]->cajacompensacionnula;
     $yc = $estadistica[0]->cajacompensacionsi;
     $r = $estadistica[0]->cajacompensacionno;
 
-    $total=$xc+$yc+$r;
-    $r1=($xc*360)/$total;
-    $r2=($yc*360)/$total;
-    $r3=($r*360)/$total;
-    $r1=  round($r1);
-    $r2=  round($r2);
-    $r3=  round($r3);
+    $total = $xc + $yc + $r;
+    $r1 = ($xc * 360) / $total;
+    $r2 = ($yc * 360) / $total;
+    $r3 = ($r * 360) / $total;
+    $r1 = round($r1);
+    $r2 = round($r2);
+    $r3 = round($r3);
     $xc1 = 105;
     $yc1 = 100;
     $r11 = 50;
     $pdf->SetFillColor(0, 0, 255);
     $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2+$r1, 'FD', false, 0, 2);
+    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2+$r1, 0, 'FD', false, 0, 2);
-    
-        $pdf->SetTextColor(0,0,255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: '.$xc);
-    $pdf->SetTextColor(0,255,0);
-    $pdf->Text(150, 155, 'SI: '.$yc);
-    $pdf->SetTextColor(255,0,0);
-    $pdf->Text(150, 160, 'NO: '.$r);
-        $pdf->AddPage();
+    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
+
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
+    $pdf->SetTextColor(0, 255, 0);
+    $pdf->Text(150, 155, 'SI: ' . $yc);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Text(150, 160, 'NO: ' . $r);
+    $pdf->AddPage();
 //----------------------------------------------------------------
 //   GRAFICA No 5
-        $pdf->SetTextColor(0,0,0);
-        $pdf->Write(10, '                                              DESPLAZAMIENTO EN MISIÓN');
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Write(10, '                                              DESPLAZAMIENTO EN MISIÓN');
     $xc = $estadistica[0]->usu_desplazamiento_misionnula;
     $yc = $estadistica[0]->usu_desplazamiento_misionsi;
     $r = $estadistica[0]->usu_desplazamiento_misionno;
-    
 
-    $total=$xc+$yc+$r;
-    $r1=($xc*360)/$total;
-    $r2=($yc*360)/$total;
-    $r3=($r*360)/$total;
-    $r1=  round($r1);
-    $r2=  round($r2);
-    $r3=  round($r3);
+
+    $total = $xc + $yc + $r;
+    $r1 = ($xc * 360) / $total;
+    $r2 = ($yc * 360) / $total;
+    $r3 = ($r * 360) / $total;
+    $r1 = round($r1);
+    $r2 = round($r2);
+    $r3 = round($r3);
     $xc1 = 105;
     $yc1 = 100;
     $r11 = 50;
     $pdf->SetFillColor(0, 0, 255);
     $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2+$r1, 'FD', false, 0, 2);
+    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
     $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2+$r1, 0, 'FD', false, 0, 2);
-    
-        $pdf->SetTextColor(0,0,255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: '.$xc);
-    $pdf->SetTextColor(0,255,0);
-    $pdf->Text(150, 155, 'SI: '.$yc);
-    $pdf->SetTextColor(255,0,0);
-    $pdf->Text(150, 160, 'NO: '.$r);
-       
+    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
+
+    $pdf->SetTextColor(0, 0, 255);
+    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
+    $pdf->SetTextColor(0, 255, 0);
+    $pdf->Text(150, 155, 'SI: ' . $yc);
+    $pdf->SetTextColor(255, 0, 0);
+    $pdf->Text(150, 160, 'NO: ' . $r);
+
 //    $pdf->Write(0, 'Example of PieSector() method.');
 //$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
-    
 //    $pdf->writeHTMLCell(1, 1, '', '', $html, 0, 1, 0, true, '', true);
     $pdf->Output('pesv.pdf', 'I');
 }
+
 function lista($name, $id, $class, $tabla, $option_value, $option_name, $value, $where, $bloqued) {
     $CI = & get_instance();
-        if (!isset($value)) {
-            $value = "";
+    if (!isset($value)) {
+        $value = "";
+    }
+    if (isset($where)) {
+        foreach ($where as $campo => $igual) {
+            $CI->db->where($campo, $igual);
         }
-        if (isset($where)) {
-            foreach ($where as $campo => $igual) {
-                $CI->db->where($campo, $igual);
-            }
+    }
+    $query = $CI->db->get($tabla); //var_dump($this->db1->last_query());echo '</br>';
+    if ($query->num_rows() > 0) {
+        $html = "<select id=$id class='$class' name=$name >";
+        if ($bloqued) {
+            $html .= "<option value='' disabled=disabled>Seleccione</option>";
+        } else {
+            $html .= "<option value=''>Seleccione</option>";
         }
-        $query = $CI->db->get($tabla); //var_dump($this->db1->last_query());echo '</br>';
-        if ($query->num_rows() > 0) {
-            $html = "<select id=$id class='$class' name=$name >";
-            if ($bloqued) {
-                $html .= "<option value='' disabled=disabled>Seleccione</option>";
+        foreach ($query->result() as $row) {
+            if ($row->$option_value == $value) {
+                $html.="<option value=" . $row->$option_value . " selected>" . $row->$option_name . "</option>";
             } else {
-                $html .= "<option value=''>Seleccione</option>";
-            }
-            foreach ($query->result() as $row) {
-                if ($row->$option_value == $value) {
-                    $html.="<option value=" . $row->$option_value . " selected>" . $row->$option_name . "</option>";
+                if ($bloqued) {
+                    $html.="<option  disabled=disabled  value=" . $row->$option_value . " >" . $row->$option_name . "</option>";
                 } else {
-                    if ($bloqued) {
-                        $html.="<option  disabled=disabled  value=" . $row->$option_value . " >" . $row->$option_name . "</option>";
-                    } else {
+                    if (strpos($option_name, ',')) {
+                        $option_name1 = explode(',', $option_name);
+                        $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name1[0].' und ('.$row->$option_name1[1] . ")</option>";
+                    } else
                         $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name . "</option>";
-                    }
                 }
             }
-            return $html.="</select>";
-        } else {
-            return false;
+        }
+        return $html.="</select>";
+    } else {
+        return false;
+    }
+}
+
+function auto($tabla, $idcampo, $nombrecampo, $letra, $limit = null) {
+    $search = buscador($limit, $tabla, $nombrecampo, $letra);
+    $h = 0;
+    foreach ($search as $result) {
+        $data[$h] = array(
+            'id' => $result->$idcampo,
+            'label' => $result->$nombrecampo,
+            'value' => $result->$nombrecampo
+        );
+        $h++;
+    }
+    return $data;
+}
+
+function buscador($limit = null, $tabla, $nombrecampo, $palabra, $campo1 = null, $campo2 = null, $campo3 = null) {
+    $CI = & get_instance();
+    $CI->db->like($nombrecampo, $palabra);
+    if ($campo1 != null)
+        $CI->db->or_like($campo1, $palabra);
+    if ($campo2 != null)
+        $CI->db->or_like($campo2, $palabra);
+    if ($campo3 != null)
+        $CI->db->or_like($campo3, $palabra);
+    $user = $CI->db->get($tabla, $limit);
+    return $user->result();
+}
+
+function listaMultiple2($name, $id, $class, $tabla, $option_value, $option_name, $value, $where, $bloqued) {
+    $CI = & get_instance();
+    if (!isset($value)) {
+        $value = "";
+    }
+    if (isset($where)) {
+        foreach ($where as $campo => $igual) {
+            $CI->db->where($campo, $igual);
         }
     }
-    function auto($tabla,$idcampo,$nombrecampo,$letra,$limit = null) {
-            $search = buscador($limit,$tabla,$nombrecampo,$letra);
-            $h = 0;
-            foreach($search as $result){
-                $data[$h] = array(
-                    'id' => $result->$idcampo,
-                       'label' => $result->$nombrecampo,
-                       'value' => $result->$nombrecampo
-                );
-                $h++;
-            }
-            return $data;
-    }
-    function buscador($limit = null,$tabla,$nombrecampo,$palabra,$campo1=null,$campo2=null,$campo3=null){
-        $CI = & get_instance();
-        $CI->db->like($nombrecampo,$palabra);
-        if($campo1!=null)
-        $CI->db->or_like($campo1,$palabra);
-        if($campo2!=null)
-        $CI->db->or_like($campo2,$palabra);
-        if($campo3!=null)
-        $CI->db->or_like($campo3,$palabra);
-        $user = $CI->db->get($tabla,$limit);
-        return $user->result();
-    }
-    function listaMultiple2($name, $id, $class, $tabla, $option_value, $option_name, $value, $where, $bloqued) {
-        $CI = & get_instance();
-        if (!isset($value)) {
-            $value = "";
-        }
-        if (isset($where)) {
-            foreach ($where as $campo => $igual) {
-                $CI->db->where($campo, $igual);
-            }
-        }
-        $query = $CI->db->get($tabla); //var_dump($this->db1->last_query());echo '</br>';
-        if ($query->num_rows() > 0) {
-            $html = "<select multiple id=$id class=$class name=$name required='required'     >";
-            $i=0;
-            if(isset($value[$i]))
-            if($value[$i]=="")
-                $i=1;
-            foreach ($query->result() as $row) {
-                if ($row->$option_value == (isset($value[$i])?$value[$i]:'')) {
-                    $html.="<option value=" . $row->$option_value . " selected>" . $row->$option_name . "</option>";
-                    $i++;
-                } else {
-                    if ($bloqued) {
-                        $html.="<option  disabled=disabled  value=" . $row->$option_value . " >" . $row->$option_name . "</option>";
-                    } else {
-                        $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name . "</option>";
-                    }
-                }
-            }
-            return $html.="</select>";
-        } else {
-            return false;
-        }
-    }
-    function arregloconsulta($tabla){
-        
-        $data = array();
-        $d = 0;
-        foreach ($tabla as $total => $num):
-//            echo $total;
-            $i = 0;
-            foreach ($num as $campo => $valor):
-                $data[$d][$i] =  $valor;
+    $query = $CI->db->get($tabla); //var_dump($this->db1->last_query());echo '</br>';
+    if ($query->num_rows() > 0) {
+        $html = "<select multiple id=$id class=$class name=$name required='required'     >";
+        $i = 0;
+        if (isset($value[$i]))
+            if ($value[$i] == "")
+                $i = 1;
+        foreach ($query->result() as $row) {
+            if ($row->$option_value == (isset($value[$i]) ? $value[$i] : '')) {
+                $html.="<option value=" . $row->$option_value . " selected>" . $row->$option_name . "</option>";
                 $i++;
-            endforeach;
-            $d++;
-        endforeach;
-        
-        return $data;
+            } else {
+                if ($bloqued) {
+                    $html.="<option  disabled=disabled  value=" . $row->$option_value . " >" . $row->$option_name . "</option>";
+                } else {
+                    $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name . "</option>";
+                }
+            }
+        }
+        return $html.="</select>";
+    } else {
+        return false;
     }
+}
+
+function arregloconsulta($tabla) {
+
+    $data = array();
+    $d = 0;
+    foreach ($tabla as $total => $num):
+//            echo $total;
+        $i = 0;
+        foreach ($num as $campo => $valor):
+            $data[$d][$i] = $valor;
+            $i++;
+        endforeach;
+        $d++;
+    endforeach;
+
+    return $data;
+}

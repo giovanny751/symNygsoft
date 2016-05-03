@@ -48,7 +48,7 @@
                                 <label>ELEMENTO DE PROTECCIÓN</label>
                             </div>
                             <div class="col-md-3">
-                                <?php echo lista("elementop[]", "elementop", "form-control obligatorio", "inventario", "inv_id", "inv_nombre", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                <?php echo lista("elementop[]", "elementop", "form-control obligatorio", "inventario", "inv_id", "inv_nombre,inv_unidades", null, array("est_id" => "1"), /* readOnly? */ false); ?>
                                 <!--<input type="text" class="form-control obligatorio" name="elementop[]" id="elementop">-->
                             </div>
                             <div class="col-md-3">
@@ -188,6 +188,7 @@
         if (obli == false) {
             return false;
         }
+                
         $.post(url + 'index.php/Administrativo/guardar_protexion', $('#form_proteccion').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
