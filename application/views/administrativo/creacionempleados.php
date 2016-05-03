@@ -717,7 +717,7 @@
                                                     <tbody>
                                                         <?php foreach ($dotacion as $key => $value) { ?>
                                                             <tr>
-                                                                <td><?php echo $value->dot_nombre ?></td>
+                                                                <td><?php echo $value->inv_nombre ?></td>
                                                                 <td><?php echo $value->dot_talla ?></td>
                                                                 <td><?php echo $value->dot_indicacion ?></td>
                                                                 <td><?php echo $value->doc_fecha_caducidad ?></td>

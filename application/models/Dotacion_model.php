@@ -13,7 +13,7 @@ class Dotacion_model extends CI_Model {
             for ($i = 0; $i < (count($post['empleados'])); $i++) {
                 for ($j = 0; $j < (count($post['elementop'])); $j++) {
                     $this->db->set('emp_id',$post['empleados'][$i]);
-                    $this->db->set('dot_nombre',$post['elementop'][$j]);
+                    $this->db->set('inv_id',$post['elementop'][$j]);
                     $this->db->set('dot_talla',$post['talla'][$j]);
                     $this->db->set('dot_indicacion',$post['indicacion_uso'][$j]);
                     $this->db->set('doc_fecha_caducidad',$post['vida_util'][$j]);
@@ -39,8 +39,10 @@ class Dotacion_model extends CI_Model {
         return $datos->result();
     }
     function detail($id){
+        $this->db->select('dotacion.*,inventario.inv_nombre');
         $this->db->where('emp_id',$id);
         $this->db->order_by('creatorDate');
+        $this->db->join('inventario','inventario.inv_id=dotacion.inv_id');
         $datos=$this->db->get('dotacion');
         return $datos->result();
     }

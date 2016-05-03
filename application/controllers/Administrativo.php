@@ -619,6 +619,7 @@ class Administrativo extends My_Controller {
             
         }
     }
+    
 
     function consultaempleados() {
         try {

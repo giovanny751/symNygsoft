@@ -50,6 +50,16 @@ class Informes extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function listadoDotacion() {
+        try {
+//                $this->layout->view("reportes/reporte_general", $this->data);
+            
+        } catch (exception $e) {
+            
+        } finally {
+            
+        }
+    }
 
 }
 
