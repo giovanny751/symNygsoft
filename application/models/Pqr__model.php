@@ -24,7 +24,7 @@ class Pqr__model extends CI_Model {
     }
 
     function delete_pqr($post) {
-        $this->db->set('ACTIVO', 'N');
+        $this->db->set('est_id', '3');
         $this->db->where($post["campo"], $post[$post["campo"]]);
         $this->db->set('modificationUser', $this->session->userdata('usu_id'));
             $this->db->set('modificationDate', date("Y-m-d H:i:s"));
@@ -83,7 +83,7 @@ class Pqr__model extends CI_Model {
         $this->db->select('telefono');
         $this->db->select('dep_nombre');
         $this->db->select('estSol_nombre');
-        $this->db->where('pqr.ACTIVO', 'S');
+        $this->db->where('pqr.est_id', 1);
         $datos = $this->db->get('pqr');
         $datos = $datos->result();
         return $datos;

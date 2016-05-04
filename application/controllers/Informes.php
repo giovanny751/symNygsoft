@@ -15,6 +15,7 @@ class Informes extends My_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('Informes_model');
     }
 
     function informeactividades() {
@@ -39,7 +40,7 @@ class Informes extends My_Controller {
 
     function consultaInformeHorasExtras() {
         try {
-            $this->load->model('Informes_model');
+            
             $respuesta = $this->Informes_model->horasExtras($this->input->post('empleado'), $this->input->post('fechaDesde'), $this->input->post('fechaHasta'));
             if (!empty($respuesta)) {
                 $data['Json'] = $respuesta;
@@ -74,6 +75,15 @@ class Informes extends My_Controller {
         } finally {
             
         }
+    }
+    
+    function informeGeneral(){
+        $this->data['general'] = $this->Informes_model->informeGeneral();
+        $this->data['empleados'] = $this->Informes_model->informeEmpleado();
+//        echo "<pre>";
+//        var_dump($this->data['empleados']);die;
+        $this->data['pqr'] = $this->Informes_model->informePqr();
+        $this->layout->view('informes/informeGeneral',$this->data);
     }
 
 }
