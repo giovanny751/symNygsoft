@@ -725,10 +725,10 @@
                                                                 <td><?php echo $value->inv_nombre ?></td>
                                                                 <td><?php echo $value->dot_talla ?></td>
                                                                 <td><?php echo $value->dot_indicacion ?></td>
-                                                                <td><?php echo $value->doc_fecha_caducidad ?></td>
-                                                                <td><?php echo $value->doc_unidades ?></td>
-                                                                <td><?php echo $value->doc_fecha_entrega ?></td>
-                                                                <td><?php echo $value->doc_indicaciones ?></td>
+                                                                <td><?php echo $value->dot_fecha_caducidad ?></td>
+                                                                <td><?php echo $value->dot_unidades ?></td>
+                                                                <td><?php echo $value->dot_fecha_entrega ?></td>
+                                                                <td><?php echo $value->dot_indicaciones ?></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>
