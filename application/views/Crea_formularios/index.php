@@ -134,7 +134,6 @@
         }
     }
     function auto2(num, campo) {
-        console.log(num);
         if (num.value == 'select') {
             $('.'+campo).show();
         } else {

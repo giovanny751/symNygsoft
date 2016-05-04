@@ -414,7 +414,6 @@
             });
             //numero que permite comas        
             $('body').delegate('.number2', 'keypress', function (tecla) {
-                console.log(tecla.charCode);
                 if (tecla.charCode > 0 && (tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 45 || tecla.charCode > 47))
                     return false;
             });

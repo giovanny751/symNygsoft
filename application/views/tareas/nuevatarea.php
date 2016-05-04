@@ -873,10 +873,7 @@
                         var costo = 0;
                         $.each(msg.Json, function (key, val) {
                             totalhoras += Number(val.avaTar_horasTrabajadas);
-                            console.log(val.avaTar_costo);
-//                        console.log(val.avaTar_costo.replace(',','').replace(',','').replace(',','').replace('.',''));
                             costo += Number(val.avaTar_costo.replace(',', '').replace(',', '').replace('.', ''));
-//                        console.log(costo);
                             html += "<tr>"
                                     + "<td>"
                                     + "<a href='javascript:' class='avances_ fa fa-pencil-square-o fa-2x btn btn-info' avaTar_id='" + val.avaTar_id + "' ></a>"

@@ -177,8 +177,6 @@
         var url = "<?php echo base_url('index.php/reportes/allreport') ?>";
 
         $.post(url, {id: id}, function (data) {
-//            console.log(data);
-//            data.rep_id();
             $('#reporte').val(data.rep_nombre);
             $('#query').val(data.rep_query);
             $('#host').val(data.rep_host);

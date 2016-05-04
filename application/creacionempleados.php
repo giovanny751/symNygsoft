@@ -510,10 +510,7 @@
         });
 
         $('body').delegate(".eliminaraseguradora", "click", function () {
-            //        console.log($(this).parent().parent().lenght);
-            //        if ($(this).parent().parent().lenght > 2) {
             $(this).parents('.row').remove();
-            //        }
         });
         var option = "<?php echo (!empty($option)) ? $option : ""; ?>";
 

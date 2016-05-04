@@ -310,7 +310,7 @@
                                             </div>    
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="col-md-4">
                                                 <center><button type="button" id="aseguradora" class="btn-sst" data-toggle="modal" data-target="#myModal3">Registrar aseguradoras del empleado</button></center>
                                             </div>  
                                         </div>
@@ -454,9 +454,14 @@
                                                 <div class="col-md-12">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="col-md-4" for="tipoDocumentoHijo">Tipo de documento</label>
+                                                            <label class="col-md-4" for="tipoIdentificacionHijo">Tipo de documento</label>
                                                             <div class="col-md-8">
-                                                                <input type="text" name="tipoDocumentoHijo" id="tipoDocumentoHijo" class="form-control">
+                                                                <select name="tipoIdentificacionHijo[]" id="tipoIdentificacionHijo" class="form-control">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($tipoIdentificacion as $ti): ?>
+                                                                        <option value="<?php echo $ti->tipIde_id ?>"><?php echo $ti->tipIde_tipo ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>

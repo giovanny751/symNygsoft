@@ -220,33 +220,37 @@
         }
     });
 
-    $('#cargo').change(function () {
+    $('document').ready(function () {
+        $('#cargo').change(function () {
 
-        $.post(
-                url + "index.php/administrativo/consultausuarioscargo",
-                {
-                    cargo: $(this).val()
-                }
-        ).done(function (msg) {
-            if (!jQuery.isEmptyObject(msg.message))
-                alerta("rojo", msg['message'])
-            else {
-                var data = "<option value=''>::Seleccionar::</option>";
-                $('#empleado *').remove();
-                $.each(msg.Json, function (key, val) {
-                    data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase() + " " + val.Emp_Apellidos.toUpperCase() + "</option>"
-                });
-                $('#empleado').append(data);
+            $.post(
+                    url + "index.php/administrativo/consultausuarioscargo",
+                    {
+                        cargo: $(this).val()
+                    }
+            ).done(function (msg) {
+                if (!jQuery.isEmptyObject(msg.message))
+                    alerta("rojo", msg['message'])
+                else {
+                    var data = "<option value=''>::Seleccionar::</option>";
+                    $('#empleado *').remove();
+                    $.each(msg.Json, function (key, val) {
+                        data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase() + " " + val.Emp_Apellidos.toUpperCase() + "</option>"
+                    });
+                    $('#empleado').append(data);
 
 <?php if (isset($usuario[0]->emp_id)) { ?>
-                    var emp_id = "<?php echo $usuario[0]->emp_id ?>";
-                    $('#empleado').val(emp_id)
+                        var emp_id = "<?php echo $usuario[0]->emp_id ?>";
+                        $('#empleado').val(emp_id)
 <?php } ?>
-            }
-        }).fail(function (msg) {
+                }
+            }).fail(function (msg) {
 
-        })
+            })
+        });
     });
+
+
 
     $('.guardar').click(function () {
         var campousuid = $("#usuid").val();
@@ -256,33 +260,33 @@
             var ruta = url + 'index.php/administrativo/actualizarusuario';
         }
         if ((obligatorio('obligatorio') == true) && (email("email") == true)) {
-        $.post(ruta, $('#f3').serialize()).
-                done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
-                        alerta("amarillo", msg['message']);
-                    else {
-                        alerta("verde", "Datos guardados correctamente");
+            $.post(ruta, $('#f3').serialize()).
+                    done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta("amarillo", msg['message']);
+                        else {
+                            alerta("verde", "Datos guardados correctamente");
 <?php if (!isset($usuario[0]->emp_id)) { ?>
-                            if (confirm("¿Desea Guardar otro usuario?")) {
-                                $(".guardar").addClass("none");
-                                $(".guardar[metodo=guardar]").removeClass("none");
-                                $('select,input').val('');
-                                $('input[type="checkbox"]').attr("checked", false)
-                                $('#empleado *').remove();
-                            } else {
-                                window.location.href = url + "index.php/administrativo/listadousuarios";
-                            }
+                                if (confirm("¿Desea Guardar otro usuario?")) {
+                                    $(".guardar").addClass("none");
+                                    $(".guardar[metodo=guardar]").removeClass("none");
+                                    $('select,input').val('');
+                                    $('input[type="checkbox"]').attr("checked", false)
+                                    $('#empleado *').remove();
+                                } else {
+                                    window.location.href = url + "index.php/administrativo/listadousuarios";
+                                }
 <?php } else { ?>
-                            window.location.href = url + "index.php/administrativo/listadousuarios";
+                                window.location.href = url + "index.php/administrativo/listadousuarios";
 <?php } ?>
-                    }
+                        }
                     })
-                
-                .fail(function (msg) {
-                    alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
-                });
-                }
-            });
+
+                    .fail(function (msg) {
+                        alerta("rojo", "Error en el sistema por favor verificar la conexion de internet");
+                    });
+        }
+    });
     $('#TipoUsuario').trigger('change');
     $('#cargo').trigger('change');
 </script>    
