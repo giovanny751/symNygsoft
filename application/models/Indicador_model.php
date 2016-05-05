@@ -197,6 +197,71 @@ class Indicador_model extends CI_Model {
         $accidentes = $this->db->get("accidentes");
         return $accidentes->result();
     }
+    
+    function indicadorInspeccion($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        $query = "select distinct 
+	fecha.fec_fecha,
+        (
+		select 
+			 count(*)
+		from extintor 
+		where est_id = 1 
+	   and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(extintor.ext_fechaInspeccion,1,7)
+	) as cantidadInspeccionExtintor, 
+	(
+		select 
+			DISTINCT SUBSTRING(extintor.ext_fechaInspeccion,1,7)
+		from extintor 
+		where est_id = 1 
+	   and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(extintor.ext_fechaInspeccion,1,7)
+		GROUP BY ext_fechaInspeccion
+		order by ext_fechaInspeccion asc
+	) as fechaInspeccion,
+            (select 
+                    count(*)
+            from 
+            botiquin where est_id = 1 
+            and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(botiquin.bot_fechaInspeccion,1,7)
+            ) as cantidadBotiquin,
+            (
+            select 
+                    DISTINCT SUBSTRING(botiquin.bot_fechaInspeccion,1,7)
+            from 
+            botiquin where est_id = 1 
+            and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(botiquin.bot_fechaInspeccion,1,7)
+            group by bot_fechaInspeccion
+            order by bot_fechaInspeccion asc
+            ) as fechaInspeccionBotiquin,
+            (
+            select count(*) 
+            from inspeccion 
+            where est_id = 1 
+            and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(inspeccion.ins_fecha,1,7)
+            ) as cantidadInspeccionGeneral
+            from fecha
+            where fec_fecha >= '$fechaInicial' and fec_fecha <= '$fechaFinal' order by fec_fecha";
+        
+        return $this->db->query($query)->result();
+    }
+    
+    function indicadorCapacitaciones($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        $this->db->select("fecha.fec_fecha");
+        $this->db->distinct("fecha.fec_fecha");
+        $this->db->select("
+                            (select count(*) 
+                        from capacitacion 
+                        where est_id = 1 
+                        and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(capacitacion.cap_fechaCapacitacion,1,7)
+                        ) as cantidadCapacitaciones
+                        ",false,false);
+        $this->db->order_by("fec_fecha");
+        $this->db->where("fec_fecha >=",$fechaInicial);
+        $this->db->where("fec_fecha <=",$fechaFinal);
+        $fecha = $this->db->get("fecha");
+        
+//        echo  $this->db->last_query();die;
+        return $fecha->result();
+    }
 }
 
 ?>

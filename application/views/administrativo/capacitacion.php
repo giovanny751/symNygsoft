@@ -95,12 +95,21 @@
     </div>
 </form>
 <script>
+    
+    $('body').delegate(".eliminar","click",function(){
+        var table = $('#tablaCapacitacion').DataTable();
+        table
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+    });
+    
     $('#agregar').click(function () {
         var select = "<select id='empleado' name='empleado[]' class='form-control'>";
         var table = $('#tablaCapacitacion').DataTable();
         table.row.add([
             select + "<?php echo $option ?>",
-            "<button type='button' class='btn btn-danger' title='Eliminar'>-</button>"
+            "<button type='button' class='btn btn-danger eliminar' title='Eliminar'>-</button>"
         ]).draw();
     });
     $('#guardar').click(function () {

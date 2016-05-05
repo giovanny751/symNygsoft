@@ -440,6 +440,62 @@ class Indicador extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function inspecciones(){
+        try{
+        $cargo = $this->input->post("cargo");
+        $clasificacion = $this->input->post("clasificacion");
+        $dimensiondos = $this->input->post("dimensiondos");
+        $dimensionuno = $this->input->post("dimensionuno");
+        $fechaFinal = $this->input->post("fechaFinal");
+        $fechaInicial = $this->input->post("fechaInicial");
+        $tipoClasificacion = $this->input->post("tipoClasificacion");
+        $this->load->model("Indicador_model");
+        $indicador = $this->Indicador_model->indicadorInspeccion($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion);
+        if(!empty($indicador)){
+            
+            $datos = array();
+            $datos[] = array("Mes","Inspecciones Generales","Inspeccion Botiquin","Inspeccion Extintor");
+            foreach($indicador as $in){
+                $datos[] = array($in->fec_fecha,$in->cantidadInspeccionGeneral+0,$in->cantidadBotiquin+0,$in->cantidadInspeccionExtintor+0);
+            }
+            $data['Json'] = $datos;
+        }else{
+            throw new Exception("No se encontro información relacionada");
+        }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function capacitaciones(){
+        try{
+        $cargo = $this->input->post("cargo");
+        $clasificacion = $this->input->post("clasificacion");
+        $dimensiondos = $this->input->post("dimensiondos");
+        $dimensionuno = $this->input->post("dimensionuno");
+        $fechaFinal = $this->input->post("fechaFinal");
+        $fechaInicial = $this->input->post("fechaInicial");
+        $tipoClasificacion = $this->input->post("tipoClasificacion");
+        $this->load->model("Indicador_model");
+        $indicador = $this->Indicador_model->indicadorCapacitaciones($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion);
+        if(!empty($indicador)){
+            
+            $datos = array();
+            $datos[] = array("Mes","Capacitaciones");
+            foreach($indicador as $in){
+                $datos[] = array($in->fec_fecha,$in->cantidadCapacitaciones+0);
+            }
+            $data['Json'] = $datos;
+        }else{
+            throw new Exception("No se encontro información relacionada");
+        }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
     
 }
 

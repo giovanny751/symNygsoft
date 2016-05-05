@@ -162,8 +162,10 @@ class Administrativo extends My_Controller {
 
     function guardarVacaciones() {
         try {
-            if (empty($this->input->post("emp_id")))
+            if (empty($this->input->post("emp_id"))){
+                $data['color'] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
+            }
             $this->load->model('Vacaciones_model');
             $data = array(
                 "vac_fechaInicio" => $this->input->post("iniciovacaciones"),
@@ -195,8 +197,10 @@ class Administrativo extends My_Controller {
 
     function guardarAusentismo() {
         try {
-            if (empty($this->input->post("emp_id")))
+            if (empty($this->input->post("emp_id"))){
+                $data['color'] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
+            }
             $this->load->model('Empleadoausentismo_model');
             $data = array(
                 "empAus_fechaInicial" => $this->input->post("iniciovacaciones"),
@@ -229,10 +233,16 @@ class Administrativo extends My_Controller {
 
     function removeHolidays() {
         try {
+            if(empty($this->input->post("vac_id"))){
+                $data["color"] = "amarillo";
+                throw new Exception("No existe vacaciones a eliminar");
+            }
             $this->load->model('Vacaciones_model');
             $data['Json'] = $this->Vacaciones_model->removeHolidays($this->input->post("vac_id"));
-            if ($data['Json'] == false)
+            if ($data['Json'] == false){
+                $data["color"] = "rojo";
                 throw new Exception("Error en la base de datos");
+            }
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
@@ -295,6 +305,10 @@ class Administrativo extends My_Controller {
 
     function modificarAusentismo() {
         try {
+            if(empty($this->input->post("empaus_id"))){
+                $data["color"] = "rojo";
+                throw new Exception("No existe id para modificar ausentismo");
+            }
             $this->load->model('Empleadoausentismo_model');
             $data['Json'] = $this->Empleadoausentismo_model->modificaXId($this->input->post("empaus_id"));
             if (count($data['Json']) == 0)
@@ -369,8 +383,10 @@ class Administrativo extends My_Controller {
 
     function guardarincapacidad() {
         try {
-            if (empty($this->input->post('empleadoInc')))
+            if (empty($this->input->post('empleadoInc'))){
+                $data["color"] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
+            }
             $this->load->model('Empleadoincapacidad_model');
             $data = array(
                 'empRes_id' => $this->input->post('responsable'),
@@ -428,6 +444,11 @@ class Administrativo extends My_Controller {
 
     function guardarregistroempleado() {
         try {
+            if (empty($this->input->post('Emp_Id'))){
+                $data['color'] = "amarillo";
+                throw new Exception("No existe empleado para guardar registro");
+            }
+
             $post = $this->input->post();
             $this->load->model(array('Empleado_model', 'Empleadoregistro_model'));
             $tamano = round($_FILES["archivo"]["size"] / 1024, 1) . " KB";
@@ -461,11 +482,13 @@ class Administrativo extends My_Controller {
             if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
                 
             }
-            $detallecarpeta = $this->Empleadoregistro_model->detallexcarpeta($post['empReg_carpeta']);
-        } catch (exception $e) {
             
+            $data['Json'] = $this->Empleadoregistro_model->detallexcarpeta($post['empReg_carpeta']);
+            
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($detallecarpeta));
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
 
@@ -535,7 +558,6 @@ class Administrativo extends My_Controller {
                 'emp_celular' => $this->input->post('celular'),
                 'emp_tieneHijos' => $this->input->post('emp_tieneHijos'),
                 'Emp_Direccion' => $this->input->post('direccion'),
-                'Emp_Contacto' => $this->input->post('contacto'),
                 'Emp_TelefonoContacto' => $this->input->post('telefonocontacto'),
                 'Emp_Email' => $this->input->post('email'),
                 'EstCiv_id' => $this->input->post('estadocivil'),
@@ -547,7 +569,11 @@ class Administrativo extends My_Controller {
                 'Dim_IdDos' => $this->input->post('dimension2'),
                 'Car_id' => $this->input->post('cargo'),
                 'emp_salario' => $this->input->post('salario'),
-                'emp_fondo' => $this->input->post('fondo')
+                'emp_fondo' => $this->input->post('fondo'),
+                'Emp_Contacto' => $this->input->post('contacto'),
+                'Emp_contactoApellido' => $this->input->post('contactoApellido'),
+                'emp_correoContacto' => $this->input->post('correoConctacto'),
+                'Emp_celularContacto' => $this->input->post('Emp_celularContacto')
             );
             $this->Empleado_model->update($data, $this->input->post('emp_id'));
 
@@ -619,7 +645,6 @@ class Administrativo extends My_Controller {
             
         }
     }
-    
 
     function consultaempleados() {
         try {
@@ -652,6 +677,7 @@ class Administrativo extends My_Controller {
                 "empCon_fechaDesde" => $this->input->post("fInicioContrato"),
                 "empCon_fechaHasta" => $this->input->post("fFinalContrato"),
                 "tipCon_id" => $this->input->post("tipContrato"),
+                "empCon_salario" => $this->input->post("salario"),
                 "empCon_observacion" => $this->input->post("obsContrato"),
                 "emp_id" => $this->input->post("emp_id"),
                 "creatorUser" => $this->data['usu_id'],
@@ -910,13 +936,13 @@ class Administrativo extends My_Controller {
 
     function consultausuarioscargo() {
         try {
-            if(empty($this->input->post('cargo')))
+            if (empty($this->input->post('cargo')))
                 throw new Exception("No existe cargo a consultar");
             $this->load->model('Empleado_model');
             $respuesta = $this->Empleado_model->empleadoxcargo($this->input->post('cargo'));
-            if(empty($respuesta)){
+            if (empty($respuesta)) {
                 throw new Exception("No existen empleados asociados al cargo");
-            }else{
+            } else {
                 $data['Json'] = $respuesta;
             }
         } catch (exception $e) {
@@ -1256,7 +1282,7 @@ class Administrativo extends My_Controller {
         try {
             $this->data['title'] = "Empresa";
             $this->data['subtitle'] = "Datos";
-            $this->load->model(array("Inicio_model","Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
+            $this->load->model(array("Inicio_model", "Empresa_model", 'Tamano_empresa_model', 'Ingreso_model', 'Actividadeconomica_model'));
             $this->data['mensaje'] = "";
             if ($this->session->guardadoexito == "guardado con exito") {
                 $this->data['mensaje'] = "guardado con exito";
@@ -1416,9 +1442,9 @@ class Administrativo extends My_Controller {
 
     function clasificacionriesgo() {
         try {
-        if ($this->consultaacceso($this->data["usu_id"])) {
-            $this->layout->view("administrativo/clasificacionriesgo");
-        }
+            if ($this->consultaacceso($this->data["usu_id"])) {
+                $this->layout->view("administrativo/clasificacionriesgo");
+            }
         } catch (Exeption $e) {
             
         } finally {
@@ -1428,7 +1454,7 @@ class Administrativo extends My_Controller {
 
     function importar_empleados() {
         try {
-        $this->layout->view("administrativo/importar_empleados");
+            $this->layout->view("administrativo/importar_empleados");
         } catch (Exeption $e) {
             
         } finally {
@@ -1438,102 +1464,102 @@ class Administrativo extends My_Controller {
 
     public function subir_archivo() {
         try {
-        ini_set('MAX_EXECUTION_TIME', -1);
-        ini_set('memory_limit', -1);
-        $this->load->model("Empleado_model");
-        $uploaddir = './uploads';
-        if (isset($_FILES['file'])) {
-            $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
-                $datos['archivo'] = "El archivo es válido y fue cargado exitosamente.\n";
-            } else {
-                echo "<br>-¡Error en el cargue del archivo!\n";
-                die();
-            }
-        } else {
-            echo "<br>-¡Error en el cargue del archivo !\n";
-            die();
-        }
-
-
-        $excel = PHPExcel_IOFactory::load($uploadfile)->setActiveSheetIndex(0);
-        $lastRow = $excel->getHighestRow();
-        $creados = 0;
-        $actulizados = 0;
-        $registros = 0;
-        $incosistencias = "";
-        for ($row = 10; $row <= $lastRow; $row++) {
-            $registros++;
-            $info = array();
-            $info['Emp_Cedula'] = $excel->getCell('A' . $row)->getValue();
-            $info['Emp_Nombre'] = $excel->getCell('B' . $row)->getValue();
-            $info['Emp_Apellidos'] = $excel->getCell('C' . $row)->getValue();
-            $info['sex_Id'] = $excel->getCell('D' . $row)->getValue();
-            $info['Emp_FechaNacimiento'] = $excel->getCell('E' . $row)->getValue();
-            if (!empty($info['Emp_FechaNacimiento'])) {
-                $info['Emp_FechaNacimiento'] = date('Y-m-d H:i:s', ($excel->getCell('E' . $row)->getValue() - 25569 - 0.08333) * 86400);
-            }
-            $info['Emp_Estatura'] = $excel->getCell('F' . $row)->getValue();
-            $info['Emp_Peso'] = $excel->getCell('G' . $row)->getValue();
-            $info['Emp_Telefono'] = $excel->getCell('H' . $row)->getValue();
-            $info['Emp_Direccion'] = $excel->getCell('I' . $row)->getValue();
-            $info['Emp_TelefonoContacto'] = $excel->getCell('J' . $row)->getValue();
-            $info['Emp_Email'] = $excel->getCell('K' . $row)->getValue();
-            $info['EstCiv_id'] = $excel->getCell('L' . $row)->getValue();
-            if (($excel->getCell('M' . $row)->getValue()) != '')
-                $info['TipCon_Id'] = $this->Empleado_model->buscar_tipo_contrato($excel->getCell('M' . $row)->getValue());
-            $info['Emp_FechaInicioContrato'] = $excel->getCell('N' . $row)->getValue();
-            if (!empty($info['Emp_FechaInicioContrato'])) {
-                $info['Emp_FechaInicioContrato'] = date('Y-m-d H:i:s', ($excel->getCell('N' . $row)->getValue() - 25569 - 0.08333) * 86400);
-            }
-            $info['Emp_FechaFinContrato'] = $excel->getCell('O' . $row)->getValue();
-            if (!empty($info['Emp_FechaFinContrato'])) {
-                $info['Emp_FechaFinContrato'] = date('Y-m-d H:i:s', ($excel->getCell('O' . $row)->getValue() - 25569 - 0.08333) * 86400);
-            }
-            $info['Emp_PlanObligatorioSalud'] = $excel->getCell('P' . $row)->getValue();
-            $info['Emp_FechaAfiliacionArl'] = $excel->getCell('Q' . $row)->getValue();
-            if (!empty($info['Emp_FechaAfiliacionArl'])) {
-                $info['Emp_FechaAfiliacionArl'] = date('Y-m-d H:i:s', ($excel->getCell('Q' . $row)->getValue() - 25569 - 0.08333) * 86400);
-            }
-            if (($excel->getCell('R' . $row)->getValue()) != '')
-                $info['TipAse_Id'] = $this->Empleado_model->buscar_tipo_aseguradora($excel->getCell('R' . $row)->getValue());
-            if (($excel->getCell('S' . $row)->getValue()) != '')
-                $info['Ase_Id'] = $this->Empleado_model->buscar_aseguradora($excel->getCell('S' . $row)->getValue(), $info['TipAse_Id']);
-            if (($excel->getCell('T' . $row)->getValue()) != '')
-                $info['Dim_id'] = $this->Empleado_model->buscar_dimencion1($excel->getCell('T' . $row)->getValue());
-            if (($excel->getCell('U' . $row)->getValue()) != '')
-                $info['Dim_IdDos'] = $this->Empleado_model->buscar_dimencion2($excel->getCell('U' . $row)->getValue());
-            if (($excel->getCell('V' . $row)->getValue()) != '')
-                $info['Car_id'] = $this->Empleado_model->cargo($excel->getCell('V' . $row)->getValue());
-            if (!empty($info['Car_id'])) {
-                if (($excel->getCell('W' . $row)->getValue()) != '')
-                    $info['TipDoc_id'] = $this->Empleado_model->tipo_documento($excel->getCell('W' . $row)->getValue());
-                $info['Est_id'] = $excel->getCell('X' . $row)->getValue();
-                $info['emp_fondo'] = $excel->getCell('Y' . $row)->getValue();
-                $info['Emp_contacto'] = $excel->getCell('Z' . $row)->getValue();
-
-                $this->db->select('Emp_Id');
-                $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
-                $datos = $this->db->get('empleado');
-                $datos = $datos->result();
-                if (count($datos)) {
-                    $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
-                    $this->db->update('empleado', $info);
-                    $actulizados++;
+            ini_set('MAX_EXECUTION_TIME', -1);
+            ini_set('memory_limit', -1);
+            $this->load->model("Empleado_model");
+            $uploaddir = './uploads';
+            if (isset($_FILES['file'])) {
+                $uploadfile = $uploaddir . '/' . basename($_FILES['file']['name']);
+                if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+                    $datos['archivo'] = "El archivo es válido y fue cargado exitosamente.\n";
                 } else {
-                    $this->db->insert('empleado', $info);
-                    $creados++;
+                    echo "<br>-¡Error en el cargue del archivo!\n";
+                    die();
                 }
             } else {
-                $incosistencias.='<br> Cargo no encontrado para la cedula: ' . $info['Emp_Cedula'];
+                echo "<br>-¡Error en el cargue del archivo !\n";
+                die();
             }
-        }
-        echo "<p><br>Numero de registros: " . $registros;
-        echo "<br>Registros actualizados : " . $actulizados;
-        echo "<br>Registros Creados : " . $creados;
-        if (!empty($incosistencias)) {
-            echo "<br>Datos con errores : " . $incosistencias;
-        }
+
+
+            $excel = PHPExcel_IOFactory::load($uploadfile)->setActiveSheetIndex(0);
+            $lastRow = $excel->getHighestRow();
+            $creados = 0;
+            $actulizados = 0;
+            $registros = 0;
+            $incosistencias = "";
+            for ($row = 10; $row <= $lastRow; $row++) {
+                $registros++;
+                $info = array();
+                $info['Emp_Cedula'] = $excel->getCell('A' . $row)->getValue();
+                $info['Emp_Nombre'] = $excel->getCell('B' . $row)->getValue();
+                $info['Emp_Apellidos'] = $excel->getCell('C' . $row)->getValue();
+                $info['sex_Id'] = $excel->getCell('D' . $row)->getValue();
+                $info['Emp_FechaNacimiento'] = $excel->getCell('E' . $row)->getValue();
+                if (!empty($info['Emp_FechaNacimiento'])) {
+                    $info['Emp_FechaNacimiento'] = date('Y-m-d H:i:s', ($excel->getCell('E' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                }
+                $info['Emp_Estatura'] = $excel->getCell('F' . $row)->getValue();
+                $info['Emp_Peso'] = $excel->getCell('G' . $row)->getValue();
+                $info['Emp_Telefono'] = $excel->getCell('H' . $row)->getValue();
+                $info['Emp_Direccion'] = $excel->getCell('I' . $row)->getValue();
+                $info['Emp_TelefonoContacto'] = $excel->getCell('J' . $row)->getValue();
+                $info['Emp_Email'] = $excel->getCell('K' . $row)->getValue();
+                $info['EstCiv_id'] = $excel->getCell('L' . $row)->getValue();
+                if (($excel->getCell('M' . $row)->getValue()) != '')
+                    $info['TipCon_Id'] = $this->Empleado_model->buscar_tipo_contrato($excel->getCell('M' . $row)->getValue());
+                $info['Emp_FechaInicioContrato'] = $excel->getCell('N' . $row)->getValue();
+                if (!empty($info['Emp_FechaInicioContrato'])) {
+                    $info['Emp_FechaInicioContrato'] = date('Y-m-d H:i:s', ($excel->getCell('N' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                }
+                $info['Emp_FechaFinContrato'] = $excel->getCell('O' . $row)->getValue();
+                if (!empty($info['Emp_FechaFinContrato'])) {
+                    $info['Emp_FechaFinContrato'] = date('Y-m-d H:i:s', ($excel->getCell('O' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                }
+                $info['Emp_PlanObligatorioSalud'] = $excel->getCell('P' . $row)->getValue();
+                $info['Emp_FechaAfiliacionArl'] = $excel->getCell('Q' . $row)->getValue();
+                if (!empty($info['Emp_FechaAfiliacionArl'])) {
+                    $info['Emp_FechaAfiliacionArl'] = date('Y-m-d H:i:s', ($excel->getCell('Q' . $row)->getValue() - 25569 - 0.08333) * 86400);
+                }
+                if (($excel->getCell('R' . $row)->getValue()) != '')
+                    $info['TipAse_Id'] = $this->Empleado_model->buscar_tipo_aseguradora($excel->getCell('R' . $row)->getValue());
+                if (($excel->getCell('S' . $row)->getValue()) != '')
+                    $info['Ase_Id'] = $this->Empleado_model->buscar_aseguradora($excel->getCell('S' . $row)->getValue(), $info['TipAse_Id']);
+                if (($excel->getCell('T' . $row)->getValue()) != '')
+                    $info['Dim_id'] = $this->Empleado_model->buscar_dimencion1($excel->getCell('T' . $row)->getValue());
+                if (($excel->getCell('U' . $row)->getValue()) != '')
+                    $info['Dim_IdDos'] = $this->Empleado_model->buscar_dimencion2($excel->getCell('U' . $row)->getValue());
+                if (($excel->getCell('V' . $row)->getValue()) != '')
+                    $info['Car_id'] = $this->Empleado_model->cargo($excel->getCell('V' . $row)->getValue());
+                if (!empty($info['Car_id'])) {
+                    if (($excel->getCell('W' . $row)->getValue()) != '')
+                        $info['TipDoc_id'] = $this->Empleado_model->tipo_documento($excel->getCell('W' . $row)->getValue());
+                    $info['Est_id'] = $excel->getCell('X' . $row)->getValue();
+                    $info['emp_fondo'] = $excel->getCell('Y' . $row)->getValue();
+                    $info['Emp_contacto'] = $excel->getCell('Z' . $row)->getValue();
+
+                    $this->db->select('Emp_Id');
+                    $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
+                    $datos = $this->db->get('empleado');
+                    $datos = $datos->result();
+                    if (count($datos)) {
+                        $this->db->where('Emp_Cedula', $info['Emp_Cedula']);
+                        $this->db->update('empleado', $info);
+                        $actulizados++;
+                    } else {
+                        $this->db->insert('empleado', $info);
+                        $creados++;
+                    }
+                } else {
+                    $incosistencias.='<br> Cargo no encontrado para la cedula: ' . $info['Emp_Cedula'];
+                }
+            }
+            echo "<p><br>Numero de registros: " . $registros;
+            echo "<br>Registros actualizados : " . $actulizados;
+            echo "<br>Registros Creados : " . $creados;
+            if (!empty($incosistencias)) {
+                echo "<br>Datos con errores : " . $incosistencias;
+            }
         } catch (Exeption $e) {
             
         } finally {
@@ -2026,6 +2052,7 @@ class Administrativo extends My_Controller {
             
         }
     }
+
     function guardar_protexion() {
         try {
             $this->load->model(array("Dotacion_model"));
@@ -2036,6 +2063,7 @@ class Administrativo extends My_Controller {
             
         }
     }
+
     function consultar_empreado() {
         try {
             $this->load->model(array("Dotacion_model"));
@@ -2046,20 +2074,20 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
-    function guardarPoliticaEmpresarial(){
-        try{
-            if(empty($this->input->post("politica")))
+
+    function guardarPoliticaEmpresarial() {
+        try {
+            if (empty($this->input->post("politica")))
                 throw new Exception("No existe política a guardar");
-            
+
             $this->load->model(array("Inicio_model"));
             $this->Inicio_model->guardarPoliticaEmpresa($this->input->post("politica"));
             $data['message'] = "Guardado con exito";
-            $data['color'] =  "verde";
-        }catch(exception $e){
+            $data['color'] = "verde";
+        } catch (exception $e) {
             $data['message'] = $e->getMessage();
-            $data['color'] = "rojo"; 
-        }finally{
+            $data['color'] = "rojo";
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }

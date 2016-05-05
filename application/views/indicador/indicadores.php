@@ -3,7 +3,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>NUEVO INDICADOR
+                    <i class="fa fa-gift"></i>INDICADORES GENERALES
                 </div>
                 <div class="tools"> 
                     <a href="javascript:;" class="collapse">
@@ -102,7 +102,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group" style="text-align: center">
-                                    <button type="button" class="btn btn-success" id="crearIndicador">Crear indicador</button>
+                                    <button type="button" class="btn btn-success" id="crearIndicador">Consultar indicador</button>
                                 </div>
                             </div>
                         </div>
@@ -175,6 +175,34 @@
                         alerta("amarillo", msg['message'])
                     else {
                         google.charts.setOnLoadCallback(drawChart(msg.Json,"ACCIDENTES CON INCAPACIDAD"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
+            if ($('#clasificacion').val() == 1 && $('#tipoClasificacion').val() == 1)
+            {
+                $.post(url + "index.php/indicador/inspecciones",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"INSPECCIONES"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
+            if ($('#clasificacion').val() == 1 && $('#tipoClasificacion').val() == 3)
+            {
+                $.post(url + "index.php/indicador/capacitaciones",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"CAPACITACIONES"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");

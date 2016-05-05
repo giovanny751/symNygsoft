@@ -89,7 +89,7 @@
                                 <th style="width: 20%">Responsable</th>
                                 <th style="width: 5%">Presupuesto</th>
                                 <th style="width: 10%">Descripción</th>
-                                <th style="width: 5%">Tareas propias</th>
+                                <th style="width: 5%">Tareas</th>
                                 <th style="width: 10%">Editar</th>
                                 <th style="width: 10%">Eliminar</th>
                                 </thead>

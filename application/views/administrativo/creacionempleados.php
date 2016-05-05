@@ -65,10 +65,10 @@
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#tab6">Registro</a>
+                                    <a data-toggle="tab" href="#tab9">Dotación</a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#tab9">Dotación</a>
+                                    <a data-toggle="tab" href="#tab6">Registro</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -93,7 +93,7 @@
                                                 <div class="form-group">
                                                     <label for="cedula" class="col-md-3"><span class="campoobligatorio">*</span>N° Documento</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
+                                                        <input type="text" id="cedula" name="cedula" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_Cedula)) ? $empleado[0]->Emp_Cedula : ""; ?>" />
                                                     </div>    
                                                 </div>    
                                             </div>    
@@ -172,9 +172,9 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="salario" class="control-label col-md-3">* Salario</label>
+                                                    <label for="salario" class="control-label col-md-3">Salario</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" id="salario" name="salario" class="form-control obligatorio miles"  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                                        <input type="text" id="salario" name="salario" class="form-control miles" disabled=""  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
                                             </div>  
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="telefono" class="control-label col-md-3">Celular</label>   
+                                                    <label for="celular" class="control-label col-md-3">Celular</label>   
                                                     <div class="col-md-9">
                                                         <input type="text" id="celular" name="celular" class="form-control number "  value="<?php echo (!empty($empleado[0]->emp_celular)) ? $empleado[0]->emp_celular : ""; ?>" />
                                                     </div>     
@@ -319,12 +319,22 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="contacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombre Contacto</label>
+                                                        <label for="contacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Nombre(s)</label>
                                                         <div class="col-md-9">
                                                             <input type="text" id="contacto" name="contacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_contacto)) ? $empleado[0]->Emp_contacto : ""; ?>" />
                                                         </div>  
                                                     </div>  
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="contactoApellido" class="control-label col-md-3"><span class="campoobligatorio">*</span>Apellido(s)</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="contactoApellido" name="contactoApellido" class="form-control"  value="<?php echo (!empty($empleado[0]->Emp_contactoApellido)) ? $empleado[0]->Emp_contactoApellido : ""; ?>" />
+                                                        </div>  
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="telefonocontacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Teléfono Contacto</label>
@@ -335,9 +345,17 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="telefonocontacto" class="control-label col-md-3"><span class="campoobligatorio">*</span>Correo Contacto</label>
+                                                        <label for="Emp_celularContacto" class="control-label col-md-3">Celular contacto</label>
                                                         <div class="col-md-9">
-                                                            <input type="text" id="telefonocontacto" name="telefonocontacto" class="form-control obligatorio"  value="<?php echo (!empty($empleado[0]->Emp_correoContacto)) ? $empleado[0]->Emp_correoContacto : ""; ?>" />
+                                                            <input type="text" id="Emp_celularContacto" name="Emp_celularContacto" class="form-control number"  value="<?php echo (!empty($empleado[0]->Emp_celularContacto)) ? $empleado[0]->Emp_celularContacto : ""; ?>" />
+                                                        </div>    
+                                                    </div>    
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="correoConctacto" class="control-label col-md-3">Correo Contacto</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" id="correoConctacto" name="correoConctacto" class="form-control"  value="<?php echo (!empty($empleado[0]->Emp_correoContacto)) ? $empleado[0]->Emp_correoContacto : ""; ?>" />
                                                         </div>    
                                                     </div>    
                                                 </div>
@@ -548,18 +566,16 @@
                                     <form id="frmContrato" class="form-horizontal">
                                         <input type="hidden" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="form-group">
-                                            <label for="fInicioContrato" class="control-label col-sm-2">*Fecha Inicio</label>
-                                            <div class="col-sm-4">
+                                            <label for="fInicioContrato" class="control-label col-md-1">*Fecha Inicio</label>
+                                            <div class="col-sm-2">
                                                 <input type="text" class="obligatorioContrato form-control obliContrato fecha" name="fInicioContrato" id="fInicioContrato"  />
                                             </div>
-                                            <label for="fFinalContrato" class="control-label col-sm-2">Fecha Final</label>
-                                            <div class="col-sm-4">
+                                            <label for="fFinalContrato" class="control-label col-sm-1">Fecha Final</label>
+                                            <div class="col-sm-2">
                                                 <input type="text" class="form-control fecha" name="fFinalContrato" id="fFinalContrato"  />
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fInicioContrato" class="control-label col-sm-2">*Tipo Contrato</label>
-                                            <div class="col-sm-4">
+                                            <label for="tipContrato" class="control-label col-md-1">*Tipo Contrato</label>
+                                            <div class="col-md-2">
                                                 <select name="tipContrato" id="tipContrato" class="obligatorioContrato form-control obliContrato">
                                                     <option value="">::Seleccionar::</option>
                                                     <?php foreach ($tipocontrato as $tp) { ?>
@@ -567,13 +583,19 @@
                                                     <?php } ?>
                                                 </select>
                                             </div>
-                                            <label for="obsContrato" class="control-label col-sm-2">Observaciones</label>
-                                            <div class="col-sm-4">
+                                            <label for="salario" class="control-label col-md-1">Salario</label>
+                                            <div class="col-md-2">
+                                                <input type="text" name="salario" id="salario" class="form-control number miles">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="obsContrato" class="control-label col-md-1">Observaciones</label>
+                                            <div class="col-md-11">
                                                 <textarea name="obsContrato" id="obsContrato" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-12" style="text-align: right">
+                                            <div class="col-md-12" style="text-align: right">
                                                 <button type="button" id="btnContrato" class="btn btn-sst">Agregar</button>
                                             </div>
                                         </div>
@@ -584,6 +606,7 @@
                                                 <th>Fecha Inicio</th>
                                                 <th>Fecha Final</th>
                                                 <th>Tipo Contrato</th>
+                                                <th>Salario</th>
                                                 <th>Observaciones</th>
                                             </tr>
                                         </thead>
@@ -593,6 +616,7 @@
                                                     <td><?php echo $tc->empCon_fechaDesde ?></td>
                                                     <td><?php echo $tc->empCon_fechaHasta ?></td>
                                                     <td><?php echo $tc->TipCon_Descripcion ?></td>
+                                                    <td><?php echo $tc->empCon_salario ?></td>
                                                     <td><?php echo $tc->empCon_observacion ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -1191,7 +1215,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" value="<?php echo $empleado[0]->Emp_Id ?>" name="Emp_Id" class="empleadoId" />
+                    <input type="hidden" value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" name="Emp_Id" class="empleadoId" />
                 </form>
             </div>
             <div class="modal-footer">
@@ -1231,7 +1255,7 @@ endforeach;
             $.post(url + "index.php/administrativo/guardarincapacidad", $("#crearIncapacidad").serialize())
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
-                            alerta("amarillo", msg['message'])
+                            alerta(msg["color"], msg['message'])
                         else {
                             $("#crearIncapacidad").find("input[type='text']").val("");
                             $("#crearIncapacidad").find("select").val("");
@@ -1300,7 +1324,7 @@ endforeach;
             $.post(ruta, $('#FrmVacaciones').serialize())
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
-                            alerta("rojo", msg['message']);
+                            alerta(msg["color"], msg['message']);
                         else
                             cargarTablaVacaciones(msg, "bodyVacation");
                     })
@@ -1317,7 +1341,7 @@ endforeach;
         $.post(ruta, $('#FrmAusentismo').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
-                        alerta("rojo", msg['message'])
+                        alerta(msg['color'], msg['message'])
                     else
                         cargarTablaVacaciones(msg, "bodyAusentismo");
 
@@ -1388,7 +1412,7 @@ endforeach;
         )
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
-                        alerta("rojo", msg['message'])
+                        alerta(msg["color"], msg['message'])
                     else {
                         $("#iniciovacaciones").val(msg.Json[0].empAus_fechaInicial);
                         $("#finvacaciones").val(msg.Json[0].empAus_fechaFinal);
@@ -1414,7 +1438,7 @@ endforeach;
         )
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
-                        alerta("rojo", msg['message'])
+                        alerta(msg["color"], msg['message'])
                     else {
                         apuntador.parent('td').parent('tr').remove();
                         alerta("verde", "Eliminado correctamente");
@@ -1548,7 +1572,7 @@ endforeach;
                 alerta("verde", "Registro eliminado correctamente");
             }).fail(function (msg) {
                 alerta("rojo", "Error, por favor comunicarse con el administrador del sistema")
-            })
+            });
     });
 
     $('#cedula').change(function () {
@@ -1771,28 +1795,32 @@ endforeach;
             data: form_data,
             type: 'post',
             success: function (result) {
-
-                $('#archivocarpeta').val('')
-                $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody *').remove();
-                var filas = "";
                 var result = jQuery.parseJSON(result);
-                $.each(result, function (key, val) {
-                    filas += "<tr>";
-                    filas += "<td><a target='_blank' href='<?php echo base_url("/uploads/empleado/") ?>/" + val.emp_id + "/" + val.empReg_id + "/" + val.empReg_archivo + "' title='descargar' >" + val.empReg_archivo + "</td>";
-                    filas += "<td>" + val.empReg_descripcion + "</td>";
-                    filas += "<td>" + val.empReg_version + "</td>";
-                    filas += "<td>" + val.nombre + "</td>";
-                    filas += "<td>" + val.empReg_tamano + "</td>";
-                    filas += "<td>" + val.empgReg_fecha + "</td>";
-                    filas += "<td>\n\
+                if (!jQuery.isEmptyObject(result.message))
+                    alerta(result['color'], result['message'])
+                else {
+                    $('#archivocarpeta').val('')
+                    $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody *').remove();
+                    var filas = "";
+                    
+                    $.each(result.Json, function (key, val) {
+                        filas += "<tr>";
+                        filas += "<td><a target='_blank' href='<?php echo base_url("/uploads/empleado/") ?>/" + val.emp_id + "/" + val.empReg_id + "/" + val.empReg_archivo + "' title='descargar' >" + val.empReg_archivo + "</td>";
+                        filas += "<td>" + val.empReg_descripcion + "</td>";
+                        filas += "<td>" + val.empReg_version + "</td>";
+                        filas += "<td>" + val.nombre + "</td>";
+                        filas += "<td>" + val.empReg_tamano + "</td>";
+                        filas += "<td>" + val.empgReg_fecha + "</td>";
+                        filas += "<td>\n\
                             <i class='fa fa-times eliminar btn-danger' title='Eliminar' empReg_id='" + val.empReg_id + "'></i>\n\
                             <i class='fa fa-pencil-square-o modificar btn-info' title='Modificar' data-target='#myModal2' data-toggle='modal'  emp_id='" + val.empReg_id + "' ></i>\n\
                          </td>";
-                    filas += "</tr>";
-                });
-                var numero = $('#empReg_carpeta').val();
-                $('#collapse_' + numero).find('table tbody').append(filas);
-                $('#myModal2').modal("toggle");
+                        filas += "</tr>";
+                    });
+                    
+                    $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody').append(filas);
+                    $('#myModal2').modal("hide");
+                }
             }
         });
     });

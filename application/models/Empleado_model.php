@@ -106,6 +106,15 @@ class Empleado_model extends CI_Model {
                 $this->db->set('emp_salario',$post['salario']);
             if(!empty($post['fondo']))
                 $this->db->set('emp_fondo',$post['fondo']);
+            if(!empty($post['correoConctacto']))
+                $this->db->set('emp_correoContacto',$post['correoConctacto']);
+            if(!empty($post['Emp_celularContacto']))
+                $this->db->set('Emp_celularContacto',$post['Emp_celularContacto']);
+            if(!empty($post['emp_celular']))
+                $this->db->set('emp_celular',$post['celular']);
+            if(!empty($post['contactoApellido']))
+                $this->db->set('Emp_contactoApellido',$post['contactoApellido']);
+            
             $this->db->set('Est_id' , 1);
             $this->db->set('creatorUser', $this->session->userdata('usu_id'));
             $this->db->set('creatorDate', date("Y-m-d H:i:s"));
