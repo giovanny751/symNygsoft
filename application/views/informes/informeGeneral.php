@@ -131,7 +131,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">tareas</label>
+                                            <label class="col-md-6">Tareas</label>
                                             <div class="col-md-6">
                                                 <?php echo $general[0]->tarea ?>
                                             </div>
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">tareas inactivas</label>
+                                            <label class="col-md-6">Tareas inactivas</label>
                                             <div class="col-md-6">
                                                 <?php echo $general[0]->tareaInactiva ?>
                                             </div>
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">tareas eliminadas</label>
+                                            <label class="col-md-6">Tareas eliminadas</label>
                                             <div class="col-md-6">
                                                 <?php echo $general[0]->tareaEliminada ?>
                                             </div>
