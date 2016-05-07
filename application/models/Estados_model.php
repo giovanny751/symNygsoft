@@ -28,6 +28,16 @@ class Estados_model extends CI_Model {
             
         }
     }
+    function estadoCopasst() {
+        try {
+            $this->db->where('est_id', 1);
+            $this->db->or_where('est_id', 6);
+            $estados = $this->db->get("estados");
+            return $estados->result();
+        } catch (exception $e) {
+            
+        }
+    }
 
 }
 

@@ -30,11 +30,13 @@
         Otros Estilos Necesarios
         ------------------------------------------------------------------------ -->
         <!-- Calendario -->
+        <link href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) ?>" rel="stylesheet" type="text/css" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") ?>" />
         <!-- Notificaciones -->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.css') ?>"/>
         <!-- Datepicker -->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') ?>"/>
+        <link href="<?php echo base_url("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css") ?>" rel="stylesheet" type="text/css" />
         <!-- Select y multiselect -->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/select2/select2.css') ?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/jquery-multi-select/css/multi-select.css') ?>"/>
@@ -42,6 +44,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') ?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') ?>"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/global/plugins/clockface/css/clockface.css') ?>"/>
 
         <!--------------------------------------------------------------------------
         Estilos Layoud
@@ -61,6 +64,8 @@
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap_3.3.5.min.js") ?>"></script>
         <script src="<?= base_url('js/jquery.blockUI.js') ?>" type="text/javascript"></script>
 
+        
+        
     </head>
     <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
         <?php
@@ -321,6 +326,8 @@
                 <!-- Scripts Pagina -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js") ?>"></script> <!-- Notificaciones -->
+                <script src="<?php echo base_url("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") ?>" type="text/javascript"></script>
+                <script src="<?php echo base_url("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js") ?>" type="text/javascript"></script>
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/moment.min.js") ?>"></script> <!-- Fecha Inicio (1,3) -->
                 <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") ?>"></script> <!-- Fecha Inicio (2,3) -->
                 <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->

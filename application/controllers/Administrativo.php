@@ -1314,7 +1314,6 @@ class Administrativo extends My_Controller {
                 "emp_direccion" => $this->input->post("direccion"),
                 "ciu_id" => $this->input->post("ciudad"),
                 "tam_id" => $this->input->post("tamano"),
-                "numEmp_id" => $this->input->post("empleados"),
                 "actEco_id" => $this->input->post("actividadeconomica"),
                 "Dim_id" => $this->input->post("dimension1"),
                 "Dimdos_id" => $this->input->post("dimension2"),
@@ -2088,6 +2087,32 @@ class Administrativo extends My_Controller {
             $data['message'] = $e->getMessage();
             $data['color'] = "rojo";
         } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
+    function agendarReunionCopasst(){
+        $this->load->model(array("Agendamientocomite_model","Empleado_model","Estados_model"));
+        $this->data['empleados'] = $this->Empleado_model->empleados();
+        $this->data['agenda'] = $this->Agendamientocomite_model->detail();
+        $this->data['estado'] = $this->Estados_model->estadoCopasst();
+        $this->layout->view("administrativo/agendarReunionCopasst",$this->data);
+    }
+    function consultaCorreo(){
+        try{
+            if(empty($this->input->post('empId')))
+                throw new Exception("No existe empleado para consultar correo");
+            $this->load->model(array("Empleado_model"));
+            
+            $respuesta = $this->Empleado_model->consultaCorreoEmpleado($this->input->post('empId'));
+            if(!empty($respuesta)){
+                $data['Json'] = $respuesta[0];
+            }else{
+                throw new Exception("No existe correo para el empleado");
+            }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }

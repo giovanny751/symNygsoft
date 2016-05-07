@@ -427,6 +427,13 @@ class Empleado_model extends CI_Model {
         $empleado = $this->db->get('empleado');
         return $empleado->result();
     }
+    function consultaCorreoEmpleado($empId){
+        $this->db->select("Emp_Email");
+        $this->db->where("Emp_id",$empId);
+        $correo = $this->db->get("empleado");
+        
+        return $correo->result();
+    }
 
 }
 
