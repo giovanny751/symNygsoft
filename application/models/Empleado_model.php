@@ -114,6 +114,8 @@ class Empleado_model extends CI_Model {
                 $this->db->set('emp_celular',$post['celular']);
             if(!empty($post['contactoApellido']))
                 $this->db->set('Emp_contactoApellido',$post['contactoApellido']);
+            if(!empty($post['fechaExpedicion']))
+                $this->db->set('Emp_fechaExpedicionDocumento',$post['fechaExpedicion']);
             
             $this->db->set('Est_id' , 1);
             $this->db->set('creatorUser', $this->session->userdata('usu_id'));
@@ -429,6 +431,7 @@ class Empleado_model extends CI_Model {
     }
     function consultaCorreoEmpleado($empId){
         $this->db->select("Emp_Email");
+        $this->db->select("Emp_Cedula");
         $this->db->where("Emp_id",$empId);
         $correo = $this->db->get("empleado");
         

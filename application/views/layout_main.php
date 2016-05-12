@@ -138,7 +138,7 @@
                                     
                                     <ul class="dropdown-menu">
                                         <li class="external">
-                                            <h3><span class="bold">12 pendiente</span> notificaciones</h3>
+                                            <h3><span class="bold"><?php echo $conadorNotificacion; ?> pendiente</span> notificaciones</h3>
                                             <a href="<?php ?>">Ver todos</a>
                                         </li>
                                         <li>
@@ -156,116 +156,6 @@
                                                         </a>
                                                     </li>
                                                 <?php endforeach; ?>
- <!--                                               <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">Ahora</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-success">
-                                                                <i class="fa fa-plus"></i>
-                                                            </span>
-                                                            Nuevo usuario registrado
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">3 minutos</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-danger">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor vencido
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <span class="time">1 Dia</span>
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span>
-                                                            Extintor por vencer
-                                                        </span>
-                                                    </a>
-                                                </li>   -->
                                             </ul>
                                         </li>
                                     </ul>

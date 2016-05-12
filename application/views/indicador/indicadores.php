@@ -208,10 +208,25 @@
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
                 });
             }
+            if ($('#clasificacion').val() == 1 && $('#tipoClasificacion').val() == 2)
+            {
+                $.post(url + "index.php/indicador/reunionesCopasst",
+                        $("#frmIndicadores").serialize()
+                        ).done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message'])
+                    else {
+                        google.charts.setOnLoadCallback(drawChart(msg.Json,"REUNIONES COPASST"));
+                    }
+                }).fail(function (msg) {
+                    alerta("rojo", "Error, comunicarse con el administrador del sistema");
+                });
+            }
         }
     });
 
     $('#clasificacion').change(function () {
+        $('#tipoClasificacion *').remove();
         $.post(url + "index.php/indicador/tiposIndicadores", {
             clasificacion: $(this).val()
         })
@@ -219,7 +234,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        $('#tipoClasificacion *').remove();
+                        
                         var option = "<option value=''>::Seleccionar::</option>";
                         $.each(msg.Json, function (key, val) {
                             option += "<option value='" + val.indClaTip_id + "'>" + val.indClaTip_tipo + "</option>";

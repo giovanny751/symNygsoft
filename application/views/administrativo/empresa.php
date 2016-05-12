@@ -1,9 +1,4 @@
-<link rel="stylesheet" href="<?php echo base_url('dist/css/font-awesome.min.css'); ?>" />
-<script type="text/javascript" src="<?php echo base_url('dist/js/summernote.js?v=' . date("d-h")); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('dist/js/script_summernote.js?v=' . date("d-h")); ?>"></script>
-<link href="<?php echo base_url('dist/css/summernote.css?v=' . date("d-h")); ?>" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -23,7 +18,7 @@
                             <a data-toggle="tab" href="#tab1">Empresa</a>
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#tab2">Politica General</a>
+                            <a data-toggle="tab" href="#tab2">Politicas / Copasst</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -257,12 +252,44 @@
                             </form>
                         </div>
                         <div id="tab2" class="tab-pane">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-success" id="guardarPolitica">Guardar</button>
-                            </div>
-                            <div class="col-md-12">
-                                <textarea class="textareasumer" name="politica" id="politica"><?php echo (!empty($politicaGeneral[0]->ini_politicaEmpresarial))?$politicaGeneral[0]->ini_politicaEmpresarial:""; ?></textarea>
-                            </div>
+                            <form method="post" class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4"><a href="<?php echo base_url("uploads/sgsst/politicas/PolíticadeSeguridadySaludenelTrabajo.docx") ?>">Política de Seguridad y Salud en el Trabajo</a></label>
+                                            <div class="col-md-4"><input type="file" class="form-control" name="" id=""></div>
+                                            <label class="col-md-4"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4"><a href="<?php echo base_url("uploads/sgsst/politicas/PolíticadePreparaciónPrevenciónyRespuestaanteEmergencias.docx") ?>">Política de Preparación Prevención y Respuesta ante Emergencias</a></label>
+                                            <div class="col-md-4"><input type="file" class="form-control" name="" id=""></div>
+                                            <label class="col-md-4"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4"><a href="<?php echo base_url("uploads/sgsst/politicas/PolíticadeElementosyEquiposdeProteciónPersonal.docx") ?>">Política de Elementos y Equipos de Proteción Personal</a></label>
+                                            <div class="col-md-4"><input type="file" class="form-control" name="" id=""></div>
+                                            <label class="col-md-4"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4"><a href="<?php echo base_url("uploads/sgsst/politicas/PolíticadeControldeCigarrilloAlcoholyDrogas.docx") ?>">Política de Control de Cigarrillo Alcohol y Drogas</a></label>
+                                            <div class="col-md-4"><input type="file" class="form-control" name="" id=""></div>
+                                            <label class="col-md-4"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-4">
+                                                <a href="<?php echo base_url("uploads/sgsst/copasst/FormatodeActadeConformacióndelCOPASST.docx") ?>">Formato de Acta de Conformación del COPASST</a></label>
+                                            <div class="col-md-4"><input type="file" class="form-control" name="" id=""></div>
+                                            <label class="col-md-4"></label>
+                                        </div>
+                                    </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -277,20 +304,20 @@
     </div>
 
     <script>
-        
-        $('#guardarPolitica').click(function(){
-            
+
+        $('#guardarPolitica').click(function () {
+
             politica = $('#politica').code();
             $.post("<?php echo base_url("index.php/administrativo/guardarPoliticaEmpresarial") ?>", {politica: politica})
-                .done(function (msg) {
-                    if (!jQuery.isEmptyObject(msg.message))
-                        alerta(msg.color, msg['message'])
-                    else {
-                        alerta('verde', 'la politica fue guardada con Exito');
-                    }
-                }).fail(function (msg) {
-            alerta('rojo', 'Error al Guardar');
-        })
+                    .done(function (msg) {
+                        if (!jQuery.isEmptyObject(msg.message))
+                            alerta(msg.color, msg['message'])
+                        else {
+                            alerta('verde', 'la politica fue guardada con Exito');
+                        }
+                    }).fail(function (msg) {
+                alerta('rojo', 'Error al Guardar');
+            })
         });
 
         $('.dirigir').click(function () {

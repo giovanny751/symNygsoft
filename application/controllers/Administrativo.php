@@ -2116,7 +2116,123 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+    function guardarReunionCopasst(){
+        try{
+        if(empty($this->input->post('participantes'))){
+            $data['color'] = "amarillo";
+            throw new Exception("No existen participantes para la reunión");
+        }
+        
+        $this->load->model(array("Copasstreuniones_model","Copasstagendacomite_model"));
+        $respuesta = $this->Copasstreuniones_model->saveMeetings($this->input->post());
+        if(!empty($respuesta)){
+            $agenda = $this->input->post("agenda");
+            $opcionesAgenda = array();
+            for($i = 0; $i < count($agenda); $i++):
+                $opcionesAgenda[] = array(
+                    "copReu_id"=>$respuesta,
+                    "ageCom_id"=>$agenda[$i]
+                ); 
+            endfor;
+            
+            $this->Copasstagendacomite_model->keepCommitteeMeetings($opcionesAgenda);
+            $data['Json']= "";
+        }else{
+            throw new Exception("No se pudo guardar la reunión");
+        }
+        }catch(exception $e){
+            $data["message"] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
+    function reunionesCopasst(){
+        $this->load->model(array("Agendamientocomite_model","Empleado_model","Estados_model"));
+        $this->data['empleados'] = $this->Empleado_model->empleados();
+        $this->data['agenda'] = $this->Agendamientocomite_model->detail();
+        $this->data['estado'] = $this->Estados_model->estadoCopasst();
+        $this->layout->view("administrativo/listaReunionCopasst",$this->data);
+    }
 
+    function consultaCopasst(){
+        try{
+            $this->load->model(array("Copasstreuniones_model","Copasstagendacomite_model"));
+            $reuniones = $this->Copasstreuniones_model->consultationMeetings($this->input->post());
+            if(!empty($reuniones)){
+                $data['Json'] = $reuniones;
+            }else{
+                $data['color'] = "amarillo";
+                throw new Exception("No existen reuniones");
+            }
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    
+    function pruebacorreo(){
+        
+//        mail("gerson@nygsoft.com", "Bienvenido al sistema SG-SST", "hola", "gerson");
+        
+//        die;
+        
+        $this->load->library('email');
+
+        $this->email->from('gerson@nygsoft.com', 'Your Name');
+        $this->email->to('gerson@nygsoft.com');
+        $this->email->cc('gerson@nygsoft.com');
+        $this->email->bcc('gerson@nygsoft.com');
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
+
+        var_dump($this->email->send());
+
+        die;
+        
+         $this->load->library('email');
+        
+                    $subject = 'This is a test';
+            $message = 'NYGSOFT PRUEBA';
+
+            // Get full html:
+            $body = "Hola Gerson";
+            // Also, for getting full html you may use the following internal method:
+            //$body = $this->email->full_html($subject, $message);
+
+            $result = $this->email
+                ->from('gerson@nygsoft.com')
+                ->reply_to('gerson@nygsoft.com')    // Optional, an account where a human being reads.
+                ->to('gerson@nygsoft.com')
+                ->subject($subject)
+                ->message($body)
+                ->send();
+            
+            
+
+            var_dump($result); die;
+            echo '<br />';
+            echo $this->email->print_debugger();
+
+            exit;
+    }
+    function reunionesAnterioresCopasst(){
+        try{
+            $this->load->model("Copasstreuniones_model");
+            $respuesta = $this->Copasstreuniones_model->reunionesAnterioresCopasst();
+            if(!empty($respuesta)):
+                $data['Json'] = $respuesta;
+            else:
+                throw new Exception("No existen reuniones anteriores");    
+            endif;
+        }catch(exception $e){
+            $data["message"] = $e->getMessage(); 
+        }finally{
+             $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 }
 
 /* End of file welcome.php */

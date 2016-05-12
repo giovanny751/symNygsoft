@@ -26,8 +26,10 @@ class MY_Controller extends CI_Controller {
         $this->data['user'] = $this->session->userdata();
         $this->data["usu_id"] = $this->session->userdata('usu_id');
         validate_login($this->data['user']['usu_id']);
-        $this->verificacion();
-                
+
+        $this->load->library('email');
+
+        // $this->verificacion();
     }
 
     function verificacion() {
@@ -37,12 +39,12 @@ class MY_Controller extends CI_Controller {
             $method = $ci->router->fetch_method();
             $view = $this->Ingreso_model->consultapermisosmenu($this->data['user']['usu_id'], $controller, $method, $this->data['user']['rol_id']);
             $permisosPeticion = $this->Ingreso_model->consultaPermisosAccion($this->data['user']['usu_id'], $controller, $method);
-            
+
 //            echo "<pre>";
 //            var_dump($view);
 //            echo "****<br>";
 //            var_dump($permisosPeticion);die;
-            
+
             if (!empty($view)) {
                 if (!empty($view[0]['clase']) && !empty($view[0]['metodo']) && empty($view[0]['usu_id']))
                     echo "No tiene permisos por favor comunicarse con el administrador";
@@ -53,7 +55,7 @@ class MY_Controller extends CI_Controller {
                     throw new Exception("No tiene permisos de crear");
                 } else if ($permisosPeticion[0]['accion'] == 1 && empty($permisosPeticion[0]['perRol_eliminar'])) {
                     throw new Exception("No tiene permisos de eliminar");
-                } else if ($permisosPeticion[0]['accion'] == 2 && empty($permisosPeticion[0]['perRol_modificar']) ) {
+                } else if ($permisosPeticion[0]['accion'] == 2 && empty($permisosPeticion[0]['perRol_modificar'])) {
                     throw new Exception("No tiene permisos de modificar");
                 } else if ($permisosPeticion[0]['accion'] == 3 && empty($permisosPeticion[0]['perRol_id'])) {
                     throw new Exception("No tiene permisos de consultar");

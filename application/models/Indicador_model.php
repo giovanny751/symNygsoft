@@ -262,6 +262,24 @@ class Indicador_model extends CI_Model {
 //        echo  $this->db->last_query();die;
         return $fecha->result();
     }
+    function indicadorReunionCopasst($cargo,$clasificacion,$dimensiondos,$dimensionuno,$fechaFinal,$fechaInicial,$tipoClasificacion){
+        $this->db->select("fecha.fec_fecha");
+        $this->db->distinct("fecha.fec_fecha");
+        $this->db->select("
+                            (select count(*) 
+                        from copasst_reuniones 
+                        where est_id = 1 
+                        and SUBSTRING(fecha.fec_fecha,1,7) = SUBSTRING(copasst_reuniones.copReu_fecha,1,7)
+                        ) as cantidadCapacitaciones
+                        ",false,false);
+        $this->db->order_by("fec_fecha");
+        $this->db->where("fec_fecha >=",$fechaInicial);
+        $this->db->where("fec_fecha <=",$fechaFinal);
+        $fecha = $this->db->get("fecha");
+        
+//        echo  $this->db->last_query();die;
+        return $fecha->result();
+    }
 }
 
 ?>
