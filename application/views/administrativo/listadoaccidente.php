@@ -25,7 +25,7 @@
                             <div class="col-sm-4">
                                 <input type="text" name="reporte" id="reporte" class="form-control" />
                             </div>
-                            <label for="empleado" class="control-label col-sm-2">Empelado</label>
+                            <label for="empleado" class="control-label col-sm-2">Empleado</label>
                             <div class="col-sm-4">
                                 <select name="empleado" id="empleado" class="form-control">
                                     <option value="" >::Seleccionar::</option>

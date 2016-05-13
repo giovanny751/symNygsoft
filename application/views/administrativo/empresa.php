@@ -61,6 +61,24 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="telefono" class="control-label col-md-3">Teléfono</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" id="telefono" name="telefono" class="form-control" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="celular" class="control-label col-md-3">Celular</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" id="celular" name="celular" class="form-control" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label for="direccion" class="control-label col-md-3">Dirección</label>
                                                 <div class="col-md-9">
                                                     <input type="text" id="direccion" name="direccion" class="form-control" value="<?php echo $informacion[0]->emp_direccion ?>" />
