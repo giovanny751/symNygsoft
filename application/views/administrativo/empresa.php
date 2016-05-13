@@ -159,6 +159,16 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="representante" class="control-label col-md-3">Número de vehiculos</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" checked="" id="cantidadVehiculos" name="cantidadVehiculos" class="form-control"  value="" disabled="disabled"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label for="dimension1" class="control-label col-md-3">Dimensión 1</label>
                                                 <div class="col-md-9">
                                                     <input type="text" id="dimension1" name="dimension1" class="form-control" value="<?php echo $informacion[0]->Dim_id ?>" /> 
