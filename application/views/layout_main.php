@@ -90,20 +90,19 @@
                     <ul class='sub-menu'>
                         <?php
                     }
-
                     foreach ($i as $nombrepapa => $menuidpadre)
                         foreach ($menuidpadre as $modulos => $menu)
                             foreach ($menu as $submenus):
                                 if ($submenus[1] == "" && $submenus[2] == "")
-                                    echo "<li><a href='javascript:;'><i class='icon-home'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
+                                    echo "<li><a href='javascript:;'><i class='".$submenus[3]."'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
                                 else
-                                    echo "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'><i class='icon-bar-chart'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span></a>";
+                                    echo "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'><i class=''></i> <span class='title'>" . strtoupper($nombrepapa) . "</span></a>";
                                 if (!empty($submenus[0]))
                                     modulos($submenus[0], $idusuario, null, 'uno');
                                 echo "</li>";
                             endforeach;
                     if ($datosmodulos == 'prueba')
-                        echo "<li><a href='" . base_url('index.php/login/logout') . "'>CERRAR SESION</a></li>";
+                        echo "<li><a href='" . base_url('index.php/login/logout') . "'><i class='icon-user-unfollow '></i>CERRAR SESION</a></li>";
                     echo "</ul>";
                 }
                 ?>
