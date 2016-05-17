@@ -30,7 +30,7 @@
         Otros Estilos Necesarios
         ------------------------------------------------------------------------ -->
         <!-- Calendario -->
-        <link href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") ?>" rel="stylesheet" type="text/css" />
         <link type="text/css" rel="stylesheet" href="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css") ?>" />
         <!-- Notificaciones -->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.css') ?>"/>
@@ -64,10 +64,10 @@
         <script type="text/javascript" src="<?php echo base_url("js/bootstrap_3.3.5.min.js") ?>"></script>
         <script src="<?= base_url('js/jquery.blockUI.js') ?>" type="text/javascript"></script>
 
-        
-        
+
+
     </head>
-    <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
+    <body class="page-quick-sidebar-over-content page-header-fixed page-sidebar-fixed">
         <?php
 
         function modulos($datosmodulos, $idusuario, $dato = null, $prueba = null) {
@@ -81,7 +81,7 @@
 
             if (empty($prueba)) {
                 ?>
-                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <ul class="page-sidebar-menu" data-slide-speed="200" data-auto-scroll="true" data-keep-expanded="false" data-height="332" style="overflow: hidden; width: auto; height: 332px;" data-initialized="1">
                     <li class="sidebar-toggler-wrapper">
                         <div class="sidebar-toggler"></div>
                     </li>
@@ -94,15 +94,13 @@
                         foreach ($menuidpadre as $modulos => $menu)
                             foreach ($menu as $submenus):
                                 if ($submenus[1] == "" && $submenus[2] == "")
-                                    echo "<li><a href='javascript:;'><i class='".$submenus[3]."'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
+                                    echo "<li><a href='javascript:;'><i class='" . $submenus[3] . "'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
                                 else
                                     echo "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'><i class=''></i> <span class='title'>" . strtoupper($nombrepapa) . "</span></a>";
                                 if (!empty($submenus[0]))
                                     modulos($submenus[0], $idusuario, null, 'uno');
                                 echo "</li>";
                             endforeach;
-                    if ($datosmodulos == 'prueba')
-                        echo "<li><a href='" . base_url('index.php/login/logout') . "'><i class='icon-user-unfollow '></i>CERRAR SESION</a></li>";
                     echo "</ul>";
                 }
                 ?>
@@ -122,19 +120,20 @@
                         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
                         <!-- Empezar navegacion menu superior -->
                         <?php
-                                    $ci = &get_instance();
-                                    $ci->load->model("Notificacionusuario_model");
-                                    $notificaciones = $ci->Notificacionusuario_model->detail();
-                                    $conadorNotificacion = count($notificaciones);
-                                    ?>
+                        $ci = &get_instance();
+                        $ci->load->model("Notificacionusuario_model");
+                        $notificaciones = $ci->Notificacionusuario_model->detail();
+                        $conadorNotificacion = count($notificaciones);
+                        ?>
                         <div class="top-menu">
                             <ul class="nav navbar-nav pull-right">
-                                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+
+                                <li class="dropdown dropdown-extended dropdown-notification dropdown-quick-sidebar-toggler" id="header_notification_bar">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <i class="icon-bell"></i>
                                         <span class="badge badge-default"><?php echo $conadorNotificacion; ?></span>
                                     </a>
-                                    
+
                                     <ul class="dropdown-menu">
                                         <li class="external">
                                             <h3><span class="bold"><?php echo $conadorNotificacion; ?> pendiente</span> notificaciones</h3>
@@ -159,6 +158,17 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="dropdown dropdown-user dropdown-quick-sidebar-toggler">
+                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <span class="username username-hide-on-mobile">
+                                            <?php echo $nombre ?> </span>
+                                    </a>
+                                </li>
+                                <li class="dropdown dropdown-quick-sidebar-toggler">
+                                    <a href='<?php echo base_url('index.php/login/logout') ?>' class="dropdown-toggle">
+                                        <i class="icon-logout"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -169,7 +179,9 @@
                     <!-- Empezar Barra Lateral -->
                     <div class="page-sidebar-wrapper">
                         <div class="page-sidebar navbar-collapse collapse">
-                            <?php echo modulos('prueba', $id, null); ?>
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 332px;">
+                                <?php echo modulos('prueba', $id, null); ?>
+                            </div>
                         </div>
                     </div>
                     <!-- Contenido -->

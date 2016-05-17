@@ -85,6 +85,8 @@ class Informes extends My_Controller {
         $this->data['pqr'] = $this->Informes_model->informePqr();
         $this->layout->view('informes/informeGeneral',$this->data);
     }
+    
+    
 
 }
 

@@ -15,35 +15,35 @@ class Documento extends My_Controller {
     }
 
     function botiquin() {
-        try{
-        $this->load->model("Seguridadbotiquin_model");
-        $this->load->model("Botiquin_model");
+        try {
+            $this->load->model("Seguridadbotiquin_model");
+            $this->load->model("Botiquin_model");
 //        $botiquin = $this->Botiquin_model->detail();
-        $seguridad = $this->Seguridadbotiquin_model->grupos();
-        $i = array();
-        foreach ($seguridad as $s):
-            $i[$s->segGru_grupo][] = array($s->segGruEle_id, $s->segGru_Elemento);
-        endforeach;
-        $this->data['seguridad'] = $i;
-        $this->load->model(array("Empleado_model"));
-        $this->data['empleado'] = $this->Empleado_model->detail();
-        $this->layout->view("documentos/botiquin", $this->data);
-        }catch(exception $e){
+            $seguridad = $this->Seguridadbotiquin_model->grupos();
+            $i = array();
+            foreach ($seguridad as $s):
+                $i[$s->segGru_grupo][] = array($s->segGruEle_id, $s->segGru_Elemento);
+            endforeach;
+            $this->data['seguridad'] = $i;
+            $this->load->model(array("Empleado_model"));
+            $this->data['empleado'] = $this->Empleado_model->detail();
+            $this->layout->view("documentos/botiquin", $this->data);
+        } catch (exception $e) {
             
-        }finally{
+        } finally {
             
         }
     }
-    
-    function guardarBotiquin(){
-        
+
+    function guardarBotiquin() {
+
         $this->load->model("Botiquin_model");
         $data = array(
-            "creatorUser"=>$this->data["usu_id"],
-            "creationDate"=>date("Y-m-d H:i:s"),
-            "bot_fechaInspeccion"=>$this->input->post("fecha"),
-            "emp_id"=>$this->input->post("empleado"),
-            "bot_observacion"=>$this->input->post("observaciones")
+            "creatorUser" => $this->data["usu_id"],
+            "creationDate" => date("Y-m-d H:i:s"),
+            "bot_fechaInspeccion" => $this->input->post("fecha"),
+            "emp_id" => $this->input->post("empleado"),
+            "bot_observacion" => $this->input->post("observaciones")
         );
         $id = $this->Botiquin_model->save($data);
     }
@@ -78,7 +78,7 @@ class Documento extends My_Controller {
                 "creatorUser" => $this->data["usu_id"]
             );
             $id = $this->Inspeccion_model->save($inspeccion);
-            
+
             $post = $this->input->post();
             $inspeccion = array();
 
@@ -91,9 +91,8 @@ class Documento extends My_Controller {
                     );
                 }
             }
-            if(!empty($inspeccion))
+            if (!empty($inspeccion))
                 $batchInscripcion = $this->Inspeccionopcion_model->save($inspeccion);
-            
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
@@ -140,18 +139,24 @@ class Documento extends My_Controller {
             
         }
     }
-    function filtros(){
+
+    function filtros() {
         $this->layout->view("documentos/filtros");
     }
-    function filtroInspeccion(){
-        $this->load->model(array("Botiquin_model","Extintor_model","Inspeccion_model"));
-        
-        if($this->input->post('tipoinspec') == 1)
-        $this->Botiquin_model->consultaBotiquin();
-        if($this->input->post('tipoinspec') == 2)
-        $this->Extintor_model->consultaExtintor();
-        if($this->input->post('tipoinspec') == 3)
-        $this->Inspeccion_model->consultaInspeccion();
+
+    function filtroInspeccion() {
+        $this->load->model(array("Botiquin_model", "Extintor_model", "Inspeccion_model"));
+
+        if ($this->input->post('tipoinspec') == 1)
+            $this->Botiquin_model->consultaBotiquin();
+        if ($this->input->post('tipoinspec') == 2)
+            $this->Extintor_model->consultaExtintor();
+        if ($this->input->post('tipoinspec') == 3)
+            $this->Inspeccion_model->consultaInspeccion();
+    }
+
+    function inspeccionPuesto() {
+        $this->layout->view('documentos/inspeccionPuesto', $this->data);
     }
 
 }
