@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller {
 
         $this->load->library('email');
 
-        // $this->verificacion();
+         $this->verificacion();
     }
 
     function verificacion() {
@@ -39,11 +39,6 @@ class MY_Controller extends CI_Controller {
             $method = $ci->router->fetch_method();
             $view = $this->Ingreso_model->consultapermisosmenu($this->data['user']['usu_id'], $controller, $method, $this->data['user']['rol_id']);
             $permisosPeticion = $this->Ingreso_model->consultaPermisosAccion($this->data['user']['usu_id'], $controller, $method);
-
-//            echo "<pre>";
-//            var_dump($view);
-//            echo "****<br>";
-//            var_dump($permisosPeticion);die;
 
             if (!empty($view)) {
                 if (!empty($view[0]['clase']) && !empty($view[0]['metodo']) && empty($view[0]['usu_id']))

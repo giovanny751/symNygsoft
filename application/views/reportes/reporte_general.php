@@ -1,78 +1,77 @@
 <input type="hidden" name="titulo" id="titulo"  value="<?php echo (isset($titulo_general) ? $titulo_general : 'Consultas y reportes') ?>">
 <input type="hidden" name="titulo2" class="titulo3" value="<?php echo (isset($titulo_general) ? $titulo_general : 'Consultas y reportes') ?>">
 
-<span id="impresiones">
-    <button class="btn btn-success excel" type="button">
-        <li class="fa fa-file-excel-o"></li>
-        Excel
-    </button>
-    <button class="btn btn-success pdf" type="button">
-        <li class="fa fa-file-pdf-o"></li>
-        PDF
-    </button>
-</span>
-<div id="mi_table_expor" class="table-responsive formulario_consul">
-    <p></p>
-    <table id="tableNoMovilProveedores" class="table table-striped cree" style="min-width:900px ">
-        <thead>
-            <tr>
+<div class="row">
+    <div class="col-md-12">
+        <span id="impresiones">
+            <button class="btn btn-success excel" type="button">
+                <li class="fa fa-file-excel-o"></li>
+                Excel
+            </button>
+            <button class="btn btn-success pdf" type="button">
+                <li class="fa fa-file-pdf-o"></li>
+                PDF
+            </button>
+        </span>
+    </div>
+</div>
+<hr>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <table id="tableNoMovilProveedores" class="table table-bordered table-hover " style="min-width:900px ">
+            <thead>
                 <?php
                 $cantidad_titulo = count($titulo);
                 for ($i = 0; $i < $cantidad_titulo; $i++) {
                     if (strpos($titulo[$i], ' :: ') == false) {
                         ?>
-                        <td><?php echo $titulo[$i]; ?></td>
-                        <?php
-                    } else {
-                        ?>
-                        <td style="display: none"><?php echo $titulo[$i]; ?></td>
-                        <?php
-                    }
-                }
-                ?>
-            </tr>
-            <tr>
-                <?php for ($i = 0; $i < count($titulo); $i++) {
+                    <th><?php echo $titulo[$i]; ?></th>
+                    <?php
+                } else {
                     ?>
-                    <th eeo=""><?php echo $titulo[$i]; ?></th><?php }
-                ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            //            print_r($consulta);
-            if ($consulta != false) {
-
-                foreach ($consulta as $key => $value) {
-                    ?>
-                    <tr>
-                        <?php
-                        $t = 0;
-                        foreach ($value as $key2 => $value2) {
-
-                            if (!empty($value->$key2)) {
-                                echo "<td style='border:1px solid #000'>" . $value->$key2 . "&nbsp;</td>";
-                            } else {
-                                echo "<td style='border:1px solid #000'>&nbsp;</td>";
-                            }
-                            $t++;
-                        }
-                        ?>
-                        <?php
-                        if (count($consulta) != count($titulo)) {
-                            $cantidad_td = $cantidad_titulo - $t;
-                            for ($rr = 0; $rr < $cantidad_td; $rr++) {
-                                echo "<td>&nbsp</td>";
-                            }
-                        }
-                        ?>
-                    </tr>
+                    <th style="display: none"><?php echo $titulo[$i]; ?></th>
                     <?php
                 }
             }
             ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php
+                //            print_r($consulta);
+                if ($consulta != false) {
+
+                    foreach ($consulta as $key => $value) {
+                        ?>
+                        <tr>
+                            <?php
+                            $t = 0;
+                            foreach ($value as $key2 => $value2) {
+
+                                if (!empty($value->$key2)) {
+                                    echo "<td style='border:1px solid #000'>" . $value->$key2 . "&nbsp;</td>";
+                                } else {
+                                    echo "<td style='border:1px solid #000'>&nbsp;</td>";
+                                }
+                                $t++;
+                            }
+                            ?>
+                            <?php
+                            if (count($consulta) != count($titulo)) {
+                                $cantidad_td = $cantidad_titulo - $t;
+                                for ($rr = 0; $rr < $cantidad_td; $rr++) {
+                                    echo "<td>&nbsp</td>";
+                                }
+                            }
+                            ?>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -81,29 +80,29 @@
 
     $(document).ready(function () {
         // Setup - add a text input to each footer cell
-        $('#tableNoMovilProveedores thead th').each(function () {
-            var title = $('#tableNoMovilProveedores thead th').eq($(this).index()).text();
-            html = '<center><input type="text" placeholder=""   style="width:100%; color:#000;"/></center>'
-            $(this).html(html);
-        });
-        var table = $('#tableNoMovilProveedores').DataTable({
+//        $('#tableNoMovilProveedores thead th').each(function () {
+//            var title = $('#tableNoMovilProveedores thead th').eq($(this).index()).text();
+//            html = '<center><input type="text" placeholder=""   style="width:100%; color:#000;"/></center>'
+//            $(this).html(html);
+//        });
+//        var table = $('#tableNoMovilProveedores').DataTable({
 //        "paging":   false,
 //            "ordering": false,
 //            "info": false,
-            "dom": '<"top"i>rt<"bottom"flp><"clear">'
+//            "dom": '<"top"i>rt<"bottom"flp><"clear">'
 
-        });
+//        });
 
         // Apply the search
-        table.columns().every(function () {
-            var that = this;
-
-            $('input', this.header()).on('keyup change', function () {
-                that
-                        .search(this.value)
-                        .draw();
-            });
-        });
+//        table.columns().every(function () {
+//            var that = this;
+//
+//            $('input', this.header()).on('keyup change', function () {
+//                that
+//                        .search(this.value)
+//                        .draw();
+//            });
+//        });
     });
 
 

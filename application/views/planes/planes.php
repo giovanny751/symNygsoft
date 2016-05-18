@@ -118,7 +118,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="presupuesto">Presupuesto</label>
-                                                    <input type="text" name="presupuesto" id="presupuesto" class="form-control number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
+                                                    <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="costoreal">Costo Real</label>

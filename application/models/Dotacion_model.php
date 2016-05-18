@@ -32,9 +32,9 @@ class Dotacion_model extends CI_Model {
         }
     }
 
-    function consultar_empreado() {
+    function consultar_empleado() {
         $post = $this->input->post();
-        $this->db->select_max('doc_fecha_entrega');
+        $this->db->select_max('dot_fecha_entrega');
         $this->db->where('emp_id', $post['empleado']);
         $datos = $this->db->get('dotacion');
         return $datos->result();

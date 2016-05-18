@@ -2063,10 +2063,10 @@ class Administrativo extends My_Controller {
         }
     }
 
-    function consultar_empreado() {
+    function consultar_empleado() {
         try {
             $this->load->model(array("Dotacion_model"));
-            $data['Json'] = $this->Dotacion_model->consultar_empreado();
+            $data['Json'] = $this->Dotacion_model->consultar_empleado();
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {

@@ -14,9 +14,7 @@
                 <form method="post" id="form_proteccion" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-2">
-                                <label>Empleado:</label>
-                            </div>
+                            <label class="col-md-2">Empleado:</label>
                             <div class="col-md-7">
                                 <select  id="empleado" class="form-control">
                                     <?php foreach ($empleados as $e): ?>
@@ -24,74 +22,61 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-md-1">
-                                <button tipo="1" class="agregar_empleado btn btn-success" type="button">+</button><p>
+                        </div>
+                        <div class="col-md-12">
+                            <button tipo="1" class="agregar_formulario btn btn-success" type="button">+</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3"><span>*</span>&nbsp;ELEMENTO DE PROTECCIÓN</label>
+                                    <div class="col-md-3">
+                                        <?php echo lista("elementop[]", "elementop", "form-control obligatorio", "inventario", "inv_id", "inv_nombre,inv_unidades", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                        <!--<input type="text" class="form-control obligatorio" name="elementop[]" id="elementop">-->
+                                    </div>
+                                    <label class="col-md-3"><span>*</span>&nbsp;NDS</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control obligatorio number" name="unidades[]" id="unidades">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-striped table-bordered table-hover ">
-                                    <thead>
-                                    <th>Empleado</th>
-                                    <th>Acción</th>
-                                    </thead>
-                                    <tbody id="tabla_empleados"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            &nbsp;&nbsp;&nbsp;&nbsp;<button tipo="1" class="agregar_formulario btn btn-success" type="button">+</button>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>ELEMENTO DE PROTECCIÓN</label>
-                            </div>
-                            <div class="col-md-3">
-                                <?php echo lista("elementop[]", "elementop", "form-control obligatorio", "inventario", "inv_id", "inv_nombre,inv_unidades", null, array("est_id" => "1"), /* readOnly? */ false); ?>
-                                <!--<input type="text" class="form-control obligatorio" name="elementop[]" id="elementop">-->
-                            </div>
-                            <div class="col-md-3">
-                                <label>UNDS</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control obligatorio number" name="unidades[]" id="unidades">
+                                <div class="form-group">
+                                    <label class="col-md-3">TALLA</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" name="talla[]" id="talla">
+                                    </div>
+                                    <label class="col-md-3">FECHA DE ENTREGA</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control fecha obligatorio" name="fecha_entrega[]" id="fecha_entrega">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <label>TALLA</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="talla[]" id="talla">
-                            </div>
-                            <div class="col-md-3">
-                                <label>FECHA DE ENTREGA</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control fecha obligatorio" name="fecha_entrega[]" id="fecha_entrega">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>INDICACIÓN DE USO</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">
-                            </div>
-                            <div class="col-md-3">
-                                <label>INDICACIÓN DE ALMACENAMIENTO</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="indicacion_alm[]" id="indicacion_alm">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3">INDICACIÓN DE USO</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">
+                                    </div>
+                                    <label class="col-md-3">INDICACIÓN DE ALMACENAMIENTO</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" name="indicacion_alm[]" id="indicacion_alm">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <label>VIDA UTIL/FECHA CADUCIDAD</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-6"><span>*</span>&nbsp;VIDA UTIL/FECHA CADUCIDAD</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row"><br><hr><br></div>
@@ -130,7 +115,7 @@
         }
 
 
-        $.post(url + 'index.php/Administrativo/consultar_empreado', {empleado: empleado})
+        $.post(url + 'index.php/Administrativo/consultar_empleado', {empleado: empleado})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("rojo", msg['message'])
@@ -159,13 +144,13 @@
     });
 
     $('body').delegate('.agregar_formulario', 'click', function () {
-        var html = '<div><div class=""><button class="agregar_formulario btn btn-success" type="button" tipo="1">+</button><button class="eliminar_formulario btn btn-danger" type="button" tipo="1">-</button></div><div class="row"><div class="col-md-3"><label>ELEMENTO DE PROTECCIÓN</label></div><div class="col-md-3">'+$('#elementop').parent().html()+'</div>'
+        var html = '<div><div class=""><button class="agregar_formulario btn btn-success" type="button" tipo="1">+</button><button class="eliminar_formulario btn btn-danger" type="button" tipo="1">-</button></div><div class="row"><div class="col-md-3"><label>ELEMENTO DE PROTECCIÓN</label></div><div class="col-md-3">' + $('#elementop').parent().html() + '</div>'
                 + '<div class="col-md-3"><label>UNDS</label></div><div class="col-md-3"><input type="text" class="form-control obligatorio number" name="unidades[]" id="unidades">'
-                + '</div></div><div class="row"><div class="col-md-3"><label>TALLA</label></div><div class="col-md-3"><input type="text" class="form-control" name="talla[]" id="talla">'
+                + '</div></div><div class="row"><label class="col-md-3">TALLA</label><div class="col-md-3"><input type="text" class="form-control" name="talla[]" id="talla">'
                 + '</div><div class="col-md-3"><label>FECHA DE ENTREGA</label></div><div class="col-md-3"><input type="text" class="form-control fecha obligatorio" name="fecha_entrega[]" id="fecha_entrega">'
-                + '</div></div><div class="row"><div class="col-md-3"><label>INDICACIÓN DE USO</label></div><div class="col-md-3"><input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">'
+                + '</div></div><div class="row"><label class="col-md-3">INDICACIÓN DE USO</label><div class="col-md-3"><input type="text" class="form-control" name="indicacion_uso[]" id="indicacion_uso">'
                 + '</div><div class="col-md-3"><label>INDICACIÓN DE ALMACENAMIENTO</label></div><div class="col-md-3"><input type="text" class="form-control" name="indicacion_alm[]" id="indicacion_alm">'
-                + '</div></div><div class="row"><div class="col-md-3"><label>VIDA UTIL/FECHA CADUCIDAD</label></div><div class="col-md-3"><input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>'
+                + '</div></div><div class="row"><label class="col-md-3">VIDA UTIL/FECHA CADUCIDAD</label><div class="col-md-3"><input type="text" class="form-control fecha" name="vida_util[]" id="vida_util"><p>'
                 + '</div></div><div class="row"><br><hr><br></div></div>'
         $('#resultado').append(html);
     });
@@ -188,7 +173,7 @@
         if (obli == false) {
             return false;
         }
-                
+
         $.post(url + 'index.php/Administrativo/guardar_protexion', $('#form_proteccion').serialize())
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))

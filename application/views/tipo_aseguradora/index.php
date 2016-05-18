@@ -54,30 +54,6 @@
     </div>
 </div>
 <script>
-//    $('#TipAse_Nombre').change(function () {
-//        var data = $('#TipAse_Nombre').val();
-//        $.post(
-//                url + "index.php/Tipo_aseguradora/validatipoaseguradora",
-//                {TipAse_Nombre: $('#TipAse_Nombre').val()}
-//        ).done(function (msg) {
-//            if (!jQuery.isEmptyObject(msg.message))
-//                alerta("rojo", msg['message']);
-//            else {
-//                if (msg == 1) {
-//                    $('#TipAse_Nombre').val("");
-//                    $('#TipAse_Nombre').focus();
-//                    alerta("amarillo", "Tipo de aseguradora ya existe en el sistema");
-//                    $('#contador').val(0)
-//                } else {
-//                    $('#contador').val(1)
-//                }
-//            }
-//        })
-//                .fail(function (msg) {
-//                    alerta("rojo", "Error favor comunicarse con el administrador");
-//                });
-//
-//    });
 
     $("#btnguardar").click(function () {
 

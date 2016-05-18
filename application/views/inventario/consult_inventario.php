@@ -20,65 +20,57 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form action="<?php echo base_url('index.php/') . '/Inventario/consult_inventario'; ?>" method="post" >
+                <form action="<?php echo base_url('index.php/') . '/Inventario/consult_inventario'; ?>" method="post" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="inv_referencia">
-                                    Referencia                        </label>
-                            </div>
-                            <div class="col-md-3">
-
-                                <input type="text" value="<?php echo (isset($post['inv_referencia']) ? $post['inv_referencia'] : '' ) ?>" class="form-control obligatorio  " id="inv_referencia" name="inv_referencia">
-                                <br>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="inv_nombre">
-                                    Nombre                        </label>
-                            </div>
-                            <div class="col-md-3">
-
-                                <input type="text" value="<?php echo (isset($post['inv_nombre']) ? $post['inv_nombre'] : '' ) ?>" class="form-control obligatorio  " id="inv_nombre" name="inv_nombre">
-                                <br>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <label for="inv_marca">
-                                    Marca                        </label>
-                            </div>
-                            <div class="col-md-3">
-
-                                <input type="text" value="<?php echo (isset($post['inv_marca']) ? $post['inv_marca'] : '' ) ?>" class="form-control   " id="inv_marca" name="inv_marca">
-                                <br>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="inv_modelo">
-                                    Modelo                        </label>
-                            </div>
-                            <div class="col-md-3">
-
-                                <input type="text" value="<?php echo (isset($post['inv_modelo']) ? $post['inv_modelo'] : '' ) ?>" class="form-control   " id="inv_modelo" name="inv_modelo">
-                                <br>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="inv_serie">
-                                    Serie                        </label>
-                            </div>
-                            <div class="col-md-3">
-
-                                <input type="text" value="<?php echo (isset($post['inv_serie']) ? $post['inv_serie'] : '' ) ?>" class="form-control   " id="inv_serie" name="inv_serie">
-                                <br>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inv_referencia" class="col-md-4"> Referencia </label>
+                                        <div class="col-md-8">
+                                            <input type="text" value="<?php echo (isset($post['inv_referencia']) ? $post['inv_referencia'] : '' ) ?>" class="form-control obligatorio  " id="inv_referencia" name="inv_referencia">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inv_nombre" class="col-md-4"> Nombre </label>
+                                        <div class="col-md-8">
+                                            <input type="text" value="<?php echo (isset($post['inv_nombre']) ? $post['inv_nombre'] : '' ) ?>" class="form-control obligatorio  " id="inv_nombre" name="inv_nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inv_marca" class="col-md-4"> Marca </label>
+                                        <div class="col-md-8">
+                                            <input type="text" value="<?php echo (isset($post['inv_marca']) ? $post['inv_marca'] : '' ) ?>" class="form-control   " id="inv_marca" name="inv_marca">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inv_modelo" class="col-md-4"> Modelo </label>
+                                        <div class="col-md-8">
+                                            <input type="text" value="<?php echo (isset($post['inv_modelo']) ? $post['inv_modelo'] : '' ) ?>" class="form-control   " id="inv_modelo" name="inv_modelo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inv_serie" class="col-md-4">Serie</label>
+                                        <div class="col-md-8">
+                                            <input type="text" value="<?php echo (isset($post['inv_serie']) ? $post['inv_serie'] : '' ) ?>" class="form-control   " id="inv_serie" name="inv_serie">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-5"></div>
                         <div class="col-md-2">
-                            <button class="btn btn-dcs">Consultar</button><p>
+                            <button class="btn btn-dcs" >Consultar</button><p>
                         </div>
                     </div>
                 </form>
@@ -91,11 +83,10 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-table"></i>Tabla
+                    <i class="fa fa-table"></i>Información
                 </div>
                 <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
+                    <a href="javascript:;" class="collapse"></a>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -173,7 +164,6 @@
         if (r == false) {
             return false;
         }
-
         $.post(url + 'index.php/Inventario/delete_inventario', {campo: 1})
                 .done(function (msg) {
                     if (!jQuery.isEmptyObject(msg.message))
