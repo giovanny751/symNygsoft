@@ -53,7 +53,7 @@
                             </div> 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nombres" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="TipoUsuario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                         <span class="campoobligatorio">*</span>Tipo Usuario
                                     </label>   
                                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
@@ -189,7 +189,7 @@
                                             if (!empty($usuario[0]->emp_id)) {
                                                 foreach ($empleado as $mp):
                                                     ?>
-                                                    <option <?php echo (!empty($usuario[0]->emp_id) && $usuario[0]->emp_id == $mp->Emp_id) ? "selected" : ""; ?> value="<?php echo $mp->Emp_id ?>"><?php echo $mp->Emp_Nombre . " " . $mp->Emp_Apellidos ?></option> 
+                                                    <option <?php echo (!empty($usuario[0]->emp_id) && $usuario[0]->emp_id == $mp->Emp_Id) ? "selected" : ""; ?> value="<?php echo $mp->Emp_Id ?>"><?php echo $mp->Emp_Nombre . " " . $mp->Emp_Apellidos ?></option> 
                                                     <?php
                                                 endforeach;
                                             }
