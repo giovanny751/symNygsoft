@@ -1,6 +1,6 @@
 <style>
-        .mayuscula{  
-    text-transform: uppercase;  
+    .mayuscula{  
+        text-transform: uppercase;  
     }  
 </style>    
 <div class="row">
@@ -78,614 +78,640 @@
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <form method="post" id="f7">
+                                    <form method="post" id="f7" class="form-horizontal">
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <div class="form-group">
-                                                    <label for="nombre">
-                                                        <span class="campoobligatorio">*</span>Nombre</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control obligatorio mayuscula" value="<?php echo (!empty($plan[0]->pla_nombre) ) ? $plan[0]->pla_nombre : ""; ?>" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="fechainicio"><span class="campoobligatorio">*</span>Fecha Inicio</label>
-                                                    <input type="text" name="fechainicio" id="fechainicio" class="form-control fecha obligatorio"  value="<?php echo (!empty($plan[0]->pla_fechaInicio) ) ? $plan[0]->pla_fechaInicio : ""; ?>"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="fechafin">Fecha Fin</label>
-                                                    <input type="text" readonly="readonly" name="fechafin" id="fechafin" class="form-control"  value="<?php echo (!empty($tareafechafinal[0]->fechafinalizacion) ) ? $tareafechafinal[0]->fechafinalizacion : ""; ?>"/>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="alert alert-info">
-                                                            <center>Responsable</center>
+                                            <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="nombre" class="col-md-4"> <span class="campoobligatorio">*</span>Nombre</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="nombre" id="nombre" class="form-control obligatorio mayuscula" value="<?php echo (!empty($plan[0]->pla_nombre) ) ? $plan[0]->pla_nombre : ""; ?>" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fechainicio" class="col-md-4"><span class="campoobligatorio">*</span>Fecha Inicio</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="fechainicio" id="fechainicio" class="form-control fecha obligatorio"  value="<?php echo (!empty($plan[0]->pla_fechaInicio) ) ? $plan[0]->pla_fechaInicio : ""; ?>"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fechafin" class="col-md-4">Fecha Fin</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" readonly="readonly" name="fechafin" id="fechafin" class="form-control"  value="<?php echo (!empty($tareafechafinal[0]->fechafinalizacion) ) ? $tareafechafinal[0]->fechafinalizacion : ""; ?>"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="alert alert-info">
+                                                                <center>Responsable</center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="cargo" class="col-md-4">Cargo</label>
+                                                        <div class="col-md-8">
+                                                            <select name="cargo" id="cargo" class="form-control" >
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($cargo as $c) { ?>
+                                                                    <option <?php echo (!empty($plan[0]->car_id) && $c->car_id == $plan[0]->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="empleado" class="col-md-4">Empleado</label>
+                                                        <div class="col-md-8">
+                                                            <select name="empleado" id="empleado" class="form-control">
+                                                                <option value="">::seleccionar::</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="presupuesto" class="col-md-4">Presupuesto</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="costoreal" class="col-md-4">Costo Real</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="norma" class="col-md-4">Normatividad</label>
+                                                        <div class="col-md-8">
+                                                            <select name="norma[]" id="norma" class="form-control " multiple>
+                                                                <?php foreach ($norma as $n): ?>
+                                                                    <option <?php echo (!empty($plan[0]->pla_id) ? (in_array($n->nor_id, $norma_planes) ? "selected" : '') : '' ); ?> value="<?php echo $n->nor_id ?>"><?php echo strtoupper($n->nor_norma) ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="cargo">Cargo</label>
-                                                    <select name="cargo" id="cargo" class="form-control" >
+                                                    <label for="estado" class="col-md-4"><span class="campoobligatorio">*</span>Estado</label>
+                                                    <div class="col-md-8">
+                                                        <select name="estado" id="estado" class="form-control obligatorio">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($estado as $e) { ?>
+                                                                <option <?php echo (!empty($plan[0]->est_id) && $e->est_id == $plan[0]->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo strtoupper($e->est_nombre) ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="descripcion" class="col-md-4">Descripción</label>
+                                                    <div class="col-md-8">
+                                                        <textarea name="descripcion" id="descripcion" class="form-control mayuscula" style=" height: 116px;"> <?php echo (!empty($plan[0]->pla_descripcion) ) ? $plan[0]->pla_descripcion : ""; ?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="avanceprogramado" class="col-md-4">Avance programado</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" name="avanceprogramado" id="avanceprogramado" class="form-control"  value="<?php echo (!empty($plan[0]->pla_avanceProgramado) ) ? $plan[0]->pla_avanceProgramado : ""; ?>"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="avancereal" class="col-md-4">Avance real</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" name="avancereal" id="avancereal" class="form-control"  value="<?php echo (!empty($plan[0]->pla_avanceReal) ) ? $plan[0]->pla_avanceReal : ""; ?>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id">
+                                </form>    
+                                <hr>
+                            </div>
+                            <?php if (!empty($plan[0]->pla_id)): ?>
+                                <div id="tab1" class="tab-pane">
+                                    <table class="tablesst" id="datatable_ajax">
+                                        <thead >
+                                        <th>Editar</th>
+                                        <th>Nuevo avance</th>
+                                        <th>Avance</th>
+                                        <th>Tipo</th>
+                                        <th>Nombre de la Tarea</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Duración presupuestada (Horas)</th>
+                                        <th>Responsables</th>
+                                        </thead> 
+                                        <tbody>
+                                            <?php if (empty($tareas)) { ?>
+                                                <tr>
+                                                    <td colspan="9">
+                                            <center>
+                                                <b>
+                                                    No hay tareas asociadas al plan
+                                                </b>
+                                            </center>
+                                            </td>
+                                            </tr>
+                                            <?php
+                                        } else {
+                                            foreach ($tareas as $tar) {
+                                                ?>
+                                                <tr>
+                                                    <td style="text-align: center"><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
+                                                    <td style="text-align: center"><i class='fa fa-bookmark-o btn btn-default nuevoavance' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
+                                                    <td><?php echo $tar->progreso ?></td>
+                                                    <td><?php echo $tar->tip_tipo ?></td>
+                                                    <td><?php echo $tar->tar_nombre ?></td>
+                                                    <td><?php echo $tar->tar_fechaInicio ?></td>
+                                                    <td><?php echo $tar->tar_fechaFinalizacion ?></td>
+                                                    <td style="text-align:center"><?php echo $tar->diferencia ?></td>
+                                                    <td><?php echo $tar->Emp_Nombre ?></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="tab2" class="tab-pane">
+                                    <table class="tablesst" id="datatable_ajax2">
+                                        <thead>
+                                        <th>Nuevo Historial</th>
+                                        <th>Avance</th>
+                                        <th>Tipo</th>
+                                        <th>Nombre de la tarea</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Duración presupuestada</th>
+                                        <th>Responsables</th>
+                                        </thead>
+                                        <tbody >
+                                            <?php foreach ($tareasinactivas as $ti): ?>
+                                                <tr>
+                                                    <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
+                                                    <td></td>
+                                                    <td><?php echo $ti->tip_tipo ?></td>
+                                                    <td><?php echo $ti->tar_nombre ?></td>
+                                                    <td><?php echo $ti->tar_fechaInicio ?></td>
+                                                    <td><?php echo $ti->tar_fechaFinalizacion ?></td>
+                                                    <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
+                                                    <td><?php echo $ti->Emp_Nombre . " " . $ti->Emp_Apellidos ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="tab3" class="tab-pane">
+                                    <table class="tablesst">
+                                        <thead>
+                                        <th>Fecha</th>
+                                        <th>Resumen</th>
+                                        <th>Usuario</th>
+                                        <th>Horas</th>
+                                        <th>Costo</th>
+                                        <th>Comentarios</th>
+                                        <th>Acción</th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $horas = 0;
+                                            $costo = 0;
+                                            foreach ($avances as $av):
+                                                $horas += $av->avaTar_horasTrabajadas;
+                                                $costo += str_replace(",", "", str_replace(".", "", $av->avaTar_costo));
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $av->avaTar_fecha ?></td>
+                                                    <td><?php echo $av->tar_nombre ?></td>
+                                                    <td><?php echo $av->nombre ?></td>
+                                                    <td><?php echo $av->avaTar_horasTrabajadas ?></td>
+                                                    <td><?php echo $av->avaTar_costo ?></td>
+                                                    <td><?php echo $av->avaTar_comentarios ?></td>
+                                                    <td>
+                                                        <i class="fa fa-times eliminaravance btn btn-danger" title="Eliminar" avaTar_id="<?php echo $av->avaTar_id ?>"></i>
+                                                        <i class='fa fa-pencil btn btn-default editarhistorial' avance="<?php echo $av->avaTar_id ?>" tar_id='<?php echo $av->tar_id ?>'></i>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr style="color:black">
+                                                <td colspan="3" align="right"><b>Total</b></td>
+                                                <td><?php echo $horas ?></td>
+                                                <td id="costo"><?php echo $costo ?></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>   
+                                </div>
+                                <div id="tab4" class="tab-pane">
+                                    <div class="portlet box blue" style="margin-top: 30px;">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                            </div>
+                                            <div class="tools">
+                                                <i class="fa fa-clipboard carpeta btn btn-default crear_padre" data-toggle="modal" data-target="#myModal" title='ACTIVIDAD PADRE'></i>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="panel-group accordion" id="accordion1">
+                                                <?php
+                                                $i = 1;
+                                                foreach ($actividades as $id => $nom):
+                                                    foreach ($nom as $nombre => $num):
+                                                        ?>
+                                                        <div class="panel panel-default" id="<?php echo $id ?>">
+                                                            <div class="panel-heading">
+                                                                <div class="row">
+                                                                    <div class="col-md-10">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
+                                                                                <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h4 class="panel-title">
+                                                                            <div class="posicionIconoActividad">
+                                                                                <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
+                                                                                <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
+                                                                                <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
+                                                                            </div>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="collapse_<?php echo $id . 'c'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                <div class="panel-body">
+                                                                    <table class="tablesst">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Nombre</th>
+                                                                                <th>Fecha inicio</th>
+                                                                                <th>Fecha fin</th>
+                                                                                <th>Presupuesto</th>
+                                                                                <th>Descripción</th>
+                                                                                <th>Acción</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <?php foreach ($num as $numero => $campo): ?>
+                                                                                <tr>
+                                                                                    <td><?php echo $campo[4] ?></td>
+                                                                                    <td><?php echo $campo[6] ?></td>
+                                                                                    <td><?php echo $campo[7] ?></td>
+                                                                                    <td><?php echo $campo[2] ?></td>
+                                                                                    <td><?php echo $campo[3] ?></td>
+                                                                                    <td>
+                                                                                        <i class="fa fa-times eliminar btn btn-danger" actHij_id="<?php echo $campo[5] ?>" title="Eliminar"></i>
+                                                                                        <i class="fa fa-pencil-square-o modificar btn btn-info" data-target="#myModal8" data-toggle="modal" actHij_id="<?php echo $campo[5] ?>" title="Modificar"></i>
+                                                                                    </td>
+                                                                                </tr>   
+                                                                            <?php endforeach; ?>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <?php
+                                                                    foreach ($num as $numero => $campo):
+                                                                        ?>
+
+                                                                    <?php endforeach; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                        $i++;
+                                                    endforeach;
+                                                endforeach;
+                                                ?>
+                                            </div> 
+                                        </div> 
+                                    </div> 
+                                </div>
+                                <div id="tab5" class="tab-pane">
+                                    <div class="table-responsive">
+                                        <div id="grafica_granf">
+                                            <form id="formulario_grant">
+                                                <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($plan_grant[0][0]->fecha_maxima) ? $plan_grant[0][0]->fecha_maxima : '') ?>">
+                                                <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($plan_grant[0][0]->fecha_minima) ? $plan_grant[0][0]->fecha_minima : '') ?>">
+                                                <?php foreach ($plan_grant[1] as $value) { ?>
+                                                    <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
+                                                    <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
+                                                    <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
+                                                    <input type="text" id="tar_fechaFinalizacion" name="tar_fechaFinalizacion[]" value="<?php echo $value->tar_fechaFinalizacion ?>">        
+                                                    <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
+                                                    <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
+                                                    <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
+                                                <?php } ?>                                        
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab6" class="tab-pane">
+                                    <div class="portlet box blue" style="margin-top: 30px;">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+
+                                            </div>
+                                            <div class="tools">
+                                                <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#myModal4" ></i>
+
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="tabbable tabbable-tabdrop">
+                                                <div class="tab-content">
+                                                    <br>
+                                                    <div class="panel-group accordion" id="accordion5">
+                                                        <?php
+                                                        $o = 1;
+                                                        foreach ($carpeta as $idcar => $nomcar):
+                                                            foreach ($nomcar as $nombrecar => $numcar):
+                                                                ?>
+                                                                <div class="panel panel-default" id="<?php echo $idcar ?>">
+                                                                    <div class="panel-heading">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
+                                                                                <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
+                                                                            </a>
+                                                                            <i class="fa fa-file-archive-o nuevoregistro"  data-toggle="modal" data-target="#myModal15" car_id="<?php echo $idcar ?>"></i>
+                                                                            <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
+                                                                            <i class="fa fa-times eliminarcarpeta" tipo="r" title="Eliminar" car_id="<?php echo $idcar ?>"></i>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                        <div class="panel-body">
+                                                                            <table class="tablesst">
+                                                                                <thead>
+                                                                                <th>Nombre de archivo</th>
+                                                                                <th>Descripción</th>
+                                                                                <th>Versión</th>
+                                                                                <th>Responsable</th>
+                                                                                <th>Tamaño</th>
+                                                                                <th>Fecha</th>
+                                                                                <th>Acción</th>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <?php foreach ($numcar as $numerocar => $campocar): ?>
+                                                                                        <tr>
+                                                                                            <td><a target='_black' href='<?php echo base_url() . $campocar[7] . "/" . $campocar[6] . "/" . $campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
+                                                                                            <td><?php echo $campocar[1] ?></td>
+                                                                                            <td><?php echo $campocar[2] ?></td>
+                                                                                            <td><?php echo $campocar[3] ?></td>
+                                                                                            <td><?php echo $campocar[4] ?></td>
+                                                                                            <td><?php echo $campocar[5] ?></td>
+                                                                                            <td>
+                                                                                                <i class="fa fa-times fa-2x eliminarregistro btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
+                                                                                                <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
+                                                                                            </td>
+                                                                                        </tr>   
+                                                                                    <?php endforeach; ?>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <?php
+                                                                $o++;
+                                                            endforeach;
+                                                        endforeach;
+                                                        ?>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php if (!empty($plan[0]->pla_id)): ?>
+            <div class="portlet box blue">
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">ACTIVIDAD</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="formactividadpadre">
+                                    <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
+                                    <input type="hidden" value="" name="actPad_id" id="actPad_id"/>
+                                    <div class="row">
+                                        <label for="idactividad" class="col-md-2">Código:</label>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                            <input type="text" id="idactividad" name="idactividad" class="form-control acobligatorio">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="nombreactividad" class="col-md-2">Nombre:</label>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                            <input type="text" id="nombreactividad" name="nombreactividad" class="form-control acobligatorio">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer" id="editaractividadpadre">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardaractividadpadre">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal15" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">NUEVO REGISTRO</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="frmagregarregistro" class="form-horizontal">
+                                    <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                    <label for="idactividad">Carpeta:</label>
+                                                </div>
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                    <select id="carpeta" name="carpeta" class="form-control obligatorioRegistro">
                                                         <option value="">::Seleccionar::</option>
-                                                        <?php foreach ($cargo as $c) { ?>
-                                                        <option <?php echo (!empty($plan[0]->car_id) && $c->car_id == $plan[0]->car_id) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="empleado">Empleado</label>
-                                                    <select name="empleado" id="empleado" class="form-control">
-                                                        <option value="">::seleccionar::</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="presupuesto">Presupuesto</label>
-                                                    <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="costoreal">Costo Real</label>
-                                                    <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="norma">Normatividad</label>
-                                                    <select name="norma[]" id="norma" class="form-control " multiple>
-                                                        <?php foreach ($norma as $n): ?>
-                                                        <option <?php echo (!empty($plan[0]->pla_id) ? (in_array($n->nor_id, $norma_planes) ? "selected" : '') : '' ); ?> value="<?php echo $n->nor_id ?>"><?php echo strtoupper($n->nor_norma) ?></option>
+                                                        <?php foreach ($carpetas as $carp): ?>
+                                                            <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="version" class="col-md-2">Versión:</label>
+
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                    <input type="text" id="version" name="version" class="form-control obligatorioRegistro">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="reg_descripcion" class="col-md-2">Descripción:</label>
+
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                    <textarea id="reg_descripcion" name="reg_descripcion" class="form-control obligatorioRegistro"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="archivo" class="col-md-2">Adjuntar archivo:</label>
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                    <input type="file" id="archivo" name="archivo" class="form-control obligatorioRegistro">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="btnguardarregistro">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="frmcarpetaregistro" class="form-horizontal">
+                                    <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="nombrecarpeta" class="col-md-2" for="nombrecarpeta">Nombre</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descripcioncarpeta" class="col-md-2" for="descripcioncarpeta">Descripción:</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer" id="opcionescarpeta">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardarcarpeta">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">ACTIVIDAD HIJO</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <form method="post" id="f6">
+                                        <input type="hidden" value="<?php echo $plan[0]->pla_id; ?>" name="pla_id">
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label for="idpadre">Id Padre</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <select id="idpadre" name="idpadre" class="form-control idpadre2 actividadobligatoria">
+                                                <option value="">::Seleccionar::</option>
+                                                <?php foreach ($actividadpadre as $ap): ?>
+                                                    <option value="<?php echo $ap->actPad_id ?>"><?php echo $ap->actPad_codigo . " - " . $ap->actPad_nombre ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label for="nombre">Nombre</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><input type="text" id="nombre" name="nombre" class="form-control nombre2 actividadobligatoria"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="row">
                                                 <div class="form-group">
-                                                    <label for="estado"><span class="campoobligatorio">*</span>Estado</label>
-                                                    <select name="estado" id="estado" class="form-control obligatorio">
+                                                    <label for="fechainicio">Fecha Inicio</label>
+                                                    <input type="text" class="form-control fecha fechainicio2" id="fechainicio" disabled="disabled"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="fechafinalizacion">Fecha Finalización</label>
+                                                    <input type="text" class="form-control fecha" id="fechafinalizacion" disabled="disabled"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="peso">Peso</label>
+                                                    <input type="text" class="form-control" id="peso" name="peso" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="riesgosancion">Valor Sanción</label>
+                                                    <input type="text" class="form-control number miles" id="riesgosancion" name="riesgosancion" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="tipo">Tipo</label>
+                                                    <select class="form-control" id="tipo" name="tipo" >
                                                         <option value="">::Seleccionar::</option>
-                                                        <?php foreach ($estado as $e) { ?>
-                                                        <option <?php echo (!empty($plan[0]->est_id) && $e->est_id == $plan[0]->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo strtoupper($e->est_nombre) ?></option>
+                                                        <?php foreach ($tipo as $t) { ?>
+                                                            <option value="<?php echo $t->tip_id; ?>"><?php echo $t->tip_tipo; ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="form-group">
-                                                    <label for="descripcion">Descripción</label>
-                                                    <textarea name="descripcion" id="descripcion" class="form-control mayuscula" style=" height: 116px;"> <?php echo (!empty($plan[0]->pla_descripcion) ) ? $plan[0]->pla_descripcion : ""; ?></textarea>
+                                                    <label for="presupuestototal">Presupuesto Total</label>
+                                                    <input type="text" class="form-control number miles" id="presupuestototal" name="presupuestototal" />
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="form-group">
-                                                    <label for="avanceprogramado">Avance programado</label>
-                                                    <input type="text" name="avanceprogramado" id="avanceprogramado" class="form-control"  value="<?php echo (!empty($plan[0]->pla_avanceProgramado) ) ? $plan[0]->pla_avanceProgramado : ""; ?>"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="avancereal">Avance real</label>
-                                                    <input type="text" name="avancereal" id="avancereal" class="form-control"  value="<?php echo (!empty($plan[0]->pla_avanceReal) ) ? $plan[0]->pla_avanceReal : ""; ?>"/>
+                                                    <label for="costoreal">Costo Real</label>
+                                                    <input type="text" class="form-control number costoreal2" id="costoreal" readonly="readonly" name="costoreal" />
+                                                    <input type="hidden" name="actHij_id" id="actHij_id" class="form-control" readonly="readonly" value=""/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id">
-                                    </form>    
-                                    <hr>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="descripcion">Descripción</label>
+                                                <textarea class="form-control descripcion2" id="descripcion" name="descripcion"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modoverificacion">Modo Verificación</label>
+                                                <textarea class="form-control" id="modoverificacion" name="modoverificacion"></textarea>
+                                            </div>
+                                        </div>
                                 </div>
-                                <?php if (!empty($plan[0]->pla_id)): ?>
-                                    <div id="tab1" class="tab-pane">
-                                        <table class="tablesst" id="datatable_ajax">
-                                            <thead >
-                                            <th>Editar</th>
-                                            <th>Nuevo avance</th>
-                                            <th>Avance</th>
-                                            <th>Tipo</th>
-                                            <th>Nombre de la Tarea</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
-                                            <th>Duración presupuestada (Horas)</th>
-                                            <th>Responsables</th>
-                                            </thead> 
-                                            <tbody>
-                                                <?php if (empty($tareas)) { ?>
-                                                    <tr>
-                                                        <td colspan="9">
-                                                <center>
-                                                    <b>
-                                                        No hay tareas asociadas al plan
-                                                    </b>
-                                                </center>
-                                                </td>
-                                                </tr>
-                                                <?php
-                                            } else {
-                                                foreach ($tareas as $tar) {
-                                                    ?>
-                                                    <tr>
-                                                        <td style="text-align: center"><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
-                                                        <td style="text-align: center"><i class='fa fa-bookmark-o btn btn-default nuevoavance' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
-                                                        <td><?php echo $tar->progreso ?></td>
-                                                        <td><?php echo $tar->tip_tipo ?></td>
-                                                        <td><?php echo $tar->tar_nombre ?></td>
-                                                        <td><?php echo $tar->tar_fechaInicio ?></td>
-                                                        <td><?php echo $tar->tar_fechaFinalizacion ?></td>
-                                                        <td style="text-align:center"><?php echo $tar->diferencia ?></td>
-                                                        <td><?php echo $tar->Emp_Nombre ?></td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div id="tab2" class="tab-pane">
-                                        <table class="tablesst" id="datatable_ajax2">
-                                            <thead>
-                                            <th>Nuevo Historial</th>
-                                            <th>Avance</th>
-                                            <th>Tipo</th>
-                                            <th>Nombre de la tarea</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
-                                            <th>Duración presupuestada</th>
-                                            <th>Responsables</th>
-                                            </thead>
-                                            <tbody >
-                                                <?php foreach ($tareasinactivas as $ti): ?>
-                                                    <tr>
-                                                        <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
-                                                        <td></td>
-                                                        <td><?php echo $ti->tip_tipo ?></td>
-                                                        <td><?php echo $ti->tar_nombre ?></td>
-                                                        <td><?php echo $ti->tar_fechaInicio ?></td>
-                                                        <td><?php echo $ti->tar_fechaFinalizacion ?></td>
-                                                        <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
-                                                        <td><?php echo $ti->Emp_Nombre . " " . $ti->Emp_Apellidos ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div id="tab3" class="tab-pane">
-                                        <table class="tablesst">
-                                            <thead>
-                                            <th>Fecha</th>
-                                            <th>Resumen</th>
-                                            <th>Usuario</th>
-                                            <th>Horas</th>
-                                            <th>Costo</th>
-                                            <th>Comentarios</th>
-                                            <th>Acción</th>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $horas = 0;
-                                                $costo = 0;
-                                                foreach ($avances as $av):
-                                                    $horas += $av->avaTar_horasTrabajadas;
-                                                    $costo += str_replace(",", "", str_replace(".", "", $av->avaTar_costo));
-                                                    ?>
-                                                    <tr>
-                                                        <td><?php echo $av->avaTar_fecha ?></td>
-                                                        <td><?php echo $av->tar_nombre ?></td>
-                                                        <td><?php echo $av->nombre ?></td>
-                                                        <td><?php echo $av->avaTar_horasTrabajadas ?></td>
-                                                        <td><?php echo $av->avaTar_costo ?></td>
-                                                        <td><?php echo $av->avaTar_comentarios ?></td>
-                                                        <td>
-                                                            <i class="fa fa-times eliminaravance btn btn-danger" title="Eliminar" avaTar_id="<?php echo $av->avaTar_id ?>"></i>
-                                                            <i class='fa fa-pencil btn btn-default editarhistorial' avance="<?php echo $av->avaTar_id ?>" tar_id='<?php echo $av->tar_id ?>'></i>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr style="color:black">
-                                                    <td colspan="3" align="right"><b>Total</b></td>
-                                                    <td><?php echo $horas ?></td>
-                                                    <td id="costo"><?php echo $costo ?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>   
-                                    </div>
-                                    <div id="tab4" class="tab-pane">
-                                        <div class="portlet box blue" style="margin-top: 30px;">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                </div>
-                                                <div class="tools">
-                                                    <i class="fa fa-clipboard carpeta btn btn-default crear_padre" data-toggle="modal" data-target="#myModal" title='ACTIVIDAD PADRE'></i>
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <div class="panel-group accordion" id="accordion1">
-                                                    <?php
-                                                    $i = 1;
-                                                    foreach ($actividades as $id => $nom):
-                                                        foreach ($nom as $nombre => $num):
-                                                            ?>
-                                                            <div class="panel panel-default" id="<?php echo $id ?>">
-                                                                <div class="panel-heading">
-                                                                    <div class="row">
-                                                                        <div class="col-md-10">
-                                                                            <h4 class="panel-title">
-                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
-                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
-                                                                                </a>
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <h4 class="panel-title">
-                                                                                <div class="posicionIconoActividad">
-                                                                                    <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
-                                                                                    <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
-                                                                                    <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
-                                                                                </div>
-                                                                            </h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="collapse_<?php echo $id . 'c'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                    <div class="panel-body">
-                                                                        <table class="tablesst">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Nombre</th>
-                                                                                    <th>Fecha inicio</th>
-                                                                                    <th>Fecha fin</th>
-                                                                                    <th>Presupuesto</th>
-                                                                                    <th>Descripción</th>
-                                                                                    <th>Acción</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <?php foreach ($num as $numero => $campo): ?>
-                                                                                    <tr>
-                                                                                        <td><?php echo $campo[4] ?></td>
-                                                                                        <td><?php echo $campo[6] ?></td>
-                                                                                        <td><?php echo $campo[7] ?></td>
-                                                                                        <td><?php echo $campo[2] ?></td>
-                                                                                        <td><?php echo $campo[3] ?></td>
-                                                                                        <td>
-                                                                                            <i class="fa fa-times eliminar btn btn-danger" actHij_id="<?php echo $campo[5] ?>" title="Eliminar"></i>
-                                                                                            <i class="fa fa-pencil-square-o modificar btn btn-info" data-target="#myModal8" data-toggle="modal" actHij_id="<?php echo $campo[5] ?>" title="Modificar"></i>
-                                                                                        </td>
-                                                                                    </tr>   
-                                                                                <?php endforeach; ?>
-                                                                            </tbody>
-                                                                        </table>
-
-                                                                        <?php
-                                                                        foreach ($num as $numero => $campo):
-                                                                            ?>
-
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <?php
-                                                            $i++;
-                                                        endforeach;
-                                                    endforeach;
-                                                    ?>
-                                                </div> 
-                                            </div> 
-                                        </div> 
-                                    </div>
-                                    <div id="tab5" class="tab-pane">
-                                        <div class="table-responsive">
-                                            <div id="grafica_granf">
-                                                <form id="formulario_grant">
-                                                    <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($plan_grant[0][0]->fecha_maxima) ? $plan_grant[0][0]->fecha_maxima : '') ?>">
-                                                    <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($plan_grant[0][0]->fecha_minima) ? $plan_grant[0][0]->fecha_minima : '') ?>">
-                                                    <?php foreach ($plan_grant[1] as $value) { ?>
-                                                        <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
-                                                        <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
-                                                        <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
-                                                        <input type="text" id="tar_fechaFinalizacion" name="tar_fechaFinalizacion[]" value="<?php echo $value->tar_fechaFinalizacion ?>">        
-                                                        <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
-                                                        <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
-                                                        <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
-                                                    <?php } ?>                                        
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="tab6" class="tab-pane">
-                                        <div class="portlet box blue" style="margin-top: 30px;">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-
-                                                </div>
-                                                <div class="tools">
-                                                    <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#myModal4" ></i>
-
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <div class="tabbable tabbable-tabdrop">
-                                                    <div class="tab-content">
-                                                        <br>
-                                                        <div class="panel-group accordion" id="accordion5">
-                                                            <?php
-                                                            $o = 1;
-                                                            foreach ($carpeta as $idcar => $nomcar):
-                                                                foreach ($nomcar as $nombrecar => $numcar):
-                                                                    ?>
-                                                                    <div class="panel panel-default" id="<?php echo $idcar ?>">
-                                                                        <div class="panel-heading">
-                                                                            <h4 class="panel-title">
-                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
-                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
-                                                                                </a>
-                                                                                <i class="fa fa-file-archive-o nuevoregistro"  data-toggle="modal" data-target="#myModal15" car_id="<?php echo $idcar ?>"></i>
-                                                                                <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
-                                                                                <i class="fa fa-times eliminarcarpeta" tipo="r" title="Eliminar" car_id="<?php echo $idcar ?>"></i>
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                            <div class="panel-body">
-                                                                                <table class="tablesst">
-                                                                                    <thead>
-                                                                                    <th>Nombre de archivo</th>
-                                                                                    <th>Descripción</th>
-                                                                                    <th>Versión</th>
-                                                                                    <th>Responsable</th>
-                                                                                    <th>Tamaño</th>
-                                                                                    <th>Fecha</th>
-                                                                                    <th>Acción</th>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <?php foreach ($numcar as $numerocar => $campocar): ?>
-                                                                                            <tr>
-                                                                                                <td><a target='_black' href='<?php echo base_url() . $campocar[7] . "/" . $campocar[6] . "/" . $campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
-                                                                                                <td><?php echo $campocar[1] ?></td>
-                                                                                                <td><?php echo $campocar[2] ?></td>
-                                                                                                <td><?php echo $campocar[3] ?></td>
-                                                                                                <td><?php echo $campocar[4] ?></td>
-                                                                                                <td><?php echo $campocar[5] ?></td>
-                                                                                                <td>
-                                                                                                    <i class="fa fa-times fa-2x eliminarregistro btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
-                                                                                                    <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
-                                                                                                </td>
-                                                                                            </tr>   
-                                                                                        <?php endforeach; ?>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <?php
-                                                                    $o++;
-                                                                endforeach;
-                                                            endforeach;
-                                                            ?>
-                                                        </div> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
+                                </form>  
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php if (!empty($plan[0]->pla_id)): ?>
-                <div class="portlet box blue">
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">ACTIVIDAD</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" id="formactividadpadre">
-                                        <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
-                                        <input type="hidden" value="" name="actPad_id" id="actPad_id"/>
-                                        <div class="row">
-                                            <label for="idactividad" class="col-md-2">Código:</label>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="text" id="idactividad" name="idactividad" class="form-control acobligatorio">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label for="nombreactividad" class="col-md-2">Nombre:</label>
-                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                <input type="text" id="nombreactividad" name="nombreactividad" class="form-control acobligatorio">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer" id="editaractividadpadre">
-                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="guardaractividadpadre">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="myModal15" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">NUEVO REGISTRO</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" id="frmagregarregistro" class="form-horizontal">
-                                        <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                                        <label for="idactividad">Carpeta:</label>
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <select id="carpeta" name="carpeta" class="form-control obligatorioRegistro">
-                                                            <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($carpetas as $carp): ?>
-                                                                <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="version" class="col-md-2">Versión:</label>
-
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <input type="text" id="version" name="version" class="form-control obligatorioRegistro">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="reg_descripcion" class="col-md-2">Descripción:</label>
-
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <textarea id="reg_descripcion" name="reg_descripcion" class="form-control obligatorioRegistro"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="archivo" class="col-md-2">Adjuntar archivo:</label>
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                                        <input type="file" id="archivo" name="archivo" class="form-control obligatorioRegistro">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="btnguardarregistro">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">NUEVA CARPETA</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" id="frmcarpetaregistro" class="form-horizontal">
-                                        <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id"/>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="nombrecarpeta" class="col-md-2" for="nombrecarpeta">Nombre</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" id="nombrecarpeta" name="nombrecarpeta" class="form-control carbligatorio">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="descripcioncarpeta" class="col-md-2" for="descripcioncarpeta">Descripción:</label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" id="descripcioncarpeta" name="descripcioncarpeta" class="form-control carbligatorio">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer" id="opcionescarpeta">
-                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="guardarcarpeta">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content ">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">ACTIVIDAD HIJO</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <form method="post" id="f6">
-                                            <input type="hidden" value="<?php echo $plan[0]->pla_id; ?>" name="pla_id">
-                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label for="idpadre">Id Padre</label></div>
-                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                                <select id="idpadre" name="idpadre" class="form-control idpadre2 actividadobligatoria">
-                                                    <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($actividadpadre as $ap): ?>
-                                                        <option value="<?php echo $ap->actPad_id ?>"><?php echo $ap->actPad_codigo . " - " . $ap->actPad_nombre ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label for="nombre">Nombre</label></div>
-                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><input type="text" id="nombre" name="nombre" class="form-control nombre2 actividadobligatoria"></div>
-                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="fechainicio">Fecha Inicio</label>
-                                                        <input type="text" class="form-control fecha fechainicio2" id="fechainicio" disabled="disabled"/>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="fechafinalizacion">Fecha Finalización</label>
-                                                        <input type="text" class="form-control fecha" id="fechafinalizacion" disabled="disabled"/>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="peso">Peso</label>
-                                                        <input type="text" class="form-control" id="peso" name="peso" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="riesgosancion">Valor Sanción</label>
-                                                        <input type="text" class="form-control number miles" id="riesgosancion" name="riesgosancion" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="tipo">Tipo</label>
-                                                        <select class="form-control" id="tipo" name="tipo" >
-                                                            <option value="">::Seleccionar::</option>
-                                                            <?php foreach ($tipo as $t) { ?>
-                                                                <option value="<?php echo $t->tip_id; ?>"><?php echo $t->tip_tipo; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="presupuestototal">Presupuesto Total</label>
-                                                        <input type="text" class="form-control number miles" id="presupuestototal" name="presupuestototal" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="costoreal">Costo Real</label>
-                                                        <input type="text" class="form-control number costoreal2" id="costoreal" readonly="readonly" name="costoreal" />
-                                                        <input type="hidden" name="actHij_id" id="actHij_id" class="form-control" readonly="readonly" value=""/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label for="descripcion">Descripción</label>
-                                                    <textarea class="form-control descripcion2" id="descripcion" name="descripcion"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="modoverificacion">Modo Verificación</label>
-                                                    <textarea class="form-control" id="modoverificacion" name="modoverificacion"></textarea>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    </form>  
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
+        <?php endif; ?>
     </div>
+</div>
 </div>
 <script>
 
@@ -1067,10 +1093,10 @@
                     data += "<option value='" + val.Emp_Id + "'>" + nombre.toUpperCase() + " " + apellido.toUpperCase() + "</option>"
                 });
                 $('#empleado').append(data);
-                    <?php if (isset($plan[0]->emp_id)) { ?>
-                                        $('#empleado').val('<?php echo $plan[0]->emp_id; ?>');
-                    <?php } ?>
-                }
+<?php if (isset($plan[0]->emp_id)) { ?>
+                    $('#empleado').val('<?php echo $plan[0]->emp_id; ?>');
+<?php } ?>
+            }
         }).fail(function (msg) {
 
         });

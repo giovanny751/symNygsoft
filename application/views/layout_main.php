@@ -127,7 +127,6 @@
                         ?>
                         <div class="top-menu">
                             <ul class="nav navbar-nav pull-right">
-
                                 <li class="dropdown dropdown-extended dropdown-notification dropdown-quick-sidebar-toggler" id="header_notification_bar">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <i class="icon-bell"></i>
@@ -158,6 +157,88 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar" style="margin-top: 9px">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<i class="icon-envelope-open"></i>
+<!--					<span class="badge badge-default" >
+					4 </span>-->
+					</a>
+					<ul class="dropdown-menu">
+						<li class="external">
+							<h3> <span class="bold">Manuales</span> </h3>
+							<a href="page_inbox.html">Ver todos</a>
+						</li>
+						<li>
+							<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+								<li>
+									<a href="inbox.html?a=view">
+									<span class="photo">
+									<img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+									</span>
+									<span class="subject">
+									<span class="from">
+									ORGANIZACIÓN</span>
+									</span>
+									<span class="message">
+									Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+									</a>
+								</li>
+								<li>
+									<a href="inbox.html?a=view">
+									<span class="photo">
+									<img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+									</span>
+									<span class="subject">
+									<span class="from">
+									PLANES </span>
+									</span>
+									<span class="message">
+									Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+									</a>
+								</li>
+								<li>
+									<a href="inbox.html?a=view">
+									<span class="photo">
+									<img src="../../assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
+									</span>
+									<span class="subject">
+									<span class="from">
+									TAREAS </span>
+									</span>
+									<span class="message">
+									Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+									</a>
+								</li>
+								<li>
+									<a href="inbox.html?a=view">
+									<span class="photo">
+									<img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+									</span>
+									<span class="subject">
+									<span class="from">
+									RIESGOS </span>
+									</span>
+									<span class="message">
+									Vivamus sed auctor 40% nibh congue nibh... </span>
+									</a>
+								</li>
+								<li>
+									<a href="inbox.html?a=view">
+									<span class="photo">
+									<img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+									</span>
+									<span class="subject">
+									<span class="from">
+									INDICADORES </span>
+									</span>
+									<span class="message">
+									Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
                                 <li class="dropdown dropdown-user dropdown-quick-sidebar-toggler">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <span class="username username-hide-on-mobile">
