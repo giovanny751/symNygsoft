@@ -51,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="form-horizontal">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="carpetas" style="padding-left: 10px">
                                     <li>
                                         <div toma="" tipo="2" name_folder="actas" activo="0" class="recurso_sele2" recarga="1">
@@ -74,7 +74,7 @@
                                 <input type="hidden" id="carpeta_selec" name="carpeta_selec">
                                 <br><p>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="row genera_carpeta">
                                     <div class="col-md-12">
                                         <?php
@@ -370,7 +370,9 @@
                         orden: $(this).val()
                     }
             ).done(function (msg) {
+//                var id_carpeta=$('#id_carpeta').val();
                 llenar_carpetas(msg, msg.carpetaPadre);
+//                $('#id_carpeta').val(id_carpeta);
             })
                     .fail(function (msg) {
                         alerta("rojo", "Error comunicarse con el administrador");
@@ -405,6 +407,7 @@
                     //                    $('#resultados').html(data);
                     $('#documento3').val('')
                     $('#myModal_cargue').modal('hide');
+                    console.log(msg.carpetaPadre);
                     llenar_carpetas(msg, msg.carpetaPadre);
                 }
             });
@@ -618,6 +621,7 @@
                         if (!jQuery.isEmptyObject(message.message))
                             alerta("rojo", msg['message'])
                         else {
+                            console.log(toma)
                             llenar_carpetas(msg, toma);
                         }
                     })
@@ -673,7 +677,6 @@
                                         <br><span style="font-size: 11px">Atrás</span> \n\
                </div>';
         }
-        padre = null;
         $.each(msg.Json, function (key, val) {
             var icons = "";
             img = "'<?php echo base_url() ?>uploads/icon/nn.png'";
@@ -711,10 +714,10 @@
         html += "</div>";
         html += "</div>";
         $('.genera_carpeta').html(html);
-        if (padre == null && i == 0) {
+        if (toma != null) {
             $('#id_carpeta').val(toma)
             $('.carpeta_atras').attr('toma', toma)
-        } else if (padre == null) {
+        } else if (toma == null) {
             $('.carpeta_atras').hide();
             $('#id_carpeta').val('')
         } else {
