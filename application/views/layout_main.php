@@ -179,8 +179,6 @@
 									<span class="from">
 									ORGANIZACIÓN</span>
 									</span>
-									<span class="message">
-									Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
 									</a>
 								</li>
 								<li>
@@ -192,8 +190,6 @@
 									<span class="from">
 									PLANES </span>
 									</span>
-									<span class="message">
-									Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
 									</a>
 								</li>
 								<li>
@@ -205,8 +201,6 @@
 									<span class="from">
 									TAREAS </span>
 									</span>
-									<span class="message">
-									Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
 									</a>
 								</li>
 								<li>
@@ -218,8 +212,6 @@
 									<span class="from">
 									RIESGOS </span>
 									</span>
-									<span class="message">
-									Vivamus sed auctor 40% nibh congue nibh... </span>
 									</a>
 								</li>
 								<li>
@@ -231,8 +223,6 @@
 									<span class="from">
 									INDICADORES </span>
 									</span>
-									<span class="message">
-									Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
 									</a>
 								</li>
 							</ul>

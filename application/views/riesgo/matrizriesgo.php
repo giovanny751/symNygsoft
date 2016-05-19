@@ -8,44 +8,74 @@
 <div class='cuerpoContenido'>
     <!--<table class="table table-bordered table-hover">-->
     <table border="1" >
-        <?php 
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center">PLAN</th>
+                <th rowspan="2" style="text-align: center">ACTIVIDAD</th>
+                <th rowspan="2" style="text-align: center">TAREA</th>
+                <th colspan="3" style="text-align: center">RIESGO</th>
+                <th rowspan="2" style="text-align: center">N</th>
+            </tr>
+            <tr>
+                <th style="text-align: center">CLASIFICACIÓN</th>
+                <th style="text-align: center">TIPO</th>
+                <th style="text-align: center">RIESGO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+
+            function capturaColumnas($numero) {
+                $columna = "<tr>";
+                for ($i = 0; $i < $numero; $i++):
+                    $columna += "<td></td>";
+                endfor;
+                $columna += "</tr>";
+            }
+
 //            print_y($matriz);
             foreach ($matriz as $plan => $act_hijos):
                 echo "<tr>";
-                echo "<td rowspan='".(count($act_hijos, COUNT_RECURSIVE)+1)."'>".$plan."</td>";
+                echo "<td rowspan='" . (count($act_hijos, COUNT_RECURSIVE) + 1) . "'>" . $plan . "</td>";
                 echo "</tr>";
                 foreach ($act_hijos as $act_hijo => $tareas):
                     echo "<tr>";
-                    echo "<td rowspan='".(count($tareas, COUNT_RECURSIVE)+1)."'>".$act_hijo."</td>";
+                    echo "<td rowspan='" . (count($tareas, COUNT_RECURSIVE) + 1) . "'>" . $act_hijo . "</td>";
                     echo "</tr>";
                     foreach ($tareas as $tarea => $categorias):
                         echo "<tr>";
-                        echo "<td rowspan='".(count($categorias, COUNT_RECURSIVE)+1)."'>".$tarea."</td>";
+                        echo "<td rowspan='" . (count($categorias, COUNT_RECURSIVE) + 1) . "'   >" . $tarea . "</td>";
                         echo "</tr>";
-                        foreach ($categorias as $categoria => $tipos):
+                        
+//                        var_dump();die;
+                        
+                    if (!empty($categorias[0]))
+                        capturaColumnas(4);
+
+                    foreach ($categorias as $categoria => $tipos):
+                        echo "<tr>";
+                        echo "<td rowspan='" . (count($tipos, COUNT_RECURSIVE) + 1) . "'>" . $categoria . "</td>";
+                        echo "</tr>";
+                        foreach ($tipos as $tipo => $rieDescripciones):
                             echo "<tr>";
-                            echo "<td rowspan='".(count($tipos, COUNT_RECURSIVE)+1)."'>".$categoria."</td>";
+                            echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $tipo . "</td>";
                             echo "</tr>";
-                            foreach ($tipos as $tipo => $rieDescripciones):
+                            foreach ($rieDescripciones as $rieDescripcion => $indices):
                                 echo "<tr>";
-                                echo "<td rowspan='".(count($rieDescripciones, COUNT_RECURSIVE)+1)."'>".$tipo."</td>";
+                                echo "<td rowspan='" . (count($indices, COUNT_RECURSIVE) + 1) . "'>" . $rieDescripcion . "</td>";
                                 echo "</tr>";
-                                foreach ($rieDescripciones as $rieDescripcion => $indices):
+                                foreach ($indices as $indice => $val):
                                     echo "<tr>";
-                                    echo "<td rowspan='".(count($indices, COUNT_RECURSIVE)+1)."'>".$rieDescripcion."</td>";
+                                    echo "<td>" . $val . "</td>";
                                     echo "</tr>";
-                                    foreach ($indices as $indice => $val):
-                                        echo "<tr>";
-                                        echo "<td>".$val."</td>";
-                                        echo "</tr>";
-                                    endforeach;
                                 endforeach;
                             endforeach;
                         endforeach;
                     endforeach;
                 endforeach;
             endforeach;
-            
+        endforeach;
+
 //                foreach ($tareas as $tarea => $id):
 //
 //                endforeach;
@@ -67,6 +97,7 @@
 //            }
 //        endforeach;
         ?>
+        </tbody>
     </table>
 
 </div>

@@ -84,7 +84,7 @@ class Mis_archivos extends My_Controller {
         try {
             if (empty($this->input->post("archivo")) || empty($this->input->post("tipo")))
                 throw new Exception("No existe archivo para Eliminar");
-            if (empty($this->input->post("tipo") == 2)) {
+            if (!empty($this->input->post("tipo") == 2)) {
                 $this->load->model("Mis_archivos_model");
                 $respuesta = $this->Mis_archivos_model->eliminarCarpeta($this->input->post("archivo"));
             }
@@ -92,7 +92,7 @@ class Mis_archivos extends My_Controller {
                 $this->load->model("Repositoriodocumento_model");
                 $respuesta = $this->Repositoriodocumento_model->eliminarArchivo($this->input->post("archivo"));
             }
-            if ($respuesta == 1) {
+            if ($respuesta) {
                 $data['carpetaPadre'] = $this->input->post('IdCarpetaPadre');
                 $data['Json'] = $this->Repositoriodocumento_model->documentos($this->input->post('IdCarpetaPadre'));
                 $data['color'] = 'verde';
