@@ -141,14 +141,14 @@ class Riesgo_model extends CI_Model {
     }
     function matrizRiesgo(){
         try{
-            $this->db->select("IFNULL(planes.pla_nombre,'0') as pla_nombre");
-            $this->db->select("IFNULL(actividad_padre.actPad_nombre,'0') as actPad_nombre");
-            $this->db->select("IFNULL(actividad_hijo.actHij_nombre,'0') as actHij_nombre");
-            $this->db->select("IFNULL(tarea.tar_nombre,'0') as tar_nombre");
-            $this->db->select("IFNULL(riesgo.rie_descripcion,'0') as rie_descripcion");
-            $this->db->select("IFNULL(tarea.tar_rutinario,'0') as tar_rutinario");
-            $this->db->select("IFNULL(riesgo_clasificacion.rieCla_categoria,'0') as rieCla_categoria");
-            $this->db->select("IFNULL(riesgo_clasificacion_tipo.rieClaTip_tipo,'0') as rieClaTip_tipo");
+            $this->db->select("IFNULL(planes.pla_nombre,'') as pla_nombre");
+            $this->db->select("IFNULL(actividad_padre.actPad_nombre,'') as actPad_nombre");
+            $this->db->select("IFNULL(actividad_hijo.actHij_nombre,'') as actHij_nombre");
+            $this->db->select("IFNULL(tarea.tar_nombre,'') as tar_nombre");
+            $this->db->select("riesgo.rie_descripcion");
+            $this->db->select("tarea.tar_rutinario as tar_rutinario");
+            $this->db->select("riesgo_clasificacion.rieCla_categoria");
+            $this->db->select("riesgo_clasificacion_tipo.rieClaTip_tipo");
             $this->db->join("actividad_padre","actividad_padre.pla_id = planes.pla_id","left");  
             $this->db->join("actividad_hijo","actividad_hijo.actHij_padreid = actividad_padre.actPad_id","left");  
             $this->db->join("tarea","tarea.actHij_id = actividad_hijo.actHij_id","left");
@@ -157,6 +157,9 @@ class Riesgo_model extends CI_Model {
             $this->db->join("riesgo_clasificacion","riesgo_clasificacion.rieCla_id = riesgo.rieCla_id","left");
             $this->db->join("riesgo_clasificacion_tipo","riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id","left");
             $matriz = $this->db->get("planes");
+            
+//            echo $this->db->last_query();die;
+            
         }catch(exception $e){
             
         }finally{
