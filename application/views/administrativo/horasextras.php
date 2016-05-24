@@ -17,50 +17,50 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <form method="post" id="FrmHorasExtras">
+                    <form method="post" id="FrmHorasExtras" class="form-horizontal">
                         <div class="row">
-                            <label for="empleado" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <span style="color:red">*</span>Empleado
-                            </label>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <select name="emp_id" id="empleado" class="form-control obligatorio">
-                                    <option value="0">::Seleccionar::</option>
-                                    <?php foreach ($empleados as $e): ?>
-                                        <option value="<?php echo $e->Emp_id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <label for="fecha" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <span style="color:red">*</span>Fecha
-                            </label>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <input type="text" name="fecha" id="fecha" class="form-control fecha  obligatorio"/>
-                            </div>
-                            <label for="horas" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <span style="color:red">*</span>Cantidad Horas
-                            </label>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <input type="number" name="horas" id="horas" class="form-control obligatorio"/>
-                            </div>
-                            <label for="tipo" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <span style="color:red">*</span>Tipo
-                            </label>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <select name="tipo" id="tipo" class="form-control obligatorio">
-                                    <option value="">::Seleccionar::</option>
-                                    <?php foreach ($tipo as $t): ?>
-                                        <option value="<?php echo $t->horExtTip_id ?>"><?php echo $t->horExtTip_tipo ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="empleado" class="col-md-1">
+                                        <span style="color:red">*</span>Empleado
+                                    </label>
+                                    <div class="col-md-2">
+                                        <select name="emp_id" id="empleado" class="form-control obligatorio">
+                                            <option value="0">::Seleccionar::</option>
+                                            <?php foreach ($empleados as $e): ?>
+                                                <option value="<?php echo $e->Emp_id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <label for="fecha" class="col-md-1">
+                                        <span style="color:red">*</span>Fecha
+                                    </label>
+                                    <div class="col-md-2">
+                                        <input type="text" name="fecha" id="fecha" class="form-control fecha  obligatorio"/>
+                                    </div>
+                                    <label for="horas" class="col-md-1">
+                                        <span style="color:red">*</span>Cantidad Horas
+                                    </label>
+                                    <div class="col-md-2">
+                                        <input type="number" name="horas" id="horas" class="form-control obligatorio"/>
+                                    </div>
+                                    <label for="tipo" class="col-md-1">
+                                        <span style="color:red">*</span>Tipo
+                                    </label>
+                                    <div class="col-md-2">
+                                        <select name="tipo" id="tipo" class="form-control obligatorio">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($tipo as $t): ?>
+                                                <option value="<?php echo $t->horExtTip_id ?>"><?php echo $t->horExtTip_tipo ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
-                    <div class="row">   
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="alert alert-info">
-                                <center><b>Horas guardadas el día de Hoy</b></center>
-                            </div>
-                        </div>
+                    <div class="alert alert-info">
+                        <center><b>Horas registradas el día de Hoy</b></center>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -405,10 +405,10 @@
                             <div class="tabbable tabbable-tabdrop">
                                 <ul class="nav nav-tabs">
                                     <li <?php echo (empty($avance) && empty($nuevoavance) ) ? "class='active'" : ""; ?>>
-                                        <a data-toggle="tab" href="#tab1">Avance</a>
+                                        <a data-toggle="tab" href="#tab1">Seguimiento</a>
                                     </li>
                                     <li <?php echo (!empty($avance) || !empty($nuevoavance)) ? "class='active'" : ""; ?>>
-                                        <a data-toggle="tab" href="#tab2">Agregar Avance</a>
+                                        <a data-toggle="tab" href="#tab2">Agregar seguimiento</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tab3">Registros</a>

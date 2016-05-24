@@ -14,7 +14,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>PREVENCIÓN RIESGO
+                    <i class="fa fa-gift"></i>CONTROL
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
@@ -258,7 +258,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-md-4 control-label" for="costoAvance">
-                                                            <span class="">*</span>Costo del avance
+                                                            <span class="">*</span>Costo del seguimiento
                                                         </label>
                                                         <div class="col-md-8">
                                                             <input type="text" name="costoAvance" id="costoAvance" class="form-control number miles obligatorioControl">

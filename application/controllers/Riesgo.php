@@ -506,7 +506,7 @@ class Riesgo extends My_Controller {
         $matriz = $this->Riesgo_model->matrizRiesgo();
         $i = array();
         foreach ($matriz as $m) :
-            $i[$m->pla_nombre][$m->actHij_nombre][$m->tar_nombre][$m->tar_rutinario][$m->rie_descripcion][$m->rieCla_categoria][] = $m->rieClaTip_tipo;
+            $i[$m->pla_nombre][$m->actHij_nombre][$m->tar_nombre][$m->tar_rutinario][$m->rie_descripcion][$m->deficiencia][$m->exposicion][$m->nivPro_Nivel][$m->consecuencia][$m->nivRie_nivel."/".$m->nivRie_color][$m->rieCla_categoria][] = $m->rieClaTip_tipo;
         endforeach;
 //        echo "<pre>";
 //        print_y($i);die;

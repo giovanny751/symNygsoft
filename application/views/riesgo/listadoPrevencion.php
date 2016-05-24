@@ -3,7 +3,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Listado prevenciones
+                    <i class="fa fa-gift"></i>LISTADO CONTROLES
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
@@ -15,38 +15,28 @@
                         <div class="portlet-body">
                             <form method="post" class="form-horizontal" id="frmListado">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Plan de prevención</label>
-                                            <div class="col-md-8">
+                                            <label class="control-label col-md-2">Plan de prevención</label>
+                                            <div class="col-md-4">
                                                 <input type="text" name="planPrevencion" class="form-control">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Responsable</label>
-                                            <div class="col-md-8">
+                                            <label class="control-label col-md-2">Responsable</label>
+                                            <div class="col-md-4">
                                                 <input type="text" name="responsable" class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Fecha Inicial</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="fechaDesde" class="form-control fecha">
-                                            </div>
+                                        <div class="col-md-4">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Fecha Final</label>
-                                            <div class="col-md-8">
+                                            <label class="control-label col-md-2">Fecha Inicial</label>
+                                            <div class="col-md-4">
+                                                <input type="text" name="fechaDesde" class="form-control fecha">
+                                            </div>
+                                            <label class="control-label col-md-2">Fecha Final</label>
+                                            <div class="col-md-4">
                                                 <input type="text" name="fechaHasta" class="form-control fecha">
                                             </div>
                                         </div>
@@ -111,13 +101,13 @@
             alerta("rojo", "Error, comunicarse con el administrador del sistema");
         });
     });
-    
-    $('body').delegate('.modificar','click',function(){
+
+    $('body').delegate('.modificar', 'click', function () {
         var form = "<form method='post' id='frmModificarPrevencion' action='<?php echo base_url('index.php/Riesgo/prevencionRiesgo') ?>'>";
-        form += "<input type='hidden' value='"+$(this).attr("pre_id")+"' name='pre_id'>"
+        form += "<input type='hidden' value='" + $(this).attr("pre_id") + "' name='pre_id'>"
         form += "</form>";
         $('body').append(form);
         $('#frmModificarPrevencion').submit();
-        
-    }); 
+
+    });
 </script>    

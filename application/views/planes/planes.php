@@ -47,7 +47,7 @@
                                         <a data-toggle="tab" href="#tab2">Tareas Inactivas</a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#tab3">Avance tareas</a>
+                                        <a data-toggle="tab" href="#tab3">Seguimientos</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tab4">Actividades</a>
@@ -139,7 +139,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="norma" class="col-md-4">Normatividad</label>
+                                                        <label for="norma" class="col-md-4">Requisito legal asociado</label>
                                                         <div class="col-md-8">
                                                             <select name="norma[]" id="norma" class="form-control " multiple>
                                                                 <?php foreach ($norma as $n): ?>
@@ -193,7 +193,7 @@
                                         <thead >
                                         <th>Editar</th>
                                         <th>Nuevo avance</th>
-                                        <th>Avance</th>
+                                        <th>Seguimiento</th>
                                         <th>Tipo</th>
                                         <th>Nombre de la Tarea</th>
                                         <th>Fecha Inicio</th>
@@ -238,7 +238,7 @@
                                     <table class="tablesst" id="datatable_ajax2">
                                         <thead>
                                         <th>Nuevo Historial</th>
-                                        <th>Avance</th>
+                                        <th>Seguimiento</th>
                                         <th>Tipo</th>
                                         <th>Nombre de la tarea</th>
                                         <th>Fecha Inicio</th>
@@ -758,7 +758,7 @@
                 {avaTar_id: $(this).attr("avaTar_id")}
         ).done(function (msg) {
             puntero.parents("tr").remove();
-            alerta("verde", "Avance eliminado correctamente");
+            alerta("verde", "Seguimiento eliminado correctamente");
         }).fail(function (msg) {
             alerta("rojo", "Error, por favor comunicarse con el administrador del sistema")
         });

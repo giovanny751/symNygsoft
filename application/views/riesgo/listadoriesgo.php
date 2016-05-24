@@ -21,10 +21,10 @@
                 <div class="form-body">
                     <form method="post" id="busquedariesgo" class="form-horizontal">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="categoria" class="col-md-4 control-label">Categoría</label>
-                                    <div class="col-md-8">
+                                    <label for="categoria" class="col-md-1 control-label">Categoría</label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="categoria" id="categoria">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($categoria as $ca): ?>
@@ -32,22 +32,14 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="tipo" class="col-md-4 control-label">Tipo</label>
-                                    <div class="col-md-8">
+                                    <label for="tipo" class="col-md-1 control-label">Tipo</label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="tipo" id="tipo" >
                                             <option value="">::Seleccionar::</option>
                                         </select>
-                                    </div>    
-                                </div>    
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="dimensionuno" class="col-md-4 control-label"><?php echo $empresa[0]->Dim_id ?></label>
-                                    <div class="col-md-8">
+                                    </div> 
+                                    <label for="dimensionuno" class="col-md-1 control-label"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="dimensionuno" id="dimensionuno" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($dimension as $d1) { ?>
@@ -59,10 +51,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="dimensiondos" class="col-md-4 control-label"><?php echo $empresa[0]->Dimdos_id ?></label>
-                                    <div class="col-md-8">
+                                    <label for="dimensiondos" class="col-md-1 control-label"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="dimensiondos" id="dimensiondos" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($dimension2 as $d2) { ?>
@@ -70,12 +62,8 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="cargo" class="col-md-4 control-label">Cargo</label>
-                                    <div class="col-md-8">
+                                    <label for="cargo" class="col-md-1 control-label">Cargo</label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="cargo" id="cargo">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($cargo as $c) { ?>
@@ -83,12 +71,10 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4" style="text-align: center">
-                                <div class="form-group">
-                                    <button type="button" class="btn-sst limpiar" >Limpiar</button>
-                                    <button type="button" class="btn-sst buscar" >Buscar</button>
+                                    <div class="col-md-4" style="text-align: center">
+                                        <button type="button" class="btn-sst limpiar" >Limpiar</button>
+                                        <button type="button" class="btn-sst buscar" >Buscar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

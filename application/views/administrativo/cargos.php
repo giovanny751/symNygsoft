@@ -1,67 +1,90 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="portlet box green">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-gift"></i><?= $title ?>
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
-                </div>
+
+<div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"> Nuevo Cargo</h4>
             </div>
-            <div class="portlet-body form">
-                <form method="post" id="formcargos" class="form-horizontal">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-4">
+            <div class="modal-body form-horizontal">
+                <div class="row">
+                    <form method="post" id="formcargos" class="form-horizontal">
+                        <div class="form-body">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cargo" class="control-label col-md-3">* Cargo</label>
-                                    <div class="col-md-9">
+                                    <label for="cargo" class="control-label col-md-2">* Cargo</label>
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control obligatorio texto mayuscula" name="cargo" id="cargo" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cargojefe" class="control-label col-md-3">Cargo jefe directo</label>
-                                    <div class="col-md-9">
+                                    <label for="cargojefe" class="control-label col-md-2">Cargo jefe directo</label>
+                                    <div class="col-md-4">
                                         <select name="cargojefe" id="cargojefe" class="form-control select2me" >
                                             <option value=""></option>
                                             <?php foreach ($cargo as $d) { ?>
-                                            <option value="<?php echo $d->car_id ?>"><?php echo strtoupper($d->car_nombre) ?></option>
+                                                <option value="<?php echo $d->car_id ?>"><?php echo strtoupper($d->car_nombre) ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="porcentaje" class="control-label col-md-3">* %Cotizacion ARL</label>
-                                    <div class="col-md-9">
+                                    <label for="porcentaje" class="control-label col-md-2">* %Cotizacion ARL</label>
+                                    <div class="col-md-4">
                                         <input type="text" name="porcentaje" id="porcentaje" class="form-control obligatorio number2 texto" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="alert alert-info"><b>Funciones</b></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="objetivoPrincipal" class="control-label col-md-2">Objetivo principal</label>
+                                    <div class="col-md-10">
+                                        <textarea id="objetivoPrincipal" name="objetivoPrincipal" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="funcionesEsenciales" class="control-label col-md-2">Funciones esencial</label>
+                                    <div class="col-md-9">
+                                        <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="agregar btn btn-success"><i class="fa fa-plus fa-2x"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="funciones">
+
+                            </div>
                             <div class="col-md-offset-10 col-md-2">
-                                <input type="button" value="Agregar" class="btn btn-block  guardarcargo" />
+                                <input type="button" value="Guardar" class="btn btn-success  guardarcargo" />
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" id="nuevoCargo" class="btn btn-success">Nuevo</button>
+    </div>
+</div>
+
+<br>
 <!-- Datatable -->
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-table"></i>Tabla
+                    <i class="fa fa-table"></i><?= $title ?>
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="Abrir/Cerrar"></a>
@@ -113,6 +136,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -181,12 +208,50 @@
         </div>
     </div>
 </div>
-</div>
 <script>
+
+    $('body').delegate(".agregar", "click", function () {
+
+        var funciones = '<div class="col-md-12 newFunction">\n\
+                                <div class="form-group">\n\
+                                    <label for="funcionesEsenciales" class="control-label col-md-2">Funciones esencial</label>\n\
+                                    <div class="col-md-9 texto" >\n\
+                                        <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control funcionesEsenciales"></textarea>\n\
+                                    </div>\n\
+                                    <div class="col-md-1">\n\
+                                        <button type="button" class="eliminarFuncion btn btn-danger"><i class="fa fa-remove fa-2x"></i></button>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>';
+        $('.funciones').append(funciones);
+    });
+
+    $('body').delegate('.eliminarFuncion', 'click', function () {
+        if ($(this).parent().siblings('.texto').children('.funcionesEsenciales').val() != "") {
+            if ($(this).parent().siblings('.texto').children('.funcionesEsenciales').val() != "") {
+                if(confirm("Esta seguro de eliminar la funcion")){
+                    $(this).parents('.newFunction').remove();
+                }
+            } else{
+                $(this).parents('.newFunction').remove();
+            }
+        } else{
+            $(this).parents('.newFunction').remove();
+        }
+    });
+
+    $('#nuevoCargo').click(function () {
+        $('#cargo').val("");
+        $('#porcentaje').val("");
+        $('#objetivoPrincipal').val("");
+                        $('#funcionesEsenciales').val("");
+                        $('.newFunction').remove();
+        $("#nuevo").modal("show");
+    });
     $('body').delegate(".riesgo", "click", function () {
         var car_id = $(this).attr("car_id");
         $.post(
-                url+"index.php/administrativo/cargoriesgo",
+                url + "index.php/administrativo/cargoriesgo",
                 {
                     car_id: car_id
                 }
@@ -210,7 +275,7 @@
     });
     $('.guardarmodificacion').click(function () {
         $.post(
-                url+"index.php/administrativo/modificacioncargo",
+                url + "index.php/administrativo/modificacioncargo",
                 {
                     cargo: $('#cargo2').val(),
                     jefe: $('#cargojefedir').val(),
@@ -227,10 +292,9 @@
             alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
         });
     });
-
     $('body').delegate(".modificar", "click", function () {
         $.post(
-                url+"index.php/administrativo/consultacargoxid",
+                url + "index.php/administrativo/consultacargoxid",
                 {
                     car_id: $(this).attr('car_id')
                 }
@@ -248,11 +312,10 @@
             alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
         });
     });
-
     $('body').delegate(".eliminar", "click", function () {
         var fila = $(this);
         if (confirm("Esta seguro de eliminar el cargo") == true) {
-            $.post(url+'index.php/administrativo/eliminarcargo', {id: $(this).attr('car_id')})
+            $.post(url + 'index.php/administrativo/eliminarcargo', {id: $(this).attr('car_id')})
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message']);
@@ -272,21 +335,24 @@
                     });
         }
     });
-
     $('.guardarcargo').click(function () {
         if (obligatorio('obligatorio') == true) {
-            $.post(url+'index.php/administrativo/guardarcargo',
+            $.post(url + 'index.php/administrativo/guardarcargo',
                     $("#formcargos").serialize())
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message']);
-                        else 
+                        else
                             listadoCargos(msg);
+                        $('#objetivoPrincipal').val("");
+                        $('#funcionesEsenciales').val("");
+                        $('.newFunction').remove();
+                        $('#nuevo').modal("hide");
                     })
                     .fail(function (msg) {
                         alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
                     })
-
+                    
         }
     });
     function listadoCargos(msg) {

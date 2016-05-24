@@ -23,36 +23,28 @@
                         <div class="col-md-12">
                             <form method="post" id="f4" class="form-horizontal">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="cedula" class="col-md-4">Cédula</label>
-                                            <div class="col-md-8">
+                                            <label for="cedula" class="col-md-1">Cédula</label>
+                                            <div class="col-md-3">
                                                 <input type="text" name="cedula" id="cedula" class="form-control">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="nombre" class="col-md-4">Nombre</label>
-                                            <div class="col-md-8">
+                                            <label for="nombre" class="col-md-1">Nombre</label>
+                                            <div class="col-md-3">
                                                 <input type="text" name="nombre" id="nombre" class="form-control">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="apellido" class="col-md-4">Apellido</label>
-                                            <div class="col-md-8">
+                                            <label for="apellido" class="col-md-1">Apellido</label>
+                                            <div class="col-md-3">
                                                 <input type="text" name="apellido" id="apellido" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="estado" class="col-md-4">Estado</label>
-                                            <div class="col-md-8">
+                                            <label for="estado" class="col-md-1">Estado</label>
+                                            <div class="col-md-3">
                                                 <select name="estado" id="estado" class="form-control">
                                                     <option value="">::Seleccionar::</option>
                                                     <?php foreach ($estado as $e) { ?>
@@ -60,12 +52,8 @@
                                                     <?php } ?>
                                                 </select>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="estado" class="col-md-4">Tipo de usuario</label>
-                                            <div class="col-md-8">
+                                            <label for="estado" class="col-md-1">Tipo de usuario</label>
+                                            <div class="col-md-3">
                                                 <select name="tipoUsuario" id="estado" class="form-control">
                                                     <option value="">::Seleccionar::</option>
                                                     <?php foreach ($tipoUsuario as $tu): ?>
@@ -73,20 +61,11 @@
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
+                                            <div class="col-md-4" style="text-align: center">
+                                                <button type="button" class="btn btn-success consultar">Consultar</button>
+                                                <button type="button" class="btn btn-danger limpiar">Limpiar</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="col-md-6" style="text-align: center">
-                                            <button type="button" class="btn btn-block consultar">Consultar</button>
-                                        </div>
-                                        <div class="col-md-6" style="text-align: center">
-                                            <button type="button" class="btn btn-block limpiar">Limpiar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-
                                     </div>
                                 </div>
                             </form>

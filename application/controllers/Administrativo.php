@@ -162,7 +162,7 @@ class Administrativo extends My_Controller {
 
     function guardarVacaciones() {
         try {
-            if (empty($this->input->post("emp_id"))){
+            if (empty($this->input->post("emp_id"))) {
                 $data['color'] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
             }
@@ -197,7 +197,7 @@ class Administrativo extends My_Controller {
 
     function guardarAusentismo() {
         try {
-            if (empty($this->input->post("emp_id"))){
+            if (empty($this->input->post("emp_id"))) {
                 $data['color'] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
             }
@@ -233,13 +233,13 @@ class Administrativo extends My_Controller {
 
     function removeHolidays() {
         try {
-            if(empty($this->input->post("vac_id"))){
+            if (empty($this->input->post("vac_id"))) {
                 $data["color"] = "amarillo";
                 throw new Exception("No existe vacaciones a eliminar");
             }
             $this->load->model('Vacaciones_model');
             $data['Json'] = $this->Vacaciones_model->removeHolidays($this->input->post("vac_id"));
-            if ($data['Json'] == false){
+            if ($data['Json'] == false) {
                 $data["color"] = "rojo";
                 throw new Exception("Error en la base de datos");
             }
@@ -305,7 +305,7 @@ class Administrativo extends My_Controller {
 
     function modificarAusentismo() {
         try {
-            if(empty($this->input->post("empaus_id"))){
+            if (empty($this->input->post("empaus_id"))) {
                 $data["color"] = "rojo";
                 throw new Exception("No existe id para modificar ausentismo");
             }
@@ -383,7 +383,7 @@ class Administrativo extends My_Controller {
 
     function guardarincapacidad() {
         try {
-            if (empty($this->input->post('empleadoInc'))){
+            if (empty($this->input->post('empleadoInc'))) {
                 $data["color"] = "amarillo";
                 throw new Exception("Primero debe registrar el empleado");
             }
@@ -444,7 +444,7 @@ class Administrativo extends My_Controller {
 
     function guardarregistroempleado() {
         try {
-            if (empty($this->input->post('Emp_Id'))){
+            if (empty($this->input->post('Emp_Id'))) {
                 $data['color'] = "amarillo";
                 throw new Exception("No existe empleado para guardar registro");
             }
@@ -482,9 +482,8 @@ class Administrativo extends My_Controller {
             if (move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) {
                 
             }
-            
+
             $data['Json'] = $this->Empleadoregistro_model->detallexcarpeta($post['empReg_carpeta']);
-            
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {
@@ -1018,22 +1017,46 @@ class Administrativo extends My_Controller {
             $this->load->model('Cargo_model');
             $cargo = $this->input->post("cargo");
             $cargojefe = $this->input->post("cargojefe");
+
+            $objetivoPrincipal = $this->input->post("objetivoPrincipal");
+            $funcionesEsenciales = $this->input->post("funcionesEsenciales");
+
+
+
             if (empty($this->Cargo_model->existe($cargo, $cargojefe))) {
+
+
                 $almacenamiento = array(
                     "car_nombre" => $cargo,
                     "car_jefe" => $cargojefe,
                     "car_porcentajearl" => $this->input->post("porcentaje"),
+                    "car_objetivoPrincipal" => $this->input->post("objetivoPrincipal")
                 );
+
+
                 $creacion = $this->Cargo_model->create($almacenamiento);
-                if ($creacion == true)
+
+
+
+                if (!empty($creacion)) {
+                    $arregloFuncion = array();
+                    if (!empty($this->input->post("funcionesEsenciales"))) {
+                        for ($i = 0; $i < count($this->input->post("funcionesEsenciales")); $i++) {
+                            $arregloFuncion[] = array(
+                                "car_id" => $creacion,
+                                "carFun_funcion" => $funcionesEsenciales[$i]
+                            );
+                        }
+                        $this->load->model("Cargofuncion_model");
+                        $creacion = $this->Cargofuncion_model->create($arregloFuncion);
+                    }
                     $data['Json'] = $this->Cargo_model->detail();
-                else
-                    throw new Exception("Ocurrio un error en la base de datos");
+                }
             } else {
                 throw new Exception("Cargo ya existente");
             }
         } catch (exception $e) {
-            $data['message'] = "Cargo ya existente";
+            $data['message'] = $e->getMessage();
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
@@ -2090,94 +2113,95 @@ class Administrativo extends My_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
-    function agendarReunionCopasst(){
-        $this->load->model(array("Agendamientocomite_model","Empleado_model","Estados_model"));
+
+    function agendarReunionCopasst() {
+        $this->load->model(array("Agendamientocomite_model", "Empleado_model", "Estados_model"));
         $this->data['empleados'] = $this->Empleado_model->empleados();
         $this->data['agenda'] = $this->Agendamientocomite_model->detail();
         $this->data['estado'] = $this->Estados_model->estadoCopasst();
-        $this->layout->view("administrativo/agendarReunionCopasst",$this->data);
-    }
-    function consultaCorreo(){
-        try{
-            if(empty($this->input->post('empId')))
-                throw new Exception("No existe empleado para consultar correo");
-            $this->load->model(array("Empleado_model"));
-            
-            $respuesta = $this->Empleado_model->consultaCorreoEmpleado($this->input->post('empId'));
-            if(!empty($respuesta)){
-                $data['Json'] = $respuesta[0];
-            }else{
-                throw new Exception("No existe correo para el empleado");
-            }
-        }catch(exception $e){
-            $data['message'] = $e->getMessage();
-        }finally{
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        }
-    }
-    function guardarReunionCopasst(){
-        try{
-        if(empty($this->input->post('participantes'))){
-            $data['color'] = "amarillo";
-            throw new Exception("No existen participantes para la reunión");
-        }
-        
-        $this->load->model(array("Copasstreuniones_model","Copasstagendacomite_model"));
-        $respuesta = $this->Copasstreuniones_model->saveMeetings($this->input->post());
-        if(!empty($respuesta)){
-            $agenda = $this->input->post("agenda");
-            $opcionesAgenda = array();
-            for($i = 0; $i < count($agenda); $i++):
-                $opcionesAgenda[] = array(
-                    "copReu_id"=>$respuesta,
-                    "ageCom_id"=>$agenda[$i]
-                ); 
-            endfor;
-            
-            $this->Copasstagendacomite_model->keepCommitteeMeetings($opcionesAgenda);
-            $data['Json']= "";
-        }else{
-            throw new Exception("No se pudo guardar la reunión");
-        }
-        }catch(exception $e){
-            $data["message"] = $e->getMessage();
-        }finally{
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        }
-    }
-    
-    function reunionesCopasst(){
-        $this->load->model(array("Agendamientocomite_model","Empleado_model","Estados_model"));
-        $this->data['empleados'] = $this->Empleado_model->empleados();
-        $this->data['agenda'] = $this->Agendamientocomite_model->detail();
-        $this->data['estado'] = $this->Estados_model->estadoCopasst();
-        $this->layout->view("administrativo/listaReunionCopasst",$this->data);
+        $this->layout->view("administrativo/agendarReunionCopasst", $this->data);
     }
 
-    function consultaCopasst(){
-        try{
-            $this->load->model(array("Copasstreuniones_model","Copasstagendacomite_model"));
+    function consultaCorreo() {
+        try {
+            if (empty($this->input->post('empId')))
+                throw new Exception("No existe empleado para consultar correo");
+            $this->load->model(array("Empleado_model"));
+
+            $respuesta = $this->Empleado_model->consultaCorreoEmpleado($this->input->post('empId'));
+            if (!empty($respuesta)) {
+                $data['Json'] = $respuesta[0];
+            } else {
+                throw new Exception("No existe correo para el empleado");
+            }
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    function guardarReunionCopasst() {
+        try {
+            if (empty($this->input->post('participantes'))) {
+                $data['color'] = "amarillo";
+                throw new Exception("No existen participantes para la reunión");
+            }
+
+            $this->load->model(array("Copasstreuniones_model", "Copasstagendacomite_model"));
+            $respuesta = $this->Copasstreuniones_model->saveMeetings($this->input->post());
+            if (!empty($respuesta)) {
+                $agenda = $this->input->post("agenda");
+                $opcionesAgenda = array();
+                for ($i = 0; $i < count($agenda); $i++):
+                    $opcionesAgenda[] = array(
+                        "copReu_id" => $respuesta,
+                        "ageCom_id" => $agenda[$i]
+                    );
+                endfor;
+
+                $this->Copasstagendacomite_model->keepCommitteeMeetings($opcionesAgenda);
+                $data['Json'] = "";
+            }else {
+                throw new Exception("No se pudo guardar la reunión");
+            }
+        } catch (exception $e) {
+            $data["message"] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    function reunionesCopasst() {
+        $this->load->model(array("Agendamientocomite_model", "Empleado_model", "Estados_model"));
+        $this->data['empleados'] = $this->Empleado_model->empleados();
+        $this->data['agenda'] = $this->Agendamientocomite_model->detail();
+        $this->data['estado'] = $this->Estados_model->estadoCopasst();
+        $this->layout->view("administrativo/listaReunionCopasst", $this->data);
+    }
+
+    function consultaCopasst() {
+        try {
+            $this->load->model(array("Copasstreuniones_model", "Copasstagendacomite_model"));
             $reuniones = $this->Copasstreuniones_model->consultationMeetings($this->input->post());
-            if(!empty($reuniones)){
+            if (!empty($reuniones)) {
                 $data['Json'] = $reuniones;
-            }else{
+            } else {
                 $data['color'] = "amarillo";
                 throw new Exception("No existen reuniones");
             }
-        }catch(exception $e){
+        } catch (exception $e) {
             $data['message'] = $e->getMessage();
-        }finally{
+        } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
-    
-    function pruebacorreo(){
-        
+
+    function pruebacorreo() {
+
 //        mail("gerson@nygsoft.com", "Bienvenido al sistema SG-SST", "hola", "gerson");
-        
 //        die;
-        
+
         $this->load->library('email');
 
         $this->email->from('gerson@nygsoft.com', 'Your Name');
@@ -2191,48 +2215,51 @@ class Administrativo extends My_Controller {
         var_dump($this->email->send());
 
         die;
-        
-         $this->load->library('email');
-        
-                    $subject = 'This is a test';
-            $message = 'NYGSOFT PRUEBA';
 
-            // Get full html:
-            $body = "Hola Gerson";
-            // Also, for getting full html you may use the following internal method:
-            //$body = $this->email->full_html($subject, $message);
+        $this->load->library('email');
 
-            $result = $this->email
+        $subject = 'This is a test';
+        $message = 'NYGSOFT PRUEBA';
+
+        // Get full html:
+        $body = "Hola Gerson";
+        // Also, for getting full html you may use the following internal method:
+        //$body = $this->email->full_html($subject, $message);
+
+        $result = $this->email
                 ->from('gerson@nygsoft.com')
                 ->reply_to('gerson@nygsoft.com')    // Optional, an account where a human being reads.
                 ->to('gerson@nygsoft.com')
                 ->subject($subject)
                 ->message($body)
                 ->send();
-            
-            
 
-            var_dump($result); die;
-            echo '<br />';
-            echo $this->email->print_debugger();
 
-            exit;
+
+        var_dump($result);
+        die;
+        echo '<br />';
+        echo $this->email->print_debugger();
+
+        exit;
     }
-    function reunionesAnterioresCopasst(){
-        try{
+
+    function reunionesAnterioresCopasst() {
+        try {
             $this->load->model("Copasstreuniones_model");
             $respuesta = $this->Copasstreuniones_model->reunionesAnterioresCopasst();
-            if(!empty($respuesta)):
+            if (!empty($respuesta)):
                 $data['Json'] = $respuesta;
             else:
-                throw new Exception("No existen reuniones anteriores");    
+                throw new Exception("No existen reuniones anteriores");
             endif;
-        }catch(exception $e){
-            $data["message"] = $e->getMessage(); 
-        }finally{
-             $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        } catch (exception $e) {
+            $data["message"] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
         }
     }
+
 }
 
 /* End of file welcome.php */

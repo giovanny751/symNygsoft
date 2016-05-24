@@ -226,7 +226,7 @@
                                                 <a data-toggle="tab" href="#tab2">Tareas inactivas</a>
                                             </li>
                                             <li>
-                                                <a data-toggle="tab" href="#tab3">Avance de tareas</a>
+                                                <a data-toggle="tab" href="#tab3">Seguimientos</a>
                                             </li>
                                             <li>
                                                 <a data-toggle="tab" href="#tab5">Gráfica de Gantt</a>
@@ -241,7 +241,7 @@
                                                     <thead >
                                                     <th>Editar</th>
                                                     <th>Nuevo avance</th>
-                                                    <th>Avance</th>
+                                                    <th>Seguimiento</th>
                                                     <th>Tipo</th>
                                                     <th>Nombre de la Tarea</th>
                                                     <th>Fecha Inicio</th>

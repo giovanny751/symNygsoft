@@ -149,13 +149,27 @@ class Riesgo_model extends CI_Model {
             $this->db->select("tarea.tar_rutinario as tar_rutinario");
             $this->db->select("riesgo_clasificacion.rieCla_categoria");
             $this->db->select("riesgo_clasificacion_tipo.rieClaTip_tipo");
+            $this->db->select("riesgo.nivRie_nivel");
+            $this->db->select("riesgo.nivPro_Nivel");
+            $this->db->select("nivel_riesgo.nivRie_color");
+            $this->db->select("CONCAT(nivel_deficiencia.nivDef_nivel,' (',nivel_deficiencia.nivDef_valor,')') as deficiencia");
+            $this->db->select("CONCAT(nivel_exposicion.nivExp_nivel,' (',nivel_exposicion.nivExp_valor,')') as exposicion");
+            $this->db->select("CONCAT(nivel_consecuencias.nivCon_nivel,' (',nivel_consecuencias.nivCon_nc,')') as consecuencia");
+            
+            
             $this->db->join("actividad_padre","actividad_padre.pla_id = planes.pla_id","left");  
             $this->db->join("actividad_hijo","actividad_hijo.actHij_padreid = actividad_padre.actPad_id","left");  
-            $this->db->join("tarea","tarea.actHij_id = actividad_hijo.actHij_id","left");
+            $this->db->join("tarea","tarea.actHij_id = actividad_hijo.actHij_id and tarea.est_id = 1","left");
             $this->db->join("tarea_riesgos","tarea_riesgos.tar_id = tarea.tar_id","left");
             $this->db->join("riesgo","riesgo.rie_id = tarea_riesgos.rie_id and riesgo.est_id=1","left",false);
+            $this->db->join("nivel_deficiencia","nivel_deficiencia.nivDef_id = riesgo.nivDef_id ","left",false);
+            $this->db->join("nivel_riesgo","SUBSTRING(riesgo.nivRie_nivel,1,1) = nivel_riesgo.nivRie_nivel ","left",false);
+            $this->db->join("nivel_exposicion","nivel_exposicion.nivExp_id = riesgo.nivExp_id ","left",false);
+            $this->db->join("nivel_consecuencias","nivel_consecuencias.nivCon_id = riesgo.nivCon_id ","left",false);
             $this->db->join("riesgo_clasificacion","riesgo_clasificacion.rieCla_id = riesgo.rieCla_id","left");
             $this->db->join("riesgo_clasificacion_tipo","riesgo_clasificacion_tipo.rieCla_id = riesgo_clasificacion.rieCla_id","left");
+            $this->db->where("planes.est_id",1);
+            
             $matriz = $this->db->get("planes");
             
 //            echo $this->db->last_query();die;

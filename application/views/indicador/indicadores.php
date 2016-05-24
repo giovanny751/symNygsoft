@@ -14,35 +14,27 @@
                 <div class="form-body">
                     <form method="post" class="form-horizontal" id="frmIndicadores">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4">Fecha Inicial</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Fecha Inicial</label>
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control fecha obligatorio" name="fechaInicial" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4">Fecha Final</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Fecha Final</label>
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control fecha obligatorio" name="fechaFinal" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4"></label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1"></label>
+                                    <div class="col-md-3">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4"><?php echo $empresa[0]->Dim_id ?></label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-3">
                                         <select name="dimensionuno" id="dimensionuno" class="form-control dimencion_uno_se" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($dimension as $d1) { ?>
@@ -50,22 +42,14 @@
                                             <?php } ?>
                                         </select> 
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4"><?php echo $empresa[0]->Dimdos_id ?></label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-3">
                                         <select  name="dimensiondos" id="dimensiondos" class="form-control dimencion_dos_se" >
                                             <option value="">::Seleccionar::</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4">Cargo</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Cargo</label>
+                                    <div class="col-md-3">
                                         <select name="cargo" id="cargo" class="form-control">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($cargo as $c) { ?>
@@ -77,10 +61,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4">Clasificacion Indicador</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Clasificacion Indicador</label>
+                                    <div class="col-md-3">
                                         <select name="clasificacion" id="clasificacion" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($clasificacion as $cl) { ?>
@@ -88,32 +72,22 @@
                                             <?php } ?>
                                         </select> 
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4">Tipo Clasificacion</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Tipo Clasificacion</label>
+                                    <div class="col-md-3">
                                         <select  name="tipoClasificacion" id="tipoClasificacion" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group" style="text-align: center">
-                                    <button type="button" class="btn btn-success" id="crearIndicador">Consultar indicador</button>
+                                    <div class="col-md-4" style="text-align: center">
+                                        <button type="button" class="btn btn-success" id="crearIndicador">Consultar indicador</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
                     </head>
-                    <body>
-                        <div id="chart_div" style="width: 900px; height: 500px;"></div>
-                    </body>
-
+                    <div id="chart_div" style="width: 900px; height: 500px;"></div>
                 </div>
             </div>
         </div>
@@ -122,7 +96,7 @@
 <script>
     google.charts.load('current', {'packages': ['corechart']});
 
-    function drawChart(array,title) {
+    function drawChart(array, title) {
 //          console.log(array);
         var data = google.visualization.arrayToDataTable(array);
 
@@ -146,7 +120,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"ACCIDENTES E INCIDENTES"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "ACCIDENTES E INCIDENTES"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -160,7 +134,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"AUSENTISMO"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "AUSENTISMO"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -174,7 +148,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"ACCIDENTES CON INCAPACIDAD"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "ACCIDENTES CON INCAPACIDAD"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -188,7 +162,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"INSPECCIONES"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "INSPECCIONES"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -202,7 +176,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"CAPACITACIONES"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "CAPACITACIONES"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -216,7 +190,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        google.charts.setOnLoadCallback(drawChart(msg.Json,"REUNIONES COPASST"));
+                        google.charts.setOnLoadCallback(drawChart(msg.Json, "REUNIONES COPASST"));
                     }
                 }).fail(function (msg) {
                     alerta("rojo", "Error, comunicarse con el administrador del sistema");
@@ -234,7 +208,7 @@
                     if (!jQuery.isEmptyObject(msg.message))
                         alerta("amarillo", msg['message'])
                     else {
-                        
+
                         var option = "<option value=''>::Seleccionar::</option>";
                         $.each(msg.Json, function (key, val) {
                             option += "<option value='" + val.indClaTip_id + "'>" + val.indClaTip_tipo + "</option>";

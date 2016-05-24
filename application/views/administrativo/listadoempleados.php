@@ -23,18 +23,16 @@
                         <div class='col-md-12'>
                             <form method="post" id="f2" class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="cedula">Cédula</label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" name="cedula" id="cedula" class="form-control"></div>
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="nombre">Nombre</label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" name="nombre" id="nombre" class="form-control"></div>
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="apellido">Apellido</label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" name="apellido" id="apellido" class="form-control"></div>
+                                    <label class="col-md-1" for="cedula">Cédula</label>
+                                    <div class="col-md-3"><input type="text" name="cedula" id="cedula" class="form-control"></div>
+                                    <label class="col-md-1" for="nombre">Nombre</label>
+                                    <div class="col-md-3"><input type="text" name="nombre" id="nombre" class="form-control"></div>
+                                    <label class="col-md-1" for="apellido">Apellido</label>
+                                    <div class="col-md-3"><input type="text" name="apellido" id="apellido" class="form-control"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="dim1">
-                                        <?php echo $empresa[0]->Dim_id ?>
-                                    </label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label class="col-md-1" for="dim1"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <div class="col-md-3">
                                         <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($dimension as $d) { ?>
@@ -42,10 +40,8 @@
                                             <?php } ?>
                                         </select>    
                                     </div>
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="dim2">
-                                        <?php echo $empresa[0]->Dimdos_id ?>
-                                    </label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label class="col-md-1" for="dim2"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <div class="col-md-3">
                                         <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($dimension2 as $d2) { ?>
@@ -53,19 +49,14 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3" for="dim2">
-                                        Contratos vencidos 
-                                    </label>
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                    <label class="col-md-2" for="dim2">Contratos vencidos</label>
+                                    <div class="col-md-2">
                                         <input type="checkbox" value="1" name="contratosvencidos" class="form-control">
                                     </div>
                                 </div>    
                                 <div class="form-group">
-
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="cargo">
-                                        Cargo
-                                    </label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label class="col-md-1" for="cargo">Cargo</label>
+                                    <div class="col-md-3">
                                         <select name="cargo" id="cargo" class="form-control">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($cargo as $c) { ?>
@@ -73,10 +64,8 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <label class="col-lg-2 col-md-2 col-sm-2 col-xs-2" for="estado">
-                                        Estado
-                                    </label>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label class="col-md-1" for="estado">Estado</label>
+                                    <div class="col-md-3">
                                         <select name="estado" id="estado" class="form-control">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($estado as $e) { ?>
@@ -84,9 +73,7 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: right">
+                                    <div class="col-md-4" style="text-align: center">
                                         <label>&nbsp;</label><button type="button" class="btn-sst limpiar">Limpiar</button>
                                         <label>&nbsp;</label><button type="button" class="btn-sst consultar">Consultar</button>
                                     </div>

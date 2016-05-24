@@ -26,18 +26,14 @@
                 <div class="form-body">
                     <form method="post" id="f9" class="form-horizontal">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4 " for="nombre">Nombre</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 " for="nombre">Nombre</label>
+                                    <div class="col-md-3">
                                         <input type="text" id="nombre" name="nombre" class="form-control">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-4 " for="estado">Estado</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 " for="estado">Estado</label>
+                                    <div class="col-md-3">
                                         <select id="estado" name="estado" class="form-control select2me">
                                             <option value="">::Seleccionar::</option>
                                             <option value="1">Activos</option>
@@ -45,14 +41,8 @@
                                             <option value="3">Finalizados</option>
                                         </select> 
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-4 " for="responsable">Responsable</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 " for="responsable">Responsable</label>
+                                    <div class="col-md-3">
                                         <select id="responsable" name="responsable" class="form-control select2me">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($responsable as $re) { ?>
@@ -62,21 +52,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-8 " for="responsable">Tareas propias</label>
-                                    <div class="col-md-4">
+                                    <label class="col-md-2 " for="responsable">Tareas propias</label>
+                                    <div class="col-md-2">
                                         <input type="checkbox" name="tareapropia" id="tareapropia">
+                                    </div>
+                                    <div class="col-md-offset-4 col-md-4" style="text-align: center">
+                                        <button id="consultar" class="btn btn-success" type="button">Consultar</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-3">
-                                <button id="consultar" class="btn btn-block" type="button">Consultar</button>
-                            </div>
-                        </div>   
+
+                        </div>  
                     </form>
                     <div class="row">
                         <div class="col-md-12">

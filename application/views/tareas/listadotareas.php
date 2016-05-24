@@ -20,52 +20,49 @@
             <div class="portlet-body form">
                 <form method="post" id="f9">
                     <div class="form-body">
-
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="Plan" class="col-md-4">Plan</label>
-                                <div class="col-md-8">
-                                    <select name="Plan" id="Plan" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($planes as $p) { ?>
-                                            <option value="<?php echo $p->pla_id ?>"><?php echo strtoupper($p->pla_nombre) ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="filtrotarea" class="col-md-4">Filtro Tareas</label>
-                                <div class="col-md-8">
-                                    <select name="filtrotarea" id="filtrotarea" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="responsable" class="col-md-4">Responsable</label>
-                                <div class="col-md-8">
-                                    <select name="responsable" id="responsable" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($responsables as $r) { ?>
-                                            <option value="<?php echo $r->emp_id ?>"><?php echo strtoupper($r->Emp_Nombre . " " . $r->Emp_Apellidos) ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <label for="responsable" class="col-md-4">Tipo Riesgo</label>
-                                <div class="col-md-8">
-                                    <select name="responsable" id="responsable" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                    </select>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Plan" class="col-md-1">Plan</label>
+                                    <div class="col-md-3">
+                                        <select name="Plan" id="Plan" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($planes as $p) { ?>
+                                                <option value="<?php echo $p->pla_id ?>"><?php echo strtoupper($p->pla_nombre) ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label for="filtrotarea" class="col-md-1">Filtro Tareas</label>
+                                    <div class="col-md-3">
+                                        <select name="filtrotarea" id="filtrotarea" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                        </select>
+                                    </div>
+                                    <label for="responsable" class="col-md-1">Responsable</label>
+                                    <div class="col-md-3">
+                                        <select name="responsable" id="responsable" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($responsables as $r) { ?>
+                                                <option value="<?php echo $r->emp_id ?>"><?php echo strtoupper($r->Emp_Nombre . " " . $r->Emp_Apellidos) ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <br>
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <button type="button" class="btn btn-block" id="consultar">Consultar</button>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="responsable" class="col-md-1">Tipo Riesgo</label>
+                                    <div class="col-md-3">
+                                        <select name="responsable" id="responsable" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-offset-4 col-md-4" style="text-align: center">
+                                        <button type="button" class="btn btn-success" id="consultar">Consultar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="portlet-body form">
@@ -147,8 +144,8 @@
                 $('#filtroconsulta *').remove();
                 var table = "";
                 var encabezado = "<tr>";
-                encabezado += "<th width='5%'>AGREGAR AVANCE</th>"
-                encabezado += "<th width='5%'>AVANCE</th>"
+                encabezado += "<th width='5%'>AGREGAR SEGUIMIENTO</th>"
+                encabezado += "<th width='5%'>SEGUIMIENTO</th>"
                 encabezado += "<th width='5%'>TIPO</th>"
                 encabezado += "<th width='20%'>NOMBRE DE LA TAREA</th>"
                 encabezado += "<th width='8%'>FECHA INICIO</th>"
