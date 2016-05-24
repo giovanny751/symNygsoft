@@ -1003,8 +1003,9 @@ class Administrativo extends My_Controller {
 
     function consultacargoxid() {
         try {
-            $this->load->model('Cargo_model');
+            $this->load->model(array('Cargo_model', 'Cargofuncion_model'));
             $data['Json'] = $this->Cargo_model->consultacargoxid($this->input->post('car_id'));
+            $data['funciones'] = $this->Cargofuncion_model->consultaXIdCargo($this->input->post('car_id'));
         } catch (exception $e) {
             
         } finally {
@@ -1100,13 +1101,29 @@ class Administrativo extends My_Controller {
 
     function modificacioncargo() {
         try {
-            $this->load->model('Cargo_model');
+            $this->load->model(array('Cargo_model', 'Cargofuncion_model'));
             $respuesta = $this->Cargo_model->update(
                     $this->input->post('cargo')
-                    , $this->input->post('jefe')
-                    , $this->input->post('cotizacion')
+                    , $this->input->post('cargojefe')
+                    , $this->input->post('porcentaje')
                     , $this->input->post('car_id')
+                    , $this->input->post('objetivoPrincipal')
             );
+
+            $this->Cargofuncion_model->eliminarFuncionesXIdCargo($this->input->post('car_id'));
+
+            $arregloFuncion = array();
+            if (!empty($this->input->post("funcionesEsenciales"))) {
+                for ($i = 0; $i < count($this->input->post("funcionesEsenciales")); $i++) {
+                    $arregloFuncion[] = array(
+                        "car_id" => $this->input->post('car_id'),
+                        "carFun_funcion" => $funcionesEsenciales[$i]
+                    );
+                }
+                $this->load->model("Cargofuncion_model");
+                $creacion = $this->Cargofuncion_model->create($arregloFuncion);
+            }
+
             if ($respuesta == true) {
                 $data['Json'] = $this->Cargo_model->detail();
             } else

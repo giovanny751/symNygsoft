@@ -9,6 +9,7 @@
             <div class="modal-body form-horizontal">
                 <div class="row">
                     <form method="post" id="formcargos" class="form-horizontal">
+                        <input type="hidden" value="" name="car_id" id="idcargo">
                         <div class="form-body">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -37,7 +38,7 @@
                             </div>
 
                             <div class="col-md-12">
-                                <div class="alert alert-info"><b>Funciones</b></div>
+                                <div class="alert alert-info"><center><b>Manual de Funciones</b></center></div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -47,7 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 principalFuncion">
                                 <div class="form-group">
                                     <label for="funcionesEsenciales" class="control-label col-md-2">Funciones esencial</label>
                                     <div class="col-md-9">
@@ -137,50 +138,6 @@
     </div>
 </div>
 
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align: center;"> <div class="circuloIcon guardarmodificacion" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div> Editar Cargo</h4>
-            </div>
-            <div class="modal-body form-horizontal">
-                <div class="row">
-                    <input type="hidden" value="" name="car_id" id="idcargo">
-
-                    <div class="form-group">
-                        <label for="cargo2" class="col-sm-offset-1 col-sm-3 control-label">Cargo</label>
-                        <div class="col-sm-7">
-                            <input type="text"  class="form-control" id="cargo2" name="cargo">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cargojefedir" class="col-sm-offset-1 col-sm-3 control-label">Cargo Jefe Directo</label>
-                        <div class="col-sm-7">
-                            <select name="cargojefedir" id="cargojefedir" class="form-control" >
-                                <option value="">Sin Jefe</option>
-                                <?php foreach ($cargo as $d) { ?>
-                                    <option value="<?php echo $d->car_id ?>"><?php echo $d->car_nombre ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cotizacion" class="col-sm-offset-1 col-sm-3 control-label">Cargo</label>
-                        <div class="col-sm-7">
-                            <input type="text"  class="form-control" id="cotizacion" name="cotizacion">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="riesgo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content ">
@@ -276,12 +233,7 @@
     $('.guardarmodificacion').click(function () {
         $.post(
                 url + "index.php/administrativo/modificacioncargo",
-                {
-                    cargo: $('#cargo2').val(),
-                    jefe: $('#cargojefedir').val(),
-                    cotizacion: $('#cotizacion').val(),
-                    car_id: $('#idcargo').val()
-                }
+                $('#formcargos').serialize()
         ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
                 alerta("rojo", msg['message']);
@@ -303,10 +255,41 @@
                 alerta("rojo", msg['message']);
             else {
                 $('#idcargo').val(msg.Json[0].car_id);
-                $('#cargo2').val(msg.Json[0].car_nombre);
+                $('#cargo').val(msg.Json[0].car_nombre);
                 $('#cargojefedir').val(msg.Json[0].idjefe);
-                $('#cotizacion').val(msg.Json[0].car_porcentajearl);
-                $('#myModal').modal("show");
+                $('#porcentaje').val(msg.Json[0].car_porcentajearl);
+                $('#objetivoPrincipal').val(msg.Json[0].car_objetivoPrincipal);
+                
+                var funciones = "";
+                i = 0;
+                $.each(msg.funciones,function(key,val){
+                    if(i == 0){
+                        $('.principalFuncion').remove();
+                        cambio = "plus";
+                        claseaEliminar = "principalFuncion";
+                        clase = "agregar";
+                    }else{
+                        cambio = "remove";
+                        clase = "eliminarFuncion";
+                        claseaEliminar = "";
+                    }
+                    
+                     funciones += '<div class="col-md-12 '+claseaEliminar+'">\n\
+                                <div class="form-group">\n\
+                                    <label for="funcionesEsenciales" class="control-label col-md-2">Funciones esencial</label>\n\
+                                    <div class="col-md-9 texto" >\n\
+                                        <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control funcionesEsenciales">'+val.carFun_funcion+'</textarea>\n\
+                                    </div>\n\
+                                    <div class="col-md-1">\n\
+                                        <button type="button" class="'+clase+' btn btn-danger"><i class="fa fa-'+cambio+' fa-2x"></i></button>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>';
+                    
+                });
+                $('.funciones').append(funciones);
+                
+                $('#nuevo').modal("show");
             }
         }).fail(function (msg) {
             alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
