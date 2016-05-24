@@ -62,8 +62,8 @@
                             <div class="funciones">
 
                             </div>
-                            <div class="col-md-offset-10 col-md-2">
-                                <input type="button" value="Guardar" class="btn btn-success  guardarcargo" />
+                            <div class="col-md-offset-10 col-md-2" id="buttonSeleccion">
+                                
                             </div>
                         </div>
                     </form>
@@ -95,14 +95,15 @@
             <div class="portlet-body form">
                 <div class="form-body">
                     <table class="table table-striped table-bordered table-hover tabla-sst">
-                        <thead>
+                        <thead >
                             <tr>
-                                <th>Cargo</th>
-                                <th>Cargo Jefe Directo</th>
-                                <th>% Cotización ARL</th>
-                                <th>Riesgos</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                <th style="text-align: center">Cargo</th>
+                                <th style="text-align: center">Cargo Jefe Directo</th>
+                                <th style="text-align: center">% Cotización ARL</th>
+                                <th style="text-align: center">Manual de funciones</th>
+                                <th style="text-align: center">Riesgos</th>
+                                <th style="text-align: center">Editar</th>
+                                <th style="text-align: center">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody id="bodycargo">
@@ -112,17 +113,23 @@
                                     <td><?php echo $c->jefe ?></td> 
                                     <td style="text-align:center;"><?php echo $c->car_porcentajearl ?></td> 
                                     <td style="text-align: center">
+                                        <a href="javascript:;" class="btn btn-xs default manual" car_id="<?php echo $c->car_id ?>">
+                                            <i class="fa fa-file-pdf-o" title="Manual" ></i>
+                                            Manual
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center">
                                         <?php if ($c->cantidadRiesgos > 0): ?>
                                             <i class="fa fa-child fa-2x riesgo " title="Eliminar" car_id="<?php echo $c->car_id ?>" ></i>
                                         <?php endif; ?>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center">
                                         <a href="javascript:;" class="btn btn-xs default modificar" car_id="<?php echo $c->car_id ?>">
                                             <i class="fa fa-pencil-square-o" title="Modificar" ></i>
                                             Modificar
                                         </a>
                                     </td> 
-                                    <td>
+                                    <td style="text-align: center">
                                         <a href="javascript:;" class="btn btn-xs default eliminar" car_id="<?php echo $c->car_id ?>">
                                             <i class="fa fa-trash-o" title="Eliminar" car_id="<?php echo $c->car_id ?>"></i>
                                             Eliminar
@@ -198,10 +205,13 @@
     });
 
     $('#nuevoCargo').click(function () {
+        $('#buttonSeleccion *').remove();
+        $('#buttonSeleccion').append('<input type="button" value="Guardar" class="btn btn-success  guardarcargo" />');
+        
         $('#cargo').val("");
         $('#porcentaje').val("");
         $('#objetivoPrincipal').val("");
-                        $('#funcionesEsenciales').val("");
+                        $('.funcionesEsenciales').val("");
                         $('.newFunction').remove();
         $("#nuevo").modal("show");
     });
@@ -245,6 +255,9 @@
         });
     });
     $('body').delegate(".modificar", "click", function () {
+        $('.newFunction').remove();
+        $('#buttonSeleccion *').remove();
+        $('#buttonSeleccion').append('<input type="button" value="Actualizar" class="btn btn-info  guardarmodificacion" />');
         $.post(
                 url + "index.php/administrativo/consultacargoxid",
                 {
@@ -268,11 +281,14 @@
                         cambio = "plus";
                         claseaEliminar = "principalFuncion";
                         clase = "agregar";
+                        color = "success";
                     }else{
                         cambio = "remove";
+                        claseaEliminar = "newFunction";
                         clase = "eliminarFuncion";
-                        claseaEliminar = "";
+                        color = "danger";
                     }
+                    i++;
                     
                      funciones += '<div class="col-md-12 '+claseaEliminar+'">\n\
                                 <div class="form-group">\n\
@@ -281,7 +297,7 @@
                                         <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control funcionesEsenciales">'+val.carFun_funcion+'</textarea>\n\
                                     </div>\n\
                                     <div class="col-md-1">\n\
-                                        <button type="button" class="'+clase+' btn btn-danger"><i class="fa fa-'+cambio+' fa-2x"></i></button>\n\
+                                        <button type="button" class="'+clase+' btn btn-'+color+'"><i class="fa fa-'+cambio+' fa-2x"></i></button>\n\
                                     </div>\n\
                                 </div>\n\
                             </div>';
@@ -347,15 +363,18 @@
             body += "<td>" + val.car_nombre + "</td>";
             body += "<td>" + val.jefe + "</td>";
             body += "<td style='text-align: center'>" + val.car_porcentajearl + "</td>";
-            body += '<td class="transparent">';
+            body += '<td class="transparent" style="text-align: center">';
             if (val.cantidadRiesgos > 0) {
                 body += '<i class="fa fa-child fa-2x riesgo" title="Eliminar" car_id="' + val.car_id + '" ></i>';
             }
             body += '</td>';
-            body += '<td class="transparent">\n\
+            body += '<td class="transparent" style="text-align: center">\n\
+                                            <i class="fa fa fa-file-pdf-o fa-2x manual" title="Manual" car_id="' + val.car_id + '" ></i>\n\
+                                        </td>';
+            body += '<td class="transparent" style="text-align: center">\n\
                                             <i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" car_id="' + val.car_id + '" ></i>\n\
                                         </td>';
-            body += '<td class="transparent">\n\
+            body += '<td class="transparent" style="text-align: center">\n\
                                             <i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" car_id="' + val.car_id + '"></i>\n\
                                         </td>';
             body += "</tr>";
