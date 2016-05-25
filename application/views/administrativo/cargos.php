@@ -256,6 +256,7 @@
                 alerta("rojo", msg['message']);
             else {
                 listadoCargos(msg);
+                $('#nuevo').modal("hide");
             }
         }).fail(function (msg) {
             alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");

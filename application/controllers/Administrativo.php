@@ -1134,6 +1134,7 @@ class Administrativo extends My_Controller {
             $this->Cargofuncion_model->eliminarFuncionesXIdCargo($this->input->post('car_id'));
 
             $arregloFuncion = array();
+            $funcionesEsenciales = $this->input->post("funcionesEsenciales");
             if (!empty($this->input->post("funcionesEsenciales"))) {
                 for ($i = 0; $i < count($this->input->post("funcionesEsenciales")); $i++) {
                     $arregloFuncion[] = array(
