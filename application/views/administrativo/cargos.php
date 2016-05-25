@@ -247,7 +247,7 @@
             alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
         });
     });
-    $('.guardarmodificacion').click(function () {
+    $('body').delegate(".guardarmodificacion", "click", function () {
         $.post(
                 url + "index.php/administrativo/modificacioncargo",
                 $('#formcargos').serialize()
