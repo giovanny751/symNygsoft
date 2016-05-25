@@ -112,6 +112,7 @@
                         <th>Cargo</th>
                         <th>Fecha inicio</th>
                         <th>Fecha fin</th>
+                        <th>Hoja de vida</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         </thead>
@@ -126,11 +127,17 @@
 </div> 
 </div> 
 </div> 
-
-
 <form id="f10" method="post" action="<?php echo base_url("index.php/administrativo/creacionempleados") ?>">
     <input type="hidden" value="" name="emp_id" id="emp_id">
 </form>
+<style>
+    th{
+        text-align: center;
+    }
+    i{
+        cursor:pointer
+    }
+</style>
 <script>
     $(document).ready(function () {
 
@@ -161,8 +168,9 @@
                             val.car_nombre,
                             val.empCon_fechaDesde,
                             hasta,
-                            '<i class="fa fa-pencil-square-o fa-2x  modificar" aria-hidden="true" title="Modificar"  emp_id="' + val.Emp_Id + '"  data-toggle="modal" data-target="#myModal"></i>',
-                            '<i class="fa fa-trash-o fa-2x   eliminar" aria-hidden="true" title="Eliminar" tareas="' + val.tareas_emp + '" planes="' + val.planes_emp + '" emp_id="' + val.Emp_Id + '"></i>'
+                            '<center><i class="fa fa-file-pdf-o  fa-2x  Hoja de vida" ></i></center>',
+                            '<center><i class="fa fa-pencil-square-o fa-2x  modificar" aria-hidden="true" title="Modificar"  emp_id="' + val.Emp_Id + '"  data-toggle="modal" data-target="#myModal"></i></center>',
+                            '<center><i class="fa fa-trash-o fa-2x   eliminar" aria-hidden="true" title="Eliminar" tareas="' + val.tareas_emp + '" planes="' + val.planes_emp + '" emp_id="' + val.Emp_Id + '"></i></center>'
                         ]).draw();
                     });
                 }

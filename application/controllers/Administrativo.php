@@ -899,6 +899,27 @@ class Administrativo extends My_Controller {
             
         }
     }
+    
+    function funcionesCargo(){
+        try{
+            if(empty($this->input->post("car_id"))){
+                $data["color"] = "rojo";
+                throw new Exception("No existe cargo para consultar");
+            }
+            
+            $this->load->model(array("Cargo_model","Cargofuncion_model"));
+            
+            $this->data['cargo'] = $this->Cargo_model->consultacargoxid($this->input->post("car_id"));
+            $this->data['funciones'] = $this->Cargo_model->consultaXIdCargo($this->input->post("car_id"));
+            
+            $this->load->view("formatos/funcionesCargo",$this->data);
+            
+        }catch(exception $e){
+            $data['message'] = $e->getMessage();
+        }finally{
+            
+        }
+    }
 
     function cargoriesgo() {
         try {
