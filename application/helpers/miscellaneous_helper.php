@@ -150,207 +150,68 @@ function max_folio($id) {
     return $datos[0]->consecutivo;
 }
 
-function pdf($html = null, $logo = null, $nombre = null, $estadistica, $itiniere, $transporte) {
+function pdf($html = null) {
 //$html= utf8_decode($html);
 //    $html="OOOJHKJHKJH JLH KJH KH KJH";
     ob_clean();
+
 // create new PDF document
-    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(210, 272), true, 'UTF-8', false);
-//    $pdf = new TCPDF('P', 'IN', array (8.5,11),true, 'UTF-8', false);
-// set document information
-    //$pdf->SetCreator(PDF_CREATOR);
-//$pdf->SetAuthor('Nicola Asuni');
-//$pdf->SetTitle('TCPDF Example 001');
-//$pdf->SetSubject('TCPDF Tutorial');
-//$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
 // set default header data
-//$pdf->SetHeaderData($logo, '20', PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-    if (!empty($logo))
-        $pdf->SetHeaderData($logo, '20', '', '      PLAN ESTRATEGICO DE SEGURIDAD VÍAL       ' . date('d/m/Y'), array(0, 64, 128), array(0, 64, 128));
+//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
     $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+
 // set header and footer fonts
-//    $pdf->SetMargins(23, 35, 13);
-    $pdf->SetMargins(32, 35, 20);
-    $pdf->SetHeaderMargin(14);
-    $pdf->SetFooterMargin(21);
-    $pdf->SetAutoPageBreak(TRUE, 20);
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+// set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-    //$pdf->setLanguageArray($l);
-    $pdf->setFontSubsetting(false);
-    $pdf->SetFont('dejavusans', '', 10, '', true);
-    //$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', '6'));
-    $pdf->AddPage();
-    $pdf->writeHTML($html, true, false, true, false, '');
-//    $pdf->AddPage();
-    $pdf->SetFillColor(0, 0, 0);
-    $pdf->Write(10, '                                                                  ARL');
-//    echo $estadistica[0]->arlnula;die;
-//   GRAFICA No 1
-    $xc = $estadistica[0]->arlnula;
-    $yc = $estadistica[0]->arlsi;
-    $r = $estadistica[0]->arlno;
-//echo "<pre>";
-//    var_dump($estadistica);die();
-    $total = $xc + $yc + $r;
-    $r1 = ($xc * 360) / $total;
-    $r2 = ($yc * 360) / $total;
-    $r3 = ($r * 360) / $total;
-    $r1 = round($r1);
-    $r2 = round($r2);
-    $r3 = round($r3);
-    $xc1 = 105;
-    $yc1 = 120;
-    $r11 = 50;
-    $pdf->SetFillColor(0, 0, 255);
-    $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
 
-    $pdf->SetTextColor(0, 0, 255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
-    $pdf->SetTextColor(0, 255, 0);
-    $pdf->Text(150, 155, 'SI: ' . $yc);
-    $pdf->SetTextColor(255, 0, 0);
-    $pdf->Text(150, 160, 'NO: ' . $r);
+// set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+        require_once(dirname(__FILE__) . '/lang/eng.php');
+        $pdf->setLanguageArray($l);
+    }
 
+// ---------------------------------------------------------
+// set default font subsetting mode
+    $pdf->setFontSubsetting(true);
+
+// Set font
+// dejavusans is a UTF-8 Unicode font, if you only need to
+// print standard ASCII chars, you can use core fonts like
+// helvetica or times to reduce file size.
+    $pdf->SetFont('dejavusans', '', 12, '', true);
+
+// Add a page
+// This method has several options, check the source code documentation for more information.
     $pdf->AddPage();
 
-//----------------------------------------------------------------
-//   GRAFICA No 2
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->Write(10, '                                                             PENSION');
-    $xc = $estadistica[0]->pensionnula;
-    $yc = $estadistica[0]->pensionsi;
-    $r = $estadistica[0]->pensionno;
+// set text shadow effect
+    $pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
+// Print text using writeHTMLCell()
+    $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+// ---------------------------------------------------------
+// Close and output PDF document
+// This method has several options, check the source code documentation for more information.
+    $pdf->Output('example_001.pdf', 'I');
 
-    $total = $xc + $yc + $r;
-    $r1 = ($xc * 360) / $total;
-    $r2 = ($yc * 360) / $total;
-    $r3 = ($r * 360) / $total;
-    $r1 = round($r1);
-    $r2 = round($r2);
-    $r3 = round($r3);
-    $xc1 = 105;
-    $yc1 = 100;
-    $r11 = 50;
-    $pdf->SetFillColor(0, 0, 255);
-    $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
-
-    $pdf->SetTextColor(0, 0, 255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
-    $pdf->SetTextColor(0, 255, 0);
-    $pdf->Text(150, 155, 'SI: ' . $yc);
-    $pdf->SetTextColor(255, 0, 0);
-    $pdf->Text(150, 160, 'NO: ' . $r);
-    $pdf->AddPage();
-//----------------------------------------------------------------
-//   GRAFICA No 3
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->Write(10, '                                                                 EPS');
-    $xc = $estadistica[0]->epsnula;
-    $yc = $estadistica[0]->epssi;
-    $r = $estadistica[0]->epsno;
-
-    $total = $xc + $yc + $r;
-    $r1 = ($xc * 360) / $total;
-    $r2 = ($yc * 360) / $total;
-    $r3 = ($r * 360) / $total;
-    $r1 = round($r1);
-    $r2 = round($r2);
-    $r3 = round($r3);
-    $xc1 = 105;
-    $yc1 = 100;
-    $r11 = 50;
-    $pdf->SetFillColor(0, 0, 255);
-    $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
-
-    $pdf->SetTextColor(0, 0, 255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
-    $pdf->SetTextColor(0, 255, 0);
-    $pdf->Text(150, 155, 'SI: ' . $yc);
-    $pdf->SetTextColor(255, 0, 0);
-    $pdf->Text(150, 160, 'NO: ' . $r);
-    $pdf->AddPage();
-//----------------------------------------------------------------
-//   GRAFICA No 4
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->Write(10, '                                                  CAJA DE COMPENSACIÓN');
-    $xc = $estadistica[0]->cajacompensacionnula;
-    $yc = $estadistica[0]->cajacompensacionsi;
-    $r = $estadistica[0]->cajacompensacionno;
-
-    $total = $xc + $yc + $r;
-    $r1 = ($xc * 360) / $total;
-    $r2 = ($yc * 360) / $total;
-    $r3 = ($r * 360) / $total;
-    $r1 = round($r1);
-    $r2 = round($r2);
-    $r3 = round($r3);
-    $xc1 = 105;
-    $yc1 = 100;
-    $r11 = 50;
-    $pdf->SetFillColor(0, 0, 255);
-    $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
-
-    $pdf->SetTextColor(0, 0, 255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
-    $pdf->SetTextColor(0, 255, 0);
-    $pdf->Text(150, 155, 'SI: ' . $yc);
-    $pdf->SetTextColor(255, 0, 0);
-    $pdf->Text(150, 160, 'NO: ' . $r);
-    $pdf->AddPage();
-//----------------------------------------------------------------
-//   GRAFICA No 5
-    $pdf->SetTextColor(0, 0, 0);
-    $pdf->Write(10, '                                              DESPLAZAMIENTO EN MISIÓN');
-    $xc = $estadistica[0]->usu_desplazamiento_misionnula;
-    $yc = $estadistica[0]->usu_desplazamiento_misionsi;
-    $r = $estadistica[0]->usu_desplazamiento_misionno;
-
-
-    $total = $xc + $yc + $r;
-    $r1 = ($xc * 360) / $total;
-    $r2 = ($yc * 360) / $total;
-    $r3 = ($r * 360) / $total;
-    $r1 = round($r1);
-    $r2 = round($r2);
-    $r3 = round($r3);
-    $xc1 = 105;
-    $yc1 = 100;
-    $r11 = 50;
-    $pdf->SetFillColor(0, 0, 255);
-    $pdf->PieSector($xc1, $yc1, $r11, 0, $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(0, 255, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r1, $r2 + $r1, 'FD', false, 0, 2);
-    $pdf->SetFillColor(255, 0, 0);
-    $pdf->PieSector($xc1, $yc1, $r11, $r2 + $r1, 0, 'FD', false, 0, 2);
-
-    $pdf->SetTextColor(0, 0, 255);
-    $pdf->Text(150, 150, 'NO CONTESTADAS: ' . $xc);
-    $pdf->SetTextColor(0, 255, 0);
-    $pdf->Text(150, 155, 'SI: ' . $yc);
-    $pdf->SetTextColor(255, 0, 0);
-    $pdf->Text(150, 160, 'NO: ' . $r);
-
-//    $pdf->Write(0, 'Example of PieSector() method.');
-//$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
-//    $pdf->writeHTMLCell(1, 1, '', '', $html, 0, 1, 0, true, '', true);
-    $pdf->Output('pesv.pdf', 'I');
+//============================================================+
+// END OF FILE
+//============================================================+
 }
 
 function lista($name, $id, $class, $tabla, $option_value, $option_name, $value, $where, $bloqued) {
@@ -380,7 +241,7 @@ function lista($name, $id, $class, $tabla, $option_value, $option_name, $value, 
                 } else {
                     if (strpos($option_name, ',')) {
                         $option_name1 = explode(',', $option_name);
-                        $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name1[0].' und ('.$row->$option_name1[1] . ")</option>";
+                        $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name1[0] . ' und (' . $row->$option_name1[1] . ")</option>";
                     } else
                         $html.="<option   value=" . $row->$option_value . " onlyRead >" . $row->$option_name . "</option>";
                 }

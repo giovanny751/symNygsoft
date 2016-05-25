@@ -144,6 +144,9 @@
         </div>
     </div>
 </div>
+<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Administrativo/funcionesCargo')?>" method="post">
+    <input type="hidden" id="id_cargo_form" name="car_id">
+</form>
 
 <div class="modal fade" id="riesgo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -174,6 +177,10 @@
 </div>
 <script>
 
+    $('body').delegate(".manual", "click", function () {
+        $('#id_cargo_form').val($(this).attr('car_id'));
+        $('#manual_form').submit();
+    })
     $('body').delegate(".agregar", "click", function () {
 
         var funciones = '<div class="col-md-12 newFunction">\n\
@@ -334,7 +341,7 @@
                     });
         }
     });
-    $('.guardarcargo').click(function () {
+    $('body').delegate(".guardarcargo", "click", function () {
         if (obligatorio('obligatorio') == true) {
             $.post(url + 'index.php/administrativo/guardarcargo',
                     $("#formcargos").serialize())
@@ -363,14 +370,15 @@
             body += "<td>" + val.car_nombre + "</td>";
             body += "<td>" + val.jefe + "</td>";
             body += "<td style='text-align: center'>" + val.car_porcentajearl + "</td>";
+            body += '<td class="transparent" style="text-align: center">\n\
+            <a class="btn btn-xs default manual" car_id="' + val.car_id + '" href="javascript:;">\n\
+                    <i class="fa fa-file-pdf-o" title="Manual"></i> Manual </a>\n\
+                                        </td>';
             body += '<td class="transparent" style="text-align: center">';
             if (val.cantidadRiesgos > 0) {
                 body += '<i class="fa fa-child fa-2x riesgo" title="Eliminar" car_id="' + val.car_id + '" ></i>';
             }
             body += '</td>';
-            body += '<td class="transparent" style="text-align: center">\n\
-                                            <i class="fa fa fa-file-pdf-o fa-2x manual" title="Manual" car_id="' + val.car_id + '" ></i>\n\
-                                        </td>';
             body += '<td class="transparent" style="text-align: center">\n\
                                             <i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" car_id="' + val.car_id + '" ></i>\n\
                                         </td>';
