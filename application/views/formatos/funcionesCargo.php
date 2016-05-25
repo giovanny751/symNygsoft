@@ -1,4 +1,8 @@
 <table style="width: 100%;border: 1px solid #CCC">
+
+    <tr>
+        <td colspan="2" style="text-align: center;border:1px solid #CCC"><br><b>MANUAL ESPECÍFICO DE FUNCIONES Y COMPETENCIAS LABORALES</b><br></td>
+    </tr>
     <tr >
         <td style="width: 40%;border: 1px solid #CCC;"><br><b>NOMBRE DEL CARGO:</b><br></td>
         <td style="width: 60%;border: 1px solid #CCC"><br><?php echo $cargo[0]->car_nombre ?><br></td>
@@ -19,8 +23,8 @@
     <tr>
         <td>
             <ul>
-                <?php foreach($funciones as $fe):?>
-                <li><?php echo $fe->carFun_funcion ?></li>
+                <?php foreach ($funciones as $fe): ?>
+                    <li><?php echo $fe->carFun_funcion ?></li>
                 <?php endforeach; ?>
             </ul>
         </td>
