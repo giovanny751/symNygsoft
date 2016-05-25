@@ -100,9 +100,15 @@
     </div>
 </div>
 
+<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Tareas/funcionesCargo')?>" method="post">
+    <input type="hidden" id="id_cargo_form" name="tar_id">
+</form>
 
 <script type="text/javascript">
-
+    $('body').delegate(".manual", "click", function () {
+        $('#id_cargo_form').val($(this).attr('tar_id'));
+        $('#manual_form').submit();
+    })
     $('#Plan').change(function () {
         $.post(
                 url + "index.php/tareas/consultaractividadpadre",
@@ -154,6 +160,7 @@
                 encabezado += "<th width='10%'>RESPONSABLES</th>"
                 encabezado += "<th># RIESGOS</th>"
                 encabezado += "<th>RIESGOS</th>"
+                encabezado += "<th>MANUAL</th>"
                 encabezado += "<th>EDITAR</th>"
                 encabezado += "<th>ELIMINAR</th>"
                 encabezado += "</tr>";
@@ -182,6 +189,10 @@
                                         if (numeracion.cantidadRiesgo > 0) {
                                             table += '<center><i class="fa fa-file-text-o fa-2x  riesgos" title="Riesgos" tar_id="' + idtar + '"  ></i>';
                                         }
+                                        table += "</td>";
+                                        table += '<td class="transparent">';
+                                        table += '<a class="btn btn-xs default manual" tar_id="' + idtar + '" href="javascript:;">\n\
+                                                    <i class="fa fa-file-pdf-o" title="Manual"></i>Manual</a>';
                                         table += "</td>";
                                         table += '<td class="transparent">';
                                         table += '<i class="fa fa-pencil-square-o fa-2x  modificar" title="Modificar" tar_id="' + idtar + '" ></i>';

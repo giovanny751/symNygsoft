@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller {
 
         $this->load->library('email');
 
-//         $this->verificacion();
+         $this->verificacion();
     }
 
     function verificacion() {
