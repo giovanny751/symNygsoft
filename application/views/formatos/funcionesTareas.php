@@ -34,6 +34,7 @@
     </tr>
     <tr>
         <td>Norma</td>
+        <td><?php echo (!empty($tarea->nor_id)) ? $tarea->nor_id : ""; ?></td>
     </tr>
     <tr>
         <td>Artículo</td>
