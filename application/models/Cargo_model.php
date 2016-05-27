@@ -23,25 +23,21 @@ class Cargo_model extends CI_Model {
         }
     }
 
-    function update($nombre, $jefe, $porcentaje, $id,$objetivoPrincipal) {
+    function update($nombre, $jefe, $porcentaje, $id,$objetivoPrincipal,$perfil) {
         try {
-            $this->db->trans_begin();
             $this->db->where("car_id", $id);
             $this->db->set("car_nombre", $nombre);
             $this->db->set("car_jefe", $jefe);
             $this->db->set("car_porcentajearl", $porcentaje);
             $this->db->set("car_objetivoPrincipal", $objetivoPrincipal);
+            $this->db->set("car_perfilCargo", $perfil);
             $this->db->update("cargo");
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-            } else {
-                return $this->db->insert_id();
-                $this->db->trans_commit();
-            }
+            
+//            echo $this->db->last_query();die;
+            
         } catch (exception $e) {
             
         } finally {
-            return $this->db->trans_status();
         }
     }
 
@@ -109,6 +105,7 @@ class Cargo_model extends CI_Model {
             $this->db->select("cargo.car_id");
             $this->db->select("cargo.car_nombre");
             $this->db->select("cargo.car_objetivoPrincipal");
+            $this->db->select("cargo.car_perfilCargo");
             $this->db->select("c.car_nombre as jefe");
             $this->db->select("cargo.car_porcentajearl");
             $this->db->select("c.car_id as idjefe");

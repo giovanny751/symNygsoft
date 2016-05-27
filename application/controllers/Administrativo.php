@@ -1052,7 +1052,8 @@ class Administrativo extends My_Controller {
                     "car_nombre" => $cargo,
                     "car_jefe" => $cargojefe,
                     "car_porcentajearl" => $this->input->post("porcentaje"),
-                    "car_objetivoPrincipal" => $this->input->post("objetivoPrincipal")
+                    "car_objetivoPrincipal" => $this->input->post("objetivoPrincipal"),
+                    "car_perfilCargo" => $this->input->post("perfilCargo")
                 );
 
 
@@ -1129,6 +1130,7 @@ class Administrativo extends My_Controller {
                     , $this->input->post('porcentaje')
                     , $this->input->post('car_id')
                     , $this->input->post('objetivoPrincipal')
+                    , $this->input->post('perfilCargo')
             );
 
             $this->Cargofuncion_model->eliminarFuncionesXIdCargo($this->input->post('car_id'));
@@ -1146,10 +1148,7 @@ class Administrativo extends My_Controller {
                 $creacion = $this->Cargofuncion_model->create($arregloFuncion);
             }
 
-            if ($respuesta == true) {
                 $data['Json'] = $this->Cargo_model->detail();
-            } else
-                throw new Exception("Error en la base de datos");
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {

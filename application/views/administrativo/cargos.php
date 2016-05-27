@@ -42,6 +42,14 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="objetivoPrincipal" class="control-label col-md-2">Perfil del cargo</label>
+                                    <div class="col-md-10">
+                                        <textarea id="perfilCargo" name="perfilCargo" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="objetivoPrincipal" class="control-label col-md-2">Objetivo principal</label>
                                     <div class="col-md-10">
                                         <textarea id="objetivoPrincipal" name="objetivoPrincipal" class="form-control"></textarea>
@@ -280,6 +288,7 @@
                 $('#cargojefedir').val(msg.Json[0].idjefe);
                 $('#porcentaje').val(msg.Json[0].car_porcentajearl);
                 $('#objetivoPrincipal').val(msg.Json[0].car_objetivoPrincipal);
+                $('#perfilCargo').val(msg.Json[0].car_perfilCargo);
                 
                 var funciones = "";
                 i = 0;
