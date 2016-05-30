@@ -34,6 +34,35 @@ class Empleado_model extends CI_Model {
         }
     }
     
+    function datosPrincipalesEmpleado(){
+        try{
+        $this->db->distinct("empleado.Emp_id");
+        $this->db->select("empleado.Emp_id");
+        $this->db->select("empleado.Emp_cedula");
+        $this->db->select("empleado.Emp_Nombre");
+        $this->db->select("empleado.Emp_Nombre");
+        $this->db->select("empleado.Emp_Apellidos");
+        $this->db->select("empleado.sex_Id");
+        $this->db->select("empleado.Emp_Direccion");
+        $this->db->select("empleado.Emp_Email");
+        $this->db->select("empleado.Emp_ceular");
+        $this->db->select("empleado.Emp_FechaNacimiento");
+        $this->db->where("empleado.est_id",1);
+        $this->db->where("empleado_contratos.empCon_fechaHasta >=",date("Y-m-d"));
+        $this->db->or_where("empleado_contratos.empCon_fechaHasta","0000-00-00 00:00:00");
+        $this->db->join("empleado_contratos","empleado_contratos.emp_id = empleado.Emp_id");
+        $this->db->join("tipo_identificacion","tipo_identificacion.tipIde_id = empleado.tipIde_id");
+        $this->db->join("sexo","Sex_Sexo.Sex_id = empleado.sex_Id");
+        $empleado = $this->db->get("empleado");
+//        echo $this->db->last_query();die;
+        return $empleado->result();
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
+    }
+    
     function detail() {
         try {
             $this->db->distinct("empleado.Emp_id");

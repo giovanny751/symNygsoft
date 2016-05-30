@@ -11,45 +11,43 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form method="post" id="f4">
+                <form method="post" id="f4" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cedula">Cédula</label>
-                                    <input type="text" name="cedula" id="cedula" class="form-control">
-                                    <input type="hidden" name="tipo" id="tipo" class="form-control" value="<?php echo $tipo; ?>">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label><input type="text" name="nombre" id="nombre" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group">
-                                    <label for="apellido">Apellido</label><input type="text" name="apellido" id="apellido" class="form-control">
+                                    <label for="cedula" class="col-md-2">Cédula</label>
+                                    <div class="col-md-2">
+                                        <input type="text" name="cedula" id="cedula" class="form-control">
+                                        <input type="hidden" name="tipo" id="tipo" class="form-control" value="<?php echo $tipo; ?>">
+                                    </div>
+                                    <label for="nombre" class="col-md-2">Nombre</label>
+                                    <div class="col-md-2">
+                                        <input type="text" name="nombre" id="nombre" class="form-control">
+                                    </div>
+                                    <label for="apellido" class="col-md-2">Apellido</label>
+                                    <div class="col-md-2">
+                                        <input type="text" name="apellido" id="apellido" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="estado">Estado</label>
-                                    <select name="estado" id="estado" class="form-control">
-                                        <option value="">::Seleccionar::</option>
-                                        <?php foreach ($estado as $e) { ?>
-                                            <option value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-                                <div class="form-group">
-                                    <label>&nbsp;</label><button type="button" class="btn-sst limpiar">Limpiar</button>
-                                    <label>&nbsp;</label><button type="button" class="btn-sst consultar">Consultar</button>
+                                    <label for="estado" class="col-md-2">Estado</label>
+                                    <div class="col-md-2">
+                                        <select name="estado" id="estado" class="form-control">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($estado as $e) { ?>
+                                                <option value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class=" col-md-offset-4  col-md-4" style="text-align: center">
+                                        <button type="button" class="btn-sst limpiar">Limpiar</button>
+                                        <button type="button" class="btn-sst consultar">Consultar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +208,7 @@
         $.each(msg.Json, function (key, val) {
             var x = Math.floor((Math.random() * 1000) + 2000);
             var y = Math.floor((Math.random() * 1000) + 2000);
-            $('#resultados').append('<tr><td><button class="btn btn-danger evaluaciones_reset" eva="' + val.eva_id  + '" user="' +  val.use_id + '">Eliminar</button> </td><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
+            $('#resultados').append('<tr><td><button class="btn btn-danger evaluaciones_reset" eva="' + val.eva_id + '" user="' + val.use_id + '">Eliminar</button> </td><td colspan="2"><a href="<?php echo base_url('index.php/Evaluacion/evaluando') ?>/' + x + val.eva_id + y + '/' + x + val.use_id + y + '" target="_black">' + val.eva_nombre + '</a></td></tr>')
         })
     }
     $('body').delegate(".modificar", "click", function () {

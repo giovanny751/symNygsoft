@@ -110,10 +110,7 @@ class Evaluacion extends My_Controller {
     }
     function listadousuarios2() {
         try {
-            $this->load->model('Tipo_documento_model');
-            $this->load->model('Estados_model');
-            $this->load->model('User_model');
-            $this->load->model('Roles_model');
+            $this->load->model(array('Tipo_documento_model',"Estados_model","User_model","Roles_model"));
 //            $this->data['roles'] = $this->Roles_model->roles();
             $this->data['estado'] = $this->Estados_model->detail();
             $this->data['tipo'] = 2;
