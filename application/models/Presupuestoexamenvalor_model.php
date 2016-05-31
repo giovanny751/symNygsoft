@@ -13,4 +13,5 @@ class Presupuestoexamenvalor_model extends CI_Model {
         $this->db->set("creatorDate",$date);
         $this->db->insert("presupuesto_examen_valor");
     }
+    
 }

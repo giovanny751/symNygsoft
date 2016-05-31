@@ -26,6 +26,41 @@ class Presupuesto extends My_Controller {
 
         $this->layout->view("presupuesto/presupuestoExamenesMedicos", $this->data);
     }
+    
+    function eliminarExamen(){
+        try{
+            if(empty($this->input->post('preExa_id'))){
+                throw new Exception("No hay datos para inactivar");
+            }
+            
+        $this->load->model(array("Presupuestoexamen_model"));   
+        
+        $this->Presupuestoexamen_model->inactivarExamen($this->input->post('preExa_id'));
+            
+        }catch(exception $e){
+            
+        }finally{
+            
+        }
+    }
+    
+    function guardarExamen(){
+        try{
+            if(empty($this->input->post())){
+                throw new Exception("No existen parametros para guardar en el sistema");
+            }
+            
+            $this->load->model(array("Presupuestoexamenvalor_model", "Presupuestoexamen_model"));
+            $idInsertado = $this->Presupuestoexamen_model->guardarExamen($this->input->post());
+            $this->Presupuestoexamenvalor_model->guardarValor($idInsertado, $this->input->post('valor'), $this->data['usu_id'], date("Y-m-d H:i:s"));
+            
+        }catch(exception $e){
+            
+            
+        }finally{
+            
+        }
+    }
 
     function guardarExamenes() {
         try {

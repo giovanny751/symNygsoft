@@ -110,7 +110,9 @@
                                     </div>
                                     <label class="col-md-2">Correo</label>
                                     <div class="col-md-2">
+                                        
                                         <input type="tex" name="correo" id="correo" class="form-control inactivar"> 
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +120,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Tipos de examenes</label>
                                     <div class="col-md-2">
-                                        <select name="tipoExamen[]" id="tipoExamen" class="form-control" multiple>
+                                        <select title="Pulsa Ctrl + Click para seleccionar exámenes" name="tipoExamen[]" id="tipoExamen" class="form-control" multiple>
                                             <?php foreach ($examenes as $e): ?>
                                                 <option value="<?php echo $e->preExaVal_id ?>"><?php echo $e->preExa_examen ?></option> 
                                             <?php endforeach; ?>

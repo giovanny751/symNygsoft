@@ -86,6 +86,14 @@ class Informes extends My_Controller {
         $this->layout->view('informes/informeGeneral',$this->data);
     }
     
+    function informeExamenesMedicos(){
+        
+        $this->load->model(array("Informes_model"));
+        
+        $this->data["informeExamenesMedicos"] = $this->Informes_model->consultaExamenesEmpleados();
+        
+        $this->layout->view('informes/informeExamenesMedicos',$this->data);
+    }
     
 
 }
