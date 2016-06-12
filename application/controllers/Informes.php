@@ -40,7 +40,7 @@ class Informes extends My_Controller {
 
     function consultaInformeHorasExtras() {
         try {
-            
+
             $respuesta = $this->Informes_model->horasExtras($this->input->post('empleado'), $this->input->post('fechaDesde'), $this->input->post('fechaHasta'));
             if (!empty($respuesta)) {
                 $data['Json'] = $respuesta;
@@ -76,25 +76,47 @@ class Informes extends My_Controller {
             
         }
     }
-    
-    function informeGeneral(){
+
+    function informeGeneral() {
         $this->data['general'] = $this->Informes_model->informeGeneral();
         $this->data['empleados'] = $this->Informes_model->informeEmpleado();
 //        echo "<pre>";
 //        var_dump($this->data['empleados']);die;
         $this->data['pqr'] = $this->Informes_model->informePqr();
-        $this->layout->view('informes/informeGeneral',$this->data);
+        $this->layout->view('informes/informeGeneral', $this->data);
     }
-    
-    function informeExamenesMedicos(){
-        
+
+    function informeExamenesMedicos() {
+
         $this->load->model(array("Informes_model"));
-        
+
         $this->data["informeExamenesMedicos"] = $this->Informes_model->consultaExamenesEmpleados();
-        
-        $this->layout->view('informes/informeExamenesMedicos',$this->data);
+        $this->data['valores'] = $this->Informes_model->consultaValoresExamenMedico();
+
+        $this->layout->view('informes/informeExamenesMedicos', $this->data);
     }
-    
+
+    function graficaExamenesMedicos() {
+        try {
+            $this->load->model("Informes_model");
+            $indicador = $this->Informes_model->consultaValoresExamenMedico();
+            if (!empty($indicador)) {
+
+                $datos = array();
+                $datos[] = array("Examen", "Total invertido");
+                foreach ($indicador as $in) {
+                    $datos[] = array($in->preExa_examen, $in->preExaVal_valor + 0);
+                }
+                $data['Json'] = $datos;
+            } else {
+                throw new Exception("No se encontro información relacionada");
+            }
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
 
 }
 

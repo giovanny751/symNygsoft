@@ -135,5 +135,23 @@ class Informes_model extends CI_Model {
 //        echo $this->db->last_query();die;
         return $examenes->result();
     }
+    
+    function consultaValoresExamenMedico(){
+        $data = $this->db->query("
+        SELECT    
+        presupuesto_examen.preExa_examen as preExa_examen, 
+        sum(replace(presupuesto_examen_valor.preExaVal_valor, trim(', '), '')) as preExaVal_valor
+        FROM `empleado_presupuesto_examen` 
+        LEFT JOIN `empleado_presupuesto_examen_valor` ON `empleado_presupuesto_examen_valor`.`empPreExa_id` = `empleado_presupuesto_examen`.`empPreExa_id` 
+        JOIN `presupuesto_examen_valor` ON `presupuesto_examen_valor`.`preExaVal_id` = `empleado_presupuesto_examen_valor`.`preExaVal_id` 
+        JOIN `presupuesto_examen` ON `presupuesto_examen`.`preExa_id` = `presupuesto_examen_valor`.`preExa_id` 
+        JOIN `sexo` ON `sexo`.`sex_id` = `empleado_presupuesto_examen`.`sex_id` 
+        JOIN `tipo_identificacion` ON `tipo_identificacion`.`tipIde_id` = `empleado_presupuesto_examen`.`tipIde_id` 
+        JOIN `tipo_examen` ON `tipo_examen`.`tipExa_id` = `empleado_presupuesto_examen`.`tipExa_id`
+        GROUP BY presupuesto_examen.preExa_id order by preExa_examen ASC");
+        
+        return  $data->result();
+        
+    }
 
 }
