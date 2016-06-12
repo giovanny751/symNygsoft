@@ -162,6 +162,9 @@ class Riesgo_model extends CI_Model {
             $this->db->join("tarea","tarea.actHij_id = actividad_hijo.actHij_id and tarea.est_id = 1","left");
             $this->db->join("tarea_riesgos","tarea_riesgos.tar_id = tarea.tar_id","left");
             $this->db->join("riesgo","riesgo.rie_id = tarea_riesgos.rie_id and riesgo.est_id=1","left",false);
+//            $this->db->join("riesgo_cargo","riesgo_cargo.rie_id = riesgo.rie_id");
+//            $this->db->join("cargo","cargo.car_id = riesgo_cargo.car_id");
+//            $this->db->join("empleado","empleado.car_id = cargo.car_id");
             $this->db->join("nivel_deficiencia","nivel_deficiencia.nivDef_id = riesgo.nivDef_id ","left",false);
             $this->db->join("nivel_riesgo","SUBSTRING(riesgo.nivRie_nivel,1,1) = nivel_riesgo.nivRie_nivel ","left",false);
             $this->db->join("nivel_exposicion","nivel_exposicion.nivExp_id = riesgo.nivExp_id ","left",false);

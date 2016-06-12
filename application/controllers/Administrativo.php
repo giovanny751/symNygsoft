@@ -1036,7 +1036,7 @@ class Administrativo extends My_Controller {
 
     function guardarcargo() {
         try {
-            $this->load->model('Cargo_model');
+            $this->load->model(array('Cargo_model','Notificacionusuario_model',"Notificacionusuariovisto_model"));
             $cargo = $this->input->post("cargo");
             $cargojefe = $this->input->post("cargojefe");
 
@@ -1059,8 +1059,6 @@ class Administrativo extends My_Controller {
 
                 $creacion = $this->Cargo_model->create($almacenamiento);
 
-
-
                 if (!empty($creacion)) {
                     $arregloFuncion = array();
                     if (!empty($this->input->post("funcionesEsenciales"))) {
@@ -1073,15 +1071,18 @@ class Administrativo extends My_Controller {
                         $this->load->model("Cargofuncion_model");
                         $creacion = $this->Cargofuncion_model->create($arregloFuncion);
                     }
-                    $data['Json'] = $this->Cargo_model->detail();
+                    $notUsuId = $this->Notificacionusuario_model->guardaNotificacionUsuario(13,$this->data["usu_id"]);
+                    $consulta = $this->Notificacionusuariovisto_model->detail($this->data["usu_id"],$this->data['user']['rol_id']);
+                    $this->info["new_count_message"] = count($consulta);
+                    $this->info['Json'] = $this->Cargo_model->detail();
                 }
             } else {
                 throw new Exception("Cargo ya existente");
             }
         } catch (exception $e) {
-            $data['message'] = $e->getMessage();
+            $this->info['message'] = $e->getMessage();
         } finally {
-            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+            $this->output->set_content_type('application/json')->set_output(json_encode($this->info));
         }
     }
 

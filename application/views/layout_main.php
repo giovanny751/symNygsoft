@@ -130,7 +130,7 @@
                                 <li class="dropdown dropdown-extended dropdown-notification dropdown-quick-sidebar-toggler" id="header_notification_bar">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                         <i class="icon-bell"></i>
-                                        <span class="badge badge-default"><?php echo $conadorNotificacion; ?></span>
+                                        <span class="badge badge-default" id="new_count_message"><?php echo $conadorNotificacion; ?></span>
                                     </a>
 
                                     <ul class="dropdown-menu">
@@ -612,6 +612,28 @@
                         text-transform: uppercase;
                     }
                 </style>
+                <script>
+                var socket = io.connect( 'http://'+window.location.hostname+':3000' );
 
+  socket.on( 'new_count_message', function( data ) {
+      console.log(data.new_count_message);
+      $( "#new_count_message" ).html( data.new_count_message );
+      $('#notif_audio')[0].play();
+
+  });
+
+  socket.on( 'update_count_message', function( data ) {
+
+      $( "#new_count_message" ).html( data.update_count_message );
+    
+  });
+
+  socket.on( 'new_message', function( data ) {
+  
+      $( "#message-tbody" ).prepend('<tr><td>'+data.name+'</td><td>'+data.email+'</td><td>'+data.subject+'</td><td>'+data.created_at+'</td><td><a style="cursor:pointer" data-toggle="modal" data-target=".bs-example-modal-sm" class="detail-message" id="'+data.id+'"><span class="glyphicon glyphicon-search"></span></a></td></tr>');
+      $( "#no-message-notif" ).html('');
+      $( "#new-message-notif" ).html('<div class="alert alert-success" role="alert"> <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>New message ...</div>');
+  });
+                </script>
                 </body>
                 </html>

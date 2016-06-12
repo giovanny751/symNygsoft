@@ -84,8 +84,8 @@ class Riesgo extends My_Controller {
                 "rie_descripcion" => $this->input->post("descripcion"),
                 "rieCla_id" => $this->input->post("categoria"),
                 "rieClaTip_id" => $this->input->post("tipo"),
-                "dim1_id" => (!empty($this->input->post("dimensionuno")))?$this->input->post("dimensionuno"):null,
-                "dim2_id" => (!empty($this->input->post("dimensiondos")))?$this->input->post("dimensiondos"):null,
+                "dim1_id" => (!empty($this->input->post("dimensionuno"))) ? $this->input->post("dimensionuno") : null,
+                "dim2_id" => (!empty($this->input->post("dimensiondos"))) ? $this->input->post("dimensiondos") : null,
                 "rie_zona" => $this->input->post("zona"),
                 "rie_requisito" => $this->input->post("requisito"),
                 "rie_observaciones" => $this->input->post("observaciones"),
@@ -120,16 +120,16 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model(array(
                 "Niveles_model"
-                ));
-            
+            ));
+
             $deficiencia = $this->Niveles_model->nivelDeficienciaxId($this->input->post("deficiencia"));
             $exposicion = $this->Niveles_model->nivelExposicionxId($this->input->post("exposicion"));
-            $consecuencia = "";            
-            if(!empty($this->input->post("consecuencia"))){
+            $consecuencia = "";
+            if (!empty($this->input->post("consecuencia"))) {
                 $nivelConsecuencia = $this->Niveles_model->nivelConsecuenciaxId($this->input->post("exposicion"));
                 $consecuencia = $nivelConsecuencia[0]->nivCon_nc;
             }
-            $data['Json'] = $this->Niveles_model->nivelProbabilidad($deficiencia[0]->nivDef_valor, $exposicion[0]->nivExp_valor,$consecuencia );
+            $data['Json'] = $this->Niveles_model->nivelProbabilidad($deficiencia[0]->nivDef_valor, $exposicion[0]->nivExp_valor, $consecuencia);
             if (count($data['Json']) == 0)
                 throw new Exception("No se encontro nivel de probabilidad");
         } catch (exception $e) {
@@ -410,7 +410,7 @@ class Riesgo extends My_Controller {
             $planes = $this->Riesgo_model->filtrobusqueda(
                     $this->input->post("cargo"), $this->input->post("categoria"), $this->input->post("dimensionuno"), $this->input->post("dimensiondos"), $this->input->post("tipo")
             );
-               
+
             $i = array();
             if (count($planes) > 0) {
                 foreach ($planes as $t) {
@@ -459,8 +459,7 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model("Riesgoclasificacion_model");
             $this->Riesgoclasificacion_model->eliminar(
-                    $this->input->post('id'),
-                    $this->data['usu_id']
+                    $this->input->post('id'), $this->data['usu_id']
             );
             $categoria = $this->Riesgoclasificacion_model->detailandtipo();
             $i = array();
@@ -481,8 +480,7 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model("Riesgoclasificacion_model");
             $this->Riesgoclasificacion_model->eliminarCategoria(
-                    $this->input->post('rieCla_id'),
-                    $this->data['usu_id']
+                    $this->input->post('rieCla_id'), $this->data['usu_id']
             );
             $categoria = $this->Riesgoclasificacion_model->detailandtipo();
             $i = array();
@@ -506,13 +504,14 @@ class Riesgo extends My_Controller {
         $matriz = $this->Riesgo_model->matrizRiesgo();
         $i = array();
         foreach ($matriz as $m) :
-            $i[$m->pla_nombre][$m->actHij_nombre][$m->tar_nombre][$m->tar_rutinario][$m->rie_descripcion][$m->deficiencia][$m->exposicion][$m->nivPro_Nivel][$m->consecuencia][$m->nivRie_nivel."/".$m->nivRie_color][$m->rieCla_categoria][] = $m->rieClaTip_tipo;
+            $i[$m->pla_nombre][$m->actHij_nombre][$m->tar_nombre . "//" . $m->tar_rutinario][$m->rie_descripcion . "//" . $m->deficiencia . "//" . $m->exposicion . "//" . $m->nivPro_Nivel . "//" . $m->consecuencia . "//" . $m->nivRie_nivel . "//" . $m->nivRie_color . "//" . $m->rieCla_categoria][] = $m->rieClaTip_tipo;
         endforeach;
 //        echo "<pre>";
 //        print_y($i);die;
         $this->data['matriz'] = $i;
         $this->layout->view("riesgo/matrizriesgo", $this->data);
     }
+
     function solicitudriesgo() {
         try {
             $this->load->model(array("Empleado_model"
@@ -563,9 +562,9 @@ class Riesgo extends My_Controller {
     }
 
     function prevencionRiesgo() {
-        
-        $this->load->model(array("Prevencioncontrol_model","Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model',"Riesgoclasificaciontipo_model"));
-        if(!empty($this->input->post('pre_id'))){
+
+        $this->load->model(array("Prevencioncontrol_model", "Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model', "Riesgoclasificaciontipo_model"));
+        if (!empty($this->input->post('pre_id'))) {
             $this->data['Prevencion'] = $this->Prevencioncontrol_model->consultaPrevencionxId($this->input->post('pre_id'));
         }
         $this->data['empresa'] = $this->Empresa_model->detail();
@@ -576,16 +575,16 @@ class Riesgo extends My_Controller {
         $this->data['dimension2'] = $this->Dimension2_model->detail();
         $this->data['clasificacion'] = $this->Riesgoclasificacion_model->detail();
         $this->data['cargo'] = $this->Cargo_model->detail();
-        
+
 //        echo "<pre>";
 //        var_dump($this->data['cargo']);die;
-        
+
         $this->layout->view("riesgo/prevencionRiesgo", $this->data);
     }
 
     function guardarPrevencion() {
         try {
-            $this->load->model(array("Prevencionriesgoclasificacion_model","Prevencion_model"));
+            $this->load->model(array("Prevencionriesgoclasificacion_model", "Prevencion_model"));
             $variable = array(
                 "car_id" => $this->input->post("car_id"),
                 "dimDos_id" => $this->input->post("dimDos"),
@@ -653,7 +652,20 @@ class Riesgo extends My_Controller {
             $this->load->model("Prevencioncontrol_model");
             $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion(
                     $this->input->post()
-                    );
+            );
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+
+    function guardar_fuente_origen() {
+        try {
+            $this->load->model("fuenteOrigen");
+            $data['Json'] = $this->fuenteOrigen->guardar_fuente_origen(
+                    $this->input->post()
+            );
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
         } finally {

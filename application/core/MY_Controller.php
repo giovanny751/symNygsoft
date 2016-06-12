@@ -18,13 +18,14 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         header('Pragma: no-cache');
         $this->load->database();
-        $this->load->model('Ingreso_model');
+        $this->load->model(array('Ingreso_model','Notificacionusuariovisto_model'));
         $this->load->helper('miscellaneous');
         $this->load->helper('security');
         $this->load->library('tcpdf/tcpdf.php');
         $this->load->library('layout', 'layout_main');
         $this->data['user'] = $this->session->userdata();
         $this->data["usu_id"] = $this->session->userdata('usu_id');
+        
         validate_login($this->data['user']['usu_id']);
 
         $this->load->library('email');

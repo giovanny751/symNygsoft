@@ -27,7 +27,7 @@
                             <div class="tabbable tabbable-tabdrop">
                                 <ul class="nav nav-tabs">
                                     <li class='active'>
-                                        <a data-toggle="tab" href="#tab1">Prevensión</a>
+                                        <a data-toggle="tab" href="#tab1">Tipo de acción</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#tab2">Asignación de control</a>
@@ -36,12 +36,161 @@
                                 <div class="tab-content">
                                     <div id="tab1" class="tab-pane active">
                                         <form id="frmPrevencion" class="form-horizontal">
+
+                                            <div class="alert alert-info" style="text-align: center">
+                                                Responsable
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dimUno" class="col-md-3 control-label"><span>*</span>Acción</label>
+                                                        <div class="col-md-9">
+                                                            <?php echo lista("tipAcc_id", "tipAcc_id", "form-control obligatorio", "tipoAccion", "tipAcc_id", "tipAcc_nombre", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dimUno" class="col-md-3 control-label"><span>*</span>Pertenece a la compañia </label>
+                                                        <div class="col-md-9">
+                                                            <select id="pertenece" class="form-control obligatorio" name="pertenece">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <option value="1">SI</option>
+                                                                <option value="0">NO</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dimUno" class="col-md-3 control-label"><span>*</span><?php echo $empresa[0]->Dim_id ?></label>
+                                                        <div class="col-md-9">
+                                                            <select name="dimUno" id="dimUno" class="form-control dimencion_uno_se obligatorio">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($dimension as $d1) { ?>
+                                                                    <option <?php echo (!empty($Prevencion->dimUno_id) && $Prevencion->dimUno_id == $d1->dim_id ) ? "selected" : ""; ?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dimDos" class="col-md-3 control-label"><span>*</span> <?php echo $empresa[0]->Dimdos_id ?></label>
+                                                        <div class="col-md-9">
+                                                            <select name="dimDos" id="dimDos" class="form-control dimencion_dos_se obligatorio">
+                                                                <option value="">::Seleccionar::</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="lugar" class="col-md-3 control-label">Lugar</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="lugar" id="lugar" class="form-control" value="<?php echo (!empty($Prevencion->pre_lugar)) ? $Prevencion->pre_lugar : ""; ?>" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="cargo" class="col-md-3 control-label"><span>*</span>Cargo</label>
+                                                        <div class="col-md-9">
+                                                            <select name="cargo" id="cargo" class="form-control obligatorio interno">
+                                                                <option value="">::Seleccionar::</option>
+                                                                <?php foreach ($cargo as $c): ?> 
+                                                                    <option <?php echo (!empty($Prevencion->car_id) && $Prevencion->car_id == $c->car_id ) ? "selected" : ""; ?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                            <input type="text" class="form-control externo" name="cargo_externo" id="cargo_externo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="empleado" class="col-md-3 control-label"><span>*</span>Empleado</label>
+                                                        <div class="col-md-9">
+                                                            <select name="empleado" id="empleado" class="form-control obligatorio interno">
+                                                                <option value="">::Seleccionar::</option>
+                                                            </select>
+                                                            <input type="text" class="form-control externo" name="empleado_externo" id="empleado_externo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="alert alert-info" style="text-align: center">
+                                                Fuente que origina la acción correctiva y preventiva
+                                            </div>
+
+
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dimUno" class="col-md-3 control-label"><span>*</span>Fuente de origen</label>
+                                                        <div class="col-md-9">
+                                                            <?php echo listaMultiple2("fueOri_id", "fueOri_id", "form-control obligatorio", "fuenteOrigen", "fueOri_id", "fueOri_nombre", null, array("est_id" => "1"), /* readOnly? */ false); ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 otra_fuente" style="display: none">
+                                                    <div class="form-group">
+                                                        <label for="dimUno" class="col-md-3 control-label"><span>*</span>Otro</label>
+                                                        <div class="col-md-9">
+                                                            <div class="col-md-6">
+                                                                <div class='input-group'>
+                                                                    <input type="text" class="form-control" id="otro_"> 
+                                                                    <div class='input-group-addon'><a href='javascript:' class="agregar_otro"><i class="fa fa-plus " aria-hidden="true"></i></a></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="observacion" class="col-md-12 control-label">Descripción de la no conformidad real o potencial.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" name="observacion" id="observacion"><?php echo (!empty($Prevencion->pre_observacion)) ? $Prevencion->pre_observacion : ""; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="alert alert-info" style="text-align: center">
+                                                Analisis de la causa (causa o causas por la que se presento la no conformidad real, o se detecta una no conformidad potencial).
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <table class="cree">
+                                                    <thead>
+                                                    <th>Causa</th>
+                                                    <th>Sub causa ¿porque?</th>
+                                                    <th>Ultra causa ¿porque?</th>
+                                                    <th>Cada causa</th>
+                                                    </thead>
+                                                </table>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="planPrevencion" class="col-md-2 "><span>*</span>Plan de prevención</label>
                                                         <div class="col-md-10">
-                                                            <input type="text" name="planPrevencion" id="planPrevencion" class="form-control obligatorio" value="<?php echo (!empty($Prevencion->pre_nombre))?$Prevencion->pre_nombre:"";?>">
+                                                            <input type="text" name="planPrevencion" id="planPrevencion" class="form-control obligatorio" value="<?php echo (!empty($Prevencion->pre_nombre)) ? $Prevencion->pre_nombre : ""; ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,7 +246,7 @@
                                                     <div class="form-group">
                                                         <label for="fechaInicio" class="col-md-4"><span>*</span>Fecha inicio</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="fechaInicio" id="fechaInicio" value="<?php echo (!empty($Prevencion->pre_fechaInicio))?$Prevencion->pre_fechaInicio:"";?>" class="form-control fecha obligatorio">
+                                                            <input type="text" name="fechaInicio" id="fechaInicio" value="<?php echo (!empty($Prevencion->pre_fechaInicio)) ? $Prevencion->pre_fechaInicio : ""; ?>" class="form-control fecha obligatorio">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,7 +254,7 @@
                                                     <div class="form-group">
                                                         <label for="fechaFin" class="col-md-4 control-label">Fecha fin</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="fechaFin" id="fechaFin" value="<?php echo (!empty($Prevencion->pre_fechaInicio))?$Prevencion->pre_fechaFin:"";?>" class="form-control fecha">
+                                                            <input type="text" name="fechaFin" id="fechaFin" value="<?php echo (!empty($Prevencion->pre_fechaInicio)) ? $Prevencion->pre_fechaFin : ""; ?>" class="form-control fecha">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,7 +269,7 @@
                                                             Medidas preventivas apropiadas
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasPreventivas" id="medidasPreventivas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas))?$Prevencion->pre_medPreApropiadas:"";?></textarea>
+                                                            <textarea name="medidasPreventivas" id="medidasPreventivas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas)) ? $Prevencion->pre_medPreApropiadas : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,7 +281,7 @@
                                                             Medidas adoptadas
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasAdoptadas" id="medidasAdoptadas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas))?$Prevencion->pre_medidasAdoptadas:"";?></textarea>
+                                                            <textarea name="medidasAdoptadas" id="medidasAdoptadas" class="form-control"><?php echo (!empty($Prevencion->pre_medPreApropiadas)) ? $Prevencion->pre_medidasAdoptadas : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,7 +293,7 @@
                                                             <span>*</span>Medidas adoptar
                                                         </label>
                                                         <div class="col-md-10">
-                                                            <textarea name="medidasAdoptar" id="medidasAdoptar" class="form-control obligatorio"><?php echo (!empty($Prevencion->pre_medidasAAdoptar))?$Prevencion->pre_medidasAAdoptar:"";?></textarea>
+                                                            <textarea name="medidasAdoptar" id="medidasAdoptar" class="form-control obligatorio"><?php echo (!empty($Prevencion->pre_medidasAAdoptar)) ? $Prevencion->pre_medidasAAdoptar : ""; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,7 +303,7 @@
                                                     <div class="form-group">
                                                         <label for="presupuesto" class="col-md-6 control-label">Presupuesto</label>
                                                         <div class="col-md-6">
-                                                            <input type="text" name="presupuesto" value="<?php echo (!empty($Prevencion->pre_presupuesto))?$Prevencion->pre_presupuesto:"";?>" id="presupuesto" class="form-control miles number obligatorio"/>
+                                                            <input type="text" name="presupuesto" value="<?php echo (!empty($Prevencion->pre_presupuesto)) ? $Prevencion->pre_presupuesto : ""; ?>" id="presupuesto" class="form-control miles number obligatorio"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,78 +312,6 @@
                                                         <label for="costoReal" class="col-md-6 control-label">Costo real</label>
                                                         <div class="col-md-6">
                                                             <input type="text" name="costoReal" id="costoReal" class="form-control number"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="alert alert-info" style="text-align: center">
-                                                Responsable
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="dimUno" class="col-md-4 control-label"><span>*</span><?php echo $empresa[0]->Dim_id ?></label>
-                                                        <div class="col-md-8">
-                                                            <select name="dimUno" id="dimUno" class="form-control dimencion_uno_se obligatorio">
-                                                                <option value="">::Seleccionar::</option>
-                                                                <?php foreach ($dimension as $d1) { ?>
-                                                                    <option <?php echo (!empty($Prevencion->dimUno_id) && $Prevencion->dimUno_id == $d1->dim_id )?"selected":"";?> value="<?php echo $d1->dim_id; ?>"><?php echo strtoupper($d1->dim_descripcion); ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="dimDos" class="col-md-3 control-label"><span>*</span> <?php echo $empresa[0]->Dimdos_id ?></label>
-                                                        <div class="col-md-9">
-                                                            <select name="dimDos" id="dimDos" class="form-control dimencion_dos_se obligatorio">
-                                                                <option value="">::Seleccionar::</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="lugar" class="col-md-3 control-label">Lugar</label>
-                                                        <div class="col-md-9">
-                                                            <input type="text" name="lugar" id="lugar" class="form-control" value="<?php echo (!empty($Prevencion->pre_lugar))?$Prevencion->pre_lugar:"";?>" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="cargo" class="col-md-3 control-label"><span>*</span>Cargo</label>
-                                                        <div class="col-md-9">
-                                                            <select name="cargo" id="cargo" class="form-control obligatorio">
-                                                                <option value="">::Seleccionar::</option>
-                                                                <?php foreach ($cargo as $c): ?> 
-                                                                <option <?php echo (!empty($Prevencion->car_id) && $Prevencion->car_id == $c->car_id )?"selected":"";?> value="<?php echo $c->car_id ?>"><?php echo strtoupper($c->car_nombre) ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="empleado" class="col-md-3 control-label"><span>*</span>Empleado</label>
-                                                        <div class="col-md-9">
-                                                            <select name="empleado" id="empleado" class="form-control obligatorio">
-                                                                <option value="">::Seleccionar::</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="observacion" class="col-md-1 control-label">Observación</label>
-                                                        <div class="col-md-11">
-                                                            <textarea class="form-control" name="observacion" id="observacion"><?php echo (!empty($Prevencion->pre_observacion))?$Prevencion->pre_observacion:"";?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -322,7 +399,50 @@
     </div>
 </div>
 <script>
+    $('#fueOri_id').append('<option value="-1">Otro</option>')
+    $('#fueOri_id').change(function () {
+        if ($(this).val() == -1) {
+            $('.otra_fuente').show();
+        } else {
+            $('.otra_fuente').hide();
+        }
 
+    })
+    $('.agregar_otro').click(function () {
+        if ($('#otro_').val() == "") {
+            alerta('rojo', 'El campo es obligatorios');
+            return false;
+        }
+        $.post(url + 'index.php/Riesgo/guardar_fuente_origen', {campo_otro: $('#otro_').val()})
+                .done(function (msg) {
+                    if (!jQuery.isEmptyObject(msg.message))
+                        alerta("amarillo", msg['message']);
+                    else {
+                        var otro_ = $('#otro_').val()
+                        $('#otro_').val('')
+                        $('#fueOri_id').append('<option value="' + msg.Json + '">' + otro_ + '</option>')
+                    }
+                }).fail(function () {
+            alerta('rojo', 'Error al guardar');
+        })
+    })
+
+
+
+    $('.externo').hide();
+    $('#pertenece').change(function () {
+        if ($(this).val() == 1) {
+            $('.interno').show();
+            $('.externo').hide();
+            $('.interno').addClass('obligatorio');
+            $('.externo').removeClass('obligatorio');
+        } else {
+            $('.interno').removeClass('obligatorio');
+            $('.externo').addClass('obligatorio');
+            $('.interno').hide();
+            $('.externo').show();
+        }
+    })
     $('document').ready(function () {
 
         $('#guardar').click(function () {
@@ -340,7 +460,7 @@
                                         $('input,select,textarea').val("");
                                         $('#tiposriesgos *').remove();
                                         $('#lista_riesgos *').remove();
-                                    }else{
+                                    } else {
                                         $('#pre_id').val(msg.Json);
                                         $('#guardar').attr("pre_id", msg.message);
                                         $('#guardar').removeAttr("title");

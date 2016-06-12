@@ -56,6 +56,7 @@
                                                 return $array;
                                             }
                                         }
+
                                         foreach ($matriz as $plan => $act_hijos):
                                             echo "<tr>";
                                             echo "<td rowspan='" . (count($act_hijos, COUNT_RECURSIVE) + 1) . "'>" . $plan . "</td>";
@@ -64,85 +65,38 @@
                                                 echo "<tr>";
                                                 echo "<td rowspan='" . (count($tareas, COUNT_RECURSIVE) + 1) . "'>" . $act_hijo . "</td>";
                                                 echo "</tr>";
-                                                foreach ($tareas as $tarea => $rutinario):
+                                                foreach ($tareas as $tarea => $riesgosCreados):
+                                                    $atributoTarea = explode("//", $tarea);
                                                     echo "<tr>";
-                                                    echo "<td rowspan='" . (count($rutinario, COUNT_RECURSIVE) + 1) . "'   >" . $tarea . "</td>";
+                                                    echo "<td rowspan='" . (count($riesgosCreados, COUNT_RECURSIVE) + 1) . "'   >" . $atributoTarea[0] . "</td>";
+                                                    if ($atributoTarea[1] == 1)
+                                                        $desicion = "SI";
+                                                    else
+                                                        $desicion = "NO";
+                                                    echo "<td rowspan='" . (count($riesgosCreados, COUNT_RECURSIVE) + 1) . "'   >" . $desicion . "</td>";
 //                                                    if (empty($resultado = capturaColumnas($rutinario))) {
 //                                                    }
                                                     echo "</tr>";
-                                                    foreach ($rutinario as $rutina => $riesgosCreados):
+                                                    foreach ($riesgosCreados as $riesgo => $rieDescripciones):
                                                         echo "<tr>";
-                                                        if ($rutina == 1) {
-                                                            $rutina = "SI";
-                                                        } elseif ($rutina == 2) {
-                                                            $rutina = "NO";
-                                                        }
-                                                        echo "<td rowspan='" . ((count($riesgosCreados, COUNT_RECURSIVE) + 1) + 1 ) . "' style='text-align:center'>" . $rutina . "</td>";
-                                                        if (empty($resultado = capturaColumnas($riesgosCreados))) {
-                                                            echo "<td colspan='8'>&nbsp;</td>";
-                                                        }
+                                                        $riesgosAdicionales = explode("//", $riesgo);
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[0] . "</td>";
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[1] . "</td>";
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[2] . "</td>";
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[3] . "</td>";
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[4] . "</td>";
+                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[5] . "</td>";
+//                                                        echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[6] . "</td>";
+                                                        echo "<td style='background-color:".$riesgosAdicionales[6]."' rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "'>" . $riesgosAdicionales[7] . "</td>";
+//                                                        if (empty($resultado = capturaColumnas($nivelDeficiencia))) {
+//                                                            echo "<td colspan='7'>&nbsp;</td>";
+//                                                        }
                                                         echo "</tr>";
-                                                        foreach ($riesgosCreados as $riesgo => $nivelDeficiencia):
-                                                            echo "<tr>";
-                                                            echo "<td rowspan='" . (count($nivelDeficiencia, COUNT_RECURSIVE) + 1) . "'>" . $riesgo . "</td>";
-                                                            if (empty($resultado = capturaColumnas($nivelDeficiencia))) {
-                                                                echo "<td colspan='7'>&nbsp;</td>";
-                                                            }
-                                                            echo "</tr>";
-                                                            foreach ($nivelDeficiencia as $deficiencia => $nivelProbabilidad):
+                                                            foreach ($rieDescripciones as $indice => $val):
                                                                 echo "<tr>";
-                                                                echo "<td rowspan='" . (count($nivelProbabilidad, COUNT_RECURSIVE) + 1) . "'>" . $deficiencia . "</td>";
-                                                                if (empty($resultado = capturaColumnas($nivelProbabilidad))) {
-                                                                    echo "<td colspan='6'>&nbsp;</td>";
-                                                                }
+                                                                echo "<td>" . $val . "</td>";
                                                                 echo "</tr>";
-                                                                foreach ($nivelProbabilidad as $nivProbabilidad => $nivelExposicion):
-                                                                    echo "<tr>";
-                                                                    echo "<td rowspan='" . (count($nivelExposicion, COUNT_RECURSIVE) + 1) . "'>" . $nivProbabilidad . "</td>";
-                                                                    if (empty($resultado = capturaColumnas($nivelExposicion))) {
-                                                                        echo "<td colspan='5'>&nbsp;</td>";
-                                                                    }
-                                                                    echo "</tr>";
-                                                                    foreach ($nivelExposicion as $exposicion => $nivelConsecuencia):
-                                                                        echo "<tr>";
-                                                                        echo "<td rowspan='" . (count($nivelConsecuencia, COUNT_RECURSIVE) + 1) . "'>" . $exposicion . "</td>";
-                                                                        if (empty($resultado = capturaColumnas($nivelConsecuencia))) {
-                                                                            echo "<td colspan='4'>&nbsp;</td>";
-                                                                        }
-                                                                        echo "</tr>";
-                                                                        foreach ($nivelConsecuencia as $consecuencia => $nivRiesgoNivel):
-                                                                            echo "<tr>";
-                                                                            echo "<td rowspan='" . (count($nivRiesgoNivel, COUNT_RECURSIVE) + 1) . "'>" . $consecuencia . "</td>";
-                                                                            if (empty($resultado = capturaColumnas($nivRiesgoNivel))) {
-                                                                                echo "<td colspan='3'>&nbsp;</td>";
-                                                                            }
-                                                                            echo "</tr>";
-                                                                            foreach ($nivRiesgoNivel as $nivel => $rieDescripciones):
-                                                                                echo "<tr>";
-                                                                                echo "<td rowspan='" . (count($rieDescripciones, COUNT_RECURSIVE) + 1) . "' style='text-align:center;background-color:" . explode("/", $nivel)[1] . "' >" . explode("/", $nivel)[0] . "</td>";
-                                                                                if (empty($resultado = capturaColumnas($rieDescripciones))) {
-                                                                                    echo "<td colspan='2'>&nbsp;</td>";
-                                                                                }
-                                                                                echo "</tr>";
-                                                                                foreach ($rieDescripciones as $rieDescripcion => $indices):
-                                                                                    echo "<tr>";
-                                                                                    echo "<td rowspan='" . (count($indices, COUNT_RECURSIVE) + 1) . "'>" . $rieDescripcion . "</td>";
-                                                                                    if (empty($resultado = capturaColumnas($indices))) {
-                                                                                        echo "<td colspan='1'>&nbsp;</td>";
-                                                                                    }
-                                                                                    echo "</tr>";
-                                                                                    foreach ($indices as $indice => $val):
-                                                                                        echo "<tr>";
-                                                                                        echo "<td>" . $val . "</td>";
-                                                                                        echo "</tr>";
-                                                                                    endforeach;
-                                                                                endforeach;
-                                                                            endforeach;
-                                                                        endforeach;
-                                                                    endforeach;
-                                                                endforeach;
                                                             endforeach;
-                                                        endforeach;
                                                     endforeach;
                                                 endforeach;
                                             endforeach;

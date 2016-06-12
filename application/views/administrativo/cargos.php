@@ -183,6 +183,7 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url('node_modules/socket.io/node_modules/socket.io-client/socket.io.js');?>"></script>
 <script>
 
     $('body').delegate(".manual", "click", function () {
@@ -358,8 +359,40 @@
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message']);
-                        else
+                        else{
                             listadoCargos(msg);
+                        }
+                        
+//-----------------------------------------------------------------------------
+
+            if(jQuery.isEmptyObject(msg.message)){
+
+                $("#notif").html('prueba');
+
+//                console.log();
+
+                var socket = io.connect( 'http://'+window.location.hostname+':3000' );
+                
+                socket.emit('new_count_message', { 
+                  new_count_message: msg.new_count_message
+                });
+
+                socket.emit('new_message', { 
+                  name: 'hola gerson'
+                });
+
+              } else if(data.success == false){
+
+                $("#name").val(msg.name);
+                $("#email").val(msg.email);
+                $("#subject").val(msg.subject);
+                $("#message").val(msg.message);
+                $("#notif").html(msg.notif);
+
+              }
+                        
+//-----------------------------------------------------------------------------                        
+                        
                         $('#objetivoPrincipal').val("");
                         $('#funcionesEsenciales').val("");
                         $('.newFunction').remove();

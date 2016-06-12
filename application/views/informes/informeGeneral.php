@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Total empleados eliminados</label>
+                                            <label class="col-md-6">Total empleados eliminados del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $empleados[0]->empleadosEliminados ?>
                                             </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Hombres eliminados</label>
+                                            <label class="col-md-6">Hombres eliminados sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $empleados[0]->empleadosHombresEliminados ?>
                                             </div>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Mujeres eliminadas</label>
+                                            <label class="col-md-6">Mujeres eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $empleados[0]->empleadosMujeresEliminados ?>
                                             </div>
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Planes eliminados</label>
+                                            <label class="col-md-6">Planes eliminados sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $general[0]->planesEliminadas ?>
                                             </div>
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Tareas eliminadas</label>
+                                            <label class="col-md-6">Tareas eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $general[0]->tareaEliminada ?>
                                             </div>
@@ -172,7 +172,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Quejas Eliminadas</label>
+                                            <label class="col-md-6">Quejas Eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $pqr[0]->quejaEliminada ?>
                                             </div>
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Peticiones eliminadas</label>
+                                            <label class="col-md-6">Peticiones eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $pqr[0]->peticionEliminada ?>
                                             </div>
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Sugerencia eliminadas</label>
+                                            <label class="col-md-6">Sugerencia eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $pqr[0]->sugerenciaEliminada ?>
                                             </div>
@@ -226,7 +226,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-6">Felicitaciones eliminadas</label>
+                                            <label class="col-md-6">Felicitaciones eliminadas del sistema</label>
                                             <div class="col-md-6">
                                                 <?php echo $pqr[0]->felicitacionesEliminada ?>
                                             </div>
