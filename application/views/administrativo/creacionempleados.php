@@ -131,7 +131,7 @@
                                                     </div>    
                                                 </div>    
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="row">
@@ -183,7 +183,11 @@
                                                 <div class="form-group">
                                                     <label for="salario" class=" col-md-3">Salario</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" id="salario" name="salario" class="form-control miles" disabled=""  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                                        <div class="input-group">
+                                                            <input type="text" id="salario" name="salario" class="form-control miles" disabled=""  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
+                                                        <div class="input-group-addon">$
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1811,7 +1815,7 @@ endforeach;
                     $('#archivocarpeta').val('')
                     $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody *').remove();
                     var filas = "";
-                    
+
                     $.each(result.Json, function (key, val) {
                         filas += "<tr>";
                         filas += "<td><a target='_blank' href='<?php echo base_url("/uploads/empleado/") ?>/" + val.emp_id + "/" + val.empReg_id + "/" + val.empReg_archivo + "' title='descargar' >" + val.empReg_archivo + "</td>";
@@ -1826,7 +1830,7 @@ endforeach;
                          </td>";
                         filas += "</tr>";
                     });
-                    
+
                     $('#collapse_' + $('#empReg_carpeta').val()).find('table tbody').append(filas);
                     $('#myModal2').modal("hide");
                 }

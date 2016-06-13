@@ -83,6 +83,9 @@
 <div class="row">
     <div class="col-md-12">
         <button type="button" id="nuevoCargo" class="btn btn-success">Nuevo</button>
+        <a href="<?php echo base_url("index.php/administrativo/organigrama") ?>">
+            <button type="button" id="organigrama" title="Organigrama" class="btn btn-info"><i class="fa fa-sitemap"></i></button>
+            </a>
     </div>
 </div>
 
@@ -93,7 +96,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-table"></i><?= $title ?>
+                    <i class="fa fa-table"></i>CARGOS
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="Abrir/Cerrar"></a>

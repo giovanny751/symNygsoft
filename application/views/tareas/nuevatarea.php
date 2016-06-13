@@ -213,7 +213,10 @@
                                     <div class="form-group">
                                         <label for="costrospresupuestados" class="control-label col-md-3">Costos Presupuestados</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
+                                            <div class="input-group">
+                                                <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
+                                                <div class="input-group-addon">$</div>
+                                            </div> 
                                         </div> 
                                     </div> 
                                 </div> 
@@ -287,7 +290,7 @@
                                             <select name="estado" id="estado" class="form-control" >
                                                 <option value="">::Seleccionar::</option>
                                                 <?php foreach ($estados as $e) : ?>
-                                                <option <?php echo ((!empty($tarea->est_id) && $tarea->est_id == $e->est_id) ? "selected" : ((empty($tarea->est_id) && $e->est_id == 1) ? "selected" : "" )); ?>  value="<?php echo $e->est_id ?>"><?php echo strtoupper($e->est_nombre) ?></option>
+                                                    <option <?php echo ((!empty($tarea->est_id) && $tarea->est_id == $e->est_id) ? "selected" : ((empty($tarea->est_id) && $e->est_id == 1) ? "selected" : "" )); ?>  value="<?php echo $e->est_id ?>"><?php echo strtoupper($e->est_nombre) ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -342,7 +345,7 @@
                                                     endforeach;
                                                     ?>
                                                     <option <?php echo $select; ?> <?php echo (!empty($tarea->rieCla_id) && $ca->rieCla_id == $tarea->rieCla_id ) ? "Selected" : ""; ?> value="<?php echo $ca->rieCla_id ?>"><?php echo $ca->rieCla_categoria ?></option>
-<?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -365,7 +368,7 @@
                                                     endforeach;
                                                     ?>
                                                     <option <?php echo $select; ?> <?php echo (!empty($tarea->tipRie_id) && $tc->rieClaTip_id == $tarea->tipRie_id ) ? "Selected" : ""; ?> vale="<?php echo $tc->rieClaTip_id ?>"><?php echo strtoupper($tc->rieClaTip_tipo) ?></option>
-<?php endforeach; ?>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -389,7 +392,7 @@
                                                         endforeach;
                                                     ?>
                                                     <option <?php echo $select; ?>  value="<?php echo $e->rie_id ?>"><?php echo $e->rie_descripcion ?></option>
-<?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -399,7 +402,7 @@
                     </div>
 
                 </form>
-<?php if (!empty($tarea->tar_id)): ?>
+                <?php if (!empty($tarea->tar_id)): ?>
                     <div class="portlet box blue">
                         <div class="portlet-body">
                             <div class="tabbable tabbable-tabdrop">
@@ -443,59 +446,52 @@
                                         </div>
                                     </div>
                                     <div id="tab2"  class="tab-pane <?php echo (!empty($avance) || !empty($nuevoavance)) ? "active" : ""; ?>">
-                                        <form method="post" id="guardaravance">
+                                        <form method="post" id="guardaravance" class="form-horizontal">
                                             <input type="hidden" value="<?php echo (!empty($tarea->tar_id)) ? $tarea->tar_id : ""; ?>" name="idtarea" id="interno">
                                             <input type="hidden" value="<?php echo (!empty($avance[0]->avaTar_id)) ? $avance[0]->avaTar_id : ""; ?>" name="avaTar_id" id="avaTar_id">
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
-                                                    <div class="row">
-                                                        <label for="fecha" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Fecha</label>
-                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+
+                                                    <div class="form-group">
+                                                        <label for="fecha" class="col-md-3">Fecha</label>
+                                                        <div class="col-md-9">
                                                             <input value="<?php echo (!empty($avance[0]->avaTar_fecha)) ? $avance[0]->avaTar_fecha : ""; ?>"  type="text" style="text-align:center" name="fecha" id="fecha" class="form-control fecha avance">
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <label for="progreso" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Progreso</label>
-                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                    <div class="form-group">
+                                                        <label for="progreso" class="col-md-3">Progreso</label>
+                                                        <div class="col-md-9">
                                                             <select name="progreso" id="progreso" class="form-control avance" style="text-align: center">
                                                                 <option value="">::Seleccionar::</option>
                                                                 <?php for ($i = 1; $i < 101; $i++) { ?>
                                                                     <option <?php echo ((!empty($avance[0]->avaTar_progreso)) && ($avance[0]->avaTar_progreso == $i)) ? "selected" : ""; ?> value="<?php echo $i; ?>"><?php echo $i . " " . "%"; ?></option>
-    <?php } ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <label for="horastrabajadas" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Horas Trabajadas</label>
-                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
+                                                    <div class="form-group">
+                                                        <label for="horastrabajadas" class="col-md-3">Horas Trabajadas</label>
+                                                        <div class="col-md-9">
                                                             <input value="<?php echo (!empty($avance[0]->avaTar_horasTrabajadas)) ? $avance[0]->avaTar_horasTrabajadas : ""; ?>" style="text-align:center" type="text" name="horastrabajadas" id="horastrabajadas" class="form-control avance number">
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <label for="costo" class="col-lg-3 col-md-3 col-sx-3 col-sm-3">Costo</label>
-                                                        <div class="col-lg-9 col-md-9 col-sx-9 col-sm-9">
-                                                            <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
+                                                    <div class="form-group">
+                                                        <label for="costo" class="col-md-3">Costo</label>
+                                                        <div class="col-md-9">
+                                                            <div class="input-group">
+                                                                <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
+                                                                <div class="input-group-addon">$</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sx-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
                                                             <label for="comentarios">Comentarios</label>
                                                             <textarea  name="comentarios" id="comentarios" class="form-control avance"><?php echo (!empty($avance[0]->avaTar_comentarios)) ? $avance[0]->avaTar_comentarios : ""; ?></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <center><h4>Notificar a:</h4></center>
-                                                    </div>
-    <?php foreach ($notificacion as $n): ?>
-                                                        <div class="row">
-                                                            <label for="creotarea" class="col-lg-9 col-md-9 col-sx-9 col-sm-9"><?php echo $n->not_notificacion ?></label>
-                                                            <div class="col-lg-3 col-md-3 col-sx-3 col-sm-3">
-                                                                <input type="checkbox" name="notificar[]" value="<?php echo $n->not_id ?>" id="creotarea" class="form-control avance">
-                                                            </div>
-                                                        </div>
-    <?php endforeach; ?>
                                                 </div>
 
                                             </div>
@@ -549,7 +545,7 @@
                                                                                     <th>Acción</th>
                                                                                     </thead>
                                                                                     <tbody>
-            <?php foreach ($numcar as $numerocar => $campocar): ?>
+                                                                                        <?php foreach ($numcar as $numerocar => $campocar): ?>
                                                                                             <tr>
                                                                                                 <td><?php echo $campocar[0] ?></td>
                                                                                                 <td><?php echo $campocar[1] ?></td>
@@ -562,7 +558,7 @@
                                                                                                     <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal" data-toggle="modal"></i>
                                                                                                 </td>
                                                                                             </tr>   
-            <?php endforeach; ?>
+                                                                                        <?php endforeach; ?>
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -641,7 +637,7 @@
                                                     <option value=""></option>
                                                     <?php foreach ($carpetas as $carp): ?>
                                                         <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre . ' - ' . $carp->regCar_descripcion ?></option>
-    <?php endforeach; ?>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -678,7 +674,7 @@
                             </div>
                         </div>
                     </div>
-<?php endif; ?>
+                <?php endif; ?>
                 <input type="hidden" id="tareid" name="tareid" />
             </div> 
         </div> 
@@ -722,7 +718,7 @@
             $("#registro *").remove();
             var option = "<option value=''>::Seleccionar::</option>";
             $.each(msg, function (key, val) {
-                option += "<option value='" + val.actHij_id.toUpperCase()  + "'>" + val.actHij_nombre.toUpperCase()  + "</option>"
+                option += "<option value='" + val.actHij_id.toUpperCase() + "'>" + val.actHij_nombre.toUpperCase() + "</option>"
             });
             $('#tipo').val("");
             $("#registro").append(option);
@@ -926,7 +922,7 @@
                 $('#actividad *').remove();
                 var option = "<option value=''>::Seleccionar::</option>";
                 $.each(msg.actividades, function (key, val) {
-                    option += "<option value='" + val.actPad_id + "'>" + val.actPad_nombre.toUpperCase()  + " - " + val.actPad_codigo.toUpperCase()  + "</option>";
+                    option += "<option value='" + val.actPad_id + "'>" + val.actPad_nombre.toUpperCase() + " - " + val.actPad_codigo.toUpperCase() + "</option>";
                 })
                 $('#actividad').append(option);
                 $('#actividad').val('<?php echo (isset($tarea->act_id) ? $tarea->act_id : '') ?>');
@@ -936,7 +932,7 @@
                 $('#tareapadre *').remove();
                 var optionTarea = "<option value=''>::Seleccionar::</option>";
                 $.each(msg.tareaPadre, function (key, val) {
-                    optionTarea += "<option value='" + val.tar_id.toUpperCase()  + "'>" + val.tar_nombre.toUpperCase()  + "</option>";
+                    optionTarea += "<option value='" + val.tar_id.toUpperCase() + "'>" + val.tar_nombre.toUpperCase() + "</option>";
                 });
                 $('#tareapadre').append(optionTarea);
             }).fail(function () {
@@ -954,7 +950,7 @@
                 var data = "<option value=''>::Seleccionar::</option>";
                 $('#nombreempleado *').remove();
                 $.each(msg.Json, function (key, val) {
-                    data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase()  + " " + val.Emp_Apellidos.toUpperCase()  + "</option>"
+                    data += "<option value='" + val.Emp_Id + "'>" + val.Emp_Nombre.toUpperCase() + " " + val.Emp_Apellidos.toUpperCase() + "</option>"
                 });
                 $('#nombreempleado').append(data);
                 $('#nombreempleado').val('<?php echo (isset($tarea->emp_id) ? $tarea->emp_id : '') ?>');

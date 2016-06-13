@@ -129,13 +129,19 @@
                                                     <div class="form-group">
                                                         <label for="presupuesto" class="col-md-4">Presupuesto</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
+                                                            <div class="input-group">
+                                                                <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
+                                                                <div class="input-group-addon">$</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="costoreal" class="col-md-4">Costo Real</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
+                                                            <div class="input-group">
+                                                                <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
+                                                                <div class="input-group-addon">$</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -182,309 +188,311 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id">
+                                    </form>  
                                 </div>
-                                <input type="hidden" value="<?php echo (!empty($plan[0]->pla_id)) ? $plan[0]->pla_id : ""; ?>" name="pla_id" id="pla_id">
-                                </form>    
+
                                 <hr>
-                            </div>
-                            <?php if (!empty($plan[0]->pla_id)): ?>
-                                <div id="tab1" class="tab-pane">
-                                    <table class="tablesst" id="datatable_ajax">
-                                        <thead >
-                                        <th>Editar</th>
-                                        <th>Nuevo avance</th>
-                                        <th>Seguimiento</th>
-                                        <th>Tipo</th>
-                                        <th>Nombre de la Tarea</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Fin</th>
-                                        <th>Duración presupuestada (Horas)</th>
-                                        <th>Responsables</th>
-                                        </thead> 
-                                        <tbody>
-                                            <?php if (empty($tareas)) { ?>
-                                                <tr>
-                                                    <td colspan="9">
-                                            <center>
-                                                <b>
-                                                    No hay tareas asociadas al plan
-                                                </b>
-                                            </center>
-                                            </td>
-                                            </tr>
-                                            <?php
-                                        } else {
-                                            foreach ($tareas as $tar) {
-                                                ?>
-                                                <tr>
-                                                    <td style="text-align: center"><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
-                                                    <td style="text-align: center"><i class='fa fa-bookmark-o btn btn-default nuevoavance' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
-                                                    <td><?php echo $tar->progreso ?></td>
-                                                    <td><?php echo $tar->tip_tipo ?></td>
-                                                    <td><?php echo $tar->tar_nombre ?></td>
-                                                    <td><?php echo $tar->tar_fechaInicio ?></td>
-                                                    <td><?php echo $tar->tar_fechaFinalizacion ?></td>
-                                                    <td style="text-align:center"><?php echo $tar->diferencia ?></td>
-                                                    <td><?php echo $tar->Emp_Nombre ?></td>
+
+                                <?php if (!empty($plan[0]->pla_id)): ?>
+                                    <div id="tab1" class="tab-pane">
+                                        <table class="tablesst table table-bordered table-hover" id="datatable_ajax" >
+                                            <thead >
+                                            <th>Editar</th>
+                                            <th>Nuevo avance</th>
+                                            <th>Seguimiento</th>
+                                            <th>Tipo</th>
+                                            <th>Nombre de la Tarea</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>Duración presupuestada (Horas)</th>
+                                            <th>Responsables</th>
+                                            </thead> 
+                                            <tbody>
+                                                <?php if (empty($tareas)) { ?>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                <center>
+                                                    <b>
+                                                        No hay tareas asociadas al plan
+                                                    </b>
+                                                </center>
+                                                </td>
                                                 </tr>
                                                 <?php
+                                            } else {
+                                                foreach ($tareas as $tar) {
+                                                    ?>
+                                                    <tr>
+                                                        <td style="text-align: center"><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
+                                                        <td style="text-align: center"><i class='fa fa-bookmark-o btn btn-default nuevoavance' tar_id='<?php echo $tar->tar_id ?>' ></i></td>
+                                                        <td><?php echo $tar->progreso ?></td>
+                                                        <td><?php echo $tar->tip_tipo ?></td>
+                                                        <td><?php echo $tar->tar_nombre ?></td>
+                                                        <td><?php echo $tar->tar_fechaInicio ?></td>
+                                                        <td><?php echo $tar->tar_fechaFinalizacion ?></td>
+                                                        <td style="text-align:center"><?php echo $tar->diferencia ?></td>
+                                                        <td><?php echo $tar->Emp_Nombre ?></td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div id="tab2" class="tab-pane">
-                                    <table class="tablesst" id="datatable_ajax2">
-                                        <thead>
-                                        <th>Nuevo Historial</th>
-                                        <th>Seguimiento</th>
-                                        <th>Tipo</th>
-                                        <th>Nombre de la tarea</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Fin</th>
-                                        <th>Duración presupuestada</th>
-                                        <th>Responsables</th>
-                                        </thead>
-                                        <tbody >
-                                            <?php foreach ($tareasinactivas as $ti): ?>
-                                                <tr>
-                                                    <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
-                                                    <td></td>
-                                                    <td><?php echo $ti->tip_tipo ?></td>
-                                                    <td><?php echo $ti->tar_nombre ?></td>
-                                                    <td><?php echo $ti->tar_fechaInicio ?></td>
-                                                    <td><?php echo $ti->tar_fechaFinalizacion ?></td>
-                                                    <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
-                                                    <td><?php echo $ti->Emp_Nombre . " " . $ti->Emp_Apellidos ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div id="tab3" class="tab-pane">
-                                    <table class="tablesst">
-                                        <thead>
-                                        <th>Fecha</th>
-                                        <th>Resumen</th>
-                                        <th>Usuario</th>
-                                        <th>Horas</th>
-                                        <th>Costo</th>
-                                        <th>Comentarios</th>
-                                        <th>Acción</th>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $horas = 0;
-                                            $costo = 0;
-                                            foreach ($avances as $av):
-                                                $horas += $av->avaTar_horasTrabajadas;
-                                                $costo += str_replace(",", "", str_replace(".", "", $av->avaTar_costo));
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $av->avaTar_fecha ?></td>
-                                                    <td><?php echo $av->tar_nombre ?></td>
-                                                    <td><?php echo $av->nombre ?></td>
-                                                    <td><?php echo $av->avaTar_horasTrabajadas ?></td>
-                                                    <td><?php echo $av->avaTar_costo ?></td>
-                                                    <td><?php echo $av->avaTar_comentarios ?></td>
-                                                    <td>
-                                                        <i class="fa fa-times eliminaravance btn btn-danger" title="Eliminar" avaTar_id="<?php echo $av->avaTar_id ?>"></i>
-                                                        <i class='fa fa-pencil btn btn-default editarhistorial' avance="<?php echo $av->avaTar_id ?>" tar_id='<?php echo $av->tar_id ?>'></i>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr style="color:black">
-                                                <td colspan="3" align="right"><b>Total</b></td>
-                                                <td><?php echo $horas ?></td>
-                                                <td id="costo"><?php echo $costo ?></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>   
-                                </div>
-                                <div id="tab4" class="tab-pane">
-                                    <div class="portlet box blue" style="margin-top: 30px;">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-                                            </div>
-                                            <div class="tools">
-                                                <i class="fa fa-clipboard carpeta btn btn-default crear_padre" data-toggle="modal" data-target="#myModal" title='ACTIVIDAD PADRE'></i>
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body">
-                                            <div class="panel-group accordion" id="accordion1">
-                                                <?php
-                                                $i = 1;
-                                                foreach ($actividades as $id => $nom):
-                                                    foreach ($nom as $nombre => $num):
-                                                        ?>
-                                                        <div class="panel panel-default" id="<?php echo $id ?>">
-                                                            <div class="panel-heading">
-                                                                <div class="row">
-                                                                    <div class="col-md-10">
-                                                                        <h4 class="panel-title">
-                                                                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
-                                                                                <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
-                                                                            </a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div class="col-md-2">
-                                                                        <h4 class="panel-title">
-                                                                            <div class="posicionIconoActividad">
-                                                                                <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
-                                                                                <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
-                                                                                <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
-                                                                            </div>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="collapse_<?php echo $id . 'c'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                <div class="panel-body">
-                                                                    <table class="tablesst">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Nombre</th>
-                                                                                <th>Fecha inicio</th>
-                                                                                <th>Fecha fin</th>
-                                                                                <th>Presupuesto</th>
-                                                                                <th>Descripción</th>
-                                                                                <th>Acción</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <?php foreach ($num as $numero => $campo): ?>
-                                                                                <tr>
-                                                                                    <td><?php echo $campo[4] ?></td>
-                                                                                    <td><?php echo $campo[6] ?></td>
-                                                                                    <td><?php echo $campo[7] ?></td>
-                                                                                    <td><?php echo $campo[2] ?></td>
-                                                                                    <td><?php echo $campo[3] ?></td>
-                                                                                    <td>
-                                                                                        <i class="fa fa-times eliminar btn btn-danger" actHij_id="<?php echo $campo[5] ?>" title="Eliminar"></i>
-                                                                                        <i class="fa fa-pencil-square-o modificar btn btn-info" data-target="#myModal8" data-toggle="modal" actHij_id="<?php echo $campo[5] ?>" title="Modificar"></i>
-                                                                                    </td>
-                                                                                </tr>   
-                                                                            <?php endforeach; ?>
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                    <?php
-                                                                    foreach ($num as $numero => $campo):
-                                                                        ?>
-
-                                                                    <?php endforeach; ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                        $i++;
-                                                    endforeach;
-                                                endforeach;
-                                                ?>
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                </div>
-                                <div id="tab5" class="tab-pane">
-                                    <div class="table-responsive">
-                                        <div id="grafica_granf">
-                                            <form id="formulario_grant">
-                                                <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($plan_grant[0][0]->fecha_maxima) ? $plan_grant[0][0]->fecha_maxima : '') ?>">
-                                                <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($plan_grant[0][0]->fecha_minima) ? $plan_grant[0][0]->fecha_minima : '') ?>">
-                                                <?php foreach ($plan_grant[1] as $value) { ?>
-                                                    <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
-                                                    <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
-                                                    <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
-                                                    <input type="text" id="tar_fechaFinalizacion" name="tar_fechaFinalizacion[]" value="<?php echo $value->tar_fechaFinalizacion ?>">        
-                                                    <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
-                                                    <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
-                                                    <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
-                                                <?php } ?>                                        
-                                            </form>
-                                        </div>
+                                            ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                                <div id="tab6" class="tab-pane">
-                                    <div class="portlet box blue" style="margin-top: 30px;">
-                                        <div class="portlet-title">
-                                            <div class="caption">
-
+                                    <div id="tab2" class="tab-pane">
+                                        <table class="tablesst table table-hover table-bordered" id="datatable_ajax2">
+                                            <thead>
+                                            <th>Nuevo Historial</th>
+                                            <th>Seguimiento</th>
+                                            <th>Tipo</th>
+                                            <th>Nombre de la tarea</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>Duración presupuestada</th>
+                                            <th>Responsables</th>
+                                            </thead>
+                                            <tbody >
+                                                <?php foreach ($tareasinactivas as $ti): ?>
+                                                    <tr>
+                                                        <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
+                                                        <td></td>
+                                                        <td><?php echo $ti->tip_tipo ?></td>
+                                                        <td><?php echo $ti->tar_nombre ?></td>
+                                                        <td><?php echo $ti->tar_fechaInicio ?></td>
+                                                        <td><?php echo $ti->tar_fechaFinalizacion ?></td>
+                                                        <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
+                                                        <td><?php echo $ti->Emp_Nombre . " " . $ti->Emp_Apellidos ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="tab3" class="tab-pane">
+                                        <table class="tablesst table table-hover table-bordered">
+                                            <thead>
+                                            <th>Fecha</th>
+                                            <th>Resumen</th>
+                                            <th>Usuario</th>
+                                            <th>Horas</th>
+                                            <th>Costo</th>
+                                            <th>Comentarios</th>
+                                            <th>Acción</th>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $horas = 0;
+                                                $costo = 0;
+                                                foreach ($avances as $av):
+                                                    $horas += $av->avaTar_horasTrabajadas;
+                                                    $costo += str_replace(",", "", str_replace(".", "", $av->avaTar_costo));
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $av->avaTar_fecha ?></td>
+                                                        <td><?php echo $av->tar_nombre ?></td>
+                                                        <td><?php echo $av->nombre ?></td>
+                                                        <td><?php echo $av->avaTar_horasTrabajadas ?></td>
+                                                        <td><?php echo $av->avaTar_costo ?></td>
+                                                        <td><?php echo $av->avaTar_comentarios ?></td>
+                                                        <td>
+                                                            <i class="fa fa-times eliminaravance btn btn-danger" title="Eliminar" avaTar_id="<?php echo $av->avaTar_id ?>"></i>
+                                                            <i class='fa fa-pencil btn btn-default editarhistorial' avance="<?php echo $av->avaTar_id ?>" tar_id='<?php echo $av->tar_id ?>'></i>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr style="color:black">
+                                                    <td colspan="3" align="right"><b>Total</b></td>
+                                                    <td><?php echo $horas ?></td>
+                                                    <td id="costo"><?php echo $costo ?></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>   
+                                    </div>
+                                    <div id="tab4" class="tab-pane">
+                                        <div class="portlet box blue" style="margin-top: 30px;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                </div>
+                                                <div class="tools">
+                                                    <i class="fa fa-clipboard carpeta btn btn-default crear_padre" data-toggle="modal" data-target="#myModal" title='ACTIVIDAD PADRE'></i>
+                                                </div>
                                             </div>
-                                            <div class="tools">
-                                                <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#myModal4" ></i>
-
-                                            </div>
-                                        </div>
-                                        <div class="portlet-body">
-                                            <div class="tabbable tabbable-tabdrop">
-                                                <div class="tab-content">
-                                                    <br>
-                                                    <div class="panel-group accordion" id="accordion5">
-                                                        <?php
-                                                        $o = 1;
-                                                        foreach ($carpeta as $idcar => $nomcar):
-                                                            foreach ($nomcar as $nombrecar => $numcar):
-                                                                ?>
-                                                                <div class="panel panel-default" id="<?php echo $idcar ?>">
-                                                                    <div class="panel-heading">
-                                                                        <h4 class="panel-title">
-                                                                            <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
-                                                                                <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
-                                                                            </a>
-                                                                            <i class="fa fa-file-archive-o nuevoregistro"  data-toggle="modal" data-target="#myModal15" car_id="<?php echo $idcar ?>"></i>
-                                                                            <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
-                                                                            <i class="fa fa-times eliminarcarpeta" tipo="r" title="Eliminar" car_id="<?php echo $idcar ?>"></i>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                                                                        <div class="panel-body">
-                                                                            <table class="tablesst">
-                                                                                <thead>
-                                                                                <th>Nombre de archivo</th>
-                                                                                <th>Descripción</th>
-                                                                                <th>Versión</th>
-                                                                                <th>Responsable</th>
-                                                                                <th>Tamaño</th>
-                                                                                <th>Fecha</th>
-                                                                                <th>Acción</th>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <?php foreach ($numcar as $numerocar => $campocar): ?>
-                                                                                        <tr>
-                                                                                            <td><a target='_black' href='<?php echo base_url() . $campocar[7] . "/" . $campocar[6] . "/" . $campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
-                                                                                            <td><?php echo $campocar[1] ?></td>
-                                                                                            <td><?php echo $campocar[2] ?></td>
-                                                                                            <td><?php echo $campocar[3] ?></td>
-                                                                                            <td><?php echo $campocar[4] ?></td>
-                                                                                            <td><?php echo $campocar[5] ?></td>
-                                                                                            <td>
-                                                                                                <i class="fa fa-times fa-2x eliminarregistro btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
-                                                                                                <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
-                                                                                            </td>
-                                                                                        </tr>   
-                                                                                    <?php endforeach; ?>
-                                                                                </tbody>
-                                                                            </table>
+                                            <div class="portlet-body">
+                                                <div class="panel-group accordion" id="accordion1">
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($actividades as $id => $nom):
+                                                        foreach ($nom as $nombre => $num):
+                                                            ?>
+                                                            <div class="panel panel-default" id="<?php echo $id ?>">
+                                                                <div class="panel-heading">
+                                                                    <div class="row">
+                                                                        <div class="col-md-10">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $id . 'c'; ?>" aria-expanded="false"> 
+                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombre ?>
+                                                                                </a>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <h4 class="panel-title">
+                                                                                <div class="posicionIconoActividad">
+                                                                                    <i class="fa fa-file-o carpeta nuevo_hijo" car_id="<?php echo $id ?>" data-toggle="modal" data-target="#myModal8" title='ACTIVIDAD HIJO'></i>
+                                                                                    <i class="fa fa-edit editaractividad" car_id="<?php echo $id ?>"></i>
+                                                                                    <i class="fa fa-times eliminarcarpeta" tipo="c" title="Eliminar" car_id="<?php echo $id ?>"></i>
+                                                                                </div>
+                                                                            </h4>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <?php
-                                                                $o++;
-                                                            endforeach;
+                                                                <div id="collapse_<?php echo $id . 'c'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                    <div class="panel-body">
+                                                                        <table class="tablesst">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Nombre</th>
+                                                                                    <th>Fecha inicio</th>
+                                                                                    <th>Fecha fin</th>
+                                                                                    <th>Presupuesto</th>
+                                                                                    <th>Descripción</th>
+                                                                                    <th>Acción</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php foreach ($num as $numero => $campo): ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $campo[4] ?></td>
+                                                                                        <td><?php echo $campo[6] ?></td>
+                                                                                        <td><?php echo $campo[7] ?></td>
+                                                                                        <td><?php echo $campo[2] ?></td>
+                                                                                        <td><?php echo $campo[3] ?></td>
+                                                                                        <td>
+                                                                                            <i class="fa fa-times eliminar btn btn-danger" actHij_id="<?php echo $campo[5] ?>" title="Eliminar"></i>
+                                                                                            <i class="fa fa-pencil-square-o modificar btn btn-info" data-target="#myModal8" data-toggle="modal" actHij_id="<?php echo $campo[5] ?>" title="Modificar"></i>
+                                                                                        </td>
+                                                                                    </tr>   
+                                                                                <?php endforeach; ?>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <?php
+                                                                        foreach ($num as $numero => $campo):
+                                                                            ?>
+
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <?php
+                                                            $i++;
                                                         endforeach;
-                                                        ?>
-                                                    </div> 
+                                                    endforeach;
+                                                    ?>
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                    <div id="tab5" class="tab-pane">
+                                        <div class="table-responsive">
+                                            <div id="grafica_granf">
+                                                <form id="formulario_grant">
+                                                    <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($plan_grant[0][0]->fecha_maxima) ? $plan_grant[0][0]->fecha_maxima : '') ?>">
+                                                    <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($plan_grant[0][0]->fecha_minima) ? $plan_grant[0][0]->fecha_minima : '') ?>">
+                                                    <?php foreach ($plan_grant[1] as $value) { ?>
+                                                        <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
+                                                        <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
+                                                        <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
+                                                        <input type="text" id="tar_fechaFinalizacion" name="tar_fechaFinalizacion[]" value="<?php echo $value->tar_fechaFinalizacion ?>">        
+                                                        <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
+                                                        <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
+                                                        <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
+                                                    <?php } ?>                                        
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab6" class="tab-pane">
+                                        <div class="portlet box blue" style="margin-top: 30px;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+
+                                                </div>
+                                                <div class="tools">
+                                                    <i class=" btn btn-default fa fa-folder-o carpeta" data-toggle="modal" data-target="#myModal4" ></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="tabbable tabbable-tabdrop">
+                                                    <div class="tab-content">
+                                                        <br>
+                                                        <div class="panel-group accordion" id="accordion5">
+                                                            <?php
+                                                            $o = 1;
+                                                            foreach ($carpeta as $idcar => $nomcar):
+                                                                foreach ($nomcar as $nombrecar => $numcar):
+                                                                    ?>
+                                                                    <div class="panel panel-default" id="<?php echo $idcar ?>">
+                                                                        <div class="panel-heading">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_<?php echo $idcar . 'r'; ?>" aria-expanded="false" id=""> 
+                                                                                    <i class="fa fa-folder-o carpeta"></i>&nbsp;<?php echo $nombrecar ?>
+                                                                                </a>
+                                                                                <i class="fa fa-file-archive-o nuevoregistro"  data-toggle="modal" data-target="#myModal15" car_id="<?php echo $idcar ?>"></i>
+                                                                                <i class="fa fa-edit editarcarpeta" car_id="<?php echo $idcar ?>"></i>
+                                                                                <i class="fa fa-times eliminarcarpeta" tipo="r" title="Eliminar" car_id="<?php echo $idcar ?>"></i>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                            <div class="panel-body">
+                                                                                <table class="tablesst">
+                                                                                    <thead>
+                                                                                    <th>Nombre de archivo</th>
+                                                                                    <th>Descripción</th>
+                                                                                    <th>Versión</th>
+                                                                                    <th>Responsable</th>
+                                                                                    <th>Tamaño</th>
+                                                                                    <th>Fecha</th>
+                                                                                    <th>Acción</th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <?php foreach ($numcar as $numerocar => $campocar): ?>
+                                                                                            <tr>
+                                                                                                <td><a target='_black' href='<?php echo base_url() . $campocar[7] . "/" . $campocar[6] . "/" . $campocar[0] ?>'><?php echo $campocar[0] ?></a></td>
+                                                                                                <td><?php echo $campocar[1] ?></td>
+                                                                                                <td><?php echo $campocar[2] ?></td>
+                                                                                                <td><?php echo $campocar[3] ?></td>
+                                                                                                <td><?php echo $campocar[4] ?></td>
+                                                                                                <td><?php echo $campocar[5] ?></td>
+                                                                                                <td>
+                                                                                                    <i class="fa fa-times fa-2x eliminarregistro btn btn-danger" title="Eliminar" reg_id="<?php echo $campocar[6] ?>"></i>
+                                                                                                    <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
+                                                                                                </td>
+                                                                                            </tr>   
+                                                                                        <?php endforeach; ?>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php
+                                                                    $o++;
+                                                                endforeach;
+                                                            endforeach;
+                                                            ?>
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
