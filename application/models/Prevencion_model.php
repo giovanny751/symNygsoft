@@ -26,8 +26,16 @@ class Prevencion_model extends CI_Model {
             $this->db->set('pre_control_despues', $post['control_despues']);
             $this->db->set('creatorUser', $this->session->userdata('usu_id'));
             $this->db->set('creatorDate', date("Y-m-d H:i:s"));
-            $this->db->insert("prevencion");
-            $id = $this->db->insert_id();
+
+            if (!empty($post['pre_id'])) {
+                $id = $post['pre_id'];
+                $this->db->where("pre_id", $post['pre_id']);
+                $this->db->update("prevencion");
+            } else {
+                $this->db->insert("prevencion");
+                $id = $this->db->insert_id();
+            }
+
 
             $this->fuenteOrigen($post, $id);
             $this->prevencion_causa($post, $id);

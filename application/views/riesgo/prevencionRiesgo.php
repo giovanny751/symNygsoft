@@ -36,6 +36,7 @@
                                 <div class="tab-content">
                                     <div id="tab1" class="tab-pane active">
                                         <form id="frmPrevencion" class="form-horizontal">
+                                            <input type="hidden" value="<?php echo (!empty($Prevencion[0]->pre_id)) ? $Prevencion[0]->pre_id : ""; ?>" name="pre_id" id="pre_id">
                                             <div class="alert alert-info" style="text-align: center">
                                                 Responsable
                                             </div>
@@ -333,8 +334,8 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><input type="text" class="form-control" name="control_antes" id="control_antes" value="<?php echo $Prevencion[0]->pre_control_antes ?>"></td>
-                                                                    <td><input type="text" class="form-control" name="control_despues" id="control_despues" value="<?php echo $Prevencion[0]->pre_control_despues ?>"></td>
+                                                                    <td><input type="text" class="form-control" name="control_antes" id="control_antes" value="<?php echo isset($Prevencion[0]->pre_control_antes)?$Prevencion[0]->pre_control_antes:'' ?>"></td>
+                                                                    <td><input type="text" class="form-control" name="control_despues" id="control_despues" value="<?php echo isset($Prevencion[0]->pre_control_despues)?$Prevencion[0]->pre_control_despues:'' ?>"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -561,10 +562,7 @@
                                         $('#tiposriesgos *').remove();
                                         $('#lista_riesgos *').remove();
                                     } else {
-                                        $('#pre_id').val(msg.Json);
-                                        $('#guardar').attr("pre_id", msg.message);
-                                        $('#guardar').removeAttr("title");
-                                        $('#guardar').attr("title", "Actualizar");
+                                        location.href=url+'index.php/riesgo/listadoPrevencion';
                                     }
                                 }
                             })
@@ -660,4 +658,6 @@
             });
         });
     });
+    
+    $('#pertenece').trigger('change');
 </script>   

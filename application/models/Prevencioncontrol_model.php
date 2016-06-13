@@ -18,13 +18,13 @@ class Prevencioncontrol_model extends CI_Model {
             $this->db->like("pre_lugar", $info['lugar']);
         if (!empty($info['cargo'])) {
             $this->db->where("(1",1,false);
-            $this->db->or_like("car_nombre", $info['cargo']);
+            $this->db->like("car_nombre", $info['cargo']);
             $this->db->or_like("pre_cargo_externo", $info['cargo']);
             $this->db->where("1","1)",false);
         }
         if (!empty($info['responsable'])) {
             $this->db->where("(1",1,false);
-            $this->db->or_like("pre_empleado_externo", $info['responsable']);
+            $this->db->like("pre_empleado_externo", $info['responsable']);
             $this->db->or_like("empleado.Emp_nombre", $info['responsable']);
             $this->db->or_like("empleado.Emp_Apellidos", $info['responsable']);
             $this->db->where("1","1)",false);
@@ -46,7 +46,7 @@ class Prevencioncontrol_model extends CI_Model {
         $this->db->join("tipoAccion", "tipoAccion.tipAcc_id=prevencion.tipAcc_id", 'left');
         $this->db->set('est_id', '1');
         $prevencion = $this->db->get("prevencion");
-
+//        echo $this->db->last_query();
         return $prevencion->result();
     }
 
