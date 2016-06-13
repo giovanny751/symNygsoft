@@ -585,33 +585,7 @@ class Riesgo extends My_Controller {
     function guardarPrevencion() {
         try {
             $this->load->model(array("Prevencionriesgoclasificacion_model", "Prevencion_model"));
-            $variable = array(
-                "car_id" => $this->input->post("car_id"),
-                "dimDos_id" => $this->input->post("dimDos"),
-                "dimUno_id" => $this->input->post("dimUno"),
-                "emp_id" => $this->input->post("empleado"),
-                "pre_fechaFin" => $this->input->post("fechaFin"),
-                "pre_fechaInicio" => $this->input->post("fechaInicio"),
-                "pre_lugar" => $this->input->post("lugar"),
-                "pre_medidasAdoptadas" => $this->input->post("medidasAdoptadas"),
-                "pre_medidasAAdoptar" => $this->input->post("medidasAdoptar"),
-                "pre_medPreApropiadas" => $this->input->post("medidasPreventivas"),
-                "pre_observacion" => $this->input->post("observacion"),
-                "pre_nombre" => $this->input->post("planPrevencion"),
-                "pre_presupuesto" => $this->input->post("presupuesto")
-            );
-            $pre_id = $this->Prevencion_model->guardarPrevencion($variable);
-
-            if (!empty($this->input->post('clasificacion'))):
-                $clasificacion = $this->input->post('clasificacion');
-                for ($i = 0; $i < count($clasificacion); $i++):
-                    $prevencionClasificacion = array(
-                        "pre_id" => $pre_id,
-                        "RieCla_id" => $clasificacion[$i],
-                    );
-                    $preRieCla_id = $this->Prevencionriesgoclasificacion_model->guardarPrevencionClasificacion($prevencionClasificacion);
-                endfor;
-            endif;
+            $pre_id = $this->Prevencion_model->guardarPrevencion($this->input->post());
             $data['Json'] = $pre_id;
         } catch (exception $e) {
             $data['message'] = $e->getMessage();
@@ -651,6 +625,18 @@ class Riesgo extends My_Controller {
         try {
             $this->load->model("Prevencioncontrol_model");
             $data['Json'] = $this->Prevencioncontrol_model->filtroMatrizPrevencion(
+                    $this->input->post()
+            );
+        } catch (exception $e) {
+            $data['message'] = $e->getMessage();
+        } finally {
+            $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function prevencionRiesgo_inactivar() {
+        try {
+            $this->load->model("Prevencion_model");
+            $data['Json'] = $this->Prevencion_model->prevencionRiesgo_inactivar(
                     $this->input->post()
             );
         } catch (exception $e) {
