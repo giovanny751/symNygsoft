@@ -24,7 +24,10 @@
                         </ul>
                         <div class="tab-content">
                             <div id="tab1" class="tab-pane active">
-                                <div class="col-md-5">
+                                <div class="col-md-12">
+                                    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+                                </div>
+                                <div class="col-md-12">
                                     <div class="responsive">
                                         <table class="table table-hover table-bordered">
                                             <thead>
@@ -52,9 +55,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-7">
-                                    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-                                </div>
+                                
                             </div>
                             <div id="tab2" class="tab-pane ">
                                 <div class="row">
@@ -148,7 +149,7 @@
             if (!jQuery.isEmptyObject(msg.message))
                 alerta("amarillo", msg['message'])
             else {
-                google.charts.setOnLoadCallback(drawChart(msg.Json, "ACCIDENTES E INCIDENTES"));
+                google.charts.setOnLoadCallback(drawChart(msg.Json, "EXÁMENES MÉDICOS"));
             }
         }).fail(function (msg) {
             alerta("rojo", "Error, comunicarse con el administrador del sistema");

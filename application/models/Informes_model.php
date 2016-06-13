@@ -148,7 +148,7 @@ class Informes_model extends CI_Model {
         JOIN `sexo` ON `sexo`.`sex_id` = `empleado_presupuesto_examen`.`sex_id` 
         JOIN `tipo_identificacion` ON `tipo_identificacion`.`tipIde_id` = `empleado_presupuesto_examen`.`tipIde_id` 
         JOIN `tipo_examen` ON `tipo_examen`.`tipExa_id` = `empleado_presupuesto_examen`.`tipExa_id`
-        GROUP BY presupuesto_examen.preExa_id order by preExa_examen ASC");
+        GROUP BY presupuesto_examen.preExa_id order by preExaVal_valor desc");
         
         return  $data->result();
         

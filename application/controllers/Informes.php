@@ -58,7 +58,7 @@ class Informes extends My_Controller {
         try {
             $this->load->model("Dotacion_model");
             $this->data['consulta'] = $this->Dotacion_model->listadoDotacion();
-            $this->data['titulo'] = array('EMPLEADO', 'DOTACION', 'TALLA', 'INDICACION', 'FECHA CADUCIDAD', 'UNIDADES', 'FECHA ENTREGA', 'RESPONSABE DE LA ENTREGA');
+            $this->data['titulo'] = array('EMPLEADO', 'DOTACIÓN', 'TALLA', 'INDICACIÓN', 'FECHA CADUCIDAD', 'UNIDADES', 'FECHA ENTREGA', 'RESPONSABLE DE LA ENTREGA');
             $this->layout->view("reportes/reporte_general", $this->data);
         } catch (exception $e) {
             

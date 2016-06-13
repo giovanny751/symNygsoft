@@ -50,9 +50,13 @@ class Dotacion_model extends CI_Model {
     }
 
     function listadoDotacion() {
-        $this->db->select("CONCAT(Emp_Apellidos,' ',empleado.Emp_Nombre) empleado,inventario.inv_nombre,dotacion.dot_talla, dot_indicacion
-,dotacion.dot_fecha_caducidad,dot_unidades,dot_fecha_entrega
-,CONCAT(user.usu_apellido,' ',user.usu_nombre) entregador", false);
+        $this->db->select("
+            CONCAT(Emp_Apellidos,' ',empleado.Emp_Nombre) empleado
+            ,inventario.inv_nombre,dotacion.dot_talla
+            ,dot_indicacion
+            ,dotacion.dot_fecha_caducidad
+            ,dot_unidades,dot_fecha_entrega
+            ,CONCAT(user.usu_apellido,' ',user.usu_nombre) entregador", false);
         $this->db->join('empleado', 'empleado.emp_id=dotacion.emp_id');
         $this->db->join('inventario', 'inventario.inv_id=dotacion.inv_id');
         $this->db->join('user', 'user.usu_id=dotacion.creatorUser');
