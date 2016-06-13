@@ -30,9 +30,12 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <label for="porcentaje" class="control-label col-md-2">* %Cotizacion ARL</label>
+                                    <label for="porcentaje" class="control-label col-md-2">* Cotizacion ARL</label>
                                     <div class="col-md-4">
-                                        <input type="text" name="porcentaje" id="porcentaje" class="form-control obligatorio number2 texto" />
+                                        <div class="input-group">
+                                            <input type="text" name="porcentaje" id="porcentaje" class="form-control obligatorio number2 texto" />
+                                            <div class="input-group-addon">%</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +74,7 @@
 
                             </div>
                             <div class="col-md-offset-10 col-md-2" id="buttonSeleccion">
-                                
+
                             </div>
                         </div>
                     </form>
@@ -85,7 +88,7 @@
         <button type="button" id="nuevoCargo" class="btn btn-success">Nuevo</button>
         <a href="<?php echo base_url("index.php/administrativo/organigrama") ?>">
             <button type="button" id="organigrama" title="Organigrama" class="btn btn-info"><i class="fa fa-sitemap"></i></button>
-            </a>
+        </a>
     </div>
 </div>
 
@@ -155,7 +158,7 @@
         </div>
     </div>
 </div>
-<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Administrativo/funcionesCargo')?>" method="post">
+<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Administrativo/funcionesCargo') ?>" method="post">
     <input type="hidden" id="id_cargo_form" name="car_id">
 </form>
 
@@ -186,7 +189,7 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url('node_modules/socket.io/node_modules/socket.io-client/socket.io.js');?>"></script>
+<script src="<?php echo base_url('node_modules/socket.io/node_modules/socket.io-client/socket.io.js'); ?>"></script>
 <script>
 
     $('body').delegate(".manual", "click", function () {
@@ -212,13 +215,13 @@
     $('body').delegate('.eliminarFuncion', 'click', function () {
         if ($(this).parent().siblings('.texto').children('.funcionesEsenciales').val() != "") {
             if ($(this).parent().siblings('.texto').children('.funcionesEsenciales').val() != "") {
-                if(confirm("Esta seguro de eliminar la funcion")){
+                if (confirm("Esta seguro de eliminar la funcion")) {
                     $(this).parents('.newFunction').remove();
                 }
-            } else{
+            } else {
                 $(this).parents('.newFunction').remove();
             }
-        } else{
+        } else {
             $(this).parents('.newFunction').remove();
         }
     });
@@ -226,12 +229,12 @@
     $('#nuevoCargo').click(function () {
         $('#buttonSeleccion *').remove();
         $('#buttonSeleccion').append('<input type="button" value="Guardar" class="btn btn-success  guardarcargo" />');
-        
+
         $('#cargo').val("");
         $('#porcentaje').val("");
         $('#objetivoPrincipal').val("");
-                        $('.funcionesEsenciales').val("");
-                        $('.newFunction').remove();
+        $('.funcionesEsenciales').val("");
+        $('.newFunction').remove();
         $("#nuevo").modal("show");
     });
     $('body').delegate(".riesgo", "click", function () {
@@ -263,7 +266,7 @@
         $.post(
                 url + "index.php/administrativo/modificacioncargo",
                 $('#formcargos').serialize()
-        ).done(function (msg) {
+                ).done(function (msg) {
             if (!jQuery.isEmptyObject(msg.message))
                 alerta("rojo", msg['message']);
             else {
@@ -293,39 +296,39 @@
                 $('#porcentaje').val(msg.Json[0].car_porcentajearl);
                 $('#objetivoPrincipal').val(msg.Json[0].car_objetivoPrincipal);
                 $('#perfilCargo').val(msg.Json[0].car_perfilCargo);
-                
+
                 var funciones = "";
                 i = 0;
-                $.each(msg.funciones,function(key,val){
-                    if(i == 0){
+                $.each(msg.funciones, function (key, val) {
+                    if (i == 0) {
                         $('.principalFuncion').remove();
                         cambio = "plus";
                         claseaEliminar = "principalFuncion";
                         clase = "agregar";
                         color = "success";
-                    }else{
+                    } else {
                         cambio = "remove";
                         claseaEliminar = "newFunction";
                         clase = "eliminarFuncion";
                         color = "danger";
                     }
                     i++;
-                    
-                     funciones += '<div class="col-md-12 '+claseaEliminar+'">\n\
+
+                    funciones += '<div class="col-md-12 ' + claseaEliminar + '">\n\
                                 <div class="form-group">\n\
                                     <label for="funcionesEsenciales" class="control-label col-md-2">Funciones esencial</label>\n\
                                     <div class="col-md-9 texto" >\n\
-                                        <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control funcionesEsenciales">'+val.carFun_funcion+'</textarea>\n\
+                                        <textarea id="funcionesEsenciales" name="funcionesEsenciales[]" class="form-control funcionesEsenciales">' + val.carFun_funcion + '</textarea>\n\
                                     </div>\n\
                                     <div class="col-md-1">\n\
-                                        <button type="button" class="'+clase+' btn btn-'+color+'"><i class="fa fa-'+cambio+' fa-2x"></i></button>\n\
+                                        <button type="button" class="' + clase + ' btn btn-' + color + '"><i class="fa fa-' + cambio + ' fa-2x"></i></button>\n\
                                     </div>\n\
                                 </div>\n\
                             </div>';
-                    
+
                 });
                 $('.funciones').append(funciones);
-                
+
                 $('#nuevo').modal("show");
             }
         }).fail(function (msg) {
@@ -362,40 +365,40 @@
                     .done(function (msg) {
                         if (!jQuery.isEmptyObject(msg.message))
                             alerta("rojo", msg['message']);
-                        else{
+                        else {
                             listadoCargos(msg);
                         }
-                        
+
 //-----------------------------------------------------------------------------
 
-            if(jQuery.isEmptyObject(msg.message)){
+                        if (jQuery.isEmptyObject(msg.message)) {
 
-                $("#notif").html('prueba');
+                            $("#notif").html('prueba');
 
 //                console.log();
 
-                var socket = io.connect( 'http://'+window.location.hostname+':3000' );
-                
-                socket.emit('new_count_message', { 
-                  new_count_message: msg.new_count_message
-                });
+                            var socket = io.connect('http://' + window.location.hostname + ':3000');
 
-                socket.emit('new_message', { 
-                  name: 'hola gerson'
-                });
+                            socket.emit('new_count_message', {
+                                new_count_message: msg.new_count_message
+                            });
 
-              } else if(data.success == false){
+                            socket.emit('new_message', {
+                                name: 'hola gerson'
+                            });
 
-                $("#name").val(msg.name);
-                $("#email").val(msg.email);
-                $("#subject").val(msg.subject);
-                $("#message").val(msg.message);
-                $("#notif").html(msg.notif);
+                        } else if (data.success == false) {
 
-              }
-                        
+                            $("#name").val(msg.name);
+                            $("#email").val(msg.email);
+                            $("#subject").val(msg.subject);
+                            $("#message").val(msg.message);
+                            $("#notif").html(msg.notif);
+
+                        }
+
 //-----------------------------------------------------------------------------                        
-                        
+
                         $('#objetivoPrincipal').val("");
                         $('#funcionesEsenciales').val("");
                         $('.newFunction').remove();
@@ -404,7 +407,7 @@
                     .fail(function (msg) {
                         alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");
                     })
-                    
+
         }
     });
     function listadoCargos(msg) {

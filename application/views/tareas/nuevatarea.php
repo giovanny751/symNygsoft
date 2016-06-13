@@ -214,8 +214,8 @@
                                         <label for="costrospresupuestados" class="control-label col-md-3">Costos Presupuestados</label>
                                         <div class="col-md-9">
                                             <div class="input-group">
-                                                <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
                                                 <div class="input-group-addon">$</div>
+                                                <input type="text" name="costrospresupuestados" id="costrospresupuestados" style='text-align:right' class="form-control miles"  value="<?php echo (!empty($tarea->tar_costopresupuestado)) ? $tarea->tar_costopresupuestado : ""; ?>"/>
                                             </div> 
                                         </div> 
                                     </div> 
@@ -426,7 +426,7 @@
                                                         <div class="table-container">
                                                             <table  class="table table-striped table-bordered table-hover" id="datatable_ajax1">
                                                                 <thead>
-                                                                <thead style="background-color: blue;color: white;">
+                                                                <thead >
                                                                 <th>Editar</th>
                                                                 <th>Fecha</th>
                                                                 <th>Resumen</th>
@@ -479,8 +479,8 @@
                                                         <label for="costo" class="col-md-3">Costo</label>
                                                         <div class="col-md-9">
                                                             <div class="input-group">
-                                                                <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
                                                                 <div class="input-group-addon">$</div>
+                                                                <input value="<?php echo (!empty($avance[0]->avaTar_costo)) ? $avance[0]->avaTar_costo : ""; ?>" type="text" style="text-align:right" name="costo" id="costo" class="form-control avance miles">
                                                             </div>
                                                         </div>
                                                     </div>

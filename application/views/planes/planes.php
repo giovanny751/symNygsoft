@@ -130,8 +130,8 @@
                                                         <label for="presupuesto" class="col-md-4">Presupuesto</label>
                                                         <div class="col-md-8">
                                                             <div class="input-group">
-                                                                <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
                                                                 <div class="input-group-addon">$</div>
+                                                                <input type="text" name="presupuesto" id="presupuesto" class="form-control miles number presupuesto"  value="<?php echo (!empty($plan[0]->tar_costopresupuestado) ) ? $plan[0]->tar_costopresupuestado : ""; ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -139,8 +139,8 @@
                                                         <label for="costoreal" class="col-md-4">Costo Real</label>
                                                         <div class="col-md-8">
                                                             <div class="input-group">
-                                                                <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
                                                                 <div class="input-group-addon">$</div>
+                                                                <input type="text" name="costoreal" id="costorealplan" class="form-control costoreal" readonly="readonly" value="<?php echo (!empty($plan[0]->avaTar_costo) ) ? $plan[0]->avaTar_costo : ""; ?>"/>
                                                             </div>
                                                         </div>
                                                     </div>

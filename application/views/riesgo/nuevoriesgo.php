@@ -237,7 +237,7 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div id="tab1" class="tab-pane active">
-                                                <table class="tablesst" id="datatable_ajax">
+                                                <table class="tablesst table table-hover table-bordered" id="datatable_ajax">
                                                     <thead >
                                                     <th>Editar</th>
                                                     <th>Nuevo avance</th>
@@ -294,7 +294,7 @@
                                                 </table>
                                             </div>
                                             <div id="tab2" class="tab-pane">
-                                                <table class="tablesst" id="datatable_ajax2">
+                                                <table class="tablesst table table-bordered table-hover" id="datatable_ajax2">
                                                     <thead>
                                                     <th>Nuevo Historial</th>
                                                     <th>Avance</th>
@@ -322,7 +322,7 @@
                                                 </table>
                                             </div>
                                             <div id="tab3" class="tab-pane">
-                                                <table class="tablesst">
+                                                <table class="tablesst table table-bordered table-hover">
                                                     <thead>
                                                     <th>Acción</th>
                                                     <th>Fecha</th>
@@ -375,7 +375,7 @@
                                                                                 </div>
                                                                                 <div id="collapse_<?php echo $idcar . 'r'; ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                                                                     <div class="panel-body">
-                                                                                        <table class="tablesst">
+                                                                                        <table class="tablesst table table-hover table-bordered">
                                                                                             <thead>
                                                                                             <th>Nombre de archivo</th>
                                                                                             <th>Descripción</th>
