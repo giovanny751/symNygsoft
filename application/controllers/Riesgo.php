@@ -566,13 +566,17 @@ class Riesgo extends My_Controller {
         $this->load->model(array("Prevencioncontrol_model", "Empresa_model", "Riesgoclasificacion_model", "Cargo_model", 'Dimension2_model', 'Dimension_model', "Riesgoclasificaciontipo_model"));
         if (!empty($this->input->post('pre_id'))) {
             $this->data['Prevencion'] = $this->Prevencioncontrol_model->consultaPrevencionxId($this->input->post('pre_id'));
+            $this->data['fuenteOrigen'] = $this->Prevencioncontrol_model->fuenteOrigen($this->input->post('pre_id'));
+            $this->data['causas'] = $this->Prevencioncontrol_model->causas($this->input->post('pre_id'));
+            $this->data['prevencion_plan_accion'] = $this->Prevencioncontrol_model->prevencion_plan_accion($this->input->post('pre_id'));
+//            print_y($this->data['Prevencion']);
         }
         $this->data['empresa'] = $this->Empresa_model->detail();
         $this->data['categoria'] = $this->Riesgoclasificacion_model->detail();
         $categoria = 1;
         $this->data['tipoClasificacion'] = $this->Riesgoclasificaciontipo_model->tipoxcategoria($categoria);
         $this->data['dimension'] = $this->Dimension_model->detail();
-        $this->data['dimension2'] = $this->Dimension2_model->detail();
+        $this->data['dimension2'] = $this->Dimension2_model->detail(isset($this->data['Prevencion'][0]->dimUno_id)?$this->data['Prevencion'][0]->dimUno_id:null);
         $this->data['clasificacion'] = $this->Riesgoclasificacion_model->detail();
         $this->data['cargo'] = $this->Cargo_model->detail();
 
@@ -656,6 +660,18 @@ class Riesgo extends My_Controller {
             $data['message'] = $e->getMessage();
         } finally {
             $this->output->set_content_type('application/json')->set_output(json_encode($data));
+        }
+    }
+    function detalle_causa($id){
+        try {
+            $this->load->model("Prevencioncontrol_model");
+            return $this->Prevencioncontrol_model->detalle_causa(
+                    $id
+            );
+        } catch (exception $e) {
+            
+        } finally {
+            
         }
     }
 

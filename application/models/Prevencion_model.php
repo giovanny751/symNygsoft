@@ -38,7 +38,6 @@ class Prevencion_model extends CI_Model {
             return $id;
         }
     }
-    
 
     function fuenteOrigen($post, $id) {
         $this->db->where('pre_id', $id);
@@ -72,8 +71,10 @@ class Prevencion_model extends CI_Model {
         $datos = $this->db->get('prevencion_causa');
         $datos = $datos->result();
         if (count($datos)) {
-            $this->db->where('preCau_id', $datos[0]->preCau_id);
-            $this->db->delete('prevencion_causa_detalle');
+            foreach ($datos as $key => $value) {
+                $this->db->where('preCau_id', $value->preCau_id);
+                $this->db->delete('prevencion_causa_detalle');
+            }
         }
         for ($i = 0; $i < count($post['fueOri_id']); $i++) {
             if ($post['fueOri_id'][$i] != -1) {
@@ -91,10 +92,11 @@ class Prevencion_model extends CI_Model {
             }
         }
     }
-    function prevencionRiesgo_inactivar($post){
+
+    function prevencionRiesgo_inactivar($post) {
         try {
-            $this->db->set('est_id','3');
-            $this->db->where('pre_id',$post['pre_id']);
+            $this->db->set('est_id', '3');
+            $this->db->where('pre_id', $post['pre_id']);
             $this->db->update('prevencion');
         } catch (exception $e) {
             

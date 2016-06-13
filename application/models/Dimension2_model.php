@@ -33,8 +33,10 @@ class Dimension2_model extends CI_Model {
         }
     }
 
-    function detail() {
+    function detail($dim1 = null) {
         try {
+            if ($dim1 != null)
+                $this->db->where("dimension2.dim_id1", $dim1);
             $this->db->where("dimension2.est_id", 1);
             $this->db->select("dimension.dim_descripcion dim_id1");
             $this->db->select("dimension2.dim_id");

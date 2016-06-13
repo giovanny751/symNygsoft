@@ -55,5 +55,25 @@ class Prevencioncontrol_model extends CI_Model {
         $prevencion = $this->db->get("prevencion");
         return $prevencion->result();
     }
+    function fuenteOrigen($pre_id) {
+        $this->db->where("pre_id", $pre_id);
+        $prevencion = $this->db->get("prevencion_fuenteOrigen");
+        return $prevencion->result();
+    }
+    function causas($pre_id) {
+        $this->db->where("pre_id", $pre_id);
+        $prevencion = $this->db->get("prevencion_causa");
+        return $prevencion->result();
+    }
+    function prevencion_plan_accion($pre_id) {
+        $this->db->where("pre_id", $pre_id);
+        $prevencion = $this->db->get("prevencion_plan_accion");
+        return $prevencion->result();
+    }
+    function detalle_causa($id) {
+        $this->db->where("preCauDet_id", $id);
+        $prevencion = $this->db->get("prevencion_causa_detalle");
+        return $prevencion->result();
+    }
 
 }
