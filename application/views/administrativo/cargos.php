@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -363,46 +362,33 @@
             $.post(url + 'index.php/administrativo/guardarcargo',
                     $("#formcargos").serialize())
                     .done(function (msg) {
-                        if (!jQuery.isEmptyObject(msg.message))
-                            alerta("rojo", msg['message']);
-                        else {
+                        if (!jQuery.isEmptyObject(msg.message)) {
+                            alerta(msg['color'], msg['message']);
+                        } else {
                             listadoCargos(msg);
-                        }
-
 //-----------------------------------------------------------------------------
-
-                        if (jQuery.isEmptyObject(msg.message)) {
-
-                            $("#notif").html('prueba');
-
-//                console.log();
-
-                            var socket = io.connect('http://' + window.location.hostname + ':3000');
-
-                            socket.emit('new_count_message', {
-                                new_count_message: msg.new_count_message
-                            });
-
-                            socket.emit('new_message', {
-                                name: 'hola gerson'
-                            });
-
-                        } else if (data.success == false) {
-
-                            $("#name").val(msg.name);
-                            $("#email").val(msg.email);
-                            $("#subject").val(msg.subject);
-                            $("#message").val(msg.message);
-                            $("#notif").html(msg.notif);
-
-                        }
-
+                            if (jQuery.isEmptyObject(msg.message)) {
+                                $("#notif").html('prueba');
+                                var socket = io.connect('http://' + window.location.hostname + ':3000');
+                                socket.emit('new_count_message', {
+                                    new_count_message: msg.new_count_message
+                                });
+                                socket.emit('new_message', {
+                                    name: 'hola gerson'
+                                });
+                            } else if (data.success == false) {
+                                $("#name").val(msg.name);
+                                $("#email").val(msg.email);
+                                $("#subject").val(msg.subject);
+                                $("#message").val(msg.message);
+                                $("#notif").html(msg.notif);
+                            }
 //-----------------------------------------------------------------------------                        
-
-                        $('#objetivoPrincipal').val("");
-                        $('#funcionesEsenciales').val("");
-                        $('.newFunction').remove();
-                        $('#nuevo').modal("hide");
+                            $('#objetivoPrincipal').val("");
+                            $('#funcionesEsenciales').val("");
+                            $('.newFunction').remove();
+                            $('#nuevo').modal("hide");
+                        }
                     })
                     .fail(function (msg) {
                         alerta("rojo", "Error, Por favor comunicarse con el administrador del sistema");

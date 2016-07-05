@@ -77,250 +77,276 @@
             $menu = $ci->ingreso_model->menu($datosmodulos, $idusuario, 2);
             $i = array();
             foreach ($menu as $modulo)
-                $i[$modulo['menu_nombrepadre']][$modulo['menu_idpadre']] [] = array($modulo['menu_idhijo'], $modulo['menu_controlador'], $modulo['menu_accion'], $modulo['mod_icons']);
-
+                $i[$modulo['menu_nombrepadre']][] = array($modulo['menu_idhijo'], $modulo['menu_controlador'], $modulo['menu_accion'], $modulo['mod_icons']);
+            $form = "";
             if (empty($prueba)) {
-                ?>
-                <ul class="page-sidebar-menu" data-slide-speed="200" data-auto-scroll="true" data-keep-expanded="false" data-height="332" style="overflow: hidden; width: auto; height: 332px;" data-initialized="1">
-                    <li class="sidebar-toggler-wrapper">
-                        <div class="sidebar-toggler"></div>
-                    </li>
-                <?php } else {
-                    ?>
-                    <ul class='sub-menu'>
-                        <?php
-                    }
-                    foreach ($i as $nombrepapa => $menuidpadre)
-                        foreach ($menuidpadre as $modulos => $menu)
-                            foreach ($menu as $submenus):
-                                if ($submenus[1] == "" && $submenus[2] == "")
-                                    echo "<li><a href='javascript:;'><i class='" . $submenus[3] . "'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
-                                else
-                                    echo "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'><i class=''></i> <span class='title'>" . strtoupper($nombrepapa) . "</span></a>";
-                                if (!empty($submenus[0]))
-                                    modulos($submenus[0], $idusuario, null, 'uno');
-                                echo "</li>";
-                            endforeach;
-                    echo "</ul>";
-                }
-                ?>
-                <!-- HEADER -->
-                <div class="page-header -i navbar navbar-fixed-top">
-                    <div class="page-header-inner">
-                        <!-- Logo -->
-                        <div class="page-logo">
-                            <a href="<?php echo base_url("index.php/presentacion/principal") ?>">
-                                <!-- <img src="<?php echo base_url("img/nygsoft.png") ?>" alt="logo" class="logo-default"/> -->
-                                <h4 class="logo-default">SG-SST</h4>
-                            </a>
-                            <div class="menu-toggler sidebar-toggler hide">
-                            </div>
-                        </div>
-                        <!-- Empezar RESPONSIVE menu despegable -->
-                        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
-                        <!-- Empezar navegacion menu superior -->
-                        <?php
-                        $ci = &get_instance();
-                        $ci->load->model("Notificacionusuario_model");
-                        $notificaciones = $ci->Notificacionusuario_model->detail();
-                        $conadorNotificacion = count($notificaciones);
-                        ?>
-                        <div class="top-menu">
-                            <ul class="nav navbar-nav pull-right">
-                                <li class="dropdown dropdown-extended dropdown-notification dropdown-quick-sidebar-toggler" id="header_notification_bar">
-                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="icon-bell"></i>
-                                        <span class="badge badge-default" id="new_count_message"><?php echo $conadorNotificacion; ?></span>
-                                    </a>
+                $form .= '<ul class="page-sidebar-menu" data-slide-speed="200" data-auto-scroll="true" data-keep-expanded="false" data-height="332" style="overflow: hidden; width: auto; height: 332px;" data-initialized="1">';
+                $form .= '<li class="sidebar-toggler-wrapper">';
+                $form .= '<div class="sidebar-toggler"></div>';
+                $form .= '</li>';
+            } else {
 
-                                    <ul class="dropdown-menu">
-                                        <li class="external">
-                                            <h3><span class="bold"><?php echo $conadorNotificacion; ?> pendiente</span> notificaciones</h3>
-                                            <a href="<?php ?>">Ver todos</a>
+                $form .= '<ul class="sub-menu">';
+            }
+            foreach ($i as $nombrepapa => $menu)
+                foreach ($menu as $submenus):
+                    if ($submenus[1] == "" && $submenus[2] == "")
+                        $form .= "<li><a href='javascript:;'><i class='" . $submenus[3] . "'></i> <span class='title'>" . strtoupper($nombrepapa) . "</span><span class='arrow'></span></a>";
+                    else
+                        $form .= "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'><i class=''></i> <span class='title'>" . strtoupper($nombrepapa) . "</span></a>";
+                    if (!empty($submenus[0]))
+                        $form .= modulos($submenus[0], $idusuario, null, 'uno');
+                    $form .= "</li>";
+                endforeach;
+            $form .= "</ul>";
+            return $form;
+        }
+        ?>
+        <!-- HEADER -->
+        <div class="page-header -i navbar navbar-fixed-top">
+            <div class="page-header-inner">
+                <!-- Logo -->
+                <div class="page-logo">
+                    <a href="<?php echo base_url("index.php/presentacion/principal") ?>">
+                        <!-- <img src="<?php echo base_url("img/nygsoft.png") ?>" alt="logo" class="logo-default"/> -->
+                        <h4 class="logo-default">SG-SST</h4>
+                    </a>
+                    <div class="menu-toggler sidebar-toggler hide">
+                    </div>
+                </div>
+                <!-- Empezar RESPONSIVE menu despegable -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+                <!-- Empezar navegacion menu superior -->
+                <?php
+                $ci = &get_instance();
+                $ci->load->model("Notificacionusuario_model");
+                $notificaciones = $ci->Notificacionusuario_model->detail();
+                $conadorNotificacion = count($notificaciones);
+                ?>
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-extended dropdown-notification dropdown-quick-sidebar-toggler" id="header_notification_bar">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-bell"></i>
+                                <span class="badge badge-default" id="new_count_message"><?php echo $conadorNotificacion; ?></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3><span class="bold"><?php echo $conadorNotificacion; ?> pendiente</span> notificaciones</h3>
+                                    <a href="<?php ?>">Ver todos</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+<?php foreach ($notificaciones as $not): ?>
+                                            <li>
+                                                <a href="javascript:;">
+                                                    <span class="time">Ahora</span>
+                                                    <span class="details">
+                                                        <span class="label label-sm label-icon label-success">
+                                                            <i class="fa fa-plus"></i>
+                                                        </span>
+    <?php echo $not->not_notificacion ?>
+                                                    </span>
+                                                </a>
+                                            </li>
+<?php endforeach; ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar" style="margin-top: 9px">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-envelope-open"></i>
+<!--					<span class="badge badge-default" >
+                                4 </span>-->
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3> <span class="bold">Manuales</span> </h3>
+                                    <a href="page_inbox.html">Ver todos</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <li>
+                                            <a href="inbox.html?a=view">
+                                                <span class="photo">
+                                                    <img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+                                                </span>
+                                                <span class="subject">
+                                                    <span class="from">
+                                                        ORGANIZACIÓN</span>
+                                                </span>
+                                            </a>
                                         </li>
                                         <li>
-                                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                                <?php foreach ($notificaciones as $not): ?>
-                                                    <li>
-                                                        <a href="javascript:;">
-                                                            <span class="time">Ahora</span>
-                                                            <span class="details">
-                                                                <span class="label label-sm label-icon label-success">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </span>
-                                                                <?php echo $not->not_notificacion ?>
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
+                                            <a href="inbox.html?a=view">
+                                                <span class="photo">
+                                                    <img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+                                                </span>
+                                                <span class="subject">
+                                                    <span class="from">
+                                                        PLANES 
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="inbox.html?a=view">
+                                                <span class="photo">
+                                                    <img src="../../assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
+                                                </span>
+                                                <span class="subject">
+                                                    <span class="from">
+                                                        TAREAS </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="inbox.html?a=view">
+                                                <span class="photo">
+                                                    <img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+                                                </span>
+                                                <span class="subject">
+                                                    <span class="from">
+                                                        RIESGOS </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="inbox.html?a=view">
+                                                <span class="photo">
+                                                    <img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+                                                </span>
+                                                <span class="subject">
+                                                    <span class="from">
+                                                        INDICADORES </span>
+                                                </span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar" style="margin-top: 9px">
-					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<i class="icon-envelope-open"></i>
-<!--					<span class="badge badge-default" >
-					4 </span>-->
-					</a>
-					<ul class="dropdown-menu">
-						<li class="external">
-							<h3> <span class="bold">Manuales</span> </h3>
-							<a href="page_inbox.html">Ver todos</a>
-						</li>
-						<li>
-							<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-								<li>
-									<a href="inbox.html?a=view">
-									<span class="photo">
-									<img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
-									</span>
-									<span class="subject">
-									<span class="from">
-									ORGANIZACIÓN</span>
-									</span>
-									</a>
-								</li>
-								<li>
-									<a href="inbox.html?a=view">
-									<span class="photo">
-									<img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
-									</span>
-									<span class="subject">
-									<span class="from">
-									PLANES </span>
-									</span>
-									</a>
-								</li>
-								<li>
-									<a href="inbox.html?a=view">
-									<span class="photo">
-									<img src="../../assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
-									</span>
-									<span class="subject">
-									<span class="from">
-									TAREAS </span>
-									</span>
-									</a>
-								</li>
-								<li>
-									<a href="inbox.html?a=view">
-									<span class="photo">
-									<img src="../../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
-									</span>
-									<span class="subject">
-									<span class="from">
-									RIESGOS </span>
-									</span>
-									</a>
-								</li>
-								<li>
-									<a href="inbox.html?a=view">
-									<span class="photo">
-									<img src="../../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
-									</span>
-									<span class="subject">
-									<span class="from">
-									INDICADORES </span>
-									</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-                                <li class="dropdown dropdown-user dropdown-quick-sidebar-toggler">
-                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <span class="username username-hide-on-mobile">
-                                            <?php echo $nombre ?> </span>
-                                    </a>
-                                </li>
-                                <li class="dropdown dropdown-quick-sidebar-toggler">
-                                    <a href='<?php echo base_url('index.php/login/logout') ?>' class="dropdown-toggle">
-                                        <i class="icon-logout"></i>
-                                    </a>
-                                </li>
                             </ul>
-                        </div>
+                        </li>
+                        <li class="dropdown dropdown-user dropdown-quick-sidebar-toggler">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <span class="username username-hide-on-mobile">
+<?php echo $nombre ?> </span>
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-quick-sidebar-toggler">
+                            <a href='<?php echo base_url('index.php/login/logout') ?>' class="dropdown-toggle">
+                                <i class="icon-logout"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- CONTENEDOR -->
+        <div class="page-container">
+            <!-- Empezar Barra Lateral -->
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar navbar-collapse collapse">
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 332px;">
+                        <?php
+                        $ci = &get_instance();
+                        $ci->load->model("ingreso_model");
+                        $menu = $ci->ingreso_model->permisosRolUsuario($id);
+                        $fichero = "./uploads/menu";
+                        $nombre_archivo = $menu->rol_id . ".txt";
+                        if (!file_exists($fichero . "/" . $nombre_archivo)) {
+                            if (!file_exists($fichero))
+                                mkdir($fichero, 0777, true);
+                            if (!file_exists($fichero . "/" . $nombre_archivo)) :
+                                if ($archivo = fopen($fichero . "/" . $nombre_archivo, "a")) :
+                                    $menuPresentar = modulos('prueba', $id, null);
+                                    
+                                    if (!fwrite($archivo, $menuPresentar)) :
+                                        echo "Error por favor comunicarse con el administrador";
+                                    else:
+                                        echo $menuPresentar;
+                                    endif;
+                                    fclose($archivo);
+                                endif;
+                            endif;
+                        }else{
+                            echo fpassthru(fopen($fichero . "/" . $nombre_archivo, "r"));
+                        }
+                        ?>
                     </div>
                 </div>
-                <div class="clearfix"></div>
-                <!-- CONTENEDOR -->
-                <div class="page-container">
-                    <!-- Empezar Barra Lateral -->
-                    <div class="page-sidebar-wrapper">
-                        <div class="page-sidebar navbar-collapse collapse">
-                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 332px;">
-                                <?php echo modulos('prueba', $id, null); ?>
+            </div>
+            <!-- Contenido -->
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="javascript:;">Hogar</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <a href="#">Inicio</a>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm btn-default" data-container="body" data-placement="bottom" data-original-title="Fecha Actual">
+                                <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
                             </div>
                         </div>
                     </div>
                     <!-- Contenido -->
-                    <div class="page-content-wrapper">
-                        <div class="page-content">
-                            <div class="page-bar">
-                                <ul class="page-breadcrumb">
-                                    <li>
-                                        <i class="fa fa-home"></i>
-                                        <a href="javascript:;">Hogar</a>
-                                        <i class="fa fa-angle-right"></i>
-                                    </li>
-                                    <li>
-                                        <a href="#">Inicio</a>
-                                    </li>
-                                </ul>
-                                <div class="page-toolbar">
-                                    <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm btn-default" data-container="body" data-placement="bottom" data-original-title="Fecha Actual">
-                                        <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Contenido -->
-                            <?php echo $content_for_layout ?>
-                            <!-- Final Contenido -->
-                        </div>
-                    </div>
+                    <?php
+//                            echo $menu;die;
+                    echo $content_for_layout
+                    ?>
+                    <!-- Final Contenido -->
                 </div>
-                <!-- FOOTER -->
-                <div class="page-footer">
-                    <div class="page-footer-inner">
-                        2016 &copy; NYGSOFT.
-                    </div>
-                    <div class="scroll-to-top">
-                        <i class="icon-arrow-up"></i>
-                    </div>
-                </div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner">
+                2016 &copy; NYGSOFT.
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
 
-                <!-- ------------------------------------------------------------
-                SCRIPTS
+        <!-- ------------------------------------------------------------
+        SCRIPTS
 ---------------------------------------------------------------- -->
 
-                <!-- Scripts Pagina -->
-                <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
-                <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js") ?>"></script> <!-- Notificaciones -->
-                <script src="<?php echo base_url("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") ?>" type="text/javascript"></script>
-                <script src="<?php echo base_url("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js") ?>" type="text/javascript"></script>
-                <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/moment.min.js") ?>"></script> <!-- Fecha Inicio (1,3) -->
-                <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") ?>"></script> <!-- Fecha Inicio (2,3) -->
-                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->
-                <script type="text/javascript" src="<?php echo base_url('assets/admin/pages/scripts/ui-notific8.js') ?>"></script> <!-- Notificacion (2,2) -->
-                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
+        <!-- Scripts Pagina -->
+        <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") ?>"></script> <!-- Notificaciones -->
+        <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js") ?>"></script> <!-- Notificaciones -->
+        <script src="<?php echo base_url("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") ?>" type="text/javascript"></script>
+        <script src="<?php echo base_url("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js") ?>" type="text/javascript"></script>
+        <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/moment.min.js") ?>"></script> <!-- Fecha Inicio (1,3) -->
+        <script type="text/javascript" src="<?php echo base_url("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js") ?>"></script> <!-- Fecha Inicio (2,3) -->
+        <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-notific8/jquery.notific8.min.js') ?>"></script> <!-- Notificacion (1,2) -->
+        <script type="text/javascript" src="<?php echo base_url('assets/admin/pages/scripts/ui-notific8.js') ?>"></script> <!-- Notificacion (2,2) -->
+        <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') ?>"></script> <!-- Datepicker -->
 
-                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/select2/select2.min.js') ?>"></script> <!-- Select y multiple (1,2) -->
-                <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') ?>"></script><!-- Select y multiple (2,2) -->
+        <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/select2/select2.min.js') ?>"></script> <!-- Select y multiple (1,2) -->
+        <script type="text/javascript" src="<?php echo base_url('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') ?>"></script><!-- Select y multiple (2,2) -->
 
-                <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script> <!-- Script datatable -->
-                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script> <!-- Exportar Archivos datatable -->
-                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script> <!-- Arrastra y suelta posición conlumnas-->
-                <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script><!-- Titulo estatico -->
-                <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script><!-- Estilo script bootstrap -->
+        <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script> <!-- Script datatable -->
+        <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script> <!-- Exportar Archivos datatable -->
+        <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script> <!-- Arrastra y suelta posición conlumnas-->
+        <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script><!-- Titulo estatico -->
+        <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script><!-- Estilo script bootstrap -->
 
-                <!-- Inicio Pagina -->
-                <script type="text/javascript" src="<?php echo base_url("assets/global/scripts/metronic.js") ?>"></script>
-                <script type="text/javascript" src="<?php echo base_url("assets/admin/layout/scripts/layout.js") ?>"></script> <!-- Menu -->
-                <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
+        <!-- Inicio Pagina -->
+        <script type="text/javascript" src="<?php echo base_url("assets/global/scripts/metronic.js") ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url("assets/admin/layout/scripts/layout.js") ?>"></script> <!-- Menu -->
+        <script type="text/javascript" src="<?php echo base_url("assets/admin/pages/scripts/index.js") ?>"></script>  <!-- Fecha Inicio (3,3) -->
 
-                <script type="text/javascript">
+        <script type="text/javascript">
             base_url_js = '<?php echo base_url() ?>'
             $('.dimencion_uno_se').change(function () {
                 $('.dimencion_dos_se').html('');
@@ -597,43 +623,43 @@
 
             window.addEventListener("load", initTable2);
 
-                </script>
-                <style>
-                    .blockOverlay{
-                        z-index:10000000000000 !important;
-                    }
-                    .blockUI {
-                        z-index:10000000000000 !important;
-                    }
-                    .obligado{
-                        background-color: rgb(250, 255, 189);
-                    }
-                    .mayuscula{
-                        text-transform: uppercase;
-                    }
-                </style>
-                <script>
-                var socket = io.connect( 'http://'+window.location.hostname+':3000' );
+        </script>
+        <style>
+            .blockOverlay{
+                z-index:10000000000000 !important;
+            }
+            .blockUI {
+                z-index:10000000000000 !important;
+            }
+            .obligado{
+                background-color: rgb(250, 255, 189);
+            }
+            .mayuscula{
+                text-transform: uppercase;
+            }
+        </style>
+        <script>
+            var socket = io.connect('http://' + window.location.hostname + ':300');
 
-  socket.on( 'new_count_message', function( data ) {
-      console.log(data.new_count_message);
-      $( "#new_count_message" ).html( data.new_count_message );
-      $('#notif_audio')[0].play();
+            socket.on('new_count_message', function (data) {
+                console.log(data.new_count_message);
+                $("#new_count_message").html(data.new_count_message);
+                $('#notif_audio')[0].play();
 
-  });
+            });
 
-  socket.on( 'update_count_message', function( data ) {
+            socket.on('update_count_message', function (data) {
 
-      $( "#new_count_message" ).html( data.update_count_message );
-    
-  });
+                $("#new_count_message").html(data.update_count_message);
 
-  socket.on( 'new_message', function( data ) {
-  
-      $( "#message-tbody" ).prepend('<tr><td>'+data.name+'</td><td>'+data.email+'</td><td>'+data.subject+'</td><td>'+data.created_at+'</td><td><a style="cursor:pointer" data-toggle="modal" data-target=".bs-example-modal-sm" class="detail-message" id="'+data.id+'"><span class="glyphicon glyphicon-search"></span></a></td></tr>');
-      $( "#no-message-notif" ).html('');
-      $( "#new-message-notif" ).html('<div class="alert alert-success" role="alert"> <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>New message ...</div>');
-  });
-                </script>
-                </body>
-                </html>
+            });
+
+            socket.on('new_message', function (data) {
+
+                $("#message-tbody").prepend('<tr><td>' + data.name + '</td><td>' + data.email + '</td><td>' + data.subject + '</td><td>' + data.created_at + '</td><td><a style="cursor:pointer" data-toggle="modal" data-target=".bs-example-modal-sm" class="detail-message" id="' + data.id + '"><span class="glyphicon glyphicon-search"></span></a></td></tr>');
+                $("#no-message-notif").html('');
+                $("#new-message-notif").html('<div class="alert alert-success" role="alert"> <i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>New message ...</div>');
+            });
+        </script>
+    </body>
+</html>

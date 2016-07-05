@@ -38,6 +38,17 @@ class Estados_model extends CI_Model {
             
         }
     }
+    function estadoVehiculos() {
+        try {
+            $this->db->where('est_id', 8);
+            $this->db->or_where('est_id', 9);
+            $this->db->or_where('est_id', 10);
+            $estados = $this->db->get("estados");
+            return $estados->result();
+        } catch (exception $e) {
+            
+        }
+    }
 
 }
 

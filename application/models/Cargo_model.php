@@ -8,14 +8,7 @@ class Cargo_model extends CI_Model {
 
     function create($data) {
         try {
-//            $this->db->trans_begin();
             $this->db->insert("cargo", $data);
-//            if ($this->db->trans_status() === FALSE) {
-//                $this->db->trans_rollback();
-//            } else {
-//                $this->db->trans_commit();
-//                
-//            }
         } catch (exception $e) {
             
         } finally {
@@ -33,8 +26,6 @@ class Cargo_model extends CI_Model {
             $this->db->set("car_perfilCargo", $perfil);
             $this->db->update("cargo");
             
-//            echo $this->db->last_query();die;
-            
         } catch (exception $e) {
             
         } finally {
@@ -45,7 +36,7 @@ class Cargo_model extends CI_Model {
         try {
             $this->db->select("cargo.car_id");
             $this->db->select("cargo.car_nombre");
-            $this->db->select("c.car_nombre as jefe");
+            $this->db->select("IFNULL(c.car_nombre,'CARGO PRINCIPAL') as jefe");
             $this->db->select("c.car_id as idjefe");
             $this->db->select("cargo.car_porcentajearl");
             $this->db->select("(select count(rieCar_id) from riesgo_cargo where riesgo_cargo.car_id = cargo.car_id) as cantidadRiesgos");
@@ -168,6 +159,13 @@ class Cargo_model extends CI_Model {
         $this->db->select("cargo_notificacion.not_id");
         $this->db->order_by("car_nombre");
         $this->db->join("cargo_notificacion","cargo_notificacion.car_id = cargo.car_id and cargo_notificacion.not_id = $idNotificacion","left");
+        $cargo = $this->db->get("cargo");
+        return $cargo->result();
+    }
+    function existenciaGerente(){
+        $this->db->select("cargo.car_id");
+        $this->db->select("cargo.car_nombre");
+        $this->db->where("car_jefe is null",null,null);
         $cargo = $this->db->get("cargo");
         return $cargo->result();
     }

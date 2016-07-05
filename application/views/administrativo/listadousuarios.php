@@ -289,6 +289,5 @@
                         alerta("rojo", "Error, por favor comunicase con el administrador del sistema")
                     });
         }
-
     });
 </script>

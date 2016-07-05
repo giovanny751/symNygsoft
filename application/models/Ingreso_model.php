@@ -25,6 +25,21 @@ class Ingreso_model extends CI_Model {
         }
     }
 
+    function permisosRolUsuario($idusuario) {
+
+        $this->db->where('menu_idpadre', 0);
+        $this->db->where('menu_estado', 1);
+        $this->db->where('user.usu_id', $idusuario);
+        $this->db->select('permisos_rol.rol_id');
+        $this->db->join("permisos", "user.rol_id = permisos.rol_id and user.usu_id = permisos.usu_id");
+        $this->db->join('permisos_rol', ' permisos_rol.rol_id = permisos.rol_id');
+        $this->db->join("modulo", "modulo.menu_id = permisos_rol.menu_id");
+        $this->db->group_by("permisos_rol.rol_id");
+        $dato = $this->db->get('user')->row();
+
+        return $dato;
+    }
+
     function sectorEconomico() {
         $data = $this->db->get("sector_economico");
         return $data->result();
@@ -175,12 +190,11 @@ class Ingreso_model extends CI_Model {
             $this->db->trans_begin();
             $this->db->where('menu_id', $eliminar);
             $this->db->delete('modulo');
-            
-            if ($this->db->trans_status() === FALSE){
+
+            if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 throw new Exception("Error al eliminar en la base de datos");
-            }
-            else{
+            } else {
                 $this->db->trans_commit();
             }
         } catch (exception $e) {
@@ -288,10 +302,10 @@ class Ingreso_model extends CI_Model {
         }
     }
 
-    function permisosusuario($rol,$usuario) {
+    function permisosusuario($rol, $usuario) {
         try {
-            $this->db->where("usu_id",$usuario);
-            $this->db->set("rol_id",$rol);
+            $this->db->where("usu_id", $usuario);
+            $this->db->set("rol_id", $rol);
             $this->db->set('modificationUser', $this->session->userdata('usu_id'));
             $this->db->set('modificationDate', date("Y-m-d H:i:s"));
             $this->db->update("user");
@@ -301,6 +315,7 @@ class Ingreso_model extends CI_Model {
             return $this->db->trans_status();
         }
     }
+
     function permisosusuariomenu($data) {
         try {
             $this->db->trans_begin();

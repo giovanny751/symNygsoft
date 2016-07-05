@@ -1038,15 +1038,17 @@ class Administrativo extends My_Controller {
             $this->load->model(array('Cargo_model','Notificacionusuario_model',"Notificacionusuariovisto_model"));
             $cargo = $this->input->post("cargo");
             $cargojefe = $this->input->post("cargojefe");
-
             $objetivoPrincipal = $this->input->post("objetivoPrincipal");
             $funcionesEsenciales = $this->input->post("funcionesEsenciales");
-
-
+            
+            if(empty($cargojefe)):
+                if(!empty($this->Cargo_model->existenciaGerente())){
+                    $this->info['color'] = "amarillo";
+                    throw new Exception("No pueden existir dos cargos principales");
+                }
+            endif;
 
             if (empty($this->Cargo_model->existe($cargo, $cargojefe))) {
-
-
                 $almacenamiento = array(
                     "car_nombre" => $cargo,
                     "car_jefe" => $cargojefe,
@@ -1054,10 +1056,7 @@ class Administrativo extends My_Controller {
                     "car_objetivoPrincipal" => $this->input->post("objetivoPrincipal"),
                     "car_perfilCargo" => $this->input->post("perfilCargo")
                 );
-
-
                 $creacion = $this->Cargo_model->create($almacenamiento);
-
                 if (!empty($creacion)) {
                     $arregloFuncion = array();
                     if (!empty($this->input->post("funcionesEsenciales"))) {

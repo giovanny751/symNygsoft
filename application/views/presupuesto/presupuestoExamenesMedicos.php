@@ -15,112 +15,11 @@
                     <div class="tabbable tabbable-tabdrop">
                         <ul class="nav nav-tabs">
                             <li class='active'>
-                                <a data-toggle="tab" href="#tab1">NOMINA</a>
-                            </li>
-                            <li>
                                 <a data-toggle="tab" href="#tab2">EXAMENES MEDICOS</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div id="tab1" class="tab-pane active">
-                                <form action="" class="form-horizontal" id="frmParametros">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="salario" class="col-md-3 control-label">Salario Minimo</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span>
-                                                        <input type="text" name="salario"  style="text-align: right" id="salario" class="form-control miles number miles" value="<?php echo (!empty($parametros[0]->parNom_salarioMinimo)) ? $parametros[0]->parNom_salarioMinimo : ""; ?>" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="auxTransorte" class="col-md-3 control-label">Auxilio de transporte</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span>
-                                                        <input type="text" style="text-align: right" name="auxTransorte" id="auxTransorte" class="form-control number miles" value="<?php echo (!empty($parametros[0]->parNom_auxilioTransporte)) ? $parametros[0]->parNom_auxilioTransporte : ""; ?>" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="pension" class="col-md-3 control-label">Aportes Salud</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">%</span>
-                                                        <input type="text" name="aportesSalud" id="pension" class="form-control" value="<?php echo (!empty($parametros[0]->parNom_aporteSalud)) ? $parametros[0]->parNom_aporteSalud : ""; ?>"  />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="pension" class="col-md-3 control-label">Pension</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">%</span>
-                                                        <input type="text" name="aportesPension" id="pension" class="form-control" value="<?php echo (!empty($parametros[0]->parNom_aportePension)) ? $parametros[0]->parNom_aportePension : ""; ?>" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="aporteSena" class="col-md-3 control-label">Aportes al SENA</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">%</span>
-                                                        <input type="text" name="aporteSena" id="aporteSena" class="form-control" value="<?php echo (!empty($parametros[0]->parNom_aporteSena)) ? $parametros[0]->parNom_aporteSena : ""; ?>"  />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="aporteICBF" class="col-md-3 control-label">Aportes al ICBF</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span>
-                                                        <input type="text" name="aporteICBF" id="aporteICBF" class="form-control" value="<?php echo (!empty($parametros[0]->parNom_aporteICBF)) ? $parametros[0]->parNom_aporteICBF : ""; ?>" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="aporteCajaComensacion" class="col-md-3 control-label">Aportes a Caja de Compensación</label>
-                                                <div class="col-md-9">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">%</span>
-                                                        <input type="text" name="aporteCajaComensacion" id="aporteCajaComensacion" class="form-control" value="<?php echo (!empty($parametros[0]->parNom_aporteCajaCompensacion)) ? $parametros[0]->parNom_aporteCajaCompensacion : ""; ?>"  />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="col-md-offset-4 col-md-4">
-                                                <button type="button" class="btn btn-block green" id="guardar">GUARDAR</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="tab2" class="tab-pane">
+                            <div id="tab2" class="tab-pane active">
                                 <div class="row">
                                     <center><h2>PROGRAMA DE MEDICINA PREVENTIVA Y DEL TRABAJO</h2></center>
                                 </div>

@@ -314,6 +314,14 @@ class Presentacion extends My_Controller {
 
                 $insert[] = array('rol_id' => $id, 'menu_id' => $permisorol[$i], 'perRol_crear' => $crear2, 'perRol_modificar' => $modificar2, 'perRol_eliminar' => $eliminar2);
             }
+            
+            $fichero = "uploads/menu";
+            $nombre_archivo = $this->input->post("rol") . ".txt";
+            if (!file_exists(base_url($fichero . "/".$nombre_archivo))) {
+//                echo "paso por aca";die;
+                unlink($fichero . "/".$nombre_archivo); 
+            }
+
             $this->Roles_model->insertapermisos($insert);
             $roles = $this->Roles_model->rolesall();
             echo json_encode($roles);
@@ -335,6 +343,11 @@ class Presentacion extends My_Controller {
                 $this->Roles_model->eliminpermisosrol($id);
                 $this->Roles_model->eliminarrol($id);
                 $data['Json'] = true;
+            }
+            $fichero = "uploads/menu";
+            $nombre_archivo = $this->input->post("rol") . ".txt";
+            if (!file_exists(base_url($fichero . "/".$nombre_archivo))) {
+                unlink($fichero . "/".$nombre_archivo); 
             }
         } catch (exception $e) {
             $data["message"] = $e->getMessage();
