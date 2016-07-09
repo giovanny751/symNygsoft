@@ -84,8 +84,8 @@
                         </div>
                         <table class="tabla-sst" id="tablaCapacitacion">
                             <thead style="text-align: Center">
-                            <th>EMPLEADO</th>
-                            <th>ELIMINAR</th>
+                            <th style="width: 80%;text-align: center">EMPLEADO</th>
+                            <th style="width: 20%;text-align: center">ELIMINAR</th>
                             </thead>
                         </table>    
                     </div>
@@ -109,7 +109,7 @@
         var table = $('#tablaCapacitacion').DataTable();
         table.row.add([
             select + "<?php echo $option ?>",
-            "<button type='button' class='btn btn-danger eliminar' title='Eliminar'>-</button>"
+            "<center><button type='button' class='btn btn-danger eliminar' title='Eliminar'><i class='fa fa-remove'></i></button></center>"
         ]).draw();
     });
     $('#guardar').click(function () {

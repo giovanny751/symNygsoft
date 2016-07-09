@@ -10,7 +10,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-cog"></i> Listado Usuario
+                    <i class="fa fa-user-plus"></i> Listado Usuario
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -62,8 +62,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4" style="text-align: center">
-                                                <button type="button" class="btn btn-success consultar">Consultar</button>
                                                 <button type="button" class="btn btn-danger limpiar">Limpiar</button>
+                                                <button type="button" class="btn btn-success consultar">Consultar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -259,8 +259,8 @@
                             val.usu_fechaCreacion,
                             val.ing_fechaIngreso,
                             '<button type="button"  class="btn btn-block permiso" usuarioid="' + val.usu_id + '">Roles</button>',
-                            '<i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" usu_id="' + val.usu_id + '"  data-toggle="modal" data-target="#myModal"></i>',
-                            '<i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" usu_id="' + val.usu_id + '"></i>',
+                            '<center><button type="button" class="btn btn-info"><i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" usu_id="' + val.usu_id + '"  data-toggle="modal" data-target="#myModal"></i></button></center>',
+                            '<center><button type="button" class="btn btn-danger"><i class="fa fa-remove fa-2x eliminar" title="Eliminar" usu_id="' + val.usu_id + '"></i></button></center>',
                         ]).draw();
                     });
 

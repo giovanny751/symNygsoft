@@ -1,12 +1,4 @@
-<div class="row">
-    <div class="col-md-6">
-        <br>
-        <a href="<?php echo base_url() . "/index.php/planes/nuevoplan" ?>"><div class="circuloIcon" title="Nuevo Plan" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-        <br>
-    </div>
-    <br>
-</div>
-<br>
+
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -24,6 +16,13 @@
             </form>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="<?php echo base_url() . "/index.php/planes/nuevoplan" ?>"><div class="circuloIcon" title="Nuevo Plan" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                        <hr>
+                        <br>
+                        </div>
+                    </div>
                     <form method="post" id="f9" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">

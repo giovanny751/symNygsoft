@@ -10,7 +10,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i><?= $title ?>
+                    <i class="fa fa-user"></i><?= $title ?>
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -31,7 +31,7 @@
                                     <div class="col-md-3"><input type="text" name="apellido" id="apellido" class="form-control"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-1" for="dim1"><?php echo $empresa[0]->Dim_id ?></label>
+                                    <label class="col-md-1" for="dimension1"><?php echo $empresa[0]->Dim_id ?></label>
                                     <div class="col-md-3">
                                         <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se">
                                             <option value="">::Seleccionar::</option>
@@ -40,7 +40,7 @@
                                             <?php } ?>
                                         </select>    
                                     </div>
-                                    <label class="col-md-1" for="dim2"><?php echo $empresa[0]->Dimdos_id ?></label>
+                                    <label class="col-md-1" for="dimension2"><?php echo $empresa[0]->Dimdos_id ?></label>
                                     <div class="col-md-3">
                                         <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
                                             <option value="">::Seleccionar::</option>
@@ -49,9 +49,9 @@
                                             <?php } ?>
                                         </select>
                                     </div>
-                                    <label class="col-md-2" for="dim2">Contratos vencidos</label>
+                                    <label class="col-md-2" for="contratosvencidos">Contratos vencidos</label>
                                     <div class="col-md-2">
-                                        <input type="checkbox" value="1" name="contratosvencidos" class="form-control">
+                                        <input type="checkbox" id="contratosvencidos" value="1" name="contratosvencidos" class="form-control">
                                     </div>
                                 </div>    
                                 <div class="form-group">
@@ -74,8 +74,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4" style="text-align: center">
-                                        <label>&nbsp;</label><button type="button" class="btn-sst limpiar">Limpiar</button>
-                                        <label>&nbsp;</label><button type="button" class="btn-sst consultar">Consultar</button>
+                                        <label>&nbsp;</label><button type="button" class="btn btn-danger limpiar">Limpiar</button>
+                                        <label>&nbsp;</label><button type="button" class="btn btn-info consultar">Consultar</button>
                                     </div>
                                 </div>
                             </form>
@@ -91,7 +91,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Resultados
+                    <i class="fa fa-list"></i>Resultado
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">

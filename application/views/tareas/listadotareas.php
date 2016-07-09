@@ -1,11 +1,15 @@
-<br>
+
 <div class="row">
-    <div class="col-md-6">
-        <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="<?php echo base_url() . "/index.php/tareas/nuevatarea" ?>"><div class="circuloIcon" title="Nueva Tarea" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+            </div>
+            <br>
+            <hr>
+            <br>
+        </div>
     </div>
-</div>
-<br>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -100,7 +104,7 @@
     </div>
 </div>
 
-<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Tareas/funcionesCargo')?>" method="post">
+<form id="manual_form" target="_black" action="<?php echo base_url('index.php/Tareas/funcionesCargo') ?>" method="post">
     <input type="hidden" id="id_cargo_form" name="tar_id">
 </form>
 
@@ -177,7 +181,7 @@
                                     if (typeof numeracion != "string") {
                                         table += "<tr>";
                                         table += '<td style="text-align:center"><i class="fa fa-bookmark-o btn btn-default nuevoavance" title="Nuevo avance" tar_id="' + idtar + '" ></i></td>';
-                                        table += "<td>" + numeracion.progreso + "</td>";
+                                        table += "<td style='text-align:center'>" + numeracion.progreso + "</td>";
                                         table += "<td>" + numeracion.tipo + "</td>";
                                         table += "<td>" + numeracion.nombretarea + "</td>";
                                         table += "<td>" + numeracion.fechainicio + "</td>";
@@ -195,10 +199,10 @@
                                                     <i class="fa fa-file-pdf-o" title="Manual"></i>Manual</a>';
                                         table += "</td>";
                                         table += '<td class="transparent">';
-                                        table += '<i class="fa fa-pencil-square-o fa-2x  modificar" title="Modificar" tar_id="' + idtar + '" ></i>';
+                                        table += '<center><button type="button" class="btn btn-info"><i class="fa fa-pencil-square-o fa-2x  modificar" title="Modificar" tar_id="' + idtar + '" ></i></button></center>';
                                         table += "</td>";
                                         table += '<td class="transparent">';
-                                        table += '<i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" tar_id="' + idtar + '" ></i>';
+                                        table += '<center><button type="button" class="btn btn-danger"><i class="fa fa-remove fa-2x eliminar" title="Eliminar" tar_id="' + idtar + '" ></i></button></center>';
                                         table += "</td>";
                                         table += "</tr>";
                                     }

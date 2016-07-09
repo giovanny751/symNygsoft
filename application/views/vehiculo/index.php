@@ -48,176 +48,143 @@
                                                 <fieldset>
                                                     <legend>Auditoria</legend>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-6'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="tipoVehiculo">Fecha de Creación:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type="text" id="fechaCreacion" style="text-align: center" class="form-control" value="<?php echo (!empty($vehiculo->creatorDate)) ? $vehiculo->creatorDate : date("Y-m-d H:i:s"); ?>" disabled="disabled">
-                                                                </div>
-                                                            </div>    
-                                                        </div>
-                                                        <div class='col-md-6'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="tipoServicio">Fecha última modificación:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type="text" id="fechaUltimaModificacion" style="text-align: center" value="<?php echo (!empty($vehiculo->modificationDate)) ? $vehiculo->modificationDate : ""; ?>" class="form-control" disabled="disabled">
-                                                                </div>
-                                                            </div>    
-                                                        </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-2' for="tipoVehiculo">Fecha de Creación:</label>
+                                                            <div class='col-md-4'>
+                                                                <input type="text" id="fechaCreacion" style="text-align: center" class="form-control" value="<?php echo (!empty($vehiculo->creatorDate)) ? $vehiculo->creatorDate : date("Y-m-d H:i:s"); ?>" disabled="disabled">
+                                                            </div>
+                                                            <label class='col-md-2' for="tipoServicio">Fecha última modificación:</label>
+                                                            <div class='col-md-4'>
+                                                                <input type="text" id="fechaUltimaModificacion" style="text-align: center" value="<?php echo (!empty($vehiculo->modificationDate)) ? $vehiculo->modificationDate : ""; ?>" class="form-control" disabled="disabled">
+                                                            </div>
+                                                        </div>  
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="dimension1" class=" col-md-4"><span style="color:red">*</span><?php echo $empresa[0]->Dim_id ?></label>
-                                                                <div class="col-md-8">
-                                                                    <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se obligatorio">
-                                                                        <option value="">::Seleccionar::</option>
-                                                                        <?php foreach ($dimension as $d) { ?>
-                                                                            <option  <?php echo (!empty($vehiculo->dim_id) && $vehiculo->dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>    
+                                                        <div class="form-group">
+                                                            <label for="dimension1" class=" col-md-2"><span style="color:red">*</span><?php echo $empresa[0]->Dim_id ?></label>
+                                                            <div class="col-md-4">
+                                                                <select id="dimension1" name="dimension1" class="form-control dimencion_uno_se obligatorio">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($dimension as $d) { ?>
+                                                                        <option  <?php echo (!empty($vehiculo->dim_id) && $vehiculo->dim_id == $d->dim_id) ? "selected" : ""; ?> value="<?php echo $d->dim_id ?>"><?php echo $d->dim_descripcion ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>    
+                                                            <label for="dimension2" class=" col-md-2"><?php echo $empresa[0]->Dimdos_id ?></label>  
+                                                            <div class="col-md-4">
+                                                                <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php
+                                                                    if (!empty($veh_id)) :
+                                                                        foreach ($dimension2 as $d2):
+                                                                            ?>
+                                                                            <option  <?php echo (!empty($vehiculo->dim_id2) && $vehiculo->dim_id2 == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
+                                                                            <?php
+                                                                        endforeach;
+                                                                    endif;
+                                                                    ?>
+                                                                </select>
                                                             </div>    
                                                         </div>    
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="dimension2" class=" col-md-4"><?php echo $empresa[0]->Dimdos_id ?></label>  
-                                                                <div class="col-md-8">
-                                                                    <select id="dimension2" name="dimension2" class="form-control dimencion_dos_se">
-                                                                        <option value="">::Seleccionar::</option>
-                                                                        <?php
-                                                                        if (!empty($veh_id)) :
-                                                                            foreach ($dimension2 as $d2):
-                                                                                ?>
-                                                                                <option  <?php echo (!empty($vehiculo->dim_id2) && $vehiculo->dim_id2 == $d2->dim_id) ? "selected" : ""; ?> value="<?php echo $d2->dim_id ?>"><?php echo $d2->dim_descripcion ?></option>
-                                                                                <?php
-                                                                            endforeach;
-                                                                        endif;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>    
-                                                            </div>    
-                                                        </div> 
-                                                    </div>
+                                                    </div> 
                                                 </fieldset>
                                                 <fieldset>
                                                     <legend>Datos vehículo</legend>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="claseVehiculo"><span style="color: red">*</span>Clases de vehículo:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select class='form-control obligatorio' id="claseVehiculo" name="claseVehiculo">
-                                                                        <option value=''>::Seleccionar::</option>
-                                                                        <?php foreach ($claseVehiculo as $cv): ?>
-                                                                            <option <?php echo (!empty($vehiculo->claVeh_id) && $vehiculo->claVeh_id == $cv->claVeh_id) ? "selected" : ""; ?> value='<?php echo $cv->claVeh_id ?>'><?php echo $cv->claVeh_nombre ?></option>
-                                                                        <?php endforeach; ?>                                                   
-                                                                    </select>
-                                                                </div>
-                                                            </div>    
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="tipoVehiculo"><span style="color: red">*</span>Tipo de vehículo:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select class='form-control obligatorio' id="tipoVehiculo" name="tipoVehiculo">
-                                                                        <option value=''>::Seleccionar::</option>
-                                                                        <?php
-                                                                        if (!empty($veh_id)) :
-                                                                            foreach ($tipoVehiculo as $tv):
-                                                                                ?>
-                                                                                <option <?php echo (!empty($vehiculo->tipVeh_id) && $vehiculo->tipVeh_id == $tv->tipVeh_id) ? "selected" : ""; ?> value='<?php echo $tv->tipVeh_id ?>'><?php echo $tv->tipVeh_nombre ?></option>
-                                                                                <?php
-                                                                            endforeach;
-                                                                        endif;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>    
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="tipoServicio">Tipo de servicio:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select class='form-control' id="tipoServicio" name="tipoServicio">
-                                                                        <option value=''>::Seleccionar::</option>
-                                                                        <?php foreach ($tipoServicio as $ts): ?>
-                                                                            <option <?php echo (!empty($vehiculo->tipSer_id) && $vehiculo->tipSer_id == $ts->tipSer_id) ? "selected" : ""; ?> value='<?php echo $ts->tipSer_id ?>'><?php echo $ts->tipSer_nombre ?></option>
-                                                                        <?php endforeach;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>    
-                                                        </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="claseVehiculo"><span style="color: red">*</span>Clases de vehículo:</label>
+                                                            <div class='col-md-3'>
+                                                                <select class='form-control obligatorio' id="claseVehiculo" name="claseVehiculo">
+                                                                    <option value=''>::Seleccionar::</option>
+                                                                    <?php foreach ($claseVehiculo as $cv): ?>
+                                                                        <option <?php echo (!empty($vehiculo->claVeh_id) && $vehiculo->claVeh_id == $cv->claVeh_id) ? "selected" : ""; ?> value='<?php echo $cv->claVeh_id ?>'><?php echo $cv->claVeh_nombre ?></option>
+                                                                    <?php endforeach; ?>                                                   
+                                                                </select>
+                                                            </div>
+                                                            <label class='col-md-1' for="tipoVehiculo"><span style="color: red">*</span>Tipo de vehículo:</label>
+                                                            <div class='col-md-3'>
+                                                                <select class='form-control obligatorio' id="tipoVehiculo" name="tipoVehiculo">
+                                                                    <option value=''>::Seleccionar::</option>
+                                                                    <?php
+                                                                    if (!empty($veh_id)) :
+                                                                        foreach ($tipoVehiculo as $tv):
+                                                                            ?>
+                                                                            <option <?php echo (!empty($vehiculo->tipVeh_id) && $vehiculo->tipVeh_id == $tv->tipVeh_id) ? "selected" : ""; ?> value='<?php echo $tv->tipVeh_id ?>'><?php echo $tv->tipVeh_nombre ?></option>
+                                                                            <?php
+                                                                        endforeach;
+                                                                    endif;
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                            <label class='col-md-1' for="tipoServicio">Tipo de servicio:</label>
+                                                            <div class='col-md-3'>
+                                                                <select class='form-control' id="tipoServicio" name="tipoServicio">
+                                                                    <option value=''>::Seleccionar::</option>
+                                                                    <?php foreach ($tipoServicio as $ts): ?>
+                                                                        <option <?php echo (!empty($vehiculo->tipSer_id) && $vehiculo->tipSer_id == $ts->tipSer_id) ? "selected" : ""; ?> value='<?php echo $ts->tipSer_id ?>'><?php echo $ts->tipSer_nombre ?></option>
+                                                                    <?php endforeach;
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div> 
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-6'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="kilometrajeActual">Kilometraje actual:</label>
-                                                                <div class="col-md-8">
-                                                                    <div class="input-group ">
-                                                                        <span id="agregarKilometros"  class="input-group-addon" id="agregarKilometraje" style="cursor: pointer">
-                                                                            <i class="fa fa-plus"></i>
-                                                                        </span>
-                                                                        <input type="text" class="form-control" value="<?php echo (!empty($vehiculo->kilometraje)) ? $vehiculo->kilometraje : ""; ?>" id="kilometrajeActual" style="text-align: center" readonly="" >
-                                                                        <span class="input-group-addon" >
-                                                                            KM
-                                                                        </span>    
-                                                                    </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-2' for="kilometrajeActual">Kilometraje actual:</label>
+                                                            <div class="col-md-4">
+                                                                <div class="input-group ">
+                                                                    <span id="agregarKilometros"  class="input-group-addon" id="agregarKilometraje" style="cursor: pointer">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </span>
+                                                                    <input type="text" class="form-control" value="<?php echo (!empty($vehiculo->kilometraje)) ? $vehiculo->kilometraje : ""; ?>" id="kilometrajeActual" style="text-align: center" readonly="" >
+                                                                    <span class="input-group-addon" >
+                                                                        KM
+                                                                    </span>    
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="pais"><span style="color: red">*</span>Pais:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select name='pais' id='pais' class='form-control obligatorio'>
-                                                                        <option value="">::Seleccionar::</option>
-                                                                        <?php foreach ($pais as $p): ?>
-                                                                            <option <?php echo (!empty($vehiculo->pai_id) && $vehiculo->pai_id == $p->pai_id) ? "selected" : ""; ?> value='<?php echo $p->pai_id ?>'><?php echo $p->pai_nombre ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="pais"><span style="color: red">*</span>Pais:</label>
+                                                            <div class='col-md-3'>
+                                                                <select name='pais' id='pais' class='form-control obligatorio'>
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php foreach ($pais as $p): ?>
+                                                                        <option <?php echo (!empty($vehiculo->pai_id) && $vehiculo->pai_id == $p->pai_id) ? "selected" : ""; ?> value='<?php echo $p->pai_id ?>'><?php echo $p->pai_nombre ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="departamento"><span style="color: red">*</span>Departamento:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select name='departamento' id='departamento' class='form-control obligatorio'>
-                                                                        <option value="">::Seleccionar::</option>
-                                                                        <?php
-                                                                        if (!empty($veh_id)) :
-                                                                            foreach ($departamento as $d):
-                                                                                ?>
-                                                                                <option <?php echo (!empty($vehiculo->dep_id) && $vehiculo->dep_id == $d->dep_id) ? "selected" : ""; ?> value='<?php echo $d->dep_id ?>'><?php echo $d->dep_nombre ?></option>
-                                                                                <?php
-                                                                            endforeach;
-                                                                        endif;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
+                                                            <label class='col-md-1' for="departamento"><span style="color: red">*</span>Departamento:</label>
+                                                            <div class='col-md-3'>
+                                                                <select name='departamento' id='departamento' class='form-control obligatorio'>
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php
+                                                                    if (!empty($veh_id)) :
+                                                                        foreach ($departamento as $d):
+                                                                            ?>
+                                                                            <option <?php echo (!empty($vehiculo->dep_id) && $vehiculo->dep_id == $d->dep_id) ? "selected" : ""; ?> value='<?php echo $d->dep_id ?>'><?php echo $d->dep_nombre ?></option>
+                                                                            <?php
+                                                                        endforeach;
+                                                                    endif;
+                                                                    ?>
+                                                                </select>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="ciudad"><span style="color: red">*</span>Ciudad:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select name='ciudad' id='ciudad' class='form-control obligatorio'>
-                                                                        <option value="">::Seleccionar::</option>
-                                                                        <?php
-                                                                        if (!empty($veh_id)) :
-                                                                            foreach ($ciudad as $c):
-                                                                                ?>
-                                                                                <option <?php echo (!empty($vehiculo->ciu_id) && $vehiculo->ciu_id == $c->ciu_id) ? "selected" : ""; ?> value='<?php echo $c->ciu_id ?>'><?php echo $c->ciu_nombre ?></option>
-                                                                                <?php
-                                                                            endforeach;
-                                                                        endif;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
+
+                                                            <label class='col-md-1' for="ciudad"><span style="color: red">*</span>Ciudad:</label>
+                                                            <div class='col-md-3'>
+                                                                <select name='ciudad' id='ciudad' class='form-control obligatorio'>
+                                                                    <option value="">::Seleccionar::</option>
+                                                                    <?php
+                                                                    if (!empty($veh_id)) :
+                                                                        foreach ($ciudad as $c):
+                                                                            ?>
+                                                                            <option <?php echo (!empty($vehiculo->ciu_id) && $vehiculo->ciu_id == $c->ciu_id) ? "selected" : ""; ?> value='<?php echo $c->ciu_id ?>'><?php echo $c->ciu_nombre ?></option>
+                                                                            <?php
+                                                                        endforeach;
+                                                                    endif;
+                                                                    ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -248,10 +215,9 @@
                                                         </div>
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-4'>
                                                             <div class='form-group'>
-                                                                <label class='col-md-4' for="linea"><span style="color: red">*</span>N° Puertas:</label>
-                                                                <div class='col-md-8'>
+                                                                <label class='col-md-1' for="linea"><span style="color: red">*</span>N° Puertas:</label>
+                                                                <div class='col-md-3'>
                                                                     <select style="text-align: center" name='noPuertas' id='noPuertas' class='form-control number obligatorio'>
                                                                         <option style="text-align: center" value="">::Seleccionar::</option>
                                                                         <?php for ($i = 1; $i < 21; $i++): ?>
@@ -260,24 +226,15 @@
                                                                         ?>
                                                                     </select>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="linea">Linea:</label>
-                                                                <div class='col-md-8'>
+                                                                <label class='col-md-1' for="linea">Linea:</label>
+                                                                <div class='col-md-3'>
                                                                     <input type='text' value="<?php echo (!empty($vehiculo->veh_linea)) ? $vehiculo->veh_linea : ""; ?>" name='linea' id='linea' class='form-control'>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="capacidadCarga">Tonelada(s) carga:</label>
-                                                                <div class='col-md-8'>
+                                                                <label class='col-md-1' for="capacidadCarga">Tonelada(s) carga:</label>
+                                                                <div class='col-md-3'>
                                                                     <input type='text' value="<?php echo (!empty($vehiculo->veh_toneladas)) ? $vehiculo->veh_toneladas : ""; ?>" name='toneladaCarga' id='toneladaCarga' class='form-control'>
                                                                 </div>
                                                             </div>
-                                                        </div>
                                                     </div>
                                                     <div class='col-md-12'>
                                                         <div class='col-md-4'>
@@ -296,15 +253,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-<!--                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="noChasis"><span style="color: red">*</span>N° Chasis:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_numChasis)) ? $vehiculo->veh_numChasis : ""; ?>" name='noChasis' id='noChasis' class='form-control obligatorio'>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
-<div class='col-md-4'>
+                                                        <!--                                                        <div class='col-md-4'>
+                                                                                                                    <div class='form-group'>
+                                                                                                                        <label class='col-md-4' for="noChasis"><span style="color: red">*</span>N° Chasis:</label>
+                                                                                                                        <div class='col-md-8'>
+                                                                                                                            <input type='text' value="<?php echo (!empty($vehiculo->veh_numChasis)) ? $vehiculo->veh_numChasis : ""; ?>" name='noChasis' id='noChasis' class='form-control obligatorio'>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>-->
+                                                        <div class='col-md-4'>
                                                             <div class='form-group'>
                                                                 <label class='col-md-4' for="noVin">No VIN (Chasis):</label>
                                                                 <div class='col-md-8'>
@@ -349,7 +306,7 @@
                                                                                                                         <select name='tipoCarroceria' id='tipoCarroceria' class='form-control'>
                                                                                                                             <option value="">::Seleccionar::</option>
                                                     <?php foreach ($tipoCarroceria as $tc): ?>
-                                                                                                                                            <option <?php echo (!empty($vehiculo->tipCar_id) && $vehiculo->tipCar_id == $tc->tipCar_id) ? "selected" : ""; ?> value='<?php echo $tc->tipCar_id ?>'><?php echo $tc->tipCar_nombre ?></option>
+                                                                                                                                                            <option <?php echo (!empty($vehiculo->tipCar_id) && $vehiculo->tipCar_id == $tc->tipCar_id) ? "selected" : ""; ?> value='<?php echo $tc->tipCar_id ?>'><?php echo $tc->tipCar_nombre ?></option>
                                                         <?php
                                                     endforeach;
                                                     ?>
@@ -394,8 +351,8 @@
                                                     <div class='col-md-4'>
                                                         <select class='form-control obligatorioPropietario' id="perteneceCompania" name="perteneceCompania">
                                                             <option value=""></option>
-                                                            <option value="1" <?php echo ($propietario->vehPro_pertenece == 1  ) ? "selected" : ""; ?>>Si</option>
-                                                            <option value="0" <?php echo ($propietario->vehPro_pertenece == 0  ) ? "selected" : ""; ?>>No</option>
+                                                            <option value="1" <?php echo ($propietario->vehPro_pertenece == 1 ) ? "selected" : ""; ?>>Si</option>
+                                                            <option value="0" <?php echo ($propietario->vehPro_pertenece == 0 ) ? "selected" : ""; ?>>No</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -731,7 +688,7 @@ MODALES
 
     $('body').delegate(".eliminarObservacion", "click", function () {
         if (confirm("Esta seguro de eliminar el registro")) {
-            var puntero = $(this); 
+            var puntero = $(this);
             $.post(
                     url + "index.php/Vehiculo/eliminarObservacion",
                     {
