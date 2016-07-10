@@ -5,7 +5,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="glyphicon glyphicon-ok"></i>Inventario
+                    <i class="fa fa-clipboard"></i>Inventario
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>

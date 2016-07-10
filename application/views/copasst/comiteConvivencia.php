@@ -148,7 +148,6 @@
                 puntero.parents('tr').find('.nombre *').remove();
                 var option = "<button type='button' class='btn btn-danger eliminar'><i class='fa fa-remove'></i></button>";
 
-
                 if (puntero.val() == 1) {
                     var disabled = "disabled='disabled'";
                     var optionSelect = "<select name='empleado' class='form-control datosEmpleado'><option value=''>::Seleccionar::</option>";
@@ -224,7 +223,7 @@
 
     $('#guardar').click(function(){
         $.post(
-                "<?php echo base_url("index.php/copasst/guardaComiteConvivencia") ?>",
+                "<?php echo base_url("index.php/copasst/guardaComiteConvivencia") ?>"
                 ).done(function(msg){
                     
                 }).fail(function(msg){

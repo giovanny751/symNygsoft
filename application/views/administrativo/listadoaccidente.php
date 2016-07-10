@@ -1,11 +1,4 @@
 <div class="row">
-    <div class="col-md-6">
-        <br>
-        <a href="<?php echo base_url('index.php/administrativo/accidente ') ?>"><div title="Nuevo Accidente" class="circuloIcon"><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>
-<br>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -19,6 +12,12 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="<?php echo base_url('index.php/administrativo/accidente ') ?>"><div title="Nuevo Accidente" class="circuloIcon"><i class="fa fa-folder-open fa-3x"></i></div></a>
+                            <hr>
+                        </div>
+                    </div>
                     <form method="post" id="f2" class="form-horizontal">
                         <div class="row">
                             <label for="empleado" class="control-label col-sm-2">Reporte</label>

@@ -1,24 +1,19 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon guardar" title="Agregar"><i class="fa fa-floppy-o fa-3x"></i></div> 
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>TIPOS DE INDICADORES
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse">
-                    </a>
+                    <i class="fa fa-tag"></i>TIPOS DE INDICADORES
                 </div>
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="circuloIcon guardar" title="Agregar"><i class="fa fa-floppy-o fa-3x"></i></div> 
+                            <hr>
+                        </div>
+                    </div>
                     <div class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">
@@ -34,19 +29,19 @@
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover" >
                                     <thead>
-                                    <th style="width: 80%">Tipo</th>
-                                    <th style="width: 10%">Editar</th>
-                                    <th style="width: 10%">Eliminar</th>
+                                    <th style="width: 80%;text-align: center;">Tipo</th>
+                                    <th style="width: 10%;text-align: center;">Editar</th>
+                                    <th style="width: 10%;text-align: center;">Eliminar</th>
                                     </thead>
                                     <tbody id="bodytipoindicador">
                                         <?php foreach ($tipoindicadores as $d) { ?>
                                             <tr id="<?php echo $d->indTip_id ?>">
                                                 <td class='tipo'><?php echo $d->indTip_tipo ?></td>
-                                                <td class="transparent">
-                                                    <i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" dim_id="<?php echo $d->indTip_id ?>" data-toggle="modal" data-target="#myModal"></i>
+                                                <td class="transparent" style="text-align: center">
+                                                    <button type="button" class="btn btn-danger"><i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar" dim_id="<?php echo $d->indTip_id ?>" data-toggle="modal" data-target="#myModal"></i></button>
                                                 </td>
-                                                <td class="transparent">
-                                                    <i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" dim_id="<?php echo $d->indTip_id ?>" ></i>
+                                                <td class="transparent" style="text-align: center">
+                                                    <button type="button" class="btn btn-info"><i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" dim_id="<?php echo $d->indTip_id ?>" ></i></button>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -82,79 +77,80 @@
             </div>
         </div>
     </div>
-    <script>
-        $('.guardarmodificacion').click(function () {
-            $.post(
-                    url + "index.php/indicador/guardarmodificaciontipoindicador",
-                    {
-                        tipIndid: $('#dimid').val(),
-                        tipIndTipo: $('#descripcion2').val()
-                    }
-            ).done(function (msg) {
-                $('#' + $('#dimid').val()).find('.tipo').text(msg.indTip_tipo);
-                $('#myModal').modal("hide");
-                alerta("verde", "Modificado correctamente");
-            }).fail(function (msg) {
-                alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
-            })
+</div>
+<script>
+    $('.guardarmodificacion').click(function () {
+        $.post(
+                url + "index.php/indicador/guardarmodificaciontipoindicador",
+                {
+                    tipIndid: $('#dimid').val(),
+                    tipIndTipo: $('#descripcion2').val()
+                }
+        ).done(function (msg) {
+            $('#' + $('#dimid').val()).find('.tipo').text(msg.indTip_tipo);
+            $('#myModal').modal("hide");
+            alerta("verde", "Modificado correctamente");
+        }).fail(function (msg) {
+            alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
+        })
 
+    });
+
+    $('body').delegate(".modificar", "click", function () {
+        $.post(
+                url + "index.php/indicador/consultaIndicadorxid",
+                {tipoIndicador: $(this).attr('dim_id')}
+        ).done(function (msg) {
+            $('#dimid').val(msg.indTip_id);
+            $('#descripcion2').val(msg.indTip_tipo);
+        }).fail(function (msg) {
+            alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
         });
 
-        $('body').delegate(".modificar", "click", function () {
+    });
+
+    $('body').delegate(".eliminar", "click", function () {
+        var eliminar = $(this);
+        if (confirm("Esta seguro de eliminar el tipo de indicador") == true) {
             $.post(
-                    url + "index.php/indicador/consultaIndicadorxid",
-                    {tipoIndicador: $(this).attr('dim_id')}
+                    url + 'index.php/indicador/eliminarindicador',
+                    {id: $(this).attr('dim_id')}
             ).done(function (msg) {
-                $('#dimid').val(msg.indTip_id);
-                $('#descripcion2').val(msg.indTip_tipo);
+                eliminar.parents('tr').remove();
+                alerta("verde", "Eliminado Correctamente");
             }).fail(function (msg) {
                 alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
             });
-
-        });
-
-        $('body').delegate(".eliminar", "click", function () {
-            var eliminar = $(this);
-            if (confirm("Esta seguro de eliminar el tipo de indicador") == true) {
-                $.post(
-                        url + 'index.php/indicador/eliminarindicador',
-                        {id: $(this).attr('dim_id')}
-                ).done(function (msg) {
-                    eliminar.parents('tr').remove();
-                    alerta("verde", "Eliminado Correctamente");
-                }).fail(function (msg) {
-                    alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
-                });
-            }
-        });
-        $('.guardar').click(function () {
-            if (obligatorio('obligatorio') == true) {
-                $.post(
-                        url + "index.php/indicador/guardarTipoIndicador"
-                        , {
-                            tipoindicador: $('#descripcion').val()
-                        })
-                        .done(function (msg) {
-                            if (msg != 1) {
-                                $('#descripcion').val('');
-                                $('#bodytipoindicador *').remove();
-                                var bodytipoIndicador = "";
-                                $.each(msg, function (key, val) {
-                                    bodytipoIndicador += "<tr id='" + val.indTip_id + "'>";
-                                    bodytipoIndicador += "<td class='tipo'>" + val.indTip_tipo + "</td>";
-                                    bodytipoIndicador += '<td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar"  dim_id="' + val.indTip_id + '" data-toggle="modal" data-target="#myModal"></i></td>';
-                                    bodytipoIndicador += '<td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" dim_id="' + val.indTip_id + '" ></i></td>'
-                                    bodytipoIndicador += "</tr>";
-                                });
-                                $('#bodytipoindicador').append(bodytipoIndicador);
-                                alerta("verde", "Guardado Correctamente");
-                            } else {
-                                alerta("amarillo", "datos ya existentes en el sistema");
-                            }
-                        })
-                        .fail(function (msg) {
-                            alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
-                        })
-            }
-        });
-    </script>
+        }
+    });
+    $('.guardar').click(function () {
+        if (obligatorio('obligatorio') == true) {
+            $.post(
+                    url + "index.php/indicador/guardarTipoIndicador"
+                    , {
+                        tipoindicador: $('#descripcion').val()
+                    })
+                    .done(function (msg) {
+                        if (msg != 1) {
+                            $('#descripcion').val('');
+                            $('#bodytipoindicador *').remove();
+                            var bodytipoIndicador = "";
+                            $.each(msg, function (key, val) {
+                                bodytipoIndicador += "<tr id='" + val.indTip_id + "'>";
+                                bodytipoIndicador += "<td class='tipo'>" + val.indTip_tipo + "</td>";
+                                bodytipoIndicador += '<td class="transparent"><i class="fa fa-pencil-square-o fa-2x modificar" title="Modificar"  dim_id="' + val.indTip_id + '" data-toggle="modal" data-target="#myModal"></i></td>';
+                                bodytipoIndicador += '<td class="transparent"><i class="fa fa-trash-o fa-2x eliminar" title="Eliminar" dim_id="' + val.indTip_id + '" ></i></td>'
+                                bodytipoIndicador += "</tr>";
+                            });
+                            $('#bodytipoindicador').append(bodytipoIndicador);
+                            alerta("verde", "Guardado Correctamente");
+                        } else {
+                            alerta("amarillo", "datos ya existentes en el sistema");
+                        }
+                    })
+                    .fail(function (msg) {
+                        alerta("rojo", "Error, por favor comunicarse con el administrador del sistema");
+                    })
+        }
+    });
+</script>

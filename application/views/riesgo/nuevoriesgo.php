@@ -1,16 +1,3 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" id="<?php echo (empty($rie_id)) ? "guardar" : "actualizar"; ?>" title="<?php echo (empty($rie_id)) ? "Guardar" : "Actualizar"; ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-    <div class="col-md-6">
-        <div id="posicionFlecha">
-            <a href="<?php echo base_url("index.php/riesgo/listadoriesgo") ?>"><div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div></a>
-        </div>
-    </div>
-</div>
-<br>
 <div class="general_div">
     <div class="row">
         <div class="col-md-12">
@@ -25,6 +12,14 @@
                 </div>
                 <div class="portlet-body form">
                     <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="circuloIcon" id="<?php echo (empty($rie_id)) ? "guardar" : "actualizar"; ?>" title="<?php echo (empty($rie_id)) ? "Guardar" : "Actualizar"; ?>"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                                    <a href="<?php echo base_url("index.php/riesgo/listadoriesgo") ?>"><div class="flechaHeader Archivo" metodo="documento"><i class="fa fa-sticky-note fa-2x"></i></div></a>
+                                <hr>
+                            </div>
+                        </div>
                         <div class="row">
                             <form method="post" id="riesgos" class="form-horizontal">
                                 <div class="col-lg-6 col-md-6 col-sx-6 col-sm-6">
@@ -158,8 +153,8 @@
                                                             $nivelColor = "green";
                                                         elseif ($color == 4)
                                                             $nivelColor = "orange";
-                                                        
-                                                        $palabra =  substr($riesgo->nivRie_nivel, 0, 1);
+
+                                                        $palabra = substr($riesgo->nivRie_nivel, 0, 1);
                                                     }
                                                     ?>
                                                     <input type="text" id="nivelRiesgo"  style="background-color:<?php echo $nivelColor; ?>" value="<?php echo (!empty($riesgo->nivRie_nivel)) ? $riesgo->nivRie_nivel : ""; ?>" name="nivelRiesgo" class="form-control" />
@@ -208,7 +203,7 @@
                                 <input type="hidden" name="rie_id" id="rie_id" value="<?php echo (!empty($rie_id)) ? $rie_id : ""; ?>" />
                             </form>
                         </div>
-<?php if (!empty($rie_id)): ?>
+                        <?php if (!empty($rie_id)): ?>
                             <div class="portlet box blue">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -250,7 +245,7 @@
                                                     <th>Responsables</th>
                                                     </thead> 
                                                     <tbody>
-    <?php if (empty($tareas)) { ?>
+                                                        <?php if (empty($tareas)) { ?>
                                                             <tr>
                                                                 <td colspan="9">
                                                         <center>
@@ -286,10 +281,10 @@
                                                                 <td style="text-align:center"><?php echo $tar->diferencia ?></td>
                                                                 <td><?php echo $tar->Emp_Nombre ?></td>
                                                             </tr>
-            <?php
-        }
-    }
-    ?>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -306,7 +301,7 @@
                                                     <th>Responsables</th>
                                                     </thead>
                                                     <tbody >
-    <?php foreach ($tareasinactivas as $ti): ?>
+                                                        <?php foreach ($tareasinactivas as $ti): ?>
                                                             <tr>
                                                                 <td><i class='fa fa-pencil btn btn-default editartarea' tar_id='<?php echo $ti->tar_id ?>' ></i></td>
                                                                 <td></td>
@@ -317,7 +312,7 @@
                                                                 <td><?php echo $ti->diferencia ?>&nbsp;Días</td>
                                                                 <td><?php echo $ti->nombre ?></td>
                                                             </tr>
-    <?php endforeach; ?>
+                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -386,7 +381,7 @@
                                                                                             <th>Acción</th>
                                                                                             </thead>
                                                                                             <tbody>
-            <?php foreach ($numcar as $numerocar => $campocar): ?>
+                                                                                                <?php foreach ($numcar as $numerocar => $campocar): ?>
                                                                                                     <tr>
                                                                                                         <td><?php echo $campocar[0] ?></td>
                                                                                                         <td><?php echo $campocar[1] ?></td>
@@ -399,7 +394,7 @@
                                                                                                             <i class="fa fa-pencil-square-o fa-2x modificarregistro btn btn-info" title="Modificar" reg_id="<?php echo $campocar[6] ?>" data-target="#myModal15" data-toggle="modal"></i>
                                                                                                         </td>
                                                                                                     </tr>   
-            <?php endforeach; ?>
+                                                                                                <?php endforeach; ?>
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </div>
@@ -418,12 +413,12 @@
                                             </div>
                                             <div id="tab5" class="tab-pane">
                                                 <p><br></p>
-                                                        <?php if (!empty($tareas)) { ?>
+                                                <?php if (!empty($tareas)) { ?>
                                                     <div id="grafica_granf">
                                                         <form id="formulario_grant">
                                                             <input type="text" id="fecha_maxima" name="fecha_maxima" value="<?php echo (isset($fecha_maxima) ? $fecha_maxima : '') ?>">
                                                             <input type="text" id="fecha_minima" name="fecha_minima" value="<?php echo (isset($fecha_minima) ? $fecha_minima : '') ?>">
-        <?php foreach ($tareas as $value) { ?>
+                                                            <?php foreach ($tareas as $value) { ?>
                                                                 <input type="text" id="tar_fechaInicio" name="tar_fechaInicio[]" value="<?php echo $value->tar_fechaInicio ?>">        
                                                                 <input type="text" id="tar_nombre" name="tar_nombre[]" value="<?php echo $value->tar_nombre ?>">        
                                                                 <input type="text" id="diferencia" name="diferencia[]" value="<?php echo $value->diferencia ?>">        
@@ -431,10 +426,10 @@
                                                                 <input type="text" id="ultimafechacreacion" name="ultimafechacreacion[]" value="<?php echo $value->ultimafechacreacion ?>">        
                                                                 <input type="text" id="tar_id" name="tar_id[]" value="<?php echo $value->tar_id ?>">        
                                                                 <input type="text" id="progreso" name="progreso[]" value="<?php echo $value->progreso ?>">        
-        <?php } ?>                                        
+                                                            <?php } ?>                                        
                                                         </form>
                                                     </div>
-    <?php } ?>                                        
+                                                <?php } ?>                                        
                                             </div>
                                             <div id="tab6" class="tab-pane">
                                                 <table class="tablesst">
@@ -517,9 +512,9 @@
                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                                         <select id="carpeta" name="carpeta" class="form-control ">
                                                             <option value="">::Seleccionar::</option>
-    <?php foreach ($carpetas as $carp): ?>
+                                                            <?php foreach ($carpetas as $carp): ?>
                                                                 <option value="<?php echo $carp->regCar_id ?>"><?php echo $carp->regCar_nombre . " " . $carp->regCar_descripcion ?></option>
-    <?php endforeach; ?>
+                                                            <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -556,7 +551,7 @@
                                     </div>
                                 </div>
                             </div>
-<?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

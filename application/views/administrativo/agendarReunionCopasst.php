@@ -1,27 +1,9 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <br>
-        <?php if (!empty($empleado[0]->Emp_Id)) { ?>
-            <div class="circuloIcon" id="actualizar" title="Actualizar Reunión"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <?php } else { ?>
-            <div class="circuloIcon" id="guardar" title="Guardar Reunion"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <?php } ?>
-        <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
-            <div class="circuloIcon" title="Nueva reunión" ><i class="fa fa-folder-open fa-3x"></i></div>
-        </a>
-        <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
-            <div class="circuloIcon" title="Listado reuniones Copasst"><i class="fa fa-sticky-note fa-2x"></i></div>
-        </a>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Agendamiento reunión Copasst
+                    <i class="icon-support"></i>Agendamiento reunión Copasst
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -33,6 +15,21 @@
                     <form method="post" id="frmReunion" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">
+                                <br>
+                                <?php if (!empty($empleado[0]->Emp_Id)) { ?>
+                                    <div class="circuloIcon" id="actualizar" title="Actualizar Reunión"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <?php } else { ?>
+                                    <div class="circuloIcon" id="guardar" title="Guardar Reunion"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <?php } ?>
+                                <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
+                                    <div class="circuloIcon" title="Nueva reunión" ><i class="fa fa-folder-open fa-3x"></i></div>
+                                </a>
+                                <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
+                                    <div class="circuloIcon" title="Listado reuniones Copasst"><i class="fa fa-sticky-note fa-2x"></i></div>
+                                </a>
+                                <hr>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-12"><a href="<?php echo base_url("uploads/sgsst/FormatodeActadeReunióndelCOPASST.docx") ?>"><i class="fa fa-archive"></i>&nbsp;Descargar formato de reunión copasst</a></div>
@@ -42,82 +39,56 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-md-1" for="nombreReunion"><span>*</span>Nombre</label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="fecha form-control obligatorio" name="nombreReunion" id="nombreReunion">
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-1" for="nombreReunion"><span>*</span>Nombre</label>
+                                    <div class="col-md-11">
+                                        <input type="text" class="fecha form-control obligatorio" name="nombreReunion" id="nombreReunion">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="fechaReunion"><span>*</span>Fecha</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="fecha form-control obligatorio" name="fechaReunion" id="fechaReunion">
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-1" for="fechaReunion"><span>*</span>Fecha</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="fecha form-control obligatorio" name="fechaReunion" id="fechaReunion">
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="horaInicial"><span>*</span>Hora inicial</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control timepicker timepicker-no-seconds obligatorio" name="horaInicial" id="horaInicial">
-                                        </div>
+                                    <label class="col-md-1" for="horaInicial"><span>*</span>Hora inicial</label>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control timepicker timepicker-no-seconds obligatorio" name="horaInicial" id="horaInicial">
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="horaFinal"><span>*</span>Hora final</label>
-                                        <div class="col-md-8">
-                                            <input class="form-control timepicker timepicker-no-seconds obligatorio" name="horaFinal" id="horaFinal" type="text">
-                                        </div>
+                                    <label class="col-md-1" for="horaFinal"><span>*</span>Hora final</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control timepicker timepicker-no-seconds obligatorio" name="horaFinal" id="horaFinal" type="text">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="responsable"><span>*</span>Responsable</label>
-                                        <div class="col-md-8" id="selectResponsable">
-                                            <select name="responsable" id="responsable" class="form-control responsable obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($empleados as $e): ?>
-                                                    <option value="<?php echo $e->Emp_id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-1" for="responsable"><span>*</span>Responsable</label>
+                                    <div class="col-md-3" id="selectResponsable">
+                                        <select name="responsable" id="responsable" class="form-control responsable obligatorio">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($empleados as $e): ?>
+                                                <option value="<?php echo $e->Emp_id ?>"><?php echo $e->Emp_Nombre . " " . $e->Emp_Apellidos ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="agenda"><span>*</span>Agenda comite</label>
-                                        <div class="col-md-8">
-                                            <select name="agenda[]" id="agenda" class="form-control obligatorio" multiple>
-                                                <?php foreach ($agenda as $a): ?>
-                                                    <option value="<?php echo $a->ageCom_id ?>"><?php echo $a->ageCom_agenda ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                    <label class="col-md-1" for="agenda"><span>*</span>Agenda comite</label>
+                                    <div class="col-md-3">
+                                        <select name="agenda[]" id="agenda" class="form-control obligatorio" multiple>
+                                            <?php foreach ($agenda as $a): ?>
+                                                <option value="<?php echo $a->ageCom_id ?>"><?php echo $a->ageCom_agenda ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label class="col-md-4" for="estadoReunion"><span>*</span>Estado</label>
-                                        <div class="col-md-8" id="selectResponsable">
-                                            <select name="estadoReunion" id="estadoReunion" class="form-control responsable obligatorio">
-                                                <option value="">::Seleccionar::</option>
-                                                <?php foreach ($estado as $est): ?>
-                                                    <option value="<?php echo $est->est_id ?>"><?php echo $est->est_nombre ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
+                                    <label class="col-md-1" for="estadoReunion"><span>*</span>Estado</label>
+                                    <div class="col-md-3" id="selectResponsable">
+                                        <select name="estadoReunion" id="estadoReunion" class="form-control responsable obligatorio">
+                                            <option value="">::Seleccionar::</option>
+                                            <?php foreach ($estado as $est): ?>
+                                                <option value="<?php echo $est->est_id ?>"><?php echo $est->est_nombre ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +137,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" id="agregar" class="btn btn-success"><i class="fa fa-plus"></i> Agregar</button>
+                                <button type="button" id="agregar" class="btn btn-success"><i class="fa fa-user-plus"></i></button>
                             </div>
                         </div>
                         <div class="row">
@@ -174,11 +145,11 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead>
-                                        <th style="width: 15%">¿Pertenece a la compañia?</th>
-                                        <th style="width: 40%">Persona</th>
-                                        <th style="width: 20%">Cédula</th>
-                                        <th style="width: 20%">Correo</th>
-                                        <th style="width: 5%">Eliminar</th>
+                                        <th style="width: 15%;text-align: center">¿Pertenece a la compañia?</th>
+                                        <th style="width: 40%;text-align: center">Persona</th>
+                                        <th style="width: 20%;text-align: center">Cédula</th>
+                                        <th style="width: 20%;text-align: center">Correo</th>
+                                        <th style="width: 5%;text-align: center">Eliminar</th>
                                         </thead>
                                         <tbody id="cuerpoTablaComite">
 
@@ -231,7 +202,7 @@
         table += "<td class='persona'></td>";
         table += "<td class='cedula'></td>";
         table += "<td class='correo'></td>";
-        table += "<td class='eliminar' style='text-align:center;cursor:pointer'><i class='fa fa-remove fa-2x; eliminar'></i></td>";
+        table += "<td class='eliminar' style='text-align:center;cursor:pointer'><button type='button' class='btn btn-danger'><i class='fa fa-remove fa-2x eliminar'></i></button></td>";
         table += "</tr>";
         $('#cuerpoTablaComite').append(table);
     })
@@ -281,11 +252,11 @@
     });
 
     $('#agenda').change(function () {
-        
+
         var index = $(this).val();
         $('#reunionAnterior *').remove();
-        
-        
+
+
         if (index.indexOf("1") == 0) {
             $('.reunionesAnteriores').show('slow');
             $.post(
@@ -296,8 +267,8 @@
                 else {
                     var option = "<option value=''>::Seleccionar::</option>";
 
-                    $.each(msg.Json,function(key,val){
-                        option += "<option value='"+val.copReu_id+"'>"+val.copReu_nombre+"</option>"
+                    $.each(msg.Json, function (key, val) {
+                        option += "<option value='" + val.copReu_id + "'>" + val.copReu_nombre + "</option>"
                     })
 
                     $('#reunionAnterior').append(option);
@@ -306,7 +277,7 @@
                     .fail(function (msg) {
                         alerta("rojo", "Error intente mas tarde");
                     });
-        }else{
+        } else {
             $('.reunionesAnteriores').hide('slow');
         }
 

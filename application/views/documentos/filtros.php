@@ -15,10 +15,10 @@
                 <div class="form-body">
                     <form method="post" class="form-horizontal" id="inspecciones">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4">Inspección</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Inspección</label>
+                                    <div class="col-md-3">
                                         <select id="tipoinspec" class="form-control" name="tipoinspec">
                                             <option value="">-Seleccionar-</option>
                                             <option value="1">Botiquin</option>
@@ -26,38 +26,24 @@
                                             <option value="3">General</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4">Fecha Desde:</label> 
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Fecha Desde:</label> 
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control fecha" id="fechadesde" name="fechadesde">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4">Fecha Hasta:</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Fecha Hasta:</label>
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control fecha" id="fechahasta" name="fechahasta">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4">Responsable</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1">Responsable</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="responsable" id="responsable" class="form-control">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="col-md-12" align="right">
-                                        <button class="btn btn-success" id="consultar">Consultar</button>
+                                    <div class="col-md-offset-4 col-md-4" align="center">
+                                        <button type="button" class="btn btn-success" id="consultar">Consultar</button>
                                     </div>
                                 </div>
                             </div>
@@ -73,12 +59,6 @@
                                     <th>ELIMINAR</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

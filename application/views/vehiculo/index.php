@@ -10,7 +10,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Registro vehicular
+                    <i class="fa fa-car"></i>Registro vehicular
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -189,133 +189,77 @@
                                                         </div>
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="placa"><span style="color: red">*</span>Placa:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input value="<?php echo (!empty($vehiculo->veh_placa)) ? $vehiculo->veh_placa : ""; ?>" type='text' name='placa' id='placa' class='form-control obligatorio'>
-                                                                </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="placa"><span style="color: red">*</span>Placa:</label>
+                                                            <div class='col-md-3'>
+                                                                <input value="<?php echo (!empty($vehiculo->veh_placa)) ? $vehiculo->veh_placa : ""; ?>" type='text' name='placa' id='placa' class='form-control obligatorio'>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="marca"><span style="color: red">*</span>Marca:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input value="<?php echo (!empty($vehiculo->veh_marca)) ? $vehiculo->veh_marca : ""; ?>" type='text' name='marca' id='marca' class='form-control obligatorio'>
-                                                                </div>
+                                                            <label class='col-md-1' for="marca"><span style="color: red">*</span>Marca:</label>
+                                                            <div class='col-md-3'>
+                                                                <input value="<?php echo (!empty($vehiculo->veh_marca)) ? $vehiculo->veh_marca : ""; ?>" type='text' name='marca' id='marca' class='form-control obligatorio'>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="color">Color:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input value="<?php echo (!empty($vehiculo->veh_color)) ? $vehiculo->veh_color : ""; ?>" type='text' name='color' id='color' class='form-control obligatorio'>
-                                                                </div>
+                                                            <label class='col-md-1' for="color">Color:</label>
+                                                            <div class='col-md-3'>
+                                                                <input value="<?php echo (!empty($vehiculo->veh_color)) ? $vehiculo->veh_color : ""; ?>" type='text' name='color' id='color' class='form-control obligatorio'>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class='col-md-12'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-1' for="linea"><span style="color: red">*</span>N° Puertas:</label>
-                                                                <div class='col-md-3'>
-                                                                    <select style="text-align: center" name='noPuertas' id='noPuertas' class='form-control number obligatorio'>
-                                                                        <option style="text-align: center" value="">::Seleccionar::</option>
-                                                                        <?php for ($i = 1; $i < 21; $i++): ?>
-                                                                            <option <?php echo (!empty($vehiculo->veh_numPuertas) && $vehiculo->veh_numPuertas == $i) ? "selected" : ""; ?> style="text-align: center" value="<?php echo $i ?>"><?php echo $i ?></option>
-                                                                        <?php endfor;
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                                <label class='col-md-1' for="linea">Linea:</label>
-                                                                <div class='col-md-3'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_linea)) ? $vehiculo->veh_linea : ""; ?>" name='linea' id='linea' class='form-control'>
-                                                                </div>
-                                                                <label class='col-md-1' for="capacidadCarga">Tonelada(s) carga:</label>
-                                                                <div class='col-md-3'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_toneladas)) ? $vehiculo->veh_toneladas : ""; ?>" name='toneladaCarga' id='toneladaCarga' class='form-control'>
-                                                                </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="linea"><span style="color: red">*</span>N° Puertas:</label>
+                                                            <div class='col-md-3'>
+                                                                <select style="text-align: center" name='noPuertas' id='noPuertas' class='form-control number obligatorio'>
+                                                                    <option style="text-align: center" value="">::Seleccionar::</option>
+                                                                    <?php for ($i = 1; $i < 21; $i++): ?>
+                                                                        <option <?php echo (!empty($vehiculo->veh_numPuertas) && $vehiculo->veh_numPuertas == $i) ? "selected" : ""; ?> style="text-align: center" value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                                    <?php endfor;
+                                                                    ?>
+                                                                </select>
                                                             </div>
-                                                    </div>
-                                                    <div class='col-md-12'>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="noMotor"><span style="color: red">*</span>N° Motor:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_numMotor)) ? $vehiculo->veh_numMotor : ""; ?>" name='noMotor' id='noMotor' class='form-control obligatorio'>
-                                                                </div>
+                                                            <label class='col-md-1' for="linea">Linea:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' value="<?php echo (!empty($vehiculo->veh_linea)) ? $vehiculo->veh_linea : ""; ?>" name='linea' id='linea' class='form-control'>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="noSerie">N° Serie:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_numSerie)) ? $vehiculo->veh_numSerie : ""; ?>" name='noSerie' id='noSerie' class='form-control '>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--                                                        <div class='col-md-4'>
-                                                                                                                    <div class='form-group'>
-                                                                                                                        <label class='col-md-4' for="noChasis"><span style="color: red">*</span>N° Chasis:</label>
-                                                                                                                        <div class='col-md-8'>
-                                                                                                                            <input type='text' value="<?php echo (!empty($vehiculo->veh_numChasis)) ? $vehiculo->veh_numChasis : ""; ?>" name='noChasis' id='noChasis' class='form-control obligatorio'>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>-->
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="noVin">No VIN (Chasis):</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text' value="<?php echo (!empty($vehiculo->veh_numVin)) ? $vehiculo->veh_numVin : ""; ?>" name='noVin' id='noVin' class='form-control'>
-                                                                </div>
+                                                            <label class='col-md-1' for="capacidadCarga">Tonelada(s) carga:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' value="<?php echo (!empty($vehiculo->veh_toneladas)) ? $vehiculo->veh_toneladas : ""; ?>" name='toneladaCarga' id='toneladaCarga' class='form-control'>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class='col-md-12'>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="cilindraje"><span style="color: red">*</span>Cilindraje:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text'  value="<?php echo (!empty($vehiculo->veh_cilindraje)) ? $vehiculo->veh_cilindraje : ""; ?>" name='cilindraje' id='cilindraje' class='form-control obligatorio'>
-                                                                </div>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="noMotor"><span style="color: red">*</span>N° Motor:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' value="<?php echo (!empty($vehiculo->veh_numMotor)) ? $vehiculo->veh_numMotor : ""; ?>" name='noMotor' id='noMotor' class='form-control obligatorio'>
+                                                            </div>
+                                                            <label class='col-md-1' for="noSerie">N° Serie:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' value="<?php echo (!empty($vehiculo->veh_numSerie)) ? $vehiculo->veh_numSerie : ""; ?>" name='noSerie' id='noSerie' class='form-control '>
+                                                            </div>
+                                                            <label class='col-md-1' for="noVin">No VIN (Chasis):</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' value="<?php echo (!empty($vehiculo->veh_numVin)) ? $vehiculo->veh_numVin : ""; ?>" name='noVin' id='noVin' class='form-control'>
                                                             </div>
                                                         </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="fechaUltimoMantenimiento">Fecha del último mantenimiento:</label>
-                                                                <div class='col-md-8'>
-                                                                    <input type='text' name='fechaUltimoMantenimiento' id='fechaUltimoMantenimiento' class='form-control' disabled="disabled">
-                                                                </div>
+                                                    </div>
+                                                    <div class='col-md-12'>
+                                                        <div class='form-group'>
+                                                            <label class='col-md-1' for="cilindraje"><span style="color: red">*</span>Cilindraje:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text'  value="<?php echo (!empty($vehiculo->veh_cilindraje)) ? $vehiculo->veh_cilindraje : ""; ?>" name='cilindraje' id='cilindraje' class='form-control obligatorio'>
                                                             </div>
-                                                        </div>
-                                                        <div class='col-md-4'>
-                                                            <div class='form-group'>
-                                                                <label class='col-md-4' for="combustible"><span style="color: red">*</span>Conbustible:</label>
-                                                                <div class='col-md-8'>
-                                                                    <select name="combustible" id="combustible" class="form-control" multiple>
-                                                                        <option value=""></option>
-                                                                    </select>
-                                                                </div>
+                                                            <label class='col-md-1' for="fechaUltimoMantenimiento">Fecha del último mantenimiento:</label>
+                                                            <div class='col-md-3'>
+                                                                <input type='text' name='fechaUltimoMantenimiento' id='fechaUltimoMantenimiento' class='form-control' disabled="disabled">
+                                                            </div>
+                                                            <label class='col-md-1' for="combustible"><span style="color: red">*</span>Conbustible:</label>
+                                                            <div class='col-md-3'>
+                                                                <select name="combustible" id="combustible" class="form-control" multiple>
+                                                                    <option value=""></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>    
-                                                    <!--<div class='col-md-12'>-->
-                                                    <!--                                                        <div class='col-md-4'>
-                                                                                                                <div class='form-group'>
-                                                                                                                    <label class='col-md-4' for="tipoCarroceria">Tipo de Carrocería:</label>
-                                                                                                                    <div class='col-md-8'>
-                                                                                                                        <select name='tipoCarroceria' id='tipoCarroceria' class='form-control'>
-                                                                                                                            <option value="">::Seleccionar::</option>
-                                                    <?php foreach ($tipoCarroceria as $tc): ?>
-                                                                                                                                                            <option <?php echo (!empty($vehiculo->tipCar_id) && $vehiculo->tipCar_id == $tc->tipCar_id) ? "selected" : ""; ?> value='<?php echo $tc->tipCar_id ?>'><?php echo $tc->tipCar_nombre ?></option>
-                                                        <?php
-                                                    endforeach;
-                                                    ?>
-                                                                                                                        </select>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>-->
-
-                                                    <!--</div>-->
                                                     <div class='col-md-12'>
                                                         <div class='col-md-12'>
                                                             <div class='form-group'>

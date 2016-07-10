@@ -1,17 +1,10 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" title="Guardar capacitación" id="guardar" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-    </div>
-</div>
-<br>
 <form method="post" id="frmCapacitaciones">
     <div class="row">
         <div class="col-md-12">
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-table"></i>Tabla
+                        <i class="fa fa-american-sign-language-interpreting"></i>Agregar capacitaciones
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse">
@@ -20,6 +13,12 @@
                 </div>
                 <div class="portlet-body form">
                     <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="circuloIcon" title="Guardar capacitación" id="guardar" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <hr>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <label for="responsable" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -95,15 +94,15 @@
     </div>
 </form>
 <script>
-    
-    $('body').delegate(".eliminar","click",function(){
+
+    $('body').delegate(".eliminar", "click", function () {
         var table = $('#tablaCapacitacion').DataTable();
         table
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
+                .row($(this).parents('tr'))
+                .remove()
+                .draw();
     });
-    
+
     $('#agregar').click(function () {
         var select = "<select id='empleado' name='empleado[]' class='form-control'>";
         var table = $('#tablaCapacitacion').DataTable();

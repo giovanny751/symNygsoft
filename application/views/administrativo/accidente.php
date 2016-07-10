@@ -8,22 +8,6 @@
 
 </style>
 <div class="row">
-    <div class="col-md-6">
-        <br>
-        <?php if (isset($accidente)) { ?>
-            <div class="circuloIcon" id="guardarAccidente" title="Editar"><i class="fa fa fa-pencil-square-o fa-3x"></i></div>
-        <?php } else { ?>
-            <div class="circuloIcon" id="guardarAccidente" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <?php } ?>
-            <a href="<?php echo base_url('index.php/Administrativo/listadoaccidente')?>">
-            <div class="circuloIcon" metodo="documento" title="Listado Accidentes">
-                <i class="fa fa-sticky-note fa-2x"></i>
-            </div>
-        </a>
-    </div>
-</div>
-<br>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -43,10 +27,26 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
+                                <br>
+                                <?php if (isset($accidente)) { ?>
+                                    <div class="circuloIcon" id="guardarAccidente" title="Editar accidente"><i class="fa fa fa-pencil-square-o fa-3x"></i></div>
+                                <?php } else { ?>
+                                    <div class="circuloIcon" id="guardarAccidente" title="Guardar accidente"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <?php } ?>
+                                <a href="<?php echo base_url('index.php/Administrativo/listadoaccidente') ?>">
+                                    <div class="circuloIcon" metodo="documento" title="Listado Accidentes">
+                                        <i class="fa fa-sticky-note fa-2x"></i>
+                                    </div>
+                                </a>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <center>
-                                            <label><b>A. INFORMACI&Oacute;N GENERAL</b></label>
+                                            <label><b>A. INFORMACIÓN GENERAL</b></label>
                                         </center>
                                     </div>
                                 </div>
@@ -490,24 +490,24 @@
 <br>
 <br>
 <script type="text/javascript">
-    
-    $('.fechaIncapacidad').change(function(){
-        if($('#fechaInicioIncapacidad').val() != '' && $('#fechaFinIncapacidad').val() != '' ){
+
+    $('.fechaIncapacidad').change(function () {
+        if ($('#fechaInicioIncapacidad').val() != '' && $('#fechaFinIncapacidad').val() != '') {
             f1 = $('#fechaInicioIncapacidad').val();
-            f2 =  $('#fechaFinIncapacidad').val();
-            
-            var aFecha1 = f1.split('-'); 
-            var aFecha2 = f2.split('-'); 
-            var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
-            var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+            f2 = $('#fechaFinIncapacidad').val();
+
+            var aFecha1 = f1.split('-');
+            var aFecha2 = f2.split('-');
+            var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+            var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
             var dif = fFecha2 - fFecha1;
-            var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+            var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 //            alert(dias);
-            $('#diasIncapacidad').val(parseInt(dias)+1)
+            $('#diasIncapacidad').val(parseInt(dias) + 1)
         }
     });
-    
-    
+
+
     $('#dimension1_bus').change(function () {
         obtener_lugar();
     })
@@ -622,7 +622,7 @@
                             html += "</div>";
                             html += "</div>";
                             $.each(msg, function (index, valor) {
-                                html += ((i == 0) ? "<div class='row'><div class=' form-group'>" : "");
+                                html += ((i == 0) ? "<div class='row'>" : "");
                                 html += "<div class='col-md-3'>";
                                 html += "<div class='checkbox'>";
                                 html += "<label>"
@@ -632,7 +632,7 @@
                                 html += "</div>";
                                 i = ((i == 3) ? 0 : (i + 1))
                                 j++;
-                                html += (((i == 0) || (msg.length == j)) ? "</div></div>" : "");
+                                html += (((i == 0) || (msg.length == j)) ? "</div>" : "");
                             });
                             html += "<hr />"
                             html += "</div>"

@@ -1,10 +1,3 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -19,6 +12,12 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="<?php echo base_url() . "/index.php/riesgo/nuevoriesgo" ?>"><div class="circuloIcon" title="Nuevo Riesgo" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                            <hr>
+                        </div>
+                    </div>
                     <form method="post" id="busquedariesgo" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">
@@ -72,8 +71,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4" style="text-align: center">
-                                        <button type="button" class="btn-sst limpiar" >Limpiar</button>
-                                        <button type="button" class="btn-sst buscar" >Buscar</button>
+                                        <button type="button" class="btn btn-danger limpiar" >Limpiar</button>
+                                        <button type="button" class="btn btn-info" >Consultar</button>
                                     </div>
                                 </div>
                             </div>

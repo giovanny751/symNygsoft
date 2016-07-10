@@ -641,15 +641,6 @@ class Planes extends My_Controller {
         }
     }
 
-    function configuracionsistema() {
-        try {
-            $this->layout->view("tareas/configuracionsistema");
-        } catch (exception $e) {
-            
-        } finally {
-            
-        }
-    }
 
     function cargarplanescarpeta() {
         try {

@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form method="post" id="f9">
+                <form method="post" id="f9" class="form-horizontal">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -53,8 +53,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="responsable" class="col-md-1">Tipo Riesgo</label>

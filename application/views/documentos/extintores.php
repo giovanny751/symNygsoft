@@ -1,10 +1,3 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -19,21 +12,22 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-
                     <form method="post" id="FrmExtintores" class="form-horizontal">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="circuloIcon" id="guardarInsExtintores" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4" for="fechaInspeccion">Fecha Inspección</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-2" for="fechaInspeccion">Fecha Inspección</label>
+                                    <div class="col-md-4">
                                         <input type="text" name="fecha" id="fechaInspeccion" class="form-control fecha obliContrato" >
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-4" for="empleado">Nombre de quien realiza la inspección:</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-2" for="empleado">Nombre de quien realiza la inspección:</label>
+                                    <div class="col-md-4">
                                         <select name="empleado" id="empleado" class="form-control obliContrato">
                                             <option value=''>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
@@ -43,69 +37,45 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">NO. Extintor</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="noextintor" class="form-control obliContrato">
+                                    <label class="col-md-1 control-label" for="noextintor">N°. Extintor</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="noextintor" id="noextintor" class="form-control obliContrato">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="capacidad">Capacidad</label>
-                                    <div class="col-md-8">
+
+                                    <label class="col-md-1 control-label" for="capacidad">Capacidad</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="capacidad" id="capacidad" class="form-control obliContrato">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="clase">Clase</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 control-label" for="clase">Clase</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="clase" id="clase" class="form-control obliContrato">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="agente">Agente</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 control-label" for="agente">Agente</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="agente" id="agente" class="form-control">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="fechaPruebaHistorica">Fecha de prueba hidrostatica</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 control-label" for="fechaPruebaHistorica">Fecha de prueba hidrostatica</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="pruebaHidrostatica" id="fechaPruebaHistorica" class="form-control fecha">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="fechaEntrega">Fecha recarga</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-1 control-label" for="fechaEntrega">Fecha recarga</label>
+                                    <div class="col-md-3">
                                         <input type="text" name="fechaRecarga" id="fechaEntrega" class="form-control fecha">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
                                     ESTADO DEL EXTINTOR
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
-                                <!--<div class="form-group">-->
                                 <div class="col-sm-3">
                                     <div class="checkbox">
                                         <label>
@@ -134,10 +104,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <!--</div>-->
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="col-sm-3">
                                     <div class="checkbox">
@@ -168,17 +135,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
-                                <div class="col-sm-offset-3 col-sm-3">
+                                <div class="col-md-3">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="estadoSatisfactorio" value=""> <b>ESTADO SATISFACTORIO  FUNCIONAMIENTO</b>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-3">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="corrosion" value=""> <b>CORROSION</b>
@@ -186,15 +151,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
                                     SEÑALIZACION		
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="col-sm-4">
                                     <div class="checkbox">
@@ -218,15 +179,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
                                     UBICACIÓN		
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="col-sm-3">
                                     <div class="checkbox">
@@ -257,8 +214,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="observaciones" class="col-md-2">Observaciones</label>

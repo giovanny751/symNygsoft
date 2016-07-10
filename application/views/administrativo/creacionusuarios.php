@@ -1,21 +1,9 @@
-<br><div class="row">
-    <div class="col-md-6">
-        <br>
-        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "none" : "" ?> guardar" title="Guardar Usuario" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "" : "none" ?> guardar" title="Guardar Usuario"  metodo="actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <a href="<?php echo base_url() . "/index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-        <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
-        <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
-    </div>
-
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>CREACIÓN USUARIOS
+                    <i class="fa fa-user"></i>CREACIÓN USUARIOS
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -23,40 +11,44 @@
                 </div>
             </div>
             <div class="portlet-body form">
-
                 <form id="f3" method="post" class="form-horizontal">
                     <div class="form-body">
-
-
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <br>
+                                <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "none" : "" ?> guardar" title="Guardar Usuario" metodo="guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <div class="circuloIcon <?php echo (!empty($usuario[0]->usu_id)) ? "" : "none" ?> guardar" title="Guardar Usuario"  metodo="actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <a href="<?php echo base_url() . "/index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                                <a href="<?php echo base_url('index.php/presentacion/roles') ?>"><div class="circuloIcon" title="Crear Rol" ><i class="fa fa-cog fa-3x"></i></div></a>
+                                <a href="<?php echo base_url('index.php/Administrativo/listadousuarios') ?>" style="color: #FFF"><div class="circuloIcon" title="Listado Usuarios" ><i class="fa fa-sticky-note fa-2x"></i></div></a>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="cedula" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="cedula" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Cédula
                                     </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 ">
+                                    <div class="col-md-5 ">
                                         <input type="text" id="cedula" name="cedula" class="form-control obligatorio" value="<?php echo (!empty($usuario[0]->usu_cedula)) ? $usuario[0]->usu_cedula : ""; ?>" />
                                     </div>    
                                 </div>    
                             </div>    
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="nombres" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="nombres" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Nombres
                                     </label>   
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <input type="text" id="nombres" name="nombres" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_nombre)) ? $usuario[0]->usu_nombre : ""; ?>" />
                                     </div> 
-                                </div> 
-                            </div> 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="TipoUsuario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="TipoUsuario" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Tipo Usuario
                                     </label>   
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <select id="TipoUsuario" name="TipoUsuario" class="form-control obligatorio" >
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($tipoUsuario as $tu): ?>
@@ -68,22 +60,18 @@
                             </div> 
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="apellidos" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="apellidos" class="col-md-1">
                                         Apellidos
                                     </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <input type="text" id="apellidos" name="apellidos" class="form-control" value="<?php echo (!empty($usuario[0]->usu_apellido)) ? $usuario[0]->usu_apellido : ""; ?>" />
                                     </div> 
-                                </div> 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="rol" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="rol" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Rol
                                     </label>   
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <select name="rol" id="rol" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($roles as $ro) { ?>
@@ -95,42 +83,34 @@
                             </div> 
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="usuario" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="usuarioIngreso" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Usuario
                                     </label>  
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <input type="text" id="usuarioIngreso" autocomplete="false" name="usuario" class="form-control obligatorio"  value="<?php echo (!empty($usuario[0]->usu_usuario)) ? $usuario[0]->usu_usuario : ""; ?>" />
                                     </div> 
-                                </div> 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="cambiocontrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante">
+                                    <label for="cambiocontrasena" class="col-md-1 aspirante">
                                         Cambio contraseña inicial
                                     </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                    <div class="col-md-5 aspirante">
                                         <input type="checkbox" id="cambiocontrasena" autocomplete="false" name="cambiocontrasena" <?php echo (!empty($usuario[0]->usu_cambiocontrasena) && $usuario[0]->usu_cambiocontrasena == 1) ? "checked" : ""; ?> />
                                     </div> 
                                 </div> 
                             </div> 
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="contrasena" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="contrasenaIngreso" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Contraseña
                                     </label>   
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <input type="password" id="contrasenaIngreso" name="contrasena" class="form-control obligatorio"  />
-                                    </div>    
-                                </div>    
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="estado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3  aspirante">Estado</label> 
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                    </div> 
+                                    <label for="estado" class="col-md-1  aspirante">Estado</label> 
+                                    <div class="col-md-5 aspirante">
                                         <select id="estado" name="estado" class="form-control select2me">
                                             <?php foreach ($estado as $e) { ?>
                                                 <option <?php echo (!empty($usuario[0]->est_id) && $usuario[0]->est_id == $e->est_id) ? "selected" : ""; ?> value="<?php echo $e->est_id ?>"><?php echo $e->est_nombre ?></option>
@@ -141,18 +121,14 @@
                             </div>    
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="email" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><span>*</span>Email</label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <label for="email" class="col-md-1"><span>*</span>Email</label>
+                                    <div class="col-md-5">
                                         <input type="email" id="email" name="email" class="form-control email obligatorio" value="<?php echo (!empty($usuario[0]->usu_email)) ? $usuario[0]->usu_email : ""; ?>" />
                                     </div> 
-                                </div> 
-                            </div> 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="cargo" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Cargo</label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                    <label for="cargo" class="col-md-1 aspirante"><span class="campoobligatorio">*</span>Cargo</label>
+                                    <div class="col-md-5 aspirante">
                                         <select id="cargo" name="cargo" class="form-control obligatorio select2me">
                                             <option value="">::Seleccionar::</option>
                                             <?php foreach ($cargo as $c) { ?>
@@ -164,12 +140,12 @@
                             </div>    
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="genero" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <label for="genero" class="col-md-1">
                                         <span class="campoobligatorio">*</span>Genero
                                     </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <div class="col-md-5">
                                         <select id="genero" name="genero" class="form-control obligatorio ">
                                             <option value="">::Seleccionar::</option> 
                                             <?php foreach ($sexo as $s) { ?>
@@ -177,12 +153,8 @@
                                             <?php } ?>
                                         </select>
                                     </div>    
-                                </div>    
-                            </div>  
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="empleado" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 aspirante"><span class="campoobligatorio">*</span>Empleado</label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 aspirante">
+                                    <label for="empleado" class="col-md-1 aspirante"><span class="campoobligatorio">*</span>Empleado</label>
+                                    <div class="col-md-5 aspirante">
                                         <select id="empleado" name="empleado" class="form-control obligatorio select2me">
                                             <option value="">::Seleccionar::</option>
                                             <?php

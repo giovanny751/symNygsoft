@@ -1,10 +1,3 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" id="guardarInspeccion" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -21,18 +14,20 @@
                 <div class="form-body">
                     <form id="FrmInspeccion" method="post">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="circuloIcon" id="guardarInspeccion" title="Guardar inspección general"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="fecha">Fecha de Inspección</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-2 control-label" for="fecha">Fecha de Inspección</label>
+                                    <div class="col-md-4">
                                         <input type="text" name="fecha" id="fecha" class="form-control fecha obliContrato" >
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-6 control-label" for="empleado">Nombre de quien realiza la inspección:</label>
-                                    <div class="col-md-6">
+                                    <label class="col-md-3 control-label" for="empleado">Nombre de quien realiza la inspección:</label>
+                                    <div class="col-md-3">
                                         <select name="empleado" id="empleado" class="form-control obliContrato">
                                             <option value=''>::Seleccionar::</option>
                                             <?php foreach ($empleado as $emp): ?>
@@ -42,8 +37,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info" role="alert" style='margin-top:10px;font-weight: bold;text-align: center;'>
                                     Verificación del cumplimiento de aspectos en Seguridad Industrial
@@ -51,9 +44,6 @@
                                     Marque con una X la casilla correspondiente de acuerdo con lo observado en la inspección. Realice las observaciones correspondientes.
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-12">
                                 <table class='table table-bordered table-hover'>
                                     <?php foreach ($factores as $factor => $t): ?>

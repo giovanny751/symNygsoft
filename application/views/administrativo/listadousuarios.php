@@ -1,10 +1,3 @@
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <a href="<?php echo base_url() . "index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -24,6 +17,12 @@
                             <form method="post" id="f4" class="form-horizontal">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <a href="<?php echo base_url() . "index.php/administrativo/creacionusuarios" ?>"><div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="cedula" class="col-md-1">Cédula</label>
                                             <div class="col-md-3">
@@ -39,8 +38,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="estado" class="col-md-1">Estado</label>

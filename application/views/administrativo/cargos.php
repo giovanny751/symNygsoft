@@ -82,16 +82,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <button type="button" id="nuevoCargo" class="btn btn-success">Nuevo</button>
-        <a href="<?php echo base_url("index.php/administrativo/organigrama") ?>">
-            <button type="button" id="organigrama" title="Organigrama" class="btn btn-info"><i class="fa fa-sitemap"></i></button>
-        </a>
-    </div>
-</div>
-
-<br>
 <!-- Datatable -->
 <div class="row">
     <div class="col-md-12">
@@ -107,51 +97,65 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
-                    <table class="table table-striped table-bordered table-hover tabla-sst">
-                        <thead >
-                            <tr>
-                                <th style="text-align: center">Cargo</th>
-                                <th style="text-align: center">Cargo Jefe Directo</th>
-                                <th style="text-align: center">% Cotización ARL</th>
-                                <th style="text-align: center">Manual de funciones</th>
-                                <th style="text-align: center">Riesgos</th>
-                                <th style="text-align: center">Editar</th>
-                                <th style="text-align: center">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bodycargo">
-                            <?php foreach ($cargo as $c) { ?>
-                                <tr>
-                                    <td><?php echo $c->car_nombre ?></td> 
-                                    <td><?php echo $c->jefe ?></td> 
-                                    <td style="text-align:center;"><?php echo $c->car_porcentajearl ?></td> 
-                                    <td style="text-align: center">
-                                        <a href="javascript:;" class="btn btn-xs default manual" car_id="<?php echo $c->car_id ?>">
-                                            <i class="fa fa-file-pdf-o" title="Manual" ></i>
-                                            Manual
-                                        </a>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <?php if ($c->cantidadRiesgos > 0): ?>
-                                            <i class="fa fa-child fa-2x riesgo " title="Eliminar" car_id="<?php echo $c->car_id ?>" ></i>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <a href="javascript:;" class="btn btn-xs default modificar" car_id="<?php echo $c->car_id ?>">
-                                            <i class="fa fa-pencil-square-o" title="Modificar" ></i>
-                                            Modificar
-                                        </a>
-                                    </td> 
-                                    <td style="text-align: center">
-                                        <a href="javascript:;" class="btn btn-xs default eliminar" car_id="<?php echo $c->car_id ?>">
-                                            <i class="fa fa-trash-o" title="Eliminar" car_id="<?php echo $c->car_id ?>"></i>
-                                            Eliminar
-                                        </a>
-                                    </td> 
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" id="nuevoCargo" class="btn btn-success">Nuevo</button>
+                            <a href="<?php echo base_url("index.php/administrativo/organigrama") ?>">
+                                <button type="button" id="organigrama" title="Organigrama" class="btn btn-info"><i class="fa fa-sitemap"></i></button>
+                            </a>
+                            <a href="<?php echo base_url("index.php/Administrativo/empresa") ?>">
+                                <button type="button" class="btn btn-info" title="Organización"><i class="fa fa-building-o"></i></button>
+                            </a>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover tabla-sst">
+                                <thead >
+                                    <tr>
+                                        <th style="text-align: center">Cargo</th>
+                                        <th style="text-align: center">Cargo Jefe Directo</th>
+                                        <th style="text-align: center">% Cotización ARL</th>
+                                        <th style="text-align: center">Manual de funciones</th>
+                                        <th style="text-align: center">Riesgos</th>
+                                        <th style="text-align: center">Editar</th>
+                                        <th style="text-align: center">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodycargo">
+                                    <?php foreach ($cargo as $c) { ?>
+                                        <tr>
+                                            <td><?php echo $c->car_nombre ?></td> 
+                                            <td><?php echo $c->jefe ?></td> 
+                                            <td style="text-align:center;"><?php echo $c->car_porcentajearl ?></td> 
+                                            <td style="text-align: center">
+                                                <a href="javascript:;" class="btn btn-xs default manual" car_id="<?php echo $c->car_id ?>">
+                                                    <i class="fa fa-file-pdf-o" title="Manual" ></i>
+                                                    Manual
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <?php if ($c->cantidadRiesgos > 0): ?>
+                                                    <i class="fa fa-child fa-2x riesgo " title="Eliminar" car_id="<?php echo $c->car_id ?>" ></i>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <a href="javascript:;" class="btn btn-xs default modificar" car_id="<?php echo $c->car_id ?>">
+                                                    <i class="fa fa-pencil-square-o" title="Modificar" ></i>
+                                                    Modificar
+                                                </a>
+                                            </td> 
+                                            <td style="text-align: center">
+                                                <a href="javascript:;" class="btn btn-xs default eliminar" car_id="<?php echo $c->car_id ?>">
+                                                    <i class="fa fa-trash-o" title="Eliminar" car_id="<?php echo $c->car_id ?>"></i>
+                                                    Eliminar
+                                                </a>
+                                            </td> 
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

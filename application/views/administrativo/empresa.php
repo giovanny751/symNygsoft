@@ -41,54 +41,40 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="nit" class="control-label col-md-3">* Nit</label>
-                                                <div class="col-md-9">
+                                                <label for="nit" class="control-label col-md-2">* Nit</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="nit" name="nit"  class="form-control obligatorio" value="<?php echo $informacion[0]->emp_nit ?>"/>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="razonsocial" class="control-label col-md-3">* Razón social</label>
-                                                <div class="col-md-9">
+                                                <label for="razonsocial" class="control-label col-md-2">* Razón social</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="razonsocial" name="razonsocial" class="form-control obligatorio" value="<?php echo $informacion[0]->emp_razonSocial ?>"/>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="telefono" class="control-label col-md-3">Teléfono</label>
-                                                <div class="col-md-9">
+                                                <label for="telefono" class="control-label col-md-2">Teléfono</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="telefono" name="telefono" class="form-control" value="" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="celular" class="control-label col-md-3">Celular</label>
-                                                <div class="col-md-9">
+                                                <label for="celular" class="control-label col-md-2">Celular</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="celular" name="celular" class="form-control" value="" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="direccion" class="control-label col-md-3">Dirección</label>
-                                                <div class="col-md-9">
+                                                <label for="direccion" class="control-label col-md-2">Dirección</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="direccion" name="direccion" class="form-control" value="<?php echo $informacion[0]->emp_direccion ?>" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="ciudad" class="control-label col-md-3">Ciudad</label>
-                                                <div class="col-md-9">
+                                                <label for="ciudad" class="control-label col-md-2">Ciudad</label>
+                                                <div class="col-md-4">
                                                     <select id="ciudad" name="ciudad" class="form-control" >
                                                         <option value=""></option>
                                                         <?php foreach ($ciudad as $c) { ?>
@@ -100,10 +86,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="tamano" class="control-label col-md-3">* Tamaño</label>
-                                                <div class="col-md-9">
+                                                <label for="tamano" class="control-label col-md-2">* Tamaño</label>
+                                                <div class="col-md-4">
                                                     <select id="tamano" name="tamano" class="form-control obligatorio" >
                                                         <option value=""></option>
                                                         <?php foreach ($tamano as $t) { ?>
@@ -111,22 +97,18 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="arl" class="control-label col-md-3">ARL</label>
-                                                <div class="col-md-9">
+                                                <label for="arl" class="control-label col-md-2">ARL</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="arl" name="arl" class="form-control"  value="<?php echo $informacion[0]->emp_arl ?>" >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="sector" class="control-label col-md-3">Sector económico</label>
-                                                <div class="col-md-9">
+                                                <label for="sector" class="control-label col-md-2">Sector económico</label>
+                                                <div class="col-md-4">
                                                     <select id="sector" name="sector" class="form-control" >
                                                         <option value=""></option>
                                                         <?php
@@ -137,22 +119,18 @@
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="empleados" class="control-label col-md-3">Número de empleados</label>
-                                                <div class="col-md-9">
+                                                <label for="empleados" class="control-label col-md-2">Número de empleados</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="empleados" name="empleados" class="form-control"  value="<?php echo $informacion[0]->numEmpleados ?>" disabled="disabled" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="actividadeconomica" class="control-label col-md-3">* Actividad económica</label>
-                                                <div class="col-md-9">
+                                                <label for="actividadeconomica" class="control-label col-md-2">* Actividad económica</label>
+                                                <div class="col-md-4">
                                                     <select id="actividadeconomica" name="actividadeconomica" class="form-control obligatorio " >
                                                         <option value=""></option>
                                                         <?php
@@ -163,40 +141,32 @@
                                                         <?php } ?>
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="representante" class="control-label col-md-3">Representante</label>
-                                                <div class="col-md-9">
+                                                <label for="representante" class="control-label col-md-2">Representante</label>
+                                                <div class="col-md-4">
                                                     <input type="text" checked="" id="representante" name="representante" class="form-control"  value="<?php echo $informacion[0]->emp_representante ?>"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="representante" class="control-label col-md-3">Número de vehiculos</label>
-                                                <div class="col-md-9">
+                                                <label for="representante" class="control-label col-md-2">Número de vehiculos</label>
+                                                <div class="col-md-4">
                                                     <input type="text" checked="" id="cantidadVehiculos" name="cantidadVehiculos" class="form-control"  value="" disabled="disabled"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="dimension1" class="control-label col-md-3">Dimensión 1</label>
-                                                <div class="col-md-9">
+                                                <label for="dimension1" class="control-label col-md-2">Dimensión 1</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="dimension1" name="dimension1" class="form-control" value="<?php echo $informacion[0]->Dim_id ?>" /> 
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dimension2" class="control-label col-md-3">Dimensión 2</label>
-                                                <div class="col-md-9">
+                                                <label for="dimension2" class="control-label col-md-2">Dimensión 2</label>
+                                                <div class="col-md-4">
                                                     <input type="text" id="dimension2" name="dimension2" class="form-control" value="<?php echo $informacion[0]->Dimdos_id ?>" >
                                                 </div>
                                             </div>

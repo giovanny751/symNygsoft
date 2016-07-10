@@ -1,14 +1,9 @@
-<br>
-<div class="row">
-    <div class="circuloIcon guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>HORAS EXTRAS
+                    <i class="fa fa-clock-o"></i>HORAS EXTRAS
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse">
@@ -17,6 +12,14 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="circuloIcon guardar">
+                                <i class="fa fa-floppy-o fa-3x"></i>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
                     <form method="post" id="FrmHorasExtras" class="form-horizontal">
                         <div class="row">
                             <div class="col-md-12">

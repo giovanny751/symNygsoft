@@ -4,25 +4,6 @@
     }
 </style>
 <div class="row">
-    <div class="col-md-6">
-        <br>
-        <?php if (!empty($empleado[0]->Emp_Id)) { ?>
-            <div class="circuloIcon" id="actualizar" title="Actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
-            <div class="circuloIcon eliminar_usuario" title="Eliminar" emp_id="<?php echo $empleado[0]->Emp_Id ?>" planes="<?php echo $empleado[0]->planes_emp ?>" tareas="<?php echo $empleado[0]->tareas_emp ?>"><i class="fa fa-trash-o fa-3x"></i></div>
-        <?php } else { ?>
-            <div class="circuloIcon" id="guardar" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
-        <?php } ?>
-        <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
-            <div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div>
-        </a>
-        <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
-            <div class="circuloIcon" title="Listado empleados"><i class="fa fa-sticky-note fa-2x"></i></div>
-        </a>
-        <br>
-    </div>
-</div>
-<br>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -73,6 +54,23 @@
                             </ul>
                             <div class="tab-content">
                                 <div id="tab1" class="tab-pane active">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <?php if (!empty($empleado[0]->Emp_Id)) { ?>
+                                                <div class="circuloIcon" id="actualizar" title="Actualizar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                                <div class="circuloIcon eliminar_usuario" title="Eliminar" emp_id="<?php echo $empleado[0]->Emp_Id ?>" planes="<?php echo $empleado[0]->planes_emp ?>" tareas="<?php echo $empleado[0]->tareas_emp ?>"><i class="fa fa-trash-o fa-3x"></i></div>
+                                            <?php } else { ?>
+                                                <div class="circuloIcon" id="guardar" title="Guardar"><i class="fa fa-floppy-o fa-3x"></i></div>
+                                            <?php } ?>
+                                            <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>">
+                                                <div class="circuloIcon" title="Nuevo Usuario" ><i class="fa fa-folder-open fa-3x"></i></div>
+                                            </a>
+                                            <a href="<?php echo base_url("index.php/administrativo/listadoempleados"); ?>">
+                                                <div class="circuloIcon" title="Listado empleados"><i class="fa fa-sticky-note fa-2x"></i></div>
+                                            </a>
+                                            <hr>
+                                        </div>
+                                    </div>
                                     <form method="post" id="f1" class="form-horizontal">
                                         <input type="hidden" id="emp_id" name="emp_id"  value="<?php echo (!empty($empleado[0]->Emp_Id)) ? $empleado[0]->Emp_Id : ""; ?>" class="empleadoId" />
                                         <div class="row">
@@ -185,8 +183,8 @@
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" id="salario" name="salario" class="form-control miles" disabled=""  value="<?php echo (!empty($empleado[0]->emp_salario)) ? $empleado[0]->emp_salario : ""; ?>" />
-                                                        <div class="input-group-addon">$
-                                                        </div>
+                                                            <div class="input-group-addon">$
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

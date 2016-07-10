@@ -1,11 +1,4 @@
 <div class="row">
-    <div class="col-md-6">
-        <br>
-        <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>"><div class="circuloIcon" title="Nuevo Empleado" ><i class="fa fa-folder-open fa-3x"></i></div></a>
-    </div>
-</div>
-<br>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -19,6 +12,12 @@
             </div>
             <div class="portlet-body form">
                 <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="<?php echo base_url() . "index.php/administrativo/creacionempleados" ?>"><div class="circuloIcon" title="Nuevo Empleado" ><i class="fa fa-folder-open fa-3x"></i></div></a>
+                            <hr>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class='col-md-12'>
                             <form method="post" id="f2" class="form-horizontal">
@@ -98,34 +97,34 @@
                     </a>
                 </div>
             </div>
-<div class="portlet-body form">
+            <div class="portlet-body form">
                 <div class="form-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <table id="tablesst" class="table table-striped table-bordered table-hover tabla-sst">
-                        <thead>
-                        <th>Cédula</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Teléfono</th>
-                        <th>Estado</th>
-                        <th>Cargo</th>
-                        <th>Fecha inicio</th>
-                        <th>Fecha fin</th>
-                        <th>Hoja de vida</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                        </thead>
-                        <tbody >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="tablesst" class="table table-striped table-bordered table-hover tabla-sst">
+                                <thead>
+                                <th>Cédula</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Teléfono</th>
+                                <th>Estado</th>
+                                <th>Cargo</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Hoja de vida</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                                </thead>
+                                <tbody >
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
                 </div> 
             </div> 
         </div> 
     </div> 
-</div> 
-</div> 
 </div> 
 <form id="f10" method="post" action="<?php echo base_url("index.php/administrativo/creacionempleados") ?>">
     <input type="hidden" value="" name="emp_id" id="emp_id">
@@ -154,11 +153,11 @@
                     var table = $('#tablesst').DataTable();
                     table.clear().draw();
                     $.each(msg['Json'], function (key, val) {
-                        
+
                         hasta = "";
-                        if(val.empCon_fechaHasta == '0000-00-00 00:00:00')
+                        if (val.empCon_fechaHasta == '0000-00-00 00:00:00')
                             hasta = 'Indefinido';
-                        
+
                         table.row.add([
                             val.Emp_Cedula,
                             val.Emp_Nombre,

@@ -998,10 +998,6 @@ class Tareas extends My_Controller {
         }
     }
 
-    function configuracionsistema() {
-        $this->layout->view("tareas/configuracionsistema");
-    }
-
     function autocompletar() {
         $info = auto("planes", "pla_id", "pla_nombre", $this->input->get('term'));
         $this->output->set_content_type('application/json')->set_output(json_encode($info));
