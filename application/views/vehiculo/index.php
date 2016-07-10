@@ -1,10 +1,3 @@
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="circuloIcon" id="guardarVehiculo" <?php echo (!empty($vehiculo->veh_id)) ? "title='Actualizar' at='actualizar'" : "title='Guardar' at='guardar'"; ?>><i class="fa fa-floppy-o fa-3x"></i></div>
-    </div>
-</div>
-<br>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green">
@@ -45,15 +38,21 @@
                                         <input type="hidden" class="vehiculoId" name="idVehiculo" value="<?php echo (!empty($vehiculo->veh_id)) ? $vehiculo->veh_id : ""; ?>" id="idVehiculo">
                                         <div class="form-body">
                                             <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="circuloIcon" id="guardarVehiculo" <?php echo (!empty($vehiculo->veh_id)) ? "title='Actualizar' at='actualizar'" : "title='Guardar' at='guardar'"; ?>><i class="fa fa-floppy-o fa-3x"></i></div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <fieldset>
                                                     <legend>Auditoria</legend>
                                                     <div class='col-md-12'>
                                                         <div class='form-group'>
-                                                            <label class='col-md-2' for="tipoVehiculo">Fecha de Creación:</label>
+                                                            <label class='col-md-2' for="fechaCreacion">Fecha de Creación:</label>
                                                             <div class='col-md-4'>
                                                                 <input type="text" id="fechaCreacion" style="text-align: center" class="form-control" value="<?php echo (!empty($vehiculo->creatorDate)) ? $vehiculo->creatorDate : date("Y-m-d H:i:s"); ?>" disabled="disabled">
                                                             </div>
-                                                            <label class='col-md-2' for="tipoServicio">Fecha última modificación:</label>
+                                                            <label class='col-md-2' for="fechaUltimaModificacion">Fecha última modificación:</label>
                                                             <div class='col-md-4'>
                                                                 <input type="text" id="fechaUltimaModificacion" style="text-align: center" value="<?php echo (!empty($vehiculo->modificationDate)) ? $vehiculo->modificationDate : ""; ?>" class="form-control" disabled="disabled">
                                                             </div>
@@ -287,22 +286,20 @@
                                 </div>
                                 <div id="tab2" class="tab-pane ">
                                     <div class='row'>
-                                        <form id="frmPropietario">
+                                        <form id="frmPropietario" class="form-horizontal">
                                             <input type="hidden" class="vehiculoId" name="veh_id" id="veh_id" value="<?php echo (!empty($vehiculo->veh_id)) ? $vehiculo->veh_id : ""; ?>">
                                             <div class='col-md-12'>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-8' for="perteneceCompania"><span style="color: red">*</span>¿Pertenece a la compañia?</label>
-                                                    <div class='col-md-4'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-3' for="perteneceCompania"><span style="color: red">*</span>¿Pertenece a la compañia?</label>
+                                                    <div class='col-md-1'>
                                                         <select class='form-control obligatorioPropietario' id="perteneceCompania" name="perteneceCompania">
                                                             <option value=""></option>
-                                                            <option value="1" <?php echo ($propietario->vehPro_pertenece == 1 ) ? "selected" : ""; ?>>Si</option>
-                                                            <option value="0" <?php echo ($propietario->vehPro_pertenece == 0 ) ? "selected" : ""; ?>>No</option>
+                                                            <option value="1" <?php echo (!empty($propietario->vehPro_pertenece) && $propietario->vehPro_pertenece == 1 ) ? "selected" : ""; ?>>Si</option>
+                                                            <option value="0" <?php echo (!empty($propietario->vehPro_pertenece) && $propietario->vehPro_pertenece == 0 ) ? "selected" : ""; ?>>No</option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-4' for="tipoIdentificacion"><span style="color: red">*</span>T.D.</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-1' for="tipoIdentificacion"><span style="color: red">*</span>T.D.</label>
+                                                    <div class='col-md-3'>
                                                         <select class='form-control obligatorioPropietario' id="tipoIdentificacion" name="tipoIdentificacion">
                                                             <option value="">::Seleccionar::</option>
                                                             <?php foreach ($tipoIdentificacion as $ti): ?>
@@ -310,41 +307,57 @@
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-4' for="NoDocumento"><span style="color: red">*</span>N° Documento:</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-1' for="NoDocumento"><span style="color: red">*</span>N° Documento:</label>
+                                                    <div class='col-md-3'>
                                                         <input  type="text" name="NoDocumento" id="NoDocumento" class="form-control obligatorioPropietario" value="<?php echo (!empty($propietario->vehPro_documento) ) ? $propietario->vehPro_documento : ""; ?>">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class='col-md-12'>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-4' for="direccionPropietario">Dirección:</label>
-                                                    <div class='col-md-8'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-1' for="nombrePropietario">Nombre(s):</label>
+                                                    <div class='col-md-3'>
+                                                        <input type="text" name="nombrePropietario" id="nombrePropietario" class="form-control"  value="<?php echo (!empty($propietario->vehPro_nombres) ) ? $propietario->vehPro_nombres : ""; ?>">
+                                                    </div>
+                                                    <label class='col-md-1' for="apellidoPropietario"><span style="color: red">*</span>Apellido(s):</label>
+                                                    <div class='col-md-3'>
+                                                        <input type="text" name="apellidoPropietario" id="apellidoPropietario" class="form-control obligatorioPropietario" value="<?php echo (!empty($propietario->vehPro_apellidos) ) ? $propietario->vehPro_apellidos : ""; ?>">
+                                                    </div>
+                                                    <label class='col-md-1' for="sexoPropietario"><span style="color: red">*</span>Sexo:</label>
+                                                    <div class='col-md-3'>
+                                                        <select name="sexo" id="sexo" class="form-control obligatorioPropietario">
+                                                            <option value="">::Seleccionar::</option>
+                                                            <?php foreach ($sexo as $s): ?>
+                                                                <option <?php echo (!empty($propietario->sex_id) && $propietario->sex_id == $s->sex_id) ? "selected" : ""; ?> value="<?php echo $s->Sex_id ?>"><?php echo $s->Sex_Sexo ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-md-12'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-1' for="direccionPropietario">Dirección:</label>
+                                                    <div class='col-md-3'>
                                                         <input type="text" name="direccionPropietario" id="direccionPropietario" class="form-control"  value="<?php echo (!empty($propietario->vehPro_direccion) ) ? $propietario->vehPro_direccion : ""; ?>">
                                                     </div>
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-4' for="telefonoPropietario"><span style="color: red">*</span>Teléfono:</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-1' for="telefonoPropietario"><span style="color: red">*</span>Teléfono:</label>
+                                                    <div class='col-md-3'>
                                                         <input type="text" name="telefonoPropietario" id="telefonoPropietario" class="form-control obligatorioPropietario" value="<?php echo (!empty($propietario->vehPro_telefono) ) ? $propietario->vehPro_telefono : ""; ?>">
                                                     </div>
-                                                </div>
-                                                <div class='col-md-4'>
-                                                    <label class='col-md-4' for="correoPropietario"><span style="color: red">*</span>Correo electronico:</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-1' for="correoPropietario"><span style="color: red">*</span>Correo electronico:</label>
+                                                    <div class='col-md-3'>
                                                         <input type="text" name="correoPropietario" id="correoPropietario" class="form-control obligatorioPropietario"  value="<?php echo (!empty($propietario->vehPro_correo) ) ? $propietario->vehPro_correo : ""; ?>">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class='col-md-12'>
-                                                <div class='col-md-5'>
-                                                    <label class='col-md-8' for="tieneComparendosActualmente">Tiene comparendos actualmente:</label>
-                                                    <div class='col-md-3'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-3' for="tieneComparendosActualmente">Tiene comparendos actualmente:</label>
+                                                    <div class='col-md-1'>
                                                         <select name="tieneComparendosActualmente" id="tieneComparendosActualmente" class="form-control">
-                                                            <option value="1" <?php echo ($propietario->vehPro_comparendo == 1 ) ? "selected" : ""; ?>>Si</option>
-                                                            <option value="0" <?php echo ($propietario->vehPro_comparendo == 0 ) ? "selected" : ""; ?>>No</option>
+                                                            <option value="">::Seleccionar::</option>
+                                                            <option value="1" <?php echo (!empty($propietario->vehPro_comparendo) && $propietario->vehPro_comparendo == 1 ) ? "selected" : ""; ?>>Si</option>
+                                                            <option value="0" <?php echo (!empty($propietario->vehPro_comparendo) && $propietario->vehPro_comparendo == 0 ) ? "selected" : ""; ?>>No</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -357,42 +370,38 @@
                                 </div>
                                 <div id="tab3" class="tab-pane ">
                                     <div class='row'>
-                                        <form id="frmSoat">
+                                        <form id="frmSoat" class="form-horizontal">
                                             <input type="hidden" class="vehiculoId" name="veh_id" id="veh_id" value="<?php echo (!empty($vehiculo->veh_id)) ? $vehiculo->veh_id : ""; ?>">
                                             <div class='col-md-12'>
-                                                <div class='col-md-6'>
-                                                    <label class='col-md-4' for="fechaExpideSoat"><span style="color: red">*</span>Entidad expide el SOAT</label>
-                                                    <div class='col-md-8'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-2' for="fechaExpideSoat"><span style="color: red">*</span>Entidad expide el SOAT</label>
+                                                    <div class='col-md-4'>
                                                         <input type="text" class='form-control obligatorioSoat' id="fechaExpideSoat" name="fechaExpideSoat"/>
                                                     </div>
-                                                </div>
-                                                <div class='col-md-6'>
-                                                    <label class='col-md-4' for="numeroSoat"><span style="color: red">*</span>Numero de SOAT</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-2' for="numeroSoat"><span style="color: red">*</span>Numero de SOAT</label>
+                                                    <div class='col-md-4'>
                                                         <input type="text" class='form-control obligatorioSoat' id="numeroSoat" name="numeroSoat"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class='col-md-12'>
-                                                <div class='col-md-6'>
-                                                    <label class='col-md-4' for="fechaInicioSoat"><span style="color: red">*</span>Fecha de inicio vigencia</label>
-                                                    <div class='col-md-8'>
+                                                <div class='form-group'>
+                                                    <label class='col-md-2' for="fechaInicioSoat"><span style="color: red">*</span>Fecha de inicio vigencia</label>
+                                                    <div class='col-md-4'>
                                                         <input type="text" name="fechaInicioSoat" id="fechaInicioSoat" class="form-control fecha obligatorioSoat">
                                                     </div>
-                                                </div>
-                                                <div class='col-md-6'>
-                                                    <label class='col-md-4' for="fechaFinSoat"><span style="color: red">*</span>Fecha de fin de vigencia</label>
-                                                    <div class='col-md-8'>
+                                                    <label class='col-md-2' for="fechaFinSoat"><span style="color: red">*</span>Fecha de fin de vigencia</label>
+                                                    <div class='col-md-4'>
                                                         <input type="text" name="fechaFinSoat" id="fechaFinSoat" class="form-control fecha obligatorioSoat">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12" style="text-align: center">
                                                 <button type="button" class="btn btn-success" id="guardarSoat">Guardar</button>
+                                                <br>
+                                                <hr>
+                                                <br>
                                             </div>
-                                            <br>
-                                            <hr>
-                                            <br>
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered table-hover ">
                                                     <thead>
@@ -440,10 +449,10 @@
                                             </div>
                                             <div class="col-md-12" style="text-align: center">
                                                 <button type="button" class="btn btn-success" id="guardarRtm">Guardar</button>
+                                                <br>
+                                                <hr>
+                                                <br>
                                             </div>
-                                            <br>
-                                            <hr>
-                                            <br>
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered table-hover ">
                                                     <thead>

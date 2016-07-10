@@ -16,18 +16,18 @@
                         <div class="row">
                             <div class='col-md-12'>
                                 <div class='form-group'>
-                                    <label class='col-md-2' for="tipoVehiculo">Tipo de vehículo:</label>
+                                    <label class='col-md-2' for="claseVehiculo"><span style="color: red">*</span>Clases de vehículo:</label>
                                     <div class='col-md-4'>
-                                        <select class='form-control' id="tipoVehiculo" name="tipoVehiculo">
+                                        <select class='form-control obligatorio' id="claseVehiculo" name="claseVehiculo">
                                             <option value=''>::Seleccionar::</option>
-                                            <?php foreach ($tipoVehiculo as $tv): ?>
-                                                <option value='<?php echo $tv->tipVeh_id ?>'><?php echo $tv->tipVeh_nombre ?></option>
-                                            <?php endforeach; ?>
+                                            <?php foreach ($claseVehiculo as $cv): ?>
+                                                <option  value='<?php echo $cv->claVeh_id ?>'><?php echo $cv->claVeh_nombre ?></option>
+                                            <?php endforeach; ?>                                                   
                                         </select>
                                     </div>
-                                    <label class='col-md-2' for="tipoServicio">Tipo de servicio:</label>
+                                    <label class='col-md-2' for="tipoVehiculo"><span style="color: red">*</span>Tipo de vehículo:</label>
                                     <div class='col-md-4'>
-                                        <select class='form-control' id="tipoServicio" name="tipoServicio">
+                                        <select class='form-control obligatorio' id="tipoVehiculo" name="tipoVehiculo">
                                             <option value=''>::Seleccionar::</option>
                                         </select>
                                     </div>
@@ -118,24 +118,60 @@
     </div>
 </div>
 <script>
+    $('#claseVehiculo').change(function () {
+        $('#tipoVehiculo *').remove();
+        $.post(
+                url + "index.php/Vehiculo/consultaTipoVehiculo",
+                {
+                    clase: $(this).val()
+                }
+        ).done(function (msg) {
+            if (!jQuery.isEmptyObject(msg.message))
+                alerta(msg["color"], msg['message'])
+            else {
+                var option = "<option value=''>::Seleccionar::</option>";
+                $.each(msg.Json, function (key, val) {
+                    option += "<option value='" + val.tipVeh_id + "'>" + val.tipVeh_nombre + "</option>"
+                });
+                $('#tipoVehiculo').append(option);
+            }
+        }).fail(function (msg) {
+
+        });
+    });
+    
     $('#consultar').click(function () {
         $.post(
-                url + "index.php/Vehiculo/consultaVehiculo"
+                url + "index.php/Vehiculo/consultaVehiculo",
+                $('#frmBuscaVehiculo').serialize()
                 ).done(function (msg) {
             var table = $('#tablesst').DataTable();
             table.clear().draw();
             $.each(msg['Json'], function (key, val) {
-
+                placa = "";
+                marca = "";
+                motor = "";
+                vin = "";
+                serie = "";
+                dim1 = "";
+                dim2 = "";
+                if(val.veh_placa != "") placa = val.veh_placa;
+                if(val.veh_marca != "") marca = val.veh_marca;
+                if(val.veh_numMotor != "") motor = val.veh_numMotor;
+                if(val.veh_numVin != "") vin = val.veh_numVin;
+                if(val.veh_numSerie != "") serie = val.veh_numSerie;
+                if(val.dim1 != "") dim1 = val.dim1;
+                if(val.dim2 != "") dim2 = val.dim2;
                 table.row.add([
-                    val.veh_placa,
-                    val.veh_marca,
-                    val.veh_numMotor,
-                    val.veh_numVin,
-                    val.veh_numSerie,
-                    val.dim1,
-                    val.dim2,
-                    '<center><i style="cursor:pointer" class="fa fa-trash-o fa-2x  eliminar" aria-hidden="true" vehiculoId="' + val.veh_id + '" title="Eliminar" ></i></center>',
-                    '<center><i style="cursor:pointer" class="fa fa-pencil-square-o fa-2x  modificar" vehiculoId="' + val.veh_id + '"  aria-hidden="true" title="Modificar" ></i></center>'
+                    placa,
+                    marca,
+                    motor,
+                    vin,
+                    serie,
+                    dim1,
+                    dim2,
+                    '<center><button type="button" class="btn btn-danger eliminar" title="Eliminar" vehiculoId="' + val.veh_id + '"><i style="cursor:pointer" class="fa fa-remove fa-2x " aria-hidden="true"  title="Eliminar" ></i></button></center>',
+                    '<center><button type="button" class="btn btn-info modificar" title="Modificar" vehiculoId="' + val.veh_id + '"><i style="cursor:pointer" class="fa fa-pencil-square-o fa-2x "   aria-hidden="true" title="Modificar" ></i></button></center>'
                 ]).draw();
             });
         })

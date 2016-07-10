@@ -27,6 +27,7 @@ class Vehiculo extends My_Controller {
             , "Estados_model"
             , "Vehiculoobservacion_model"
             , "Vehiculopropietario_model"
+            , "Sexo_model"
         ));
         $this->data['veh_id'] = "";
         if (!empty($this->input->post('veh_id'))) {
@@ -37,6 +38,7 @@ class Vehiculo extends My_Controller {
         }
         $this->data['estados'] = $this->Estados_model->estadoVehiculos();
         $this->data['empresa'] = $this->Empresa_model->detail();
+        $this->data['sexo'] = $this->Sexo_model->detail();
         $this->data["pais"] = $this->Pais_model->detail();
         $this->data["departamento"] = $this->Departamento_model->detail();
         $this->data["ciudad"] = $this->Ciudad_model->detail();
@@ -156,7 +158,9 @@ class Vehiculo extends My_Controller {
             , 'Dimension2_model'
             , 'Dimension_model'
             , 'Empresa_model'
+            , 'Clasevehiculo_model'
         ));
+        $this->data["claseVehiculo"] = $this->Clasevehiculo_model->detail();
         $this->data["tipoIdentificacion"] = $this->Tipoidentificacion_model->detail();
         $this->data["tipoVehiculo"] = $this->Tipovehiculo_model->detail();
         $this->data['dimension'] = $this->Dimension_model->detail();
